@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -17,58 +18,57 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 
 import by.itechart.flowerty.Application;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class)
 class JpaConfig implements TransactionManagementConfigurer {
 
-    @Value("${dataSource.driverClassName}")
+    @Value("${db.driver}")
     private String driver;
 
-    @Value("${dataSource.url}")
+    @Value("${db.url}")
     private String url;
 
-    @Value("${dataSource.username}")
+    @Value("${db.username}")
     private String username;
 
-    @Value("${dataSource.password}")
+    @Value("${db.password}")
     private String password;
 
     @Value("${hibernate.dialect}")
     private String dialect;
 
-    @Value("${hibernate.hbm2ddl.auto}")
-    private String hbm2ddlAuto;
+    @Value("${hibernate.show_sql}")
+    private boolean isShowSql;
+    
+    private static final String ENTITYMANAGER_PACKAGES_TO_SCAN = "by.itechart.flowerty";
+ 
+    private Properties getHibernateProperties() {
+	Properties hibernateProperties = new Properties();
+	hibernateProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
+	hibernateProperties.put(org.hibernate.cfg.Environment.SHOW_SQL, isShowSql);
+        
+        return hibernateProperties;
+    }
 
     @Bean
     public DataSource configureDataSource() {
-	HikariConfig config = new HikariConfig();
-	config.setDriverClassName(driver);
-	config.setJdbcUrl(url);
-	config.setUsername(username);
-	config.setPassword(password);
-	config.addDataSourceProperty("cachePrepStmts", "true");
-	config.addDataSourceProperty("prepStmtCacheSize", "250");
-	config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-	config.addDataSourceProperty("useServerPrepStmts", "true");
-
-	return new HikariDataSource(config);
+	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(driver);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        
+        return dataSource;
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory() {
 	LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 	entityManagerFactoryBean.setDataSource(configureDataSource());
-	entityManagerFactoryBean.setPackagesToScan("by.itechart.flowerty");
+	entityManagerFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
 	entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-
-	Properties jpaProperties = new Properties();
-	jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
-	jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);
-	entityManagerFactoryBean.setJpaProperties(jpaProperties);
+	entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
 
 	return entityManagerFactoryBean;
     }
