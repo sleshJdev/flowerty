@@ -43,7 +43,7 @@ class JpaConfig implements TransactionManagementConfigurer {
     
     private static final String ENTITYMANAGER_PACKAGES_TO_SCAN = "by.itechart.flowerty";
  
-    private Properties getHibernateProperties() {
+    private Properties getJpaProperties() {
 	Properties hibernateProperties = new Properties();
 	hibernateProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
 	hibernateProperties.put(org.hibernate.cfg.Environment.SHOW_SQL, isShowSql);
@@ -68,7 +68,7 @@ class JpaConfig implements TransactionManagementConfigurer {
 	entityManagerFactoryBean.setDataSource(configureDataSource());
 	entityManagerFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
 	entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-	entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
+	entityManagerFactoryBean.setJpaProperties(getJpaProperties());
 
 	return entityManagerFactoryBean;
     }
