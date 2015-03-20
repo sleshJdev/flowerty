@@ -13,7 +13,7 @@ import by.itechart.flowerty.Application;
 
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, excludeFilters = @Filter({ Controller.class, Configuration.class }))
-class ApplicationConfig {
+public class ApplicationConfig {
 
     @Bean
     public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {

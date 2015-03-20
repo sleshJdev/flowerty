@@ -21,7 +21,7 @@ import by.itechart.flowerty.Application;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class)
-class JpaConfig implements TransactionManagementConfigurer {
+public class JpaConfig implements TransactionManagementConfigurer {
 
     @Value("${db.driver}")
     private String driver;

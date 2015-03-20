@@ -1,4 +1,4 @@
-package by.itechart.flowerty.signin;
+package by.itechart.flowerty.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
