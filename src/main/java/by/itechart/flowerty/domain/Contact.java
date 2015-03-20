@@ -2,22 +2,14 @@ package by.itechart.flowerty.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "CONTACT")
+@Table(name = "contact")
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "NAME", length = 20, nullable = true)
@@ -39,10 +31,21 @@ public class Contact {
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "user")
+    private User user;
+
     public Contact() {
     }
 
-    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email, Address address) {
+    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email, Address address, User user) {
 	super();
 	this.id = id;
 	this.name = name;
@@ -51,6 +54,7 @@ public class Contact {
 	this.birthday = birthday;
 	this.email = email;
 	this.address = address;
+        this.user = user;
     }
 
     public Long getId() {
