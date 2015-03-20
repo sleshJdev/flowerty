@@ -1,16 +1,11 @@
 package by.itechart.flowerty.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +18,19 @@ public class Role {
     private ROLE_TYPE name;
     
     public static enum ROLE_TYPE{
-	CREATE_ORDER,
-	CREATE_CONTACT,
-	EDIT_CONTACT,
-	SEARCH_CONTACT,
-	VIEW_ORDERS,
-	COMMENT_ORDER,
-	SETTINGS,
-	CREATE_USER,
-	EDIT_USER,
-	DELETE_USER, ASSIGN_ROLE
+        ORDERS_MANAGER,
+        ORDERS_PROCESSOR,
+        DELIVERY_MANAGER,
+        SUPERVISOR,
+        ADMIN
     }
+        @ManyToMany(cascade = {CascadeType.ALL})
+        @JoinTable(name="role_right",
+                joinColumns={@JoinColumn(name="RIGHT_ID")},
+                inverseJoinColumns={@JoinColumn(name="ROLE_ID")})
+        private Set<Right> rights = new HashSet<Right>();
+
+        @OneToMany(mappedBy = "role")
+        private Set<User> users = new HashSet<User>();
+
 }

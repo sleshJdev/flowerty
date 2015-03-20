@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/hibernate-configuration"
+        xsi:schemaLocation="http://www.hibernate.org/xsd/hibernate-configuration http://www.hibernate.org/xsd/hibernate-configuration/hibernate-configuration-4.0.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/fullcontact</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">slesh</property>
+        <property name="connection.password">gtx260</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        <mapping class="by.itechart.flowerty.domain.User"></mapping>
+        <mapping class="by.itechart.flowerty.domain.Address"></mapping>
+        <mapping class="by.itechart.flowerty.domain.Role"></mapping>
+        <mapping class="by.itechart.flowerty.domain.Contact"></mapping>
+        <mapping class="by.itechart.flowerty.domain.Right"></mapping>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+      </session-factory>
+</hibernate-configuration>
