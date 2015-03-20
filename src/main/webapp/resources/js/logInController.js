@@ -12,12 +12,18 @@
 					'password' : $scope.password						
 			};			
 			$scope.isLogged = true;
-			
-			var response = $http.post('loggedInUser', logged);
-			response.success(function(data, status, headers, config) {
+
+            var request = $http({
+                method: "post",
+                url: "/",
+                data: {
+                    loggedInUser: logged
+                }
+            });
+            request.success(function(data, status, headers, config) {
 				alert( "User logged in: " + JSON.stringify(logged));
 			});
-			response.error(function(data, status, headers, config) {
+            request.error(function(data, status, headers, config) {
 				alert( "Exception details: " + JSON.stringify({data: data}));
 			});			
 		};
