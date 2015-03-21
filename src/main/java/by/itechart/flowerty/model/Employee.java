@@ -14,7 +14,7 @@ import org.joda.time.LocalDate;
 
 @Entity
 @Table(name = "EMPLOYEE")
-public class Employee {
+public class Employee  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -32,7 +32,7 @@ public class Employee {
     @Column(name = "SSN", unique = true, nullable = false)
     private String ssn;
 
-    public int getId() {
+    public Integer getId() {
 	return id;
     }
 
