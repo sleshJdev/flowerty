@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="flowerty:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="flowerty-version.war">
-      <element id="artifact" artifact-name="flowerty:war exploded" />
-    </root>
-  </artifact>
-</component>
