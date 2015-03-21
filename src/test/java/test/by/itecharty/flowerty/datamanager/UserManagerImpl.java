@@ -26,7 +26,7 @@ public class UserManagerImpl {
 	employee1.setName("Han Yenn");
 	employee1.setJoiningDate(new LocalDate(2010, 10, 10));
 	employee1.setSalary(new BigDecimal(10000));
-	employee1.setSsn("ssn000000151");
+	employee1.setSsn("ssn000010151");
 
 	/*
 	 * Create Employee2
@@ -35,7 +35,7 @@ public class UserManagerImpl {
 	employee2.setName("Dan Thomas");
 	employee2.setJoiningDate(new LocalDate(2012, 11, 11));
 	employee2.setSalary(new BigDecimal(20000));
-	employee2.setSsn("ssn000000252");
+	employee2.setSsn("ssn000001252");
 
 	/*
 	 * Persist both Employees
