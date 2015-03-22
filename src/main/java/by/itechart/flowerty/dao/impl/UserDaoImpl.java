@@ -1,33 +1,42 @@
 package by.itechart.flowerty.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import by.itechart.flowerty.dao.AbstractDao;
 import by.itechart.flowerty.dao.UserDao;
 import by.itechart.flowerty.model.User;
+import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
 
-@Repository
-public class UserDaoImpl extends AbstractDao implements UserDao {
+/**
+ * Created with IntelliJ IDEA.
+ * User: Мария
+ * Date: 20.03.15
+ * Time: 7:25
+ * To change this template use File | Settings | File Templates.
+ */
+public class UserDaoImpl extends AbstractDao implements UserDao{
 
     @Override
     public void saveUser(User user) {
-	persist(user);
+        persist(user);
     }
 
     @Override
     public boolean checkUser(String login, String password) {
-	Object user = getSession()
-		.createQuery("from User where login = :login AND password = :password")
-		.setString("login", login)
-		.setString("password", password)
-		.uniqueResult();
-
-	return user == null;
+        Criteria criteria = getSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("login", login));
+        criteria.add(Restrictions.eq("password", password));
+        return criteria.uniqueResult() != null;
     }
 
     @Override
     public User getUser(Long id) {
-	return (User) getSession().get(User.class, id);
+        return (User) getSession().load(User.class, id);
     }
 
+    @Override
+    public void deleteUserById(Integer id) {
+        Query query = getSession().createSQLQuery("delete from User where id = :id");
+        query.setInteger("id", id);
+        query.executeUpdate();
+    }
 }

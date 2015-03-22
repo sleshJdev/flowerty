@@ -1,64 +1,28 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import java.util.Date;
+import java.util.Set;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "contact")
 public class Contact {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+
     private Long id;
-    
-    @Column(name = "NAME", length = 20, nullable = true)
     private String name;
-    
-    @Column(name = "SURNAME", length = 20, nullable = true)
     private String surname;
-    
-    @Column(name = "FATHERNAME", length = 20, nullable = true)
     private String fathername;
-    
-    @Column(name = "BIRTHDAY", nullable = true)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    private LocalDate birthday;
-    
-    @Column(name = "email", length = 50, nullable = true)
+    private Date birthday;
     private String email;
-    
-    @ManyToOne
-    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
-
-    public User getUser() {
-	return user;
-    }
-
-    public void setUser(User user) {
-	this.user = user;
-    }
-
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "user")
     private User user;
-
+    private Set<Phone> phones;
     public Contact() {
     }
 
-    public Contact(Long id, String name, String surname, String fathername, LocalDate birthday, String email,
-	    Address address, User user) {
+    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email, Address address, User user) {
+	super();
 	this.id = id;
 	this.name = name;
 	this.surname = surname;
@@ -66,9 +30,11 @@ public class Contact {
 	this.birthday = birthday;
 	this.email = email;
 	this.address = address;
-	this.user = user;
+        this.user = user;
     }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     public Long getId() {
 	return id;
     }
@@ -77,6 +43,7 @@ public class Contact {
 	this.id = id;
     }
 
+    @Column(name = "NAME", length = 20, nullable = true)
     public String getName() {
 	return name;
     }
@@ -85,6 +52,7 @@ public class Contact {
 	this.name = name;
     }
 
+    @Column(name = "SURNAME", length = 20, nullable = true)
     public String getSurname() {
 	return surname;
     }
@@ -92,7 +60,7 @@ public class Contact {
     public void setSurname(String surname) {
 	this.surname = surname;
     }
-
+    @Column(name = "FATHERNAME", length = 20, nullable = true)
     public String getFathername() {
 	return fathername;
     }
@@ -101,14 +69,17 @@ public class Contact {
 	this.fathername = fathername;
     }
 
-    public LocalDate getBirthday() {
+    @Column(name = "BIRTHDAY", nullable = true)
+    @Temporal(value = TemporalType.DATE)
+    public Date getBirthday() {
 	return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
 	this.birthday = birthday;
     }
 
+    @Column(name = "EMAIL", length = 50, nullable = true)
     public String getEmail() {
 	return email;
     }
@@ -117,6 +88,7 @@ public class Contact {
 	this.email = email;
     }
 
+    @OneToOne(mappedBy = "contact")
     public Address getAddress() {
 	return address;
     }
@@ -124,4 +96,22 @@ public class Contact {
     public void setAddress(Address address) {
 	this.address = address;
     }
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "USER_ID")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    @OneToMany(mappedBy = "contact")
+    public Set<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
+
 }
