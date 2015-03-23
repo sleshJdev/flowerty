@@ -2,94 +2,86 @@ package by.itechart.flowerty.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ADDRESS")
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+
     private Long id;
-    
-    @Column(name = "TOWN", length = 20, nullable = true)
     private String town;
-    
-    @Column(name = "STREET", length = 20, nullable = true)
     private String street;
-    
-    @Column(name = "HOUSE", length = 20, nullable = true)
     private String house;
-    
-    @Column(name = "FLAT", length = 10, nullable = true)
     private String flat;
-    
-    @OneToMany(mappedBy = "address")
-    private List<Contact> contacts;
+    private Contact contact;
 
     public Address() {
     }
 
-    public Address(Long id, String town, String street, String house, String flat, List<Contact> contacts) {
+    public Address(Long id, String town, String street, String house, String flat, Contact contact) {
+	super();
 	this.id = id;
 	this.town = town;
 	this.street = street;
 	this.house = house;
 	this.flat = flat;
-	this.contacts = contacts;
+	this.contact = contact;
     }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     public Long getId() {
 	return id;
     }
 
-    public void setId(Long id) {
-	this.id = id;
-    }
-
+    @Column(name = "TOWN", length = 20, nullable = true)
     public String getTown() {
 	return town;
     }
 
-    public void setTown(String town) {
-	this.town = town;
-    }
-
+    @Column(name = "STREET", length = 20, nullable = true)
     public String getStreet() {
 	return street;
     }
 
-    public void setStreet(String street) {
-	this.street = street;
-    }
 
+    @Column(name = "HOUSE", length = 20, nullable = true)
     public String getHouse() {
 	return house;
     }
 
-    public void setHouse(String house) {
-	this.house = house;
-    }
 
+    @Column(name = "FLAT", length = 10, nullable = true)
     public String getFlat() {
 	return flat;
     }
 
+
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "CONTACT_ID")
+    public Contact getContact() {
+	return contact;
+    }
+
+    public void setContact(Contact contact) {
+	this.contact = contact;
+    }
+
     public void setFlat(String flat) {
-	this.flat = flat;
+        this.flat = flat;
     }
 
-    public List<Contact> getContacts() {
-	return contacts;
+    public void setHouse(String house) {
+        this.house = house;
+    }
+    public void setStreet(String street) {
+        this.street = street;
+    }
+    public void setTown(String town) {
+        this.town = town;
     }
 
-    public void setContacts(List<Contact> contacts) {
-	this.contacts = contacts;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -1,17 +1,16 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+/**
+ * Created with IntelliJ IDEA.
+ * User: Мария
+ * Date: 19.03.15
+ * Time: 22:29
+ * To change this template use File | Settings | File Templates.
+ */
 @Entity
-@Table(name = "user")
+@Table(name="user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,23 +27,8 @@ public class User {
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
-    @OneToOne(mappedBy = "user")
-    private Contact contact;
-
-    public User() {
-    }
-
-    public User(Long id, String login, String password, Role role, Contact contact) {
-	super();
-	this.id = id;
-	this.login = login;
-	this.password = password;
-	this.role = role;
-	this.contact = contact;
-    }
-
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(long id) {
@@ -52,38 +36,42 @@ public class User {
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getLogin() {
-	return login;
+        return login;
     }
 
     public void setLogin(String login) {
-	this.login = login;
+        this.login = login;
     }
 
     public String getPassword() {
-	return password;
+        return password;
     }
 
     public void setPassword(String password) {
-	this.password = password;
-    }
-
-    public Contact getContact() {
-	return contact;
-    }
-
-    public void setContact(Contact contact) {
-	this.contact = contact;
+        this.password = password;
     }
 
     public Role getRole() {
-	return role;
+        return role;
     }
 
     public void setRole(Role role) {
-	this.role = role;
+        this.role = role;
     }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    @OneToOne(mappedBy = "user")
+    private Contact contact;
+
 }

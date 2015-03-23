@@ -1,56 +1,60 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
+/**
+ * Created with IntelliJ IDEA.
+ * User: Мария
+ * Date: 20.03.15
+ * Time: 22:41
+ * To change this template use File | Settings | File Templates.
+ */
 @Entity
-@Table(name = "STATE")
+@Table(name = "state")
 public class State {
-    public enum DESCRIPTION_TYPE{
-	NEW,
-	ACCEPTED,
-	PROCESSING,
-	READY,
-	DELIVERY,
-	IMOSSIBLE,
-	CANCELED,
-	CLOSE
-    }
-    
     @Id
-    @Column(name = "ID", length = 10, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private byte id;
+    @Column(name = "ID", length = 10, nullable = false)
+    private Long id;
 
-    @Column(name = "DESCRIPTION")
-    private DESCRIPTION_TYPE description;
 
-    public State() {
+    public Long getId() {
+        return id;
     }
 
-    public State(byte id, DESCRIPTION_TYPE description) {
-	super();
-	this.id = id;
-	this.description = description;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public byte getId() {
-	return id;
+    public DESCRYPTION_TYPE getDescryption() {
+        return descryption;
     }
 
-    public void setId(byte id) {
-	this.id = id;
+    public void setDescryption(DESCRYPTION_TYPE descryption) {
+        this.descryption = descryption;
     }
 
-    public DESCRIPTION_TYPE getDescription() {
-	return description;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "DESCRYPTION", nullable = false)
+    private DESCRYPTION_TYPE descryption;
+
+    public static enum DESCRYPTION_TYPE{
+        ORDERS_MANAGER,
+        ORDERS_PROCESSOR,
+        DELIVERY_MANAGER,
+        SUPERVISOR,
+        ADMIN
     }
 
-    public void setDescription(DESCRIPTION_TYPE description) {
-	this.description = description;
+    public Set<Order> getOrders() {
+        return orders;
     }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    @OneToMany(mappedBy = "state")
+    private Set<Order> orders;
 }
