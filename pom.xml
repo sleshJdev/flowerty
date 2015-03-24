@@ -223,6 +223,7 @@
 				<version>2.1.1</version>
 				<configuration>
 					<warName>flowerty-version</warName>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 			<plugin>
