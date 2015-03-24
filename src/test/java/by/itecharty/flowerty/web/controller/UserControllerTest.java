@@ -77,6 +77,7 @@ public class UserControllerTest extends WebAppConfigurationAware {
 	returnedUser.setLogin(login);
 	returnedUser.setPassword(password);
 
+	
 	// ???????
     }
 }
