@@ -66,5 +66,17 @@ public class UserControllerTest extends WebAppConfigurationAware {
 	verifyNoMoreInteractions(userServiceMock);
     }
     
-    
+    @Test
+    public void add_PassValidJson_ShouldReturnCreatedUserObject() {
+	final Long id = 1L;
+	final String login = "slesh";
+	final String password = "gtx260";
+
+	User returnedUser = new User();
+	returnedUser.setId(id);
+	returnedUser.setLogin(login);
+	returnedUser.setPassword(password);
+
+	// ???????
+    }
 }

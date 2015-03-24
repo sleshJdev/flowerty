@@ -68,10 +68,23 @@ public class UserController {
 
     @RequestMapping(value = "user/add", method = RequestMethod.POST)
     @ResponseBody
-    public void add(@Validated @RequestBody User newUser) {
-
+    public User add(@Validated @RequestBody User newUser) {
 	LOGGER.info("add new user: {}", newUser);
+    
+	return newUser;
     }
+    
+//    private User createValidUser(){
+//	final String login = "slesh";
+//	final String password = "gtx260";
+//	
+//	User validdUser = new User();
+//	validdUser.setId(1L);
+//	validdUser.setLogin(login);
+//	validdUser.setPassword(password);
+//	
+//	return validdUser;
+//    }
 
     private User createMockUser() {
 	User user = new User();

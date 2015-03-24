@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao dao;
+    
     @Override
     public void saveUser(User user) {
         dao.saveUser(user);
