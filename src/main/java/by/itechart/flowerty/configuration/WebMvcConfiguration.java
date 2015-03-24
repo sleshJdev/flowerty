@@ -1,4 +1,4 @@
-package by.itechart.flowerty.config;
+package by.itechart.flowerty.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,7 +22,7 @@ import by.itechart.flowerty.Application;
 
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
-class WebMvcConfig extends WebMvcConfigurationSupport {
+public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     private static final String VIEWS = "/WEB-INF/views/";
 
@@ -31,62 +31,63 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
-        requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
-        requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
-        return requestMappingHandlerMapping;
+	RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
+	requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
+	requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
+	return requestMappingHandlerMapping;
     }
 
     @Bean
     public TemplateResolver templateResolver() {
-        TemplateResolver templateResolver = new ServletContextTemplateResolver();
-        templateResolver.setPrefix(VIEWS);
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
-        templateResolver.setCacheable(false);
-        return templateResolver;
+	TemplateResolver templateResolver = new ServletContextTemplateResolver();
+	templateResolver.setPrefix(VIEWS);
+	templateResolver.setSuffix(".html");
+	templateResolver.setTemplateMode("HTML5");
+	templateResolver.setCacheable(false);
+	return templateResolver;
     }
 
     @Bean
     public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.addDialect(new SpringSecurityDialect());
-        return templateEngine;
+	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+	templateEngine.setTemplateResolver(templateResolver());
+	templateEngine.addDialect(new SpringSecurityDialect());
+	return templateEngine;
     }
 
     @Bean
     public ThymeleafViewResolver viewResolver() {
-        ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
-        thymeleafViewResolver.setTemplateEngine(templateEngine());
-        thymeleafViewResolver.setCharacterEncoding("UTF-8");
-        return thymeleafViewResolver;
+	ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+	thymeleafViewResolver.setTemplateEngine(templateEngine());
+	thymeleafViewResolver.setCharacterEncoding("UTF-8");
+	return thymeleafViewResolver;
     }
 
     @Override
     public Validator getValidator() {
-        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-        return validator;
+	LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+	return validator;
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
+	registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
     }
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
+	configurer.enable();
     }
 
     /**
-     * Handles favicon.ico requests assuring no <code>404 Not Found</code> error is returned.
+     * Handles favicon.ico requests assuring no <code>404 Not Found</code> error
+     * is returned.
      */
     @Controller
     static class FaviconController {
-        @RequestMapping("favicon.ico")
-        String favicon() {
-            return "forward:/resources/images/favicon.ico";
-        }
+	@RequestMapping("favicon.ico")
+	String favicon() {
+	    return "forward:/resources/images/favicon.ico";
+	}
     }
 }

@@ -1,4 +1,4 @@
-package by.itechart.flowerty.config;
+package by.itechart.flowerty.configuration;
 
 import static org.springframework.context.annotation.ComponentScan.Filter;
 
@@ -13,12 +13,12 @@ import by.itechart.flowerty.Application;
 
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, excludeFilters = @Filter({ Controller.class, Configuration.class }))
-class ApplicationConfig {
-
+public class ApplicationConfiguration {
     @Bean
     public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 	PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
 	ppc.setLocation(new ClassPathResource("/persistence.properties"));
+
 	return ppc;
     }
 

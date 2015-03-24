@@ -3,5 +3,4 @@
  */
 
 app.controller('mainController', function($scope, $http){
-    alert('Haha');
 });

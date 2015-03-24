@@ -1,48 +1,27 @@
-package by.itechart.flowerty.domain;
+package by.itechart.flowerty.model;
 
 import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "CONTACT")
 public class Contact {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-
-    @Column(name = "NAME", length = 20, nullable = true)
     private String name;
-
-    @Column(name = "SURNAME", length = 20, nullable = true)
     private String surname;
-    @Column(name = "FATHERNAME", length = 20, nullable = true)
     private String fathername;
-
-    @Column(name = "BIRTHDAY", nullable = true)
-    @Temporal(value = TemporalType.DATE)
     private Date birthday;
-
-    @Column(name = "email", length = 50, nullable = true)
     private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
-
+    private User user;
+    private Set<Phone> phones;
     public Contact() {
     }
 
-    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email, Address address) {
+    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email, Address address, User user) {
 	super();
 	this.id = id;
 	this.name = name;
@@ -51,8 +30,11 @@ public class Contact {
 	this.birthday = birthday;
 	this.email = email;
 	this.address = address;
+        this.user = user;
     }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     public Long getId() {
 	return id;
     }
@@ -61,6 +43,7 @@ public class Contact {
 	this.id = id;
     }
 
+    @Column(name = "NAME", length = 20, nullable = true)
     public String getName() {
 	return name;
     }
@@ -69,6 +52,7 @@ public class Contact {
 	this.name = name;
     }
 
+    @Column(name = "SURNAME", length = 20, nullable = true)
     public String getSurname() {
 	return surname;
     }
@@ -76,7 +60,7 @@ public class Contact {
     public void setSurname(String surname) {
 	this.surname = surname;
     }
-
+    @Column(name = "FATHERNAME", length = 20, nullable = true)
     public String getFathername() {
 	return fathername;
     }
@@ -85,6 +69,8 @@ public class Contact {
 	this.fathername = fathername;
     }
 
+    @Column(name = "BIRTHDAY", nullable = true)
+    @Temporal(value = TemporalType.DATE)
     public Date getBirthday() {
 	return birthday;
     }
@@ -93,6 +79,7 @@ public class Contact {
 	this.birthday = birthday;
     }
 
+    @Column(name = "EMAIL", length = 50, nullable = true)
     public String getEmail() {
 	return email;
     }
@@ -101,6 +88,7 @@ public class Contact {
 	this.email = email;
     }
 
+    @OneToOne(mappedBy = "contact")
     public Address getAddress() {
 	return address;
     }
@@ -108,4 +96,22 @@ public class Contact {
     public void setAddress(Address address) {
 	this.address = address;
     }
+    @OneToOne
+    @PrimaryKeyJoinColumn(name = "USER_ID")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    @OneToMany(mappedBy = "contact")
+    public Set<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
+    }
+
 }
