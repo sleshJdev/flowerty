@@ -28,7 +28,7 @@ public class User {
     
     @OneToOne(mappedBy = "user")
     private Contact contact;
-
+    
     public User() {
     }
 

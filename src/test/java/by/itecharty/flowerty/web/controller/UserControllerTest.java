@@ -1,44 +1,45 @@
 package by.itecharty.flowerty.web.controller;
 
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
+import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.service.UserService;
-import by.itechart.flowerty.service.impl.UserServiceImpl;
 import by.itechart.flowerty.web.exception.NotFoundException;
 import by.itecharty.flowerty.config.WebAppConfigurationAware;
-
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
  *
  *         Test for UserController
  */
 public class UserControllerTest extends WebAppConfigurationAware {
-    private UserService userServiceMock;
+    @Autowired
+    private static UserRepository userServiceMock;
 
     @Before
-    public void setup() {
-	userServiceMock = mock(UserServiceImpl.class);
+    public void setUp(){
+	
     }
-
+    
     @SuppressWarnings("unchecked")
     @Test
     public void getById_PassNotValidUserId_ShouldReturnHttpStatusCode404() throws Exception {
 	final Long id = -1L;
 	
-	when(userServiceMock.getUser(id))
+	when(userServiceMock.findOne(id))
 		.thenThrow(NotFoundException.class);
 
 	mockMvc.perform(get("/user/details/{id}", id))
 		.andExpect(status().isBadRequest());
 
+	
 	verifyNoMoreInteractions(userServiceMock);
     }
 
@@ -53,7 +54,7 @@ public class UserControllerTest extends WebAppConfigurationAware {
 	returnedUser.setLogin(login);
 	returnedUser.setPassword(password);
 	
-	when(userServiceMock.getUser(id))
+	when(userServiceMock.findOne(id))
 		.thenReturn(returnedUser);
 	
 	mockMvc.perform(get("/user/details/{id}", id))

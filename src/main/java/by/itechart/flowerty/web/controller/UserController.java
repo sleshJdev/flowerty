@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.service.UserService;
 import by.itechart.flowerty.web.exception.NotFoundException;
 
 /**
@@ -28,9 +26,6 @@ import by.itechart.flowerty.web.exception.NotFoundException;
 @Controller
 public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = "user/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -74,18 +69,6 @@ public class UserController {
 	return newUser;
     }
     
-//    private User createValidUser(){
-//	final String login = "slesh";
-//	final String password = "gtx260";
-//	
-//	User validdUser = new User();
-//	validdUser.setId(1L);
-//	validdUser.setLogin(login);
-//	validdUser.setPassword(password);
-//	
-//	return validdUser;
-//    }
-
     private User createMockUser() {
 	User user = new User();
 	user.setLogin("mock-login-" + new Date());

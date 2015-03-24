@@ -9,10 +9,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import by.itechart.flowerty.configuration.Applicationconfiguration;
-import by.itechart.flowerty.configuration.HibernateConfiguration;
+import by.itechart.flowerty.configuration.ApplicationConfiguration;
+import by.itechart.flowerty.configuration.JpaConfiguration;
 import by.itechart.flowerty.configuration.WebAppInitializer;
-import by.itechart.flowerty.configuration.WebMvcConfig;
+import by.itechart.flowerty.configuration.WebMvcConfiguration;
 
 import javax.inject.Inject;
 
@@ -22,9 +22,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ActiveProfiles("test")
 @WebAppConfiguration
 @ContextConfiguration(classes = {
-        Applicationconfiguration.class,
-        HibernateConfiguration.class,
-        WebMvcConfig.class,
+        ApplicationConfiguration.class,
+        JpaConfiguration.class,
+        WebMvcConfiguration.class,
         WebAppInitializer.class
 })
 public abstract class WebAppConfigurationAware {
