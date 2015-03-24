@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao dao;
-    
     @Override
+    @Transactional
     public void saveUser(User user) {
         dao.saveUser(user);
     }
@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Integer id) {
         dao.deleteUserById(id);
     }

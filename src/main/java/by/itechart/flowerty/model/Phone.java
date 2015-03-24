@@ -10,7 +10,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "PHONE")
+@Table(name = "phone")
 public class Phone {
 
     private Long id;
@@ -20,6 +20,9 @@ public class Phone {
     private String number;
     private String operator;
     private PHONE_TYPE type;
+
+    public Phone() {
+    }
 
     @ManyToOne
     @JoinColumn(name = "CONTACT_ID")

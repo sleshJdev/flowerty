@@ -1,5 +1,6 @@
 package by.itecharty.flowerty.service.impl;
 
+import by.itecharty.flowerty.config.WebAppConfigurationAware;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +12,7 @@ import by.itechart.flowerty.configuration.Applicationconfiguration;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.service.UserService;
 
-public class TestUserService {
+public class TestUserService extends WebAppConfigurationAware {
     private AbstractApplicationContext context;
 
     @Before

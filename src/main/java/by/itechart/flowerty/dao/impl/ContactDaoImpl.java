@@ -3,20 +3,19 @@ package by.itechart.flowerty.dao.impl;
 import by.itechart.flowerty.dao.AbstractDao;
 import by.itechart.flowerty.dao.ContactDao;
 import by.itechart.flowerty.model.Contact;
-
 import org.hibernate.*;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
-@Repository("contactDao")
+@Component
 public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
     @Override
     public void saveContact(Contact contact) {
         persist(contact);
     }
-    
+
+
     @Override
     public Contact getContact(Integer id) {
         return (Contact) getSession().load(Contact.class, id);

@@ -1,8 +1,9 @@
 package by.itechart.flowerty.service;
 
-import java.util.List;
-
 import by.itechart.flowerty.model.Phone;
+import by.itechart.flowerty.model.User;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

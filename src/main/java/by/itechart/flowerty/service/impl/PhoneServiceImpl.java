@@ -1,14 +1,14 @@
 package by.itechart.flowerty.service.impl;
 
-import java.util.List;
-
+import by.itechart.flowerty.dao.PhoneDao;
+import by.itechart.flowerty.model.Phone;
+import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import by.itechart.flowerty.dao.PhoneDao;
-import by.itechart.flowerty.model.Phone;
-import by.itechart.flowerty.service.PhoneService;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +23,7 @@ public class PhoneServiceImpl implements PhoneService{
     @Autowired
     private PhoneDao dao;
     @Override
+    @Transactional
     public void savePhone(Phone phone) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -33,6 +34,7 @@ public class PhoneServiceImpl implements PhoneService{
     }
 
     @Override
+    @Transactional
     public void deletePhoneById(Integer id) {
         //To change body of implemented methods use File | Settings | File Templates.
     }

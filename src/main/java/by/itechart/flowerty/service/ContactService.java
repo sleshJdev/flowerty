@@ -1,6 +1,7 @@
 package by.itechart.flowerty.service;
 
 import by.itechart.flowerty.model.Contact;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -11,10 +12,11 @@ import java.util.List;
  * Time: 20:19
  * To change this template use File | Settings | File Templates.
  */
+@Component
 public interface ContactService {
-    void saveContact (Contact contact);
-    Contact getContact(Integer id);
-    void deleteContactById (Integer id);
-    List<Contact> getAllContacts();
-    void updateContact(Contact contact);
+    public void saveContact (Contact contact);
+    public Contact getContact(Integer id);
+    public void deleteContactById (Integer id);
+    public List<Contact> getAllContacts();
+    public void updateContact(Contact contact);
 }

@@ -1,5 +1,7 @@
 package by.itechart.flowerty.model;
 
+import javax.persistence.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Мария
@@ -7,10 +9,59 @@ package by.itechart.flowerty.model;
  * Time: 19:58
  * To change this template use File | Settings | File Templates.
  */
+@Entity
+@Table(name = "flower")
 public class Flower {
     private Long id;
     private Double cost;
     private String name;
     private Integer remain;
+    private Company company;
+
+    public Flower() {
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    public Long getId() {
+        return id;
+    }
+    @Column(name = "COST")
+    public Double getCost() {
+        return cost;
+    }
+    @Column(name = "NAME", length = 20, nullable = false)
+    public String getName() {
+        return name;
+    }
+    @Column(name = "REMAIN")
+    public Integer getRemain() {
+        return remain;
+    }
+    @ManyToOne
+    @JoinColumn(name="COMPANY_ID")
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRemain(Integer remain) {
+        this.remain = remain;
+    }
 
 }

@@ -7,5 +7,5 @@ package by.itechart.flowerty.service;
  * Time: 20:21
  * To change this template use File | Settings | File Templates.
  */
-public class OrderService {
+public interface OrderService {
 }

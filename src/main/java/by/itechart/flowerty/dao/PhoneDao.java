@@ -1,6 +1,7 @@
 package by.itechart.flowerty.dao;
 
 import by.itechart.flowerty.model.Phone;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Time: 19:18
  * To change this template use File | Settings | File Templates.
  */
+@Repository
 public interface PhoneDao {
     public void savePhone (Phone phone);
     public Phone getPhone(Long id);
