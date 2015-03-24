@@ -24,8 +24,20 @@ CREATE TABLE `address` (
   `HOUSE` varchar(10) DEFAULT NULL,
   `FLAT` varchar(10) DEFAULT NULL,
   `CONTACT_ID` int(10) unsigned NOT NULL,
+  `COUNTRY` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`ID`,`CONTACT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/*Table structure for table `company` */
+
+DROP TABLE IF EXISTS `company`;
+
+CREATE TABLE `company` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(20) DEFAULT NULL,
+  `WEBSITE` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `contact` */
 
@@ -40,12 +52,15 @@ CREATE TABLE `contact` (
   `EMAIL` varchar(50) DEFAULT NULL,
   `ADDRESS_ID` int(10) unsigned NOT NULL,
   `USER_ID` int(10) unsigned DEFAULT NULL,
+  `COMPANY_ID` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`ID`,`NAME`,`ADDRESS_ID`),
   KEY `ADDRESS_ID` (`ADDRESS_ID`),
   KEY `USER_ID` (`USER_ID`),
+  KEY `COMPANY_ID` (`COMPANY_ID`),
   CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`ADDRESS_ID`) REFERENCES `address` (`ID`) ON DELETE CASCADE,
-  CONSTRAINT `contact_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `contact_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `contact_ibfk_3` FOREIGN KEY (`COMPANY_ID`) REFERENCES `company` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `flower` */
 
@@ -53,10 +68,13 @@ DROP TABLE IF EXISTS `flower`;
 
 CREATE TABLE `flower` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(20) DEFAULT NULL,
+  `NAME` varchar(20) NOT NULL,
   `COST` double unsigned DEFAULT NULL,
   `REMAIN` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `COMPANY_ID` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `COMPANY_ID` (`COMPANY_ID`),
+  CONSTRAINT `flower_ibfk_1` FOREIGN KEY (`COMPANY_ID`) REFERENCES `company` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `item` */
@@ -110,15 +128,18 @@ DROP TABLE IF EXISTS `order_altering`;
 
 CREATE TABLE `order_altering` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `DATE` datetime DEFAULT NULL,
+  `DATE` timestamp NULL DEFAULT NULL,
   `STATE_ID` int(10) unsigned DEFAULT NULL,
   `USER_ID` int(10) unsigned DEFAULT NULL,
   `COMMENT` varchar(100) DEFAULT NULL,
+  `ORDER_ID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `STATE_ID` (`STATE_ID`),
   KEY `USER_ID` (`USER_ID`),
+  KEY `ORDER_ID` (`ORDER_ID`),
   CONSTRAINT `order_altering_ibfk_1` FOREIGN KEY (`STATE_ID`) REFERENCES `state` (`ID`),
-  CONSTRAINT `order_altering_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
+  CONSTRAINT `order_altering_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `order_altering_ibfk_3` FOREIGN KEY (`ORDER_ID`) REFERENCES `order` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `phone` */
@@ -144,9 +165,9 @@ DROP TABLE IF EXISTS `right`;
 
 CREATE TABLE `right` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `NAME` enum('CREATE_ORDER','CREATE_CONTACT','EDIT_CONTACT','SEARCH_CONTACT','VIEW_ORDERS','COMMENT_ORDER','SETTINGS','CREATE_USER','DELETE_USER','EDIT_USER','ASSIGN_ROLE') NOT NULL,
+  `NAME` enum('CREATE_ORDER','CREATE_CONTACT','EDIT_CONTACT','SEARCH_CONTACT','COMMENT_ORDER','SETTINGS','CREATE_USER','DELETE_USER','EDIT_USER','ASSIGN_ROLE','VIEW_ORDERS_READY','VIEW_ORDERS_ACCEPTED','VIEW_ORDERS_ALL') NOT NULL,
   PRIMARY KEY (`ID`,`NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `role` */
 
@@ -156,7 +177,7 @@ CREATE TABLE `role` (
   `ID` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `NAME` enum('ORDERS_MANAGER','ORDERS_PROCESSOR','DELIVERY_MANAGER','SUPERVISOR','ADMIN') NOT NULL,
   PRIMARY KEY (`ID`,`NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `role_right` */
 
@@ -179,7 +200,7 @@ CREATE TABLE `state` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `DESCRYPTION` enum('NEW','ACCEPTED','PROCESSING','READY','DELIVERY','IMPOSSIBLE','CANCELED','CLOSED') DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `user` */
 
@@ -196,7 +217,7 @@ CREATE TABLE `user` (
   KEY `ROLE_ID` (`ROLE_ID`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`CONTACT_ID`) REFERENCES `contact` (`ID`),
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `user_role` */
 
