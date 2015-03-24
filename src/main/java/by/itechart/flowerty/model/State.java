@@ -11,7 +11,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "state")
+@Table(name = "STATE")
 public class State {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

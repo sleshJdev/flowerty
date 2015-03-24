@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "contact")
+@Table(name = "CONTACT")
 public class Contact {
 
     private Long id;

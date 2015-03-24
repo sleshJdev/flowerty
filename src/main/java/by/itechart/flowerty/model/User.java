@@ -7,10 +7,9 @@ import javax.persistence.*;
  * User: Мария
  * Date: 19.03.15
  * Time: 22:29
- * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name="user")
+@Table(name="USER")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +25,24 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "ROLE_ID")
     private Role role;
+    
+    @OneToOne(mappedBy = "user")
+    private Contact contact;
+
+    public User() {
+    }
+
+    public User(Long id, String login, String password, Role role, Contact contact) {
+	super();
+	this.id = id;
+	this.login = login;
+	this.password = password;
+	this.role = role;
+	this.contact = contact;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-	this.id = new Long(id);
     }
 
     public void setId(Long id) {
@@ -70,8 +80,4 @@ public class User {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
-
-    @OneToOne(mappedBy = "user")
-    private Contact contact;
-
 }

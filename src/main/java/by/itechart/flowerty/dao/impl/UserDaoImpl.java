@@ -3,8 +3,10 @@ package by.itechart.flowerty.dao.impl;
 import by.itechart.flowerty.dao.AbstractDao;
 import by.itechart.flowerty.dao.UserDao;
 import by.itechart.flowerty.model.User;
+
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,6 +15,7 @@ import org.hibernate.criterion.Restrictions;
  * Time: 7:25
  * To change this template use File | Settings | File Templates.
  */
+@Repository("userDao")
 public class UserDaoImpl extends AbstractDao implements UserDao{
 
     @Override

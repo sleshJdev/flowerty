@@ -38,6 +38,4 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Integer id) {
         dao.deleteUserById(id);
     }
-
-
 }

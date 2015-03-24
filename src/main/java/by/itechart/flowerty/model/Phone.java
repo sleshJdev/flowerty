@@ -10,7 +10,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "phone")
+@Table(name = "PHONE")
 public class Phone {
 
     private Long id;

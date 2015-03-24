@@ -1,4 +1,4 @@
-package test.by.itecharty.flowerty.web.controller;
+package by.itecharty.flowerty.web.controller;
 
 import org.junit.Test;
 

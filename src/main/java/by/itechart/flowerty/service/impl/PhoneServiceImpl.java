@@ -1,14 +1,14 @@
 package by.itechart.flowerty.service.impl;
 
-import by.itechart.flowerty.dao.PhoneDao;
-import by.itechart.flowerty.model.Phone;
-import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.service.PhoneService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import by.itechart.flowerty.dao.PhoneDao;
+import by.itechart.flowerty.model.Phone;
+import by.itechart.flowerty.service.PhoneService;
 
 /**
  * Created with IntelliJ IDEA.

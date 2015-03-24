@@ -1,4 +1,4 @@
-package test.by.itecharty.flowerty.service.impl;
+package by.itecharty.flowerty.service.impl;
 
 import org.junit.After;
 import org.junit.Assert;

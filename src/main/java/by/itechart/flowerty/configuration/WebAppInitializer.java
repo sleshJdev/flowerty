@@ -10,31 +10,31 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
+	return new String[] { "/" };
     }
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] {Applicationconfiguration.class, HibernateConfiguration.class};
+	return new Class<?>[] { Applicationconfiguration.class, HibernateConfiguration.class };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] {WebMvcConfig.class};
+	return new Class<?>[] { WebMvcConfig.class };
     }
 
     @Override
     protected Filter[] getServletFilters() {
-        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-        characterEncodingFilter.setEncoding("UTF-8");
-        characterEncodingFilter.setForceEncoding(true);
+	CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+	characterEncodingFilter.setEncoding("UTF-8");
+	characterEncodingFilter.setForceEncoding(true);
 
-        return new Filter[] {characterEncodingFilter};
+	return new Filter[] { characterEncodingFilter };
     }
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setInitParameter("defaultHtmlEscape", "true");
-        registration.setInitParameter("spring.profiles.active", "default");
+	registration.setInitParameter("defaultHtmlEscape", "true");
+	registration.setInitParameter("spring.profiles.active", "default");
     }
 }

@@ -1,9 +1,15 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="RIGHT")

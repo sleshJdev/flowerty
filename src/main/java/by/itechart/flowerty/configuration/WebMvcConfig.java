@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -18,8 +18,9 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
+@EnableWebMvc
 @ComponentScan(basePackages = { "by.itechart.flowerty" }, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
-class WebMvcConfig extends WebMvcConfigurationSupport {
+public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     private static final String VIEWS = "/WEB-INF/views/";
 
@@ -31,6 +32,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 	RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
 	requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
 	requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
+	
 	return requestMappingHandlerMapping;
     }
 
@@ -41,6 +43,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 	templateResolver.setSuffix(".html");
 	templateResolver.setTemplateMode("HTML5");
 	templateResolver.setCacheable(false);
+	
 	return templateResolver;
     }
 
@@ -49,6 +52,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 	templateEngine.setTemplateResolver(templateResolver());
 	templateEngine.addDialect(new SpringSecurityDialect());
+	
 	return templateEngine;
     }
 
@@ -57,6 +61,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 	ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
 	thymeleafViewResolver.setTemplateEngine(templateEngine());
 	thymeleafViewResolver.setCharacterEncoding("UTF-8");
+	
 	return thymeleafViewResolver;
     }
 
@@ -69,10 +74,5 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	configurer.enable();
     }
 }

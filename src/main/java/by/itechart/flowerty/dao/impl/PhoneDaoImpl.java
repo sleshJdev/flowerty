@@ -3,7 +3,9 @@ package by.itechart.flowerty.dao.impl;
 import by.itechart.flowerty.dao.AbstractDao;
 import by.itechart.flowerty.dao.PhoneDao;
 import by.itechart.flowerty.model.Phone;
+
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
  * Time: 19:19
  * To change this template use File | Settings | File Templates.
  */
+@Repository("phoneDao")
 public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     @Override
     public void savePhone(Phone phone) {
@@ -32,6 +35,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
         query.executeUpdate();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Phone> getPhones(Integer contactId) {
         Query query = getSession().createSQLQuery("from Phone where CONTACT_ID = :id");
