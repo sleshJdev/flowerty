@@ -1,12 +1,19 @@
-package by.itechart.flowerty.dao;
+package by.itechart.flowerty.service;
+
 import by.itechart.flowerty.model.Contact;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-@Repository
-public interface ContactDao {
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: Мария
+ * Date: 21.03.15
+ * Time: 20:19
+ * To change this template use File | Settings | File Templates.
+ */
+@Component
+public interface ContactService {
     public void saveContact (Contact contact);
     public Contact getContact(Integer id);
     public void deleteContactById (Integer id);

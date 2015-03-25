@@ -15,7 +15,11 @@ public class Item {
     private Long id;
     private int quantity;
     private Order order;
+<<<<<<< HEAD
     private Goods flower;
+=======
+    private Flower flower;
+>>>>>>> a59ae5c2bd5443defc0eb1b548e51c77c211ae89
 
     public Item() {
     }
@@ -37,7 +41,11 @@ public class Item {
     }
     @ManyToOne
     @JoinColumn(name = "FLOWER_ID")
+<<<<<<< HEAD
     public Goods getFlower() {
+=======
+    public Flower getFlower() {
+>>>>>>> a59ae5c2bd5443defc0eb1b548e51c77c211ae89
         return flower;
     }
 
@@ -53,7 +61,11 @@ public class Item {
         this.order = order;
     }
 
+<<<<<<< HEAD
     public void setFlower(Goods flower) {
+=======
+    public void setFlower(Flower flower) {
+>>>>>>> a59ae5c2bd5443defc0eb1b548e51c77c211ae89
         this.flower = flower;
     }
 }
