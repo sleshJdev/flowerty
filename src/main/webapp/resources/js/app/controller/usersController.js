@@ -2,7 +2,7 @@
  * Created by Катерина on 24.03.2015.
  */
 
-app.controller('usersListController', function($scope, $http) {
+app.controller('usersController', function($scope, $http) {
     $scope.users = {
 
     };
