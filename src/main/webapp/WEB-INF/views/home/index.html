@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Welcome!</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
-</head>
-<body>
-<div th:replace="fragments/header :: header">&nbsp;</div>
-	<div class="container">
-		<div class="text-center">
-			<h1>Flowerty</h1>
-			<p class="lead">Welcome to Flowerty - Magic Flower Store</p>
-			<p>
-				<a href="#" class="btn btn-success btn-lg">Sign up</a>
-			</p>
-		</div>
-	</div>
-</body>
+<html ng-app="flowertyApp" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Welcome!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+        <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.3.14/angular-route.min.js"></script>
+        <script src="../../../resources/js/external/bootstrap.min.js" th:src="@{/resources/js/external/bootstrap.min.js}"></script>
+        <script src="../../../resources/js/app/flowertyApp.js" th:src="@{/resources/js/app/flowertyApp.js}"></script>
+        <script src="../../../resources/js/app/controller/mainController.js" th:src="@{/resources/js/app/controller/mainController.js}"></script>
+    </head>
+    <body ng-controller="mainController">
+        <div th:replace="fragments/header :: header">&nbsp;</div>
+        <a href="#/login">Log in!</a>
+        <a href="#/showUsers">Users</a>
+        <div ng-view=""></div>
+    </body>
 </html>
