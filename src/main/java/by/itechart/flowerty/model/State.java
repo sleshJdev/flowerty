@@ -11,50 +11,41 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "STATE")
+@Table(name = "state")
 public class State {
+
+    private Long id;
+    private DESCRIPTION_TYPE description;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", length = 10, nullable = false)
-    private Long id;
-
-
     public Long getId() {
         return id;
     }
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "DESCRIPTION", nullable = false)
+    public DESCRIPTION_TYPE getDescription() {
+        return description;
+    }
     public void setId(Long id) {
         this.id = id;
     }
-
-    public DESCRYPTION_TYPE getDescryption() {
-        return descryption;
+    public void setDescription(DESCRIPTION_TYPE description) {
+        this.description = description;
     }
 
-    public void setDescryption(DESCRYPTION_TYPE descryption) {
-        this.descryption = descryption;
+
+
+    public static enum DESCRIPTION_TYPE{
+        ACCEPTED,
+        CANCELED,
+        CLOSED,
+        DELIVERY,
+        IMPOSSIBLE,
+        NEW,
+        PROCESSING,
+        READY
     }
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "DESCRYPTION", nullable = false)
-    private DESCRYPTION_TYPE descryption;
-
-    public static enum DESCRYPTION_TYPE{
-        ORDERS_MANAGER,
-        ORDERS_PROCESSOR,
-        DELIVERY_MANAGER,
-        SUPERVISOR,
-        ADMIN
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
-
-    @OneToMany(mappedBy = "state")
-    private Set<Order> orders;
 }
