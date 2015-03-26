@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "CONTACT")
 public class Contact {
@@ -18,11 +20,12 @@ public class Contact {
     private Address address;
     private User user;
     private Set<Phone> phones;
+
     public Contact() {
     }
 
-    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email, Address address, User user) {
-	super();
+    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email,
+	    Address address, User user) {
 	this.id = id;
 	this.name = name;
 	this.surname = surname;
@@ -30,8 +33,9 @@ public class Contact {
 	this.birthday = birthday;
 	this.email = email;
 	this.address = address;
-        this.user = user;
+	this.user = user;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -60,6 +64,7 @@ public class Contact {
     public void setSurname(String surname) {
 	this.surname = surname;
     }
+
     @Column(name = "FATHERNAME", length = 20, nullable = true)
     public String getFathername() {
 	return fathername;
@@ -88,7 +93,8 @@ public class Contact {
 	this.email = email;
     }
 
-    @OneToOne(mappedBy = "contact")
+    @JsonIgnore
+    @OneToOne(mappedBy = "contact", fetch = FetchType.LAZY)
     public Address getAddress() {
 	return address;
     }
@@ -96,22 +102,25 @@ public class Contact {
     public void setAddress(Address address) {
 	this.address = address;
     }
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "USER_ID")
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "CONTACT_ID")
     public User getUser() {
-        return user;
+	return user;
     }
 
     public void setUser(User user) {
-        this.user = user;
+	this.user = user;
     }
-    @OneToMany(mappedBy = "contact")
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
     public Set<Phone> getPhones() {
-        return phones;
+	return phones;
     }
 
     public void setPhones(Set<Phone> phones) {
-        this.phones = phones;
+	this.phones = phones;
     }
-
 }

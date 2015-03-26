@@ -8,6 +8,11 @@ import org.junit.runner.RunWith;
 import by.itechart.flowerty.configuration.ApplicationConfiguration;
 import by.itechart.flowerty.configuration.JpaConfiguration;
 
+/**
+ * @author Eugene Putsykovich(slesh) Mar 26, 2015
+ *
+ *         Configuration for testing Jpa repositories
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { 

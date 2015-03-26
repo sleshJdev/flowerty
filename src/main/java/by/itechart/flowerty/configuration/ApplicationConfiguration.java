@@ -11,15 +11,19 @@ import org.springframework.stereotype.Controller;
 
 import by.itechart.flowerty.Application;
 
+/**
+ * @author Eugene Putsykovich(slesh) Mar 26, 2015
+ *
+ *         Configuration for fetch properties from resources
+ */
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, excludeFilters = @Filter({ Controller.class, Configuration.class }))
 public class ApplicationConfiguration {
-    @Bean
-    public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-	PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-	ppc.setLocation(new ClassPathResource("/persistence.properties"));
+	@Bean
+	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
+		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+		ppc.setLocation(new ClassPathResource("/persistence.properties"));
 
-	return ppc;
-    }
-
+		return ppc;
+	}
 }
