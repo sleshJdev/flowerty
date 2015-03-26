@@ -2,8 +2,9 @@
  * Created by Катерина on 19.03.2015.
  */
 
-app.controller('logInController', function($scope, $http) {
+angular.module('flowertyApp', ['ngRoute']).controller('logInController', function($scope, $http) {
 
+    alert("logInController");
     $scope.login = '';
     $scope.password = '';
 
