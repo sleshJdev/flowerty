@@ -1,0 +1,135 @@
+CREATE DATABASE flowerty
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+  
+  SET foreign_key_checks = 0;
+
+CREATE TABLE `flowerty`.`address` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `TOWN` varchar(20) DEFAULT NULL,
+  `STREET` varchar(20) DEFAULT NULL,
+  `HOUSE` varchar(10) DEFAULT NULL,
+  `FLAT` varchar(10) DEFAULT NULL,
+  `CONTACT_ID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`ID`,`CONTACT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`contact` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(20) NOT NULL,
+  `SURNAME` varchar(20) DEFAULT NULL,
+  `FATHERNAME` varchar(20) DEFAULT NULL,
+  `BIRTHDAY` date DEFAULT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
+  `ADDRESS_ID` int(10) unsigned NOT NULL,
+  `USER_ID` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ID`,`NAME`,`ADDRESS_ID`),
+  CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`ADDRESS_ID`) REFERENCES `address` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `contact_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`flower` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(20) DEFAULT NULL,
+  `COST` double unsigned DEFAULT NULL,
+  `REMAIN` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`item` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `FLOWER_ID` int(10) unsigned DEFAULT NULL,
+  `ORDER_ID` int(10) unsigned DEFAULT NULL,
+  `QUANTITY` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `item_ibfk_1` FOREIGN KEY (`FLOWER_ID`) REFERENCES `flower` (`ID`),
+  CONSTRAINT `item_ibfk_2` FOREIGN KEY (`ORDER_ID`) REFERENCES `order` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`order` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `CUSTOMER_ID` int(10) unsigned DEFAULT NULL,
+  `DESCRIPTION` text,
+  `MANAGER_ID` int(10) unsigned DEFAULT NULL,
+  `COST` double unsigned DEFAULT NULL,
+  `STAFF_ID` int(10) unsigned DEFAULT NULL,
+  `DELIVERY_MANAGER_ID` int(10) unsigned DEFAULT NULL,
+  `RECEIVER_ID` int(10) unsigned DEFAULT NULL,
+  `STATE_ID` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `contact` (`ID`),
+  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`STAFF_ID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `order_ibfk_3` FOREIGN KEY (`DELIVERY_MANAGER_ID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `order_ibfk_4` FOREIGN KEY (`RECEIVER_ID`) REFERENCES `contact` (`ID`),
+  CONSTRAINT `order_ibfk_5` FOREIGN KEY (`MANAGER_ID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `order_ibfk_6` FOREIGN KEY (`STATE_ID`) REFERENCES `state` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`order_altering` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `DATE` datetime DEFAULT NULL,
+  `STATE_ID` int(10) unsigned DEFAULT NULL,
+  `USER_ID` int(10) unsigned DEFAULT NULL,
+  `COMMENT` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `order_altering_ibfk_1` FOREIGN KEY (`STATE_ID`) REFERENCES `state` (`ID`),
+  CONSTRAINT `order_altering_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`phone` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `COUNTRY` varchar(5) DEFAULT NULL,
+  `OPERATOR` varchar(5) DEFAULT NULL,
+  `NUMBER` varchar(10) DEFAULT NULL,
+  `TYPE` enum('HOME','CELL') DEFAULT NULL,
+  `COMMENT` varchar(50) DEFAULT NULL,
+  `CONTACT_ID` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `phone_ibfk_1` FOREIGN KEY (`CONTACT_ID`) REFERENCES `contact` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`right` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `NAME` enum('CREATE_ORDER','CREATE_CONTACT','EDIT_CONTACT','SEARCH_CONTACT','VIEW_ORDERS','COMMENT_ORDER','SETTINGS','CREATE_USER','DELETE_USER','EDIT_USER','ASSIGN_ROLE') NOT NULL,
+  PRIMARY KEY (`ID`,`NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`role` (
+  `ID` int(20) unsigned NOT NULL AUTO_INCREMENT,
+  `NAME` enum('ORDERS_MANAGER','ORDERS_PROCESSOR','DELIVERY_MANAGER','SUPERVISOR','ADMIN') NOT NULL,
+  PRIMARY KEY (`ID`,`NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`role_right` (
+  `ROLE_ID` int(10) unsigned NOT NULL,
+  `RIGHT_ID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`ROLE_ID`,`RIGHT_ID`),
+  CONSTRAINT `role_right_ibfk_1` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`),
+  CONSTRAINT `role_right_ibfk_2` FOREIGN KEY (`RIGHT_ID`) REFERENCES `right` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `flowerty`.`state` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `DESCRYPTION` enum('NEW','ACCEPTED','PROCESSING','READY','DELIVERY','IMPOSSIBLE','CANCELED','CLOSED') DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`user` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `LOGIN` varchar(20) NOT NULL,
+  `PASSWORD` varchar(20) NOT NULL,
+  `CONTACT_ID` int(10) unsigned NOT NULL,
+  `ROLE_ID` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ID`,`LOGIN`,`PASSWORD`,`CONTACT_ID`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`CONTACT_ID`) REFERENCES `contact` (`ID`),
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `flowerty`.`user_role` (
+  `USER_ID` int(10) unsigned NOT NULL,
+  `ROLE_ID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`USER_ID`,`ROLE_ID`),
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`),
+  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET foreign_key_checks = 1;
