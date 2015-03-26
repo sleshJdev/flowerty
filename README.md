@@ -1,16 +1,24 @@
 # Flowerty
 Flowers store service with web ui on java
 
-gitignore:
+gitignore file tempalte:
 
+# Eclipse
 .classpath
-
 .project
+.settings/
 
-.settings/*
+# Intellij
+.idea/
+*.iml
+*.iws
 
-target/*
+# Mac
+.DS_Store
 
-*.imp
+# Maven
+log/
+target/
+
 
 
