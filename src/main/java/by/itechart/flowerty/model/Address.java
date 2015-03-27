@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "ADDRESS")
 public class Address {
-
+	
     private Long id;
     private String town;
     private String street;
