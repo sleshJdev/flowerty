@@ -1,7 +1,7 @@
 package by.itecharty.flowerty.config;
 
-import by.itechart.flowerty.web.exception.ExceptionHandler;
-import org.junit.Ignore;
+import java.lang.reflect.Method;
+
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.method.HandlerMethod;
@@ -9,14 +9,13 @@ import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
-import java.lang.reflect.Method;
+import by.itechart.flowerty.web.exception.ExceptionHandler;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  * 
  *         Configuration for testing Controllers
  */
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public abstract class MockTestConfigigurationAware {
 	protected ExceptionHandlerExceptionResolver withExceptionControllerAdvice() {

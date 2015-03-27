@@ -52,7 +52,7 @@ public class TestSigninController extends MockTestConfigigurationAware {
 	public void signin_PassSiginFormFromClient_ShouldAuthenticate() throws Exception{
 		User existsUser = TestControllerHelper.buildShortUserForTest();
 		
-		when(userRepositoryMock.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
+		when(userRepositoryMock.existsByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
 			.thenReturn(existsUser);
 		
 		mock
@@ -64,7 +64,7 @@ public class TestSigninController extends MockTestConfigigurationAware {
 			.andExpect(forwardedUrl("home/index"));
 	
 		verify(userRepositoryMock, times(1))
-			.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword());
+			.existsByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword());
 		verifyNoMoreInteractions(userRepositoryMock);
 	}
 }

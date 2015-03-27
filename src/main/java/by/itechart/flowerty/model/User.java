@@ -66,8 +66,7 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-    @OneToOne
-    @JoinColumn(name = "CONTACT_ID")
+    @OneToOne(mappedBy = "user")
     public Contact getContact() {
         return contact;
     }

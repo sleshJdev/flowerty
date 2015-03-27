@@ -1,10 +1,11 @@
 package by.itechart.flowerty.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "contact")
@@ -95,8 +96,7 @@ public class Contact {
     }
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "ADDRESS_ID")
+    @OneToOne(mappedBy = "contact", fetch = FetchType.LAZY)
     public Address getAddress() {
 	return address;
     }

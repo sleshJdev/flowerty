@@ -1,19 +1,21 @@
 package by.itecharty.flowerty.web.controller;
 
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.Phone;
-import by.itechart.flowerty.model.Role;
-import by.itechart.flowerty.model.User;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Ignore;
-import org.springframework.http.MediaType;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.junit.Ignore;
+import org.springframework.http.MediaType;
+
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.model.Phone;
+import by.itechart.flowerty.model.Role;
+import by.itechart.flowerty.model.User;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
