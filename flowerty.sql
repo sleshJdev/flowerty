@@ -2,7 +2,8 @@ CREATE DATABASE IF NOT EXISTS `flowerty`
     CHARACTER SET 'utf8'
     COLLATE 'utf8_general_ci';
 
-
+USE `flowerty`;
+    
 DROP TABLE IF EXISTS `flowerty`.`address`;
 
 CREATE TABLE `flowerty`.`address` (
@@ -34,7 +35,7 @@ CREATE TABLE `flowerty`.`contact` (
   `BIRTHDAY` DATE DEFAULT NULL,
   `EMAIL` VARCHAR(50) DEFAULT NULL,
   `ADDRESS_ID` INT(10) UNSIGNED NOT NULL,
-  `COMPANY_ID` INT(10) UNSIGNED DEFAULT NULL,
+  `COMPANY_ID` INT(10) UNSIGNED NOT NULL,
   CONSTRAINT `contact_address_id`
   FOREIGN KEY (`ADDRESS_ID` )
   REFERENCES `flowerty`.`address` (`ID` )
@@ -191,13 +192,6 @@ CREATE TABLE `flowerty`.`phone` (
  
 DROP TABLE IF EXISTS `flowerty`.`user_role`;
 
-CREATE TABLE `flowerty`.`user_role` (
-  `USER_ID` INT(10) UNSIGNED NOT NULL,
-  `ROLE_ID` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`USER_ID`,`ROLE_ID`),
-  CONSTRAINT `user_role_role_id` FOREIGN KEY (`ROLE_ID`) REFERENCES `flowerty`.`role` (`ID`),
-  CONSTRAINT `user_role_user_id` FOREIGN KEY (`USER_ID`) REFERENCES `flowerty`.`user` (`ID`)
-) ENGINE=INNODB;
 
 INSERT  INTO `company`(`ID`,`NAME`,`WEBSITE`) VALUES (1,'f&j','www.fj.com');
 INSERT  INTO `company`(`ID`,`NAME`,`WEBSITE`) VALUES (2,'your flowers','www.yourflowers.com');
@@ -276,8 +270,3 @@ INSERT  INTO `contact`(`ID`,`NAME`,`SURNAME`,`FATHERNAME`,`BIRTHDAY`,`EMAIL`,`AD
 
 INSERT  INTO `user`(`ID`,`LOGIN`,`PASSWORD`,`CONTACT_ID`,`ROLE_ID`) VALUES (1,'sergeM','sergeM',2,2);
 INSERT  INTO `user`(`ID`,`LOGIN`,`PASSWORD`,`CONTACT_ID`,`ROLE_ID`) VALUES (2,'test','test',1,3);
-
-
-
-
-
