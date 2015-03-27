@@ -1,14 +1,13 @@
 package by.itechart.flowerty.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "CONTACT")
+@Table(name = "contact")
 public class Contact {
 
     private Long id;
@@ -18,14 +17,15 @@ public class Contact {
     private Date birthday;
     private String email;
     private Address address;
-    private User user;
     private Set<Phone> phones;
+    private Company company;
+
 
     public Contact() {
     }
 
     public Contact(Long id, String name, String surname, String fathername, Date birthday, String email,
-	    Address address, User user) {
+	    Address address, Company company) {
 	this.id = id;
 	this.name = name;
 	this.surname = surname;
@@ -33,7 +33,8 @@ public class Contact {
 	this.birthday = birthday;
 	this.email = email;
 	this.address = address;
-	this.user = user;
+    this.company = company;
+
     }
 
     @Id
@@ -94,7 +95,8 @@ public class Contact {
     }
 
     @JsonIgnore
-    @OneToOne(mappedBy = "contact", fetch = FetchType.LAZY)
+    @OneToOne
+    @JoinColumn(name = "ADDRESS_ID")
     public Address getAddress() {
 	return address;
     }
@@ -102,18 +104,6 @@ public class Contact {
     public void setAddress(Address address) {
 	this.address = address;
     }
-
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "CONTACT_ID")
-    public User getUser() {
-	return user;
-    }
-
-    public void setUser(User user) {
-	this.user = user;
-    }
-
     @JsonIgnore
     @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
     public Set<Phone> getPhones() {
@@ -122,5 +112,14 @@ public class Contact {
 
     public void setPhones(Set<Phone> phones) {
 	this.phones = phones;
+    }
+    @ManyToOne
+    @JoinColumn(name="COMPANY_ID")
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
