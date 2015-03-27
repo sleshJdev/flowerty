@@ -10,72 +10,58 @@ import java.util.Set;
 @Entity
 @Table(name = "role")
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", length = 10, nullable = false)
+
     private Long id;
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "NAME", nullable = false)
     private ROLE_TYPE name;
-
-    public static enum ROLE_TYPE {
-	ORDERS_MANAGER, 
-	ORDERS_PROCESSOR, 
-	DELIVERY_MANAGER, 
-	SUPERVISOR, ADMIN
-    }
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "role_right", 
-    	joinColumns = { @JoinColumn(name = "ROLE_ID") }, 
-    	inverseJoinColumns = { @JoinColumn(name = "RIGHT_ID") })
     private Set<Right> rights = new HashSet<Right>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<User>();
+    public static enum ROLE_TYPE{
+        ORDERS_MANAGER,
+        ORDERS_PROCESSOR,
+        DELIVERY_MANAGER,
+        SUPERVISOR,
+        ADMIN
+    }
 
     public Role() {
     }
 
-    public Role(Long id, ROLE_TYPE name, Set<Right> rights, Set<User> users) {
-	this.id = id;
-	this.name = name;
-	this.rights = rights;
-	this.users = users;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", length = 10, nullable = false)
     public Long getId() {
-	return id;
+        return id;
+    }
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "NAME", nullable = false)
+    public ROLE_TYPE getName() {
+        return name;
+    }
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name="role_right",
+            joinColumns={@JoinColumn(name="RIGHT_ID")},
+            inverseJoinColumns={@JoinColumn(name="ROLE_ID")})
+    public Set<Right> getRights() {
+        return rights;
+    }
+    @OneToMany(mappedBy = "role")
+    public Set<User> getUsers() {
+        return users;
     }
 
     public void setId(Long id) {
-	this.id = id;
-    }
-
-    public ROLE_TYPE getName() {
-	return name;
+        this.id = id;
     }
 
     public void setName(ROLE_TYPE name) {
-	this.name = name;
-    }
-
-    public Set<Right> getRights() {
-	return rights;
+        this.name = name;
     }
 
     public void setRights(Set<Right> rights) {
-	this.rights = rights;
-    }
-
-    public Set<User> getUsers() {
-	return users;
+        this.rights = rights;
     }
 
     public void setUsers(Set<User> users) {
-	this.users = users;
+        this.users = users;
     }
 }

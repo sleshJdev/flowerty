@@ -1,18 +1,19 @@
 package by.itecharty.flowerty.dao.repository;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *
  *         Test for UserRepository
  */
+@Ignore
 public class TestUserRepository extends JpaConfigurationAware {
 	@Autowired
 	private UserRepository userRepository;

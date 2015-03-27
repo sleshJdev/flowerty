@@ -1,19 +1,12 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "address")
 public class Address {
 
     private Long id;
@@ -21,19 +14,19 @@ public class Address {
     private String street;
     private String house;
     private String flat;
-    private Contact contact;
+    private String country;
 
     public Address() {
     }
 
-    public Address(Long id, String town, String street, String house, String flat, Contact contact) {
+    public Address(Long id, String town, String street, String house, String flat, String country) {
 	super();
 	this.id = id;
 	this.town = town;
 	this.street = street;
 	this.house = house;
 	this.flat = flat;
-	this.contact = contact;
+	this.country = country;
     }
 
     @Id
@@ -62,16 +55,14 @@ public class Address {
     public String getFlat() {
 	return flat;
     }
+    @Column(name = "COUNTRY", length = 10, nullable = true)
+    public String getCountry() {
+        return country;
 
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "ID")
-    public Contact getContact() {
-	return contact;
     }
 
-    public void setContact(Contact contact) {
-	this.contact = contact;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public void setFlat(String flat) {
