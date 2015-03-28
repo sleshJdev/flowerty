@@ -10,83 +10,86 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "PHONE")
+@Table(name = "phone")
 public class Phone {
-    private Long id;
-    private Contact contact;
-    private String comment;
-    private String country;
-    private String number;
-    private String operator;
-    private PHONE_TYPE type;
+	private Long id;
+	private Contact contact;
+	private String comment;
+	private String country;
+	private String number;
+	private String operator;
+	private PHONE_TYPE type;
 
-    @ManyToOne
-    @JoinColumn(name = "CONTACT_ID")
-    public Contact getContact() {
-	return contact;
-    }
+	public Phone() {
+	}
 
-    public void setContact(Contact contact) {
-	this.contact = contact;
-    }
+	@ManyToOne
+	@JoinColumn(name = "CONTACT_ID")
+	public Contact getContact() {
+		return contact;
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    public Long getId() {
-	return id;
-    }
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
 
-    public String getComment() {
-	return comment;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return id;
+	}
 
-    @Column(name = "COUNTRY", length = 5, nullable = true)
-    public String getCountry() {
-	return country;
-    }
+	public String getComment() {
+		return comment;
+	}
 
-    @Column(name = "NUMBER", length = 10, nullable = true)
-    public String getNumber() {
-	return number;
-    }
+	@Column(name = "COUNTRY", length = 5, nullable = true)
+	public String getCountry() {
+		return country;
+	}
 
-    @Column(name = "OPERATOR", length = 5, nullable = true)
-    public String getOperator() {
-	return operator;
-    }
+	@Column(name = "NUMBER", length = 10, nullable = true)
+	public String getNumber() {
+		return number;
+	}
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "TYPE", length = 20, nullable = false)
-    public PHONE_TYPE getType() {
-	return type;
-    }
+	@Column(name = "OPERATOR", length = 5, nullable = true)
+	public String getOperator() {
+		return operator;
+	}
 
-    public void setId(Long id) {
-	this.id = id;
-    }
+	@Enumerated(value = EnumType.STRING)
+	@Column(name = "TYPE", length = 20, nullable = false)
+	public PHONE_TYPE getType() {
+		return type;
+	}
 
-    public void setComment(String comment) {
-	this.comment = comment;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setCountry(String country) {
-	this.country = country;
-    }
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
-    public void setNumber(String number) {
-	this.number = number;
-    }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
-    public void setOperator(String operator) {
-	this.operator = operator;
-    }
+	public void setNumber(String number) {
+		this.number = number;
+	}
 
-    public void setType(PHONE_TYPE type) {
-	this.type = type;
-    }
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
 
-    public static enum PHONE_TYPE {
-	HOME, CELL
-    }
+	public void setType(PHONE_TYPE type) {
+		this.type = type;
+	}
+
+	public static enum PHONE_TYPE {
+		HOME, CELL
+	}
 }
