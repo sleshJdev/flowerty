@@ -1,17 +1,22 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.web.exception.NotFoundException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.exception.NotFoundException;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -43,7 +48,7 @@ public class UserController {
 		return user;
 	}
 
-	@RequestMapping(value = "user/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "showUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<User> getList() {
 		List<User> allUsers = (List<User>) userRepository.findAll();

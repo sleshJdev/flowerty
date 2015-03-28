@@ -55,6 +55,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	@Bean
 	public DataSource configureDataSource() {
 		HikariConfig config = new HikariConfig();
+		
 		config.setDriverClassName(driver);
 		config.setJdbcUrl(url);
 		config.setUsername(username);
