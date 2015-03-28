@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  *         Test for UserRepository
  */
-@Ignore
+ @Ignore
 public class TestUserRepository extends JpaConfigurationAware {
 	@Autowired
 	private UserRepository userRepository;
@@ -29,7 +29,7 @@ public class TestUserRepository extends JpaConfigurationAware {
 	public void exists_PassValidLoginAndPassword_ShoudReturnTrue(){
 		final String login = "sergeM";
 		final String password = "sergeM";
-		Boolean isExists = (userRepository.existsByLoginAndPassword(login, password) != null);
+		Boolean isExists = (userRepository.findUserByLoginAndPassword(login, password) != null);
 		Assert.assertEquals(
 				String.format("user with login: %s and password %s must be exists", login, password), 
 				Boolean.TRUE, isExists);

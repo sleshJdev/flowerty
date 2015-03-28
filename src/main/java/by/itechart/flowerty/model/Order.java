@@ -33,7 +33,7 @@ public class Order {
     }
     
     @ManyToOne
-    @JoinColumn(name = "STATE.ID")
+    @JoinColumn(name = "STATE_ID")
     public State getState() {
         return state;
     }

@@ -1,9 +1,6 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +11,7 @@ public class Role {
     private Long id;
     private ROLE_TYPE name;
     private Set<Right> rights = new HashSet<Right>();
-    private Set<User> users = new HashSet<User>();
+  //  private Set<User> users = new HashSet<User>();
     public static enum ROLE_TYPE{
         ORDERS_MANAGER,
         ORDERS_PROCESSOR,
@@ -44,10 +41,10 @@ public class Role {
     public Set<Right> getRights() {
         return rights;
     }
-    @OneToMany(mappedBy = "role")
-    public Set<User> getUsers() {
-        return users;
-    }
+//    @OneToMany(mappedBy = "role")
+//    public Set<User> getUsers() {
+//        return users;
+//    }
 
     public void setId(Long id) {
         this.id = id;
@@ -61,7 +58,7 @@ public class Role {
         this.rights = rights;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
 }

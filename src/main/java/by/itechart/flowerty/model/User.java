@@ -56,7 +56,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
     @ManyToOne
     @JoinColumn(name = "ROLE_ID")
     public Role getRole() {
@@ -66,7 +65,8 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @JoinColumn(name = "CONTACT_ID")
     public Contact getContact() {
         return contact;
     }

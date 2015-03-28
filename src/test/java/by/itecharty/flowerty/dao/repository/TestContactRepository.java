@@ -2,8 +2,8 @@ package by.itecharty.flowerty.dao.repository;
 
 import by.itechart.flowerty.dao.repository.ContactRepository;
 import by.itechart.flowerty.model.Contact;
-import junit.framework.Assert;
-import org.junit.Ignore;
+import by.itecharty.flowerty.config.JpaConfigurationAware;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Time: 7:22
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
-public class TestContactRepository extends Assert {
+//@Ignore
+public class TestContactRepository extends JpaConfigurationAware {
     @Autowired
-    ContactRepository contactRepository;
+    private ContactRepository contactRepository;
     @Test
     public void findContact() {
       //  contactRepository = RepositoryFactorySupport.
            Contact contact = contactRepository.findOne(1L);
-            assertNotNull(contact);
+            Assert.assertNotNull(contact);
     }
 }
