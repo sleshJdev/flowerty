@@ -15,7 +15,7 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
     public Contact findOne(Long id);
     public Page<Contact> findByCompany(Company company, Pageable pageable);
     public Contact save (Contact contact);
-    Page<Contact> findAll(Pageable pageable);
+  //  Page<Contact> findAll(Pageable pageable);
     public void delete(Long id);
     @Query("select c.name, c.surname, c.fathername, c.birthday, c.address from Contact c where c.company = ?1")
     List<Contact> getShortContacts (Company company);

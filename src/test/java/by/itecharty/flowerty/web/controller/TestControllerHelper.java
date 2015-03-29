@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.springframework.http.MediaType;
 
 import by.itechart.flowerty.model.Contact;
@@ -22,7 +21,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 
  *         Helper for test
  */
-@Ignore
 public final class TestControllerHelper {
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));

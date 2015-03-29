@@ -1,11 +1,16 @@
 package by.itecharty.flowerty.web.controller;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.web.controller.SignupController;
-import by.itecharty.flowerty.config.MockTestConfigigurationAware;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -13,19 +18,16 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.controller.SignupController;
+import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  * 
  *         Test for SignupController
  */
-@Ignore
 public class TestSignupController extends MockTestConfigigurationAware {
 	@Mock
 	private UserRepository userRepositoryMock;

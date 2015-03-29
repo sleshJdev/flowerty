@@ -1,16 +1,14 @@
 package by.itechart.flowerty.model;
 
+
 import javax.persistence.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
- * Date: 19.03.15
- * Time: 22:29
- * To change this template use File | Settings | File Templates.
+ * Created with IntelliJ IDEA. User: Мария Date: 19.03.15 Time: 22:29 To change
+ * this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
     public User() {
     }
@@ -74,8 +72,6 @@ public class User {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
-
-
 
 
 }

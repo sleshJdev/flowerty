@@ -20,11 +20,6 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import by.itechart.flowerty.Application;
 
-/**
- * @author Eugene Putsykovich(slesh) Mar 26, 2015
- *
- *         Configuration for mvc support
- */
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
@@ -85,8 +80,10 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	}
 
 	/**
-	 * Handles favicon.ico requests assuring no <code>404 Not Found</code> error
-	 * is returned.
+	 * Handles favicon.ico requests assuring no 
+	 * 
+	 * <code>404 Not Found</code> error is returned.
+	 * 
 	 */
 	@Controller
 	static class FaviconController {
