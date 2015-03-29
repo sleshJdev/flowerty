@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-    private Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+	private Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
-    @RequestMapping(value = "/", method = { RequestMethod.GET })
-    public String index() {
-	LOGGER.info("move to home/index.html page");
-	
-	return "home/index";
-    }
+	@RequestMapping(value = "/", method = { RequestMethod.GET })
+	public String index() {
+		LOGGER.info("move to home/index.html page");
+
+		return "home/index";
+	}
 }

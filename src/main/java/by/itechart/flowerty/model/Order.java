@@ -17,6 +17,7 @@ import javax.persistence.Table;
  * Time: 22:40
  * To change this template use File | Settings | File Templates.
  */
+
 @Entity
 @Table(name = "ORDER")
 public class Order {
@@ -24,13 +25,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
-
+    
     @ManyToOne
     @JoinColumn(name = "STATE.ID")
     private State state;
 
-    @ManyToOne
-    @JoinColumn(name = "STATE_ID", nullable = false)
     public State getState() {
 	return state;
     }

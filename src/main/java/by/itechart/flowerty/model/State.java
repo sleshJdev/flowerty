@@ -1,6 +1,9 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 /**
@@ -55,6 +58,7 @@ public class State {
         this.orders = orders;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "state")
     private Set<Order> orders;
 }

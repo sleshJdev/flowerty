@@ -1,11 +1,10 @@
 package by.itechart.flowerty.web.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.exception.NotFoundException;
 
@@ -25,55 +25,44 @@ import by.itechart.flowerty.web.exception.NotFoundException;
  */
 @Controller
 public class UserController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping(value = "user/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public User getById(@PathVariable("id") Long id) throws NotFoundException {
-	LOGGER.info("id: {}", id);
+	@Autowired
+	private UserRepository userRepository;
 
-	if (id <= 0) {
-	    throw new NotFoundException("user id cannot be negative or 0");
+	@RequestMapping(value = "user/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public User getById(@PathVariable("id") Long id) throws NotFoundException {
+		LOGGER.info("id: {}", id);
+
+		if (id <= 0) {
+			throw new NotFoundException("user id cannot be negative or 0");
+		}
+
+		User user = userRepository.findOne(id);
+
+		if (user == null) {
+			throw new NotFoundException(String.format("user with id %s not found", id));
+		}
+
+		return user;
 	}
-	
-	final String login = "slesh";
-	final String password = "gtx260";
-	
-	User returnedUser = new User();
-	returnedUser.setId(id);
-	returnedUser.setLogin(login);
-	returnedUser.setPassword(password);
-	
-	return returnedUser;
-    }
 
-    @RequestMapping(value = "user/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<User> getList() {
-	List<User> users = new ArrayList<User>();
-	users.add(createMockUser());
-	users.add(createMockUser());
-	users.add(createMockUser());
-	users.add(createMockUser());
-	users.add(createMockUser());
+	@RequestMapping(value = "user/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<User> getList() {
+		List<User> allUsers = (List<User>) userRepository.findAll();
 
-	LOGGER.info("fetch list users");
-	return users;
-    }
+		LOGGER.info("fetch {} users", allUsers.size());
 
-    @RequestMapping(value = "user/add", method = RequestMethod.POST)
-    @ResponseBody
-    public User add(@Validated @RequestBody User newUser) {
-	LOGGER.info("add new user: {}", newUser);
-    
-	return newUser;
-    }
-    
-    private User createMockUser() {
-	User user = new User();
-	user.setLogin("mock-login-" + new Date());
-	user.setPassword("mock-password-" + new Date());
+		return allUsers;
+	}
 
-	return user;
-    }
+	@RequestMapping(value = "user/add", method = RequestMethod.POST)
+	@ResponseBody
+	public User add(@Validated @RequestBody User newUser) {
+		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
+
+		return userRepository.save(newUser);
+	}
 }

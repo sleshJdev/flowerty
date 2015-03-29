@@ -1,4 +1,18 @@
-/target/
-.idea
-*.properties
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
 *.iml
+*.iws
+/target/
+*.properties
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/

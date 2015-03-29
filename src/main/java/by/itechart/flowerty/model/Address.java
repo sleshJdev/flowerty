@@ -2,12 +2,15 @@ package by.itechart.flowerty.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -32,6 +35,7 @@ public class Address {
 	this.flat = flat;
 	this.contact = contact;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -49,21 +53,19 @@ public class Address {
 	return street;
     }
 
-
     @Column(name = "HOUSE", length = 20, nullable = true)
     public String getHouse() {
 	return house;
     }
-
 
     @Column(name = "FLAT", length = 10, nullable = true)
     public String getFlat() {
 	return flat;
     }
 
-
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "CONTACT_ID")
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "ID")
     public Contact getContact() {
 	return contact;
     }
@@ -73,20 +75,22 @@ public class Address {
     }
 
     public void setFlat(String flat) {
-        this.flat = flat;
+	this.flat = flat;
     }
 
     public void setHouse(String house) {
-        this.house = house;
+	this.house = house;
     }
+
     public void setStreet(String street) {
-        this.street = street;
+	this.street = street;
     }
+
     public void setTown(String town) {
-        this.town = town;
+	this.town = town;
     }
 
     public void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
 }

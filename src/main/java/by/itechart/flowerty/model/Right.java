@@ -12,15 +12,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="RIGHT")
+@Table(name = "RIGHT")
 public class Right {
     @Id
-    @Column(name="ID", length=10, nullable=false)
+    @Column(name = "ID", length = 10, nullable = false)
     private Long id;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "NAME", length = 20, nullable = false)
     private RIGHT_TYPE name;
+    
     public static enum RIGHT_TYPE{
         CREATE_ORDER,
         CREATE_CONTACT,
@@ -31,9 +32,10 @@ public class Right {
         SETTINGS,
         CREATE_USER,
         EDIT_USER,
-        DELETE_USER, ASSIGN_ROLE
+        DELETE_USER, 
+        ASSIGN_ROLE
     }
 
-        @ManyToMany(mappedBy="rights")
-        private Set<Role> employees = new HashSet<Role>();
+    @ManyToMany(mappedBy = "rights")
+    private Set<Role> employees = new HashSet<Role>();
 }
