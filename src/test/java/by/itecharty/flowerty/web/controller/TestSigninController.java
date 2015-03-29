@@ -45,14 +45,14 @@ public class TestSigninController extends MockTestConfigigurationAware {
 	@Test
 	public void signin_ShouldReturnViewNameForSignin() throws Exception {
 		mock
-			.perform(get("/sigin"))
+			.perform(get("/signin"))
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("signin/signin"));			
 	}
 	
 	@Test
-	public void signin_PassSiginFormFromClient_ShouldAuthenticate() throws Exception{
-		User existsUser = TestControllerHelper.buildShortUserForTest();
+	public void signin_PassValidLoginAndPassword_ShouldAuthenticate() throws Exception{
+		User existsUser = TestControllerHelper.buildValidShortUserForTest();
 		
 		when(userRepositoryMock.existsByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
 			.thenReturn(existsUser);
@@ -67,6 +67,26 @@ public class TestSigninController extends MockTestConfigigurationAware {
 	
 		verify(userRepositoryMock, times(1))
 			.existsByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword());
+		verifyNoMoreInteractions(userRepositoryMock);
+	}
+	
+	@Test
+	public void signin_PassInvalidLoginAndPassword_NotAuthenticateShouldRedirectToSigninPage() throws Exception{
+		User notExistsUser = TestControllerHelper.buildInvalideShordUserForTest();
+		
+		when(userRepositoryMock.existsByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword()))
+			.thenReturn(null);
+		
+		mock
+			.perform(post("/signin")
+					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
+					.content(TestControllerHelper.convertObjectToJsonBytes(notExistsUser))
+					)
+			.andExpect(status().isOk())
+			.andExpect(forwardedUrl("signin/signin"));
+	
+		verify(userRepositoryMock, times(1))
+			.existsByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword());
 		verifyNoMoreInteractions(userRepositoryMock);
 	}
 }

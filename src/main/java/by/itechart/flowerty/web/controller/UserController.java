@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -31,11 +32,10 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@RequestMapping(value = "user/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public User getById(@PathVariable("id") Long id) throws NotFoundException {
+	public @ResponseBody User getById(@PathVariable("id") Long id) throws NotFoundException {
 		LOGGER.info("id: {}", id);
 
-		if (id <= 0) {
+		if (id < 1) {
 			throw new NotFoundException("user id cannot be negative or 0");
 		}
 
@@ -49,8 +49,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<User> getList() {
+	public @ResponseBody List<User> getList() {
 		List<User> allUsers = (List<User>) userRepository.findAll();
 
 		LOGGER.info("fetch {} users", allUsers.size());
@@ -59,10 +58,28 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/add", method = RequestMethod.POST)
-	@ResponseBody
-	public User add(@Validated @RequestBody User newUser) {
+	public @ResponseBody User add(@Validated @RequestBody User newUser) {
 		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
 
 		return userRepository.save(newUser);
+	}
+
+	@RequestMapping(value = "user/list/{page}")
+	public @ResponseBody List<User> getPage(@PathVariable("page") Integer page) throws NotFoundException {
+		LOGGER.info("get page with number {}", page);
+
+		// TODO: change throw exception type. maybe BadRequestException
+		// TODO: add testing for this method
+
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		--page;
+
+		List<User> pageUsers = userRepository.findAll(new PageRequest(page, 10)).getContent();
+
+		LOGGER.info("fetch {} users", pageUsers.size());
+
+		return pageUsers;
 	}
 }

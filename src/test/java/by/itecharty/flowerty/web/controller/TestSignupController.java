@@ -54,7 +54,7 @@ public class TestSignupController extends MockTestConfigigurationAware {
 
 	@Test
 	public void signup_PassSiginFormFromClient_ShouldSaveNewUserAndReturnNameIndexPage() throws Exception{
-		User newUser = TestControllerHelper.buildShortUserForTest();
+		User newUser = TestControllerHelper.buildValidShortUserForTest();
 		
 		when(userRepositoryMock.save(any(User.class)))
 			.thenReturn(newUser);

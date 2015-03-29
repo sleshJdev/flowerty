@@ -1,126 +1,130 @@
 package by.itechart.flowerty.model;
 
+import javax.persistence.*;
+
 import java.util.Date;
 import java.util.Set;
-
-import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "CONTACT")
+@Table(name = "contact")
 public class Contact {
 
-    private Long id;
-    private String name;
-    private String surname;
-    private String fathername;
-    private Date birthday;
-    private String email;
-    private Address address;
-    private User user;
-    private Set<Phone> phones;
+	private Long id;
+	private String name;
+	private String surname;
+	private String fathername;
+	private Date birthday;
+	private String email;
+	private Address address;
+	private Set<Phone> phones;
+	private Company company;
 
-    public Contact() {
-    }
+	@OneToOne(mappedBy = "contact")
+	private User user;
 
-    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email,
-	    Address address, User user) {
-	this.id = id;
-	this.name = name;
-	this.surname = surname;
-	this.fathername = fathername;
-	this.birthday = birthday;
-	this.email = email;
-	this.address = address;
-	this.user = user;
-    }
+	public Contact() {
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    public Long getId() {
-	return id;
-    }
+	public Contact(Long id, String name, String surname, String fathername, Date birthday, String email,
+			Address address, Company company) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.fathername = fathername;
+		this.birthday = birthday;
+		this.email = email;
+		this.address = address;
+		this.company = company;
 
-    public void setId(Long id) {
-	this.id = id;
-    }
+	}
 
-    @Column(name = "NAME", length = 20, nullable = true)
-    public String getName() {
-	return name;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-	this.name = name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Column(name = "SURNAME", length = 20, nullable = true)
-    public String getSurname() {
-	return surname;
-    }
+	@Column(name = "NAME", length = 20, nullable = true)
+	public String getName() {
+		return name;
+	}
 
-    public void setSurname(String surname) {
-	this.surname = surname;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Column(name = "FATHERNAME", length = 20, nullable = true)
-    public String getFathername() {
-	return fathername;
-    }
+	@Column(name = "SURNAME", length = 20, nullable = true)
+	public String getSurname() {
+		return surname;
+	}
 
-    public void setFathername(String fathername) {
-	this.fathername = fathername;
-    }
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
 
-    @Column(name = "BIRTHDAY", nullable = true)
-    @Temporal(value = TemporalType.DATE)
-    public Date getBirthday() {
-	return birthday;
-    }
+	@Column(name = "FATHERNAME", length = 20, nullable = true)
+	public String getFathername() {
+		return fathername;
+	}
 
-    public void setBirthday(Date birthday) {
-	this.birthday = birthday;
-    }
+	public void setFathername(String fathername) {
+		this.fathername = fathername;
+	}
 
-    @Column(name = "EMAIL", length = 50, nullable = true)
-    public String getEmail() {
-	return email;
-    }
+	@Column(name = "BIRTHDAY", nullable = true)
+	@Temporal(value = TemporalType.DATE)
+	public Date getBirthday() {
+		return birthday;
+	}
 
-    public void setEmail(String email) {
-	this.email = email;
-    }
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "contact", fetch = FetchType.LAZY)
-    public Address getAddress() {
-	return address;
-    }
+	@Column(name = "EMAIL", length = 50, nullable = true)
+	public String getEmail() {
+		return email;
+	}
 
-    public void setAddress(Address address) {
-	this.address = address;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "CONTACT_ID")
-    public User getUser() {
-	return user;
-    }
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ADDRESS_ID")
+	public Address getAddress() {
+		return address;
+	}
 
-    public void setUser(User user) {
-	this.user = user;
-    }
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
-    public Set<Phone> getPhones() {
-	return phones;
-    }
+	@JsonIgnore
+	@OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
+	public Set<Phone> getPhones() {
+		return phones;
+	}
 
-    public void setPhones(Set<Phone> phones) {
-	this.phones = phones;
-    }
+	public void setPhones(Set<Phone> phones) {
+		this.phones = phones;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "COMPANY_ID")
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 }

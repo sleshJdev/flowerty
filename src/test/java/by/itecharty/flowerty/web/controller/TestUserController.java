@@ -15,12 +15,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -84,8 +88,6 @@ public class TestUserController extends MockTestConfigigurationAware {
 		verifyNoMoreInteractions(userRepositoryMock);
 	}
 
-	
-	
 	@Test
 	public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
 		User returnedUser = TestControllerHelper.buildUserAdminForTest();
@@ -131,5 +133,13 @@ public class TestUserController extends MockTestConfigigurationAware {
 		verify(userRepositoryMock, times(1))
 			.findAll();
 		verifyNoMoreInteractions(userRepositoryMock);
+	}
+	
+	public void getPage_PassValidPageNumber_ShouldReturnLisUserOnThisPage(){
+		final int pageNumber = 1;
+		final int size = 10;
+		List<User> users = TestControllerHelper.buildValidUserListForTest(size);
+		PageRequest pageRequest = new PageRequest(pageNumber, size);
+		
 	}
 }

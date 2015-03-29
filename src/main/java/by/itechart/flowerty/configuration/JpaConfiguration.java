@@ -1,9 +1,8 @@
 package by.itechart.flowerty.configuration;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
+import by.itechart.flowerty.Application;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +15,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import by.itechart.flowerty.Application;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -58,6 +55,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	@Bean
 	public DataSource configureDataSource() {
 		HikariConfig config = new HikariConfig();
+		
 		config.setDriverClassName(driver);
 		config.setJdbcUrl(url);
 		config.setUsername(username);
