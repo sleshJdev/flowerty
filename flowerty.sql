@@ -1,5 +1,3 @@
-DROP DATABASE IF EXISTS `flowerty`;
-
 CREATE DATABASE IF NOT EXISTS `flowerty`
     CHARACTER SET 'utf8'
     COLLATE 'utf8_general_ci';
@@ -37,7 +35,7 @@ CREATE TABLE `flowerty`.`contact` (
   `BIRTHDAY` DATE DEFAULT NULL,
   `EMAIL` VARCHAR(50) DEFAULT NULL,
   `ADDRESS_ID` INT(10) UNSIGNED NOT NULL,
-  `COMPANY_ID` INT(10) UNSIGNED DEFAULT NULL,
+  `COMPANY_ID` INT(10) UNSIGNED NOT NULL,
   CONSTRAINT `contact_address_id`
   FOREIGN KEY (`ADDRESS_ID` )
   REFERENCES `flowerty`.`address` (`ID` )
@@ -129,8 +127,8 @@ CREATE TABLE `flowerty`.`user` (
   
 
 
-DROP TABLE IF EXISTS `flowerty`.`order`;
-CREATE TABLE `flowerty`.`order` (
+DROP TABLE IF EXISTS `flowerty`.`purchase`;
+CREATE TABLE `flowerty`.`purchase` (
   `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `CUSTOMER_ID` INT(10) UNSIGNED DEFAULT NULL,
   `DESCRIPTION` TEXT,
@@ -156,7 +154,7 @@ CREATE TABLE `flowerty`.`item` (
   `ORDER_ID` INT(10) UNSIGNED DEFAULT NULL,
   `QUANTITY` INT(10) UNSIGNED DEFAULT NULL,
    CONSTRAINT `item_flower_id` FOREIGN KEY (`FLOWER_ID`) REFERENCES `flowerty`.`flower` (`ID`),
-  CONSTRAINT `item_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `flowerty`.`order` (`ID`),
+  CONSTRAINT `item_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `flowerty`.`purchase` (`ID`),
   PRIMARY KEY (`ID`)
  ) ENGINE=INNODB;
 
@@ -173,7 +171,7 @@ CREATE TABLE `flowerty`.`order_altering` (
   `ORDER_ID` INT(10) UNSIGNED NOT NULL,
   CONSTRAINT `order_altering_state_id` FOREIGN KEY (`STATE_ID`) REFERENCES `state` (`ID`),
   CONSTRAINT `order_altering_user_id` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE,
-  CONSTRAINT `order_altering_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `order` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `order_altering_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `purchase` (`ID`) ON DELETE CASCADE,
   PRIMARY KEY (`ID`)
 ) ENGINE=INNODB;
 
@@ -194,13 +192,6 @@ CREATE TABLE `flowerty`.`phone` (
  
 DROP TABLE IF EXISTS `flowerty`.`user_role`;
 
-CREATE TABLE `flowerty`.`user_role` (
-  `USER_ID` INT(10) UNSIGNED NOT NULL,
-  `ROLE_ID` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`USER_ID`,`ROLE_ID`),
-  CONSTRAINT `user_role_role_id` FOREIGN KEY (`ROLE_ID`) REFERENCES `flowerty`.`role` (`ID`),
-  CONSTRAINT `user_role_user_id` FOREIGN KEY (`USER_ID`) REFERENCES `flowerty`.`user` (`ID`)
-) ENGINE=INNODB;
 
 INSERT  INTO `company`(`ID`,`NAME`,`WEBSITE`) VALUES (1,'f&j','www.fj.com');
 INSERT  INTO `company`(`ID`,`NAME`,`WEBSITE`) VALUES (2,'your flowers','www.yourflowers.com');
