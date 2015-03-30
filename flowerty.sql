@@ -127,8 +127,8 @@ CREATE TABLE `flowerty`.`user` (
   
 
 
-DROP TABLE IF EXISTS `flowerty`.`order`;
-CREATE TABLE `flowerty`.`order` (
+DROP TABLE IF EXISTS `flowerty`.`purchase`;
+CREATE TABLE `flowerty`.`purchase` (
   `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `CUSTOMER_ID` INT(10) UNSIGNED DEFAULT NULL,
   `DESCRIPTION` TEXT,
@@ -154,7 +154,7 @@ CREATE TABLE `flowerty`.`item` (
   `ORDER_ID` INT(10) UNSIGNED DEFAULT NULL,
   `QUANTITY` INT(10) UNSIGNED DEFAULT NULL,
    CONSTRAINT `item_flower_id` FOREIGN KEY (`FLOWER_ID`) REFERENCES `flowerty`.`flower` (`ID`),
-  CONSTRAINT `item_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `flowerty`.`order` (`ID`),
+  CONSTRAINT `item_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `flowerty`.`purchase` (`ID`),
   PRIMARY KEY (`ID`)
  ) ENGINE=INNODB;
 
@@ -171,7 +171,7 @@ CREATE TABLE `flowerty`.`order_altering` (
   `ORDER_ID` INT(10) UNSIGNED NOT NULL,
   CONSTRAINT `order_altering_state_id` FOREIGN KEY (`STATE_ID`) REFERENCES `state` (`ID`),
   CONSTRAINT `order_altering_user_id` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE,
-  CONSTRAINT `order_altering_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `order` (`ID`) ON DELETE CASCADE,
+  CONSTRAINT `order_altering_order_id` FOREIGN KEY (`ORDER_ID`) REFERENCES `purchase` (`ID`) ON DELETE CASCADE,
   PRIMARY KEY (`ID`)
 ) ENGINE=INNODB;
 

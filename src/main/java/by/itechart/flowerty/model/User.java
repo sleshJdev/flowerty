@@ -1,5 +1,6 @@
 package by.itechart.flowerty.model;
 
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,51 +12,50 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "user")
 public class User {
-	public User() {
-	}
+    public User() {
+    }
 
-	public User(Long id, String login, String password, Role role, Contact contact) {
-		this.id = id;
-		this.login = login;
-		this.password = password;
-		this.role = role;
-		this.contact = contact;
-	}
+    public User(Long id, String login, String password, Role role, Contact contact) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.contact = contact;
+    }
 
-	private Long id;
-	private String login;
-	private String password;
-	private Role role;
-	private Contact contact;
+    private Long id;
+    private String login;
+    private String password;
+    private Role role;
+    private Contact contact;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    public Long getId() {
+        return id;
+    }
 
-	@Column(name = "LOGIN", length = 20, nullable = false)
-	public String getLogin() {
-		return login;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
+    @Column(name = "LOGIN", length = 20, nullable = false)
+    public String getLogin() {
+        return login;
+    }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    @Column(name = "PASSWORD", length = 20, nullable = false)
+    public String getPassword() {
+        return password;
+    }
 
-	@Column(name = "PASSWORD", length = 20, nullable = false)
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 	@JsonIgnore
 	@ManyToOne
@@ -64,9 +64,13 @@ public class User {
 		return role;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
 
 	@JsonIgnore
 	@OneToOne
@@ -75,8 +79,5 @@ public class User {
 		return contact;
 	}
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
 
 }

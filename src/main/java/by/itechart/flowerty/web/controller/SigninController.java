@@ -34,7 +34,8 @@ public class SigninController {
 			@RequestParam("password") String password) {
 		LOGGER.info("try signin user with login: {} and password: {}", username, password);
 
-		boolean isExist = (userRepository.existsByLoginAndPassword(username, password) != null);
+		boolean isExist = (userRepository.findUserByLoginAndPassword(username, password) != null);
+
 		if (isExist) {
 			LOGGER.info("success. redirect to home/index page");
 			return "home/index";

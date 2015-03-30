@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "order")
+@Table(name = "purchase")
 public class Order {
     private Long id;
     private State state;
@@ -21,6 +21,7 @@ public class Order {
     private User staff;
     private User manager;
     private User delivery;
+    private String description;
 
     public Order() {
     }
@@ -33,7 +34,7 @@ public class Order {
     }
     
     @ManyToOne
-    @JoinColumn(name = "STATE.ID")
+    @JoinColumn(name = "STATE_ID")
     public State getState() {
         return state;
     }
@@ -62,9 +63,17 @@ public class Order {
         return manager;
     }
     @ManyToOne
-    @JoinColumn(name = "DELIVERY_ID")
+    @JoinColumn(name = "DELIVERY_MANAGER_ID")
     public User getDelivery() {
         return delivery;
+    }
+    @Column(name = "DESCRIPTION")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setCost(Double cost) {
