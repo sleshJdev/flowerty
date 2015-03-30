@@ -4,13 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -30,11 +28,13 @@ public class SigninController {
 		return "signin/signin";
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.POST)
-	public String signin(@Validated @RequestBody User user) {
-		LOGGER.info("try signin user with login: {} and password: {}", user.getLogin(), user.getPassword());
+	@RequestMapping(value = "authenticate", method = RequestMethod.POST)
+	public String signin(
+			@RequestParam("username") String username, 
+			@RequestParam("password") String password) {
+		LOGGER.info("try signin user with login: {} and password: {}", username, password);
 
-		boolean isExist = (userRepository.existsByLoginAndPassword(user.getLogin(), user.getPassword()) != null);
+		boolean isExist = (userRepository.existsByLoginAndPassword(username, password) != null);
 		if (isExist) {
 			LOGGER.info("success. redirect to home/index page");
 			return "home/index";

@@ -68,8 +68,9 @@ public class UserController {
 	public @ResponseBody List<User> getPage(@PathVariable("page") Integer page) throws NotFoundException {
 		LOGGER.info("get page with number {}", page);
 
+		// TODO: maybe implement throw exception if page has incorrect format???
 		// TODO: change throw exception type. maybe BadRequestException
-		// TODO: add testing for this method
+		// TODO: *add testing for this method
 
 		if (page == null || page < 1) {
 			page = 1;
