@@ -8,6 +8,7 @@ package by.itechart.flowerty.dao.repository;
  * To change this template use File | Settings | File Templates.
  */
 
+import by.itechart.flowerty.model.Order;
 import by.itechart.flowerty.model.OrderAltering;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ public interface OrderAlteringRepository extends PagingAndSortingRepository<Orde
     public OrderAltering findOne(Long id);
     public OrderAltering save(OrderAltering orderAltering);
     public void delete (OrderAltering orderAltering);
-    public Page<OrderAltering> findByOrder(OrderAltering orderAltering, Pageable pageable);
-    Page<OrderAltering> findAll(Pageable pageable);
+    public Page<OrderAltering> findByOrder(Order order, Pageable pageable);
+   // Page<OrderAltering> findAll(Pageable pageable);
 
 }

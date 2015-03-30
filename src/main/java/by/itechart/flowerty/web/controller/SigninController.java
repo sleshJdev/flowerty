@@ -24,7 +24,7 @@ public class SigninController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@RequestMapping(value = "sigin", method = RequestMethod.GET)
+	@RequestMapping(value = "signin", method = RequestMethod.GET)
 	public String signin() {
 		LOGGER.info("move to sigin page");
 		return "signin/signin";

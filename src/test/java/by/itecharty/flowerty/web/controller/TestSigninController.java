@@ -1,14 +1,9 @@
 package by.itecharty.flowerty.web.controller;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.controller.SigninController;
+import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,10 +11,11 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.web.controller.SigninController;
-import by.itecharty.flowerty.config.MockTestConfigigurationAware;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -45,14 +41,14 @@ public class TestSigninController extends MockTestConfigigurationAware {
 	@Test
 	public void signin_ShouldReturnViewNameForSignin() throws Exception {
 		mock
-			.perform(get("/sigin"))
+			.perform(get("/signin"))
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("signin/signin"));			
 	}
 	
 	@Test
-	public void signin_PassSiginFormFromClient_ShouldAuthenticate() throws Exception{
-		User existsUser = TestControllerHelper.buildShortUserForTest();
+	public void signin_PassValidLoginAndPassword_ShouldAuthenticate() throws Exception{
+		User existsUser = TestControllerHelper.buildValidShortUserForTest();
 		
 		when(userRepositoryMock.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
 			.thenReturn(existsUser);
@@ -67,6 +63,26 @@ public class TestSigninController extends MockTestConfigigurationAware {
 	
 		verify(userRepositoryMock, times(1))
 			.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword());
+		verifyNoMoreInteractions(userRepositoryMock);
+	}
+	
+	@Test
+	public void signin_PassInvalidLoginAndPassword_NotAuthenticateShouldRedirectToSigninPage() throws Exception{
+		User notExistsUser = TestControllerHelper.buildInvalideShordUserForTest();
+		
+		when(userRepositoryMock.findUserByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword()))
+			.thenReturn(null);
+		
+		mock
+			.perform(post("/signin")
+					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
+					.content(TestControllerHelper.convertObjectToJsonBytes(notExistsUser))
+					)
+			.andExpect(status().isOk())
+			.andExpect(forwardedUrl("signin/signin"));
+	
+		verify(userRepositoryMock, times(1))
+			.findUserByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword());
 		verifyNoMoreInteractions(userRepositoryMock);
 	}
 }

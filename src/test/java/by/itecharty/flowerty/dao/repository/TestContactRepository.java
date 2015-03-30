@@ -41,9 +41,9 @@ public class TestContactRepository extends JpaConfigurationAware {
     public void findByGoodCompany() {
         Company company = new Company();
         company.setId(1l);
-        Page page = contactRepository.findByCompany(company, new PageRequest(1, 10));
+        Page page = contactRepository.findByCompany(company, new PageRequest(0, 10));
         Assert.assertNotNull(page);
-        Assert.assertNotEquals(0, page.getNumberOfElements());
+        Assert.assertNotEquals(0, page.getContent().size());
     }
     @Test
     public void findByBadCompany() {
@@ -58,6 +58,7 @@ public class TestContactRepository extends JpaConfigurationAware {
         Company company = new Company();
         company.setId(2l);
         Address address = new Address();
+        address.setId(1l);
         Contact contact = new Contact();
         contact.setCompany(company);
         contact.setAddress(address);
@@ -70,4 +71,35 @@ public class TestContactRepository extends JpaConfigurationAware {
         Assert.assertNotNull(contact.getCompany());
         Assert.assertEquals("Petr", contact.getName());
     }
+    @Test
+    public void deleteContactValidId() {
+        contactRepository.delete(6l);
+    }
+//    @Test
+//    public void deleteContactInvalidId() {
+//        try {
+//        contactRepository.delete(3l);
+//        } catch (Exception ex) {
+//
+//        }
+//    }
+//    @Test
+//    public void getShortContactsGoodCompany() {
+//        Company company = new Company();
+//        company.setId(1l);
+//        List<Contact> list = contactRepository.getShortContacts(company);
+//        Assert.assertNotNull(list);
+//        Assert.assertNotEquals(list.size(), 0);
+//        Assert.assertNotNull(list.get(0));
+//        Assert.assertEquals("Petr", list.get(0).getName());
+//        Assert.assertNull(list.get(0).getEmail());
+//    }
+//    @Test
+//    public void getShortContactsBadCompany() {
+//        Company company = new Company();
+//        company.setId(5l);
+//        List<Contact> list = contactRepository.getShortContacts(company);
+//        Assert.assertNotNull(list);
+//        Assert.assertEquals(list.size(), 0);
+//    }
     }

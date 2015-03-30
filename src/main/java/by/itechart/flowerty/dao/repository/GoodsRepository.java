@@ -12,6 +12,5 @@ public interface GoodsRepository extends PagingAndSortingRepository<Goods, Long>
     public Goods findOne(Long id);
     public Page<Goods> findByCompany(Company company, Pageable pageable);
     public Goods save (Goods goods);
-    Page<Goods> findAll(Pageable pageable);
     public void delete(Long id);
 }

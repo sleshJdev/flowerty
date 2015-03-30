@@ -1,20 +1,19 @@
 package by.itecharty.flowerty.web.controller;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.http.MediaType;
-
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Phone;
 import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.User;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -41,13 +40,33 @@ public final class TestControllerHelper {
 
 		return builder.toString();
 	}
+	
+	public static List<User> buildValidUserListForTest(int size){
+		List<User> users = new ArrayList<User>(size);
+		users.add(buildUserAdminForTest());
+		users.add(buildUserManagerForTest());
+		for(int i = 0; i < size - 2; ++i){
+			users.add(new User(0L, "stubLogin", "stubPassword", null, null));
+		}
+		
+		return users;
+		
+	}
 
-	public static User buildShortUserForTest() {
+	public static User buildValidShortUserForTest() {
 		User existsUser = new User();
 		existsUser.setLogin("sergeM");
 		existsUser.setPassword("sergeM");
 
 		return existsUser;
+	}
+	
+	public static User buildInvalideShordUserForTest(){
+		User notExistsUser = new User();
+		notExistsUser.setLogin("iamnotexists");
+		notExistsUser.setPassword("fk2");
+
+		return notExistsUser;
 	}
 
 	public static User buildUserAdminForTest() {
