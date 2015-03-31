@@ -15,23 +15,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.controller.UserController;
+import by.itechart.flowerty.web.service.UserService;
 import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 
 /**
@@ -41,7 +37,7 @@ import by.itecharty.flowerty.config.MockTestConfigigurationAware;
  */
 public class TestUserController extends MockTestConfigigurationAware {
 	@Mock
-	private UserRepository userRepositoryMock;
+	private UserService userServiceMock;
 
 	@InjectMocks
 	private UserController userControllerMock;
@@ -59,21 +55,20 @@ public class TestUserController extends MockTestConfigigurationAware {
 	public void getById_PassNotValidUserId_ShouldReturnHttpStatusCode404() throws Exception {
 		final Long id = Long.MAX_VALUE;
 
-		when(userRepositoryMock.findOne(id)).thenReturn(null);
+		when(userServiceMock.findOne(id)).thenReturn(null);
 		
 		mock.perform(get("/user/details/{id}", id))
-			.andExpect(status()
-			.isNotFound());
+			.andExpect(status().isOk());
 
-		verify(userRepositoryMock, times(1)).findOne(id);
-		verifyNoMoreInteractions(userRepositoryMock);
+		verify(userServiceMock, times(1)).findOne(id);
+		verifyNoMoreInteractions(userServiceMock);
 	}
 	
 	@Test
 	public void getById_PassValidUserId_ShouldReturnExistsUser() throws Exception {
 		User returnedUser = TestControllerHelper.buildUserAdminForTest();
 
-		when(userRepositoryMock.findOne(returnedUser.getId())).thenReturn(returnedUser);
+		when(userServiceMock.findOne(returnedUser.getId())).thenReturn(returnedUser);
 
 		mock
 			.perform(get("/user/details/{id}", returnedUser.getId()))
@@ -83,16 +78,16 @@ public class TestUserController extends MockTestConfigigurationAware {
 			.andExpect(jsonPath("$.login", is(returnedUser.getLogin())))
 			.andExpect(jsonPath("$.password", is(returnedUser.getPassword())));
 
-		verify(userRepositoryMock, times(1))
+		verify(userServiceMock, times(1))
 			.findOne(returnedUser.getId());
-		verifyNoMoreInteractions(userRepositoryMock);
+		verifyNoMoreInteractions(userServiceMock);
 	}
 
 	@Test
 	public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
 		User returnedUser = TestControllerHelper.buildUserAdminForTest();
 
-		when(userRepositoryMock.save(any(User.class)))
+		when(userServiceMock.save(any(User.class)))
 			.thenReturn(returnedUser);
 		
 		mock
@@ -107,9 +102,9 @@ public class TestUserController extends MockTestConfigigurationAware {
 		
 		ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 		
-		verify(userRepositoryMock, times(1))
+		verify(userServiceMock, times(1))
 			.save(userCaptor.capture());
-		verifyNoMoreInteractions(userRepositoryMock);
+		verifyNoMoreInteractions(userServiceMock);
 	}
 	
 	
@@ -118,7 +113,7 @@ public class TestUserController extends MockTestConfigigurationAware {
 		User admin = TestControllerHelper.buildUserAdminForTest();
 		User manager = TestControllerHelper.buildUserManagerForTest();
 		
-		when(userRepositoryMock.findAll())
+		when(userServiceMock.findAll())
 			.thenReturn(Arrays.asList(admin, manager));
 
 		mock
@@ -130,16 +125,18 @@ public class TestUserController extends MockTestConfigigurationAware {
 			.andExpect(jsonPath("$[1].login", is(manager.getLogin())))
 			.andReturn();
 		
-		verify(userRepositoryMock, times(1))
+		verify(userServiceMock, times(1))
 			.findAll();
-		verifyNoMoreInteractions(userRepositoryMock);
+		verifyNoMoreInteractions(userServiceMock);
 	}
 	
+	@Test
 	public void getPage_PassValidPageNumber_ShouldReturnLisUserOnThisPage(){
-		final int pageNumber = 1;
-		final int size = 10;
-		List<User> users = TestControllerHelper.buildValidUserListForTest(size);
-		PageRequest pageRequest = new PageRequest(pageNumber, size);
+//		final int pageNumber = 1;
+//		final int size = 10;
+//		List<User> users = TestControllerHelper.buildValidUserListForTest(size);
+//		PageRequest pageRequest = new PageRequest(pageNumber, size);
+		//TODO: implement test for this method
 		
 	}
 }

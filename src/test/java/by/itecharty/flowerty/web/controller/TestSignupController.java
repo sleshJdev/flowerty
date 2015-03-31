@@ -18,9 +18,9 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.controller.SignupController;
+import by.itechart.flowerty.web.service.UserService;
 import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 
 /**
@@ -30,7 +30,7 @@ import by.itecharty.flowerty.config.MockTestConfigigurationAware;
  */
 public class TestSignupController extends MockTestConfigigurationAware {
 	@Mock
-	private UserRepository userRepositoryMock;
+	private UserService userServiceMock;
 
 	@InjectMocks
 	private SignupController signupControllerMock;
@@ -56,7 +56,7 @@ public class TestSignupController extends MockTestConfigigurationAware {
 	public void signup_PassSiginFormFromClient_ShouldSaveNewUserAndReturnNameIndexPage() throws Exception{
 		User newUser = TestControllerHelper.buildValidShortUserForTest();
 		
-		when(userRepositoryMock.save(any(User.class)))
+		when(userServiceMock.save(any(User.class)))
 			.thenReturn(newUser);
 		
 		mock
@@ -69,9 +69,9 @@ public class TestSignupController extends MockTestConfigigurationAware {
 	
 		ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 		
-		verify(userRepositoryMock, times(1))
+		verify(userServiceMock, times(1))
 			.save(userCaptor.capture());
-		verifyNoMoreInteractions(userRepositoryMock);
+		verifyNoMoreInteractions(userServiceMock);
 	}
 	
 }

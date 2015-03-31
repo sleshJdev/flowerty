@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.web.service.UserService;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -18,23 +18,24 @@ import by.itechart.flowerty.dao.repository.UserRepository;
 @Controller
 public class SigninController {
 	private Logger LOGGER = LoggerFactory.getLogger(SigninController.class);
-
+	
 	@Autowired
-	private UserRepository userRepository;
-
+	private UserService userService;
+	
 	@RequestMapping(value = "signin", method = RequestMethod.GET)
 	public String signin() {
 		LOGGER.info("move to sigin page");
 		return "signin/signin";
 	}
-
+	
 	@RequestMapping(value = "authenticate", method = RequestMethod.POST)
 	public String signin(
 			@RequestParam("username") String username, 
 			@RequestParam("password") String password) {
 		LOGGER.info("try signin user with login: {} and password: {}", username, password);
 
-		boolean isExist = (userRepository.existsByLoginAndPassword(username, password) != null);
+		boolean isExist = (userService.findUserByLoginAndPassword(username, password) != null);
+
 		if (isExist) {
 			LOGGER.info("success. redirect to home/index page");
 			return "home/index";

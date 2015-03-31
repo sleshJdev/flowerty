@@ -1,12 +1,7 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
@@ -17,7 +12,6 @@ public class Address {
 	private String house;
 	private String flat;
 	private String country;
-	private Contact contact;
 
 	public Address() {
 	}
@@ -64,14 +58,6 @@ public class Address {
 		return country;
 	}
 
-	@OneToOne(mappedBy = "address")
-	public Contact getContact() {
-		return contact;
-	}
-
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
 
 	public void setCountry(String country) {
 		this.country = country;

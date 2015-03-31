@@ -1,21 +1,8 @@
 package by.itechart.flowerty.model;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "role")
@@ -24,7 +11,6 @@ public class Role {
 	private Long id;
 	private ROLE_TYPE name;
 	private Set<Right> rights = new HashSet<Right>();
-	private Set<User> users = new HashSet<User>();
 
 	public static enum ROLE_TYPE {
 		ORDERS_MANAGER, 
@@ -57,10 +43,12 @@ public class Role {
 		return rights;
 	}
 
-	@OneToMany(mappedBy = "role")
-	public Set<User> getUsers() {
-		return users;
-	}
+
+//    @OneToMany(mappedBy = "role")
+//    public Set<User> getUsers() {
+//        return users;
+//    }
+
 
 	public void setId(Long id) {
 		this.id = id;
@@ -74,7 +62,4 @@ public class Role {
 		this.rights = rights;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
 }

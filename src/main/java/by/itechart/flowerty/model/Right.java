@@ -1,11 +1,9 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "RIGHT")
+@Table(name = "right")
 public class Right {
 
     private Long id;
@@ -43,7 +41,4 @@ public class Right {
         DELETE_USER, 
         ASSIGN_ROLE
     }
-
-    @ManyToMany(mappedBy = "rights")
-    private Set<Role> employees = new HashSet<Role>();
 }
