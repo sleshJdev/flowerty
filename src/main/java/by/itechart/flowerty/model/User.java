@@ -57,6 +57,22 @@ public class User {
         this.password = password;
     }
 
+<<<<<<< HEAD
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	@Column(name = "PASSWORD", length = 20, nullable = false)
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+=======
+>>>>>>> 31b3c2ea3809f31ad54c9364e0a356fc922537cb
 	@ManyToOne
 	@JoinColumn(name = "ROLE_ID")
 	public Role getRole() {
