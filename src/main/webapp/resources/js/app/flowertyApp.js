@@ -7,7 +7,7 @@ app.config(['$routeProvider', function($routeProvider) {
                 templateUrl: 'partial/_logInForm.html',
                 controller: 'logInController'
             }).
-            when('/showUsers', {
+            when('/users', {
                 templateUrl: 'partial/_usersListForm.html',
                 controller: 'usersController'
             }).
@@ -62,9 +62,7 @@ app.controller('usersController', function($scope, $http) {
     };
 
     $scope.users.pageClass = function(pageNumber){
-        return {
-            'active' : pageNumber == $scope.users.currentPage.value
-        };
+        return pageNumber == $scope.users.currentPage ? 'active' : '';
     };
 
     $scope.users.setPagination = function(){
@@ -86,13 +84,11 @@ app.controller('usersController', function($scope, $http) {
     $scope.users.getPageFromServer = function(){
         var request = $http({
             method: "get",
-            url: "user/list",
-            data: {
-                page: $scope.users.currentPage
-            }
+            url: "user/list/" + $scope.users.currentPage
         });
 
         request.success(function(data, status, headers, config) {
+            alert( "Response: " + JSON.stringify({data: data}));
             $scope.users.usersList = data;
             $scope.users.pagesCount = 3;
         });
