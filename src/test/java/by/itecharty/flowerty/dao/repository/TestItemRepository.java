@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
  * Time: 7:00
  * To change this template use File | Settings | File Templates.
  */
+@Ignore
 public class TestItemRepository extends JpaConfigurationAware {
     @Autowired
     private ItemRepository itemRepository;

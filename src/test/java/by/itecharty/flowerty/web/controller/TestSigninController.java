@@ -1,8 +1,8 @@
 package by.itecharty.flowerty.web.controller;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.controller.SigninController;
+import by.itechart.flowerty.web.service.UserService;
 import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,18 +12,11 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-<<<<<<< HEAD
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-=======
-import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.web.controller.SigninController;
-import by.itechart.flowerty.web.service.UserService;
-import by.itecharty.flowerty.config.MockTestConfigigurationAware;
->>>>>>> 31b3c2ea3809f31ad54c9364e0a356fc922537cb
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
