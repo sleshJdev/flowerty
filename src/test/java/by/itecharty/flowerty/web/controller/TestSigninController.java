@@ -1,9 +1,14 @@
 package by.itecharty.flowerty.web.controller;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.web.controller.SigninController;
-import by.itecharty.flowerty.config.MockTestConfigigurationAware;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -11,11 +16,10 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.controller.SigninController;
+import by.itechart.flowerty.web.service.UserService;
+import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -24,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public class TestSigninController extends MockTestConfigigurationAware {
 	@Mock
-	private UserRepository userRepositoryMock;
+	private UserService userServiceMock;
 
 	@InjectMocks
 	private SigninController signinControllerMock;
@@ -50,39 +54,39 @@ public class TestSigninController extends MockTestConfigigurationAware {
 	public void signin_PassValidLoginAndPassword_ShouldAuthenticate() throws Exception{
 		User existsUser = TestControllerHelper.buildValidShortUserForTest();
 		
-		when(userRepositoryMock.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
+		when(userServiceMock.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
 			.thenReturn(existsUser);
 		
 		mock
-			.perform(post("/signin")
-					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-					.content(TestControllerHelper.convertObjectToJsonBytes(existsUser))
+			.perform(post("/authenticate")
+					.param("username", existsUser.getLogin())
+					.param("password", existsUser.getPassword())
 					)
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("home/index"));
 	
-		verify(userRepositoryMock, times(1))
+		verify(userServiceMock, times(1))
 			.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword());
-		verifyNoMoreInteractions(userRepositoryMock);
+		verifyNoMoreInteractions(userServiceMock);
 	}
 	
 	@Test
 	public void signin_PassInvalidLoginAndPassword_NotAuthenticateShouldRedirectToSigninPage() throws Exception{
 		User notExistsUser = TestControllerHelper.buildInvalideShordUserForTest();
 		
-		when(userRepositoryMock.findUserByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword()))
+		when(userServiceMock.findUserByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword()))
 			.thenReturn(null);
 		
 		mock
-			.perform(post("/signin")
-					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-					.content(TestControllerHelper.convertObjectToJsonBytes(notExistsUser))
+			.perform(post("/authenticate")
+					.param("username", notExistsUser.getLogin())
+					.param("password", notExistsUser.getPassword())
 					)
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("signin/signin"));
 	
-		verify(userRepositoryMock, times(1))
+		verify(userServiceMock, times(1))
 			.findUserByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword());
-		verifyNoMoreInteractions(userRepositoryMock);
+		verifyNoMoreInteractions(userServiceMock);
 	}
 }

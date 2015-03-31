@@ -19,22 +19,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-        	.authorizeRequests()
-                .antMatchers("/user/list/**")
-//                .access("hasRole('ROLE_ADMIN')")
-                .permitAll()
-                .anyRequest().authenticated()
-                .and()
-        	.formLogin()
-            	.loginPage("/signin")
-            	.permitAll()
-            	.loginProcessingUrl("/authenticate")
-        		.defaultSuccessUrl("/", false)
-        		.and()
-    		.logout()
-                .logoutUrl("/logout")
-                .permitAll()
-                .logoutSuccessUrl("/signin?logout");
+		http
+	        .authorizeRequests()
+	            .antMatchers("/user/list/").permitAll()
+	            .anyRequest().authenticated()
+	            .and()
+	        .formLogin()
+	            .loginPage("/signin")
+	            .permitAll()
+	            .failureUrl("/error")
+	            .loginProcessingUrl("/authenticate")
+	            .and()
+	        .logout()
+	            .logoutUrl("/logout")
+	            .permitAll()
+	            .logoutSuccessUrl("/logout");//TODO:need implement logout
 	}
 }

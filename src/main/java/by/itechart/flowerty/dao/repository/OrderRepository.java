@@ -16,5 +16,4 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     public Page<Order> findByCustomer(Contact customer, Pageable pageable);
     public Page<Order> findByState(State state, Pageable pageable);
    // Page<Order> findAll(Pageable pageable);
-
 }

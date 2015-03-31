@@ -126,4 +126,31 @@ public class Contact {
         this.company = company;
     }
 
+    /*
+		private Long id;
+    private String name;
+    private String surname;
+    private String fathername;
+    private Date birthday;
+    private String email;
+    private Address address;
+    private Set<Phone> phones;
+    private Company company;
+
+     */
+    
+    
+	@Override
+	public String toString() {
+		return new StringBuilder()
+			.append("[id:").append(id)
+			.append("\n name:").append(name)
+			.append("\n surname:").append(surname)
+			.append("\n fathername:").append(fathername)
+			.append("\n birthday:").append(birthday)
+			.append("\n email:").append(email)
+			.append("\n address:").append(address).append("]\n")
+//			.append("; phones:").append(phones)
+			.toString();
+	}
 }

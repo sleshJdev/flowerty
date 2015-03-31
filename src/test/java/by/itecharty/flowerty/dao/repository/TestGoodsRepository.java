@@ -1,16 +1,16 @@
 package by.itecharty.flowerty.dao.repository;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import by.itechart.flowerty.dao.repository.GoodsRepository;
 import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Flower;
 import by.itechart.flowerty.model.Goods;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +19,6 @@ import org.springframework.data.domain.PageRequest;
  * Time: 22:26
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
 public class TestGoodsRepository extends JpaConfigurationAware {
     @Autowired
     private GoodsRepository goodsRepository;

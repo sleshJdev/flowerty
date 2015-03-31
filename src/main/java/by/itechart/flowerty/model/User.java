@@ -79,5 +79,22 @@ public class User {
 		return contact;
 	}
 
-
+	/*
+		 private Long id;
+    private String login;
+    private String password;
+    private Role role;
+    private Contact contact;
+	 *
+	 */
+	
+	@Override
+	public String toString() {
+		return new StringBuilder()
+			.append("[id:").append(id)
+			.append("\n login:").append(login)
+			.append("\n password:").append(password)
+			.append("\n contact:").append(contact).append("]\n")
+			.toString();
+	}
 }

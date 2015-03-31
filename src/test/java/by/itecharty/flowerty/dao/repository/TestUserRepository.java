@@ -17,7 +17,6 @@ import java.util.Iterator;
  *
  *         Test for UserRepository
  */
-@Ignore
 public class TestUserRepository extends JpaConfigurationAware {
 	@Autowired
 	private UserRepository userRepository;
@@ -58,6 +57,8 @@ public class TestUserRepository extends JpaConfigurationAware {
 		final String login = "sergeM";
 
 		User user = userRepository.findOne(id);
+		
+		System.out.println(user);
 
 		Assert.assertNotNull("user cannot be equal null", user);
 		Assert.assertEquals(String.format("user id must be %s", id), id, user.getId());
