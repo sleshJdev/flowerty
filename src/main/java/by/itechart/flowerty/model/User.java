@@ -1,9 +1,6 @@
 package by.itechart.flowerty.model;
 
-
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created with IntelliJ IDEA. User: Мария Date: 19.03.15 Time: 22:29 To change
@@ -40,6 +37,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
     @Column(name = "LOGIN", length = 20, nullable = false)
     public String getLogin() {
         return login;
@@ -48,6 +46,7 @@ public class User {
     public void setLogin(String login) {
         this.login = login;
     }
+
     @Column(name = "PASSWORD", length = 20, nullable = false)
     public String getPassword() {
         return password;
@@ -57,27 +56,12 @@ public class User {
         this.password = password;
     }
 
-<<<<<<< HEAD
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	@Column(name = "PASSWORD", length = 20, nullable = false)
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-=======
->>>>>>> 31b3c2ea3809f31ad54c9364e0a356fc922537cb
-	@ManyToOne
-	@JoinColumn(name = "ROLE_ID")
-	public Role getRole() {
-		return role;
-	}
+//    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
+    public Role getRole() {
+        return role;
+    }
 
     public void setRole(Role role) {
         this.role = role;
@@ -87,28 +71,10 @@ public class User {
         this.contact = contact;
     }
 
-	@OneToOne
-	@JoinColumn(name = "CONTACT_ID")
-	public Contact getContact() {
-		return contact;
-	}
-
-	/*
-		 private Long id;
-    private String login;
-    private String password;
-    private Role role;
-    private Contact contact;
-	 *
-	 */
-	
-	@Override
-	public String toString() {
-		return new StringBuilder()
-			.append("[id:").append(id)
-			.append("\n login:").append(login)
-			.append("\n password:").append(password)
-			.append("\n contact:").append(contact).append("]\n")
-			.toString();
-	}
+//    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "CONTACT_ID")
+    public Contact getContact() {
+        return contact;
+    }
 }

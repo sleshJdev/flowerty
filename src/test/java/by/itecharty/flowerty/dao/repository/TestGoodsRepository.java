@@ -1,6 +1,7 @@
 package by.itecharty.flowerty.dao.repository;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
  * Time: 22:26
  * To change this template use File | Settings | File Templates.
  */
+@Ignore
 public class TestGoodsRepository extends JpaConfigurationAware {
     @Autowired
     private GoodsRepository goodsRepository;
