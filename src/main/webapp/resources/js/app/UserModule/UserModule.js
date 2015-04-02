@@ -4,47 +4,79 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 
 .config(["$routeProvider", function($routeProvider) {
 	$routeProvider
-	.when("/users", {
-        templateUrl: USER_MODULE_PATH + "user-list.html",
-        controller: "UsersListController"
-    })
-	.when("/useredit", {
-		templateUrl: USER_MODULE_PATH + "/user-edit.html",
-		controller: "UserActionProcessController"
-	})
-	.when("/user-remove", {
-		templateUrl: USER_MODULE_PATH + "/user-list.html",
-		controller: "UserActionProcessController"
+		.when("/user-list", {
+	        templateUrl: USER_MODULE_PATH + "user-list.html",
+	        controller: "UsersListController"
+	    })
+		.when("/user-edit", {
+			templateUrl: USER_MODULE_PATH + "user-edit.html",
+			controller: "UserEditController"
+		})
+		.when("/user-delete", {
+			templateUrl: USER_MODULE_PATH + "user-list.html",
+			controller: "UserDeleteController"
+		})
+		.when("/edit-mock-user", {
+			templateUrl: USER_MODULE_PATH + "user-edit.html",
+			controller: "EditMockUserController"
+		});
+}])
+
+.controller("EditMockUserController", ["$scope", function($scope) {//for test
+	var user = {
+		"id" : 1,
+		"login" : "sergeM",
+		"password" : "sergeM",
+		"contact" : {
+			"id" : 2,
+			"name" : "Sergey",
+			"surname" : "Sergeev",
+			"fathername" : "Sergeevich",
+			"birthday" : "1974-06-12",
+			"email" : "sergey@mail.com",
+			"company" : {
+				"id" : 1,
+				"name" : "f&j",
+				"website" : "www.fj.com"
+			}
+		}
+	};
+	
+	$scope.user = user;
+}])
+
+.controller("UserDeleteController", ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+	$http({
+		method: "get",
+		url: "user/delete/" + $routeParams.id
+	}).success(function(data, status, headers, config) {
+			alert("Remove Ok!");
+	}).error(function(data, status, headers, config) {
+			alert("Remove error: " + JSON.stringify(data));
 	});
 }])
 
-.controller("UserActionProcessController", ["$scope", "$http", function($scope, $http) {
-	$scope.remove = function(id) {
-		$http
-			.get("user/remove/" + id)
-			.success(function(data, status, headers, config) {
-				alert("Remove Ok!");
-			})
-			.error(function(data, status, headers, config) {
-				alert("Remove Error!");
-			});
-	}
-     
-    $scope.edit = function(id) {
-    	$http
-			.get("user/details/" + id)
-			.success(function(data, status, headers, config) {
-				$scope.userrr = data;
-				alert("Edit Ok!" + JSON.stringify({data: data}));
-			})
-			.error(function(data, status, headers, config) {
-				alert("Edit Error!");
-			});
-    }
-    
-    $scope.saveContact = function() {
-    	alert("Save user ok!");
-    }
+.controller("UserEditController", ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+	$http({
+		method: "get",
+		url: "user/details/" + $routeParams.id
+	}).success(function(data, status, headers, config) {
+		$scope.user = data;
+	}).error(function(data, status, headers, config) {
+		alert("Problem occurred during get details about user with id: " + $routeParams.id + ": " + JSON.stringify(data));
+	});
+	
+    $scope.save = function() {
+    	$http({
+			method: "post",
+			url: "user/save", 
+			data: $scope.user
+    	}).success(function(data, status, headers, config) {
+    		alert("User successfully saved!");
+		}).error(function(data, status, headers, config) {
+			alert("The problem occurred while saving the user: " + JSON.stringify(data));
+		});
+    };
 }])
 
 .controller('UsersListController', function($scope, $http) {
@@ -83,13 +115,12 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
         });
 
         request.success(function(data, status, headers, config) {
-//            alert( "Response: " + JSON.stringify({data: data}));
             $scope.users.usersList = data;
             $scope.users.pagesCount = 3;
         });
 
         request.error(function(data, status, headers, config) {
-//            alert( "Exception details: " + JSON.stringify({data: data}));
+            alert( "Exception details: " + JSON.stringify({data: data}));
         });
     };
 
@@ -109,8 +140,6 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 
     $scope.users.getPage(1);
 
-})
+});
 
-.controller("SayHelloController", function() {//for test
-	alert("I say hello!");
-})
+

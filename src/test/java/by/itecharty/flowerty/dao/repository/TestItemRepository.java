@@ -65,11 +65,12 @@ public class TestItemRepository extends JpaConfigurationAware {
         Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
         Assert.assertEquals(page.getContent().size(), 0);
     }
-@Test
-public void findByBadOrder() {
-     Order order = new Order();
-     order.setId(1000l);
-     Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
-     Assert.assertEquals(page.getContent().size(), 0);
-}
+
+	@Test
+	public void findByBadOrder() {
+		Order order = new Order();
+		order.setId(1000l);
+		Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
+		Assert.assertEquals(page.getContent().size(), 0);
+	}
 }

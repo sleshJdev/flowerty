@@ -1,4 +1,4 @@
-<div ng-app="FlowertyApplication.UserModule" ng-controller="UserActionProcessController" class="ng-scope">
+<div ng-app="FlowertyApplication.UserModule" class="ng-scope">
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -13,8 +13,8 @@
 				<td>{{user.contact.surname}}</td>
 				<td>{{user.contact.fathername}}</td>
 				<td>
-					<a href="#/useredit" ng-click="edit(user.id)">edit</a> |
-        			<a href="#/user-remove" ng-click="remove(user.id)">delete</a>
+					<a href="#/user-edit?id={{user.id}}">edit</a> |
+        			<a href="#/user-delete?id={{user.id}}">delete</a>
 				</td>
 			</tr>
 		</tbody>

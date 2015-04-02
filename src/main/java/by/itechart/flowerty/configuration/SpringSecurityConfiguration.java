@@ -20,10 +20,9 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 @Configuration
 @EnableWebMvcSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
     @Autowired
     private AuthFailure authFailure;
-
+    
     @Autowired
     private AuthSuccess authSuccess;
 
@@ -42,6 +41,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	http.csrf().disable();
 //        http
 //                    .exceptionHandling()
 //                    .authenticationEntryPoint(unauthorizedHandler)

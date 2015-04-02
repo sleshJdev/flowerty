@@ -30,21 +30,21 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "user/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody User getById(@PathVariable("id") Long id) throws Exception {
+	@ResponseBody
+	@RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public User getById(@PathVariable("id") Long id) throws Exception {
 		LOGGER.info("id: {}", id);
 
 		if (id < 1) {
 			throw new Exception("user id cannot be negative or 0");
 		}
 
-		User user = userService.findOne(id);
-
-		return user;
+		return userService.findOne(id);
 	}
 
-	@RequestMapping(value = "user/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<User> getList() {
+	@ResponseBody
+	@RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<User> getList() {
 		List<User> allUsers = (List<User>) userService.findAll();
 
 		LOGGER.info("fetch {} users", allUsers.size());
@@ -52,15 +52,33 @@ public class UserController {
 		return allUsers;
 	}
 
-	@RequestMapping(value = "user/add", method = RequestMethod.POST)
-	public @ResponseBody User add(@Validated @RequestBody User newUser) {
-		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
-
-		return userService.save(newUser);
+	@RequestMapping(value = "user/delete/{id}")
+	public String delete(@PathVariable("id") Long id) throws Exception {
+		LOGGER.info("try delete user with id: {}", id);
+		
+		if (id < 1) {
+			throw new Exception("user id cannot be negative or 0");
+		}
+		
+		userService.delete(id);
+		
+		return "home/index";
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "user/save", method = RequestMethod.POST)
+	public User add(@Validated @RequestBody User newUser) {
+		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
+
+		userService.save(newUser);
+		
+		return newUser;
+	}
+
+	
+	@ResponseBody
 	@RequestMapping(value = "user/list/{page}")
-	public @ResponseBody List<User> getPage(@PathVariable("page") Integer page) throws Exception {
+	public List<User> getPage(@PathVariable("page") Integer page) throws Exception {
 		LOGGER.info("get page with number {}", page);
 
 		// TODO: maybe implement throw exception if page has incorrect format???

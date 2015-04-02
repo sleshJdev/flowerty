@@ -91,7 +91,7 @@ public class TestUserController extends MockTestConfigigurationAware {
 			.thenReturn(returnedUser);
 		
 		mock
-			.perform(post("/user/add")
+			.perform(post("/user/save")
 					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
 					.content(TestControllerHelper.convertObjectToJsonBytes(returnedUser))
 					)

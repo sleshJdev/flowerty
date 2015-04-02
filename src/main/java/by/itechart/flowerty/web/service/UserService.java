@@ -60,4 +60,10 @@ public class UserService {
 		return userRepository.findUserByLoginAndPassword(username, password);
 	}
 
+	/**
+	 * @param id of deletable user
+	 */
+	public void delete(Long id) {
+		userRepository.delete(id);
+	}
 }
