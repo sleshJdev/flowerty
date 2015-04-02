@@ -21,11 +21,10 @@ angular.module('FlowertyApplication', [
             });
 }])
 
-.controller('ViewResolverController', ['$scope', function($scope) {
-  $scope.templates =
-    [ { name: 'header.html', url: 'resources/partial/header.html'}];
-  $scope.template = $scope.templates[0];
-}])
+.controller('ViewResolverController', [ '$scope', function($scope) {
+	$scope.headerTemplateUrl = "resources/partial/header.html";
+	$scope.footerTemplateUrl = "resources/partial/footer.html";
+} ])
 
 .controller('logInController', function($scope, $http) {
 
