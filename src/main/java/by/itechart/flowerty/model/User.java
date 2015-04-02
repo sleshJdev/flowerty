@@ -1,5 +1,7 @@
 package by.itechart.flowerty.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -56,7 +58,7 @@ public class User {
         this.password = password;
     }
 
-//	@JsonIgnore
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID")
 	public Role getRole() {
@@ -71,7 +73,7 @@ public class User {
         this.contact = contact;
     }
 
-//	@JsonIgnore
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CONTACT_ID")
 	public Contact getContact() {
