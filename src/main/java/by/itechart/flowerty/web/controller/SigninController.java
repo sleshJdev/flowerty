@@ -24,8 +24,8 @@ public class SigninController {
 	private UserService userService;
 	
 	@RequestMapping(value = "signin", method = RequestMethod.GET)
-	public String signin(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
-		LOGGER.info("move to sigin page");
+	public String login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
+		LOGGER.info("move to signin page");
 
 		if (logout != null) {
 			LOGGER.info("logout user");

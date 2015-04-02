@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `flowerty`.`access`;
   PRIMARY KEY (`ID`)
 ) ENGINE=INNODB;
 
- DROP TABLE IF EXISTS `flowerty`.`access`;
+ DROP TABLE IF EXISTS `flowerty`.`role`;
 
 CREATE TABLE `flowerty`.`role` (
   `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -263,4 +263,4 @@ INSERT  INTO `contact`(`ID`,`NAME`,`SURNAME`,`FATHERNAME`,`BIRTHDAY`,`EMAIL`,`AD
 
 
 INSERT  INTO `user`(`ID`,`LOGIN`,`PASSWORD`,`CONTACT_ID`,`ROLE_ID`) VALUES (1,'sergeM','sergeM',2,2);
-INSERT  INTO `user`(`ID`,`LOGIN`,`PASSWORD`,`CONTACT_ID`,`ROLE_ID`) VALUES (2,'test','test',1,3);
+INSERT  INTO `user`(`ID`,`LOGIN`,`PASSWORD`,`CONTACT_ID`,`ROLE_ID`) VALUES (2,'test','test',1,1);

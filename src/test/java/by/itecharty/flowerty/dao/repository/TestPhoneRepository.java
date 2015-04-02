@@ -5,6 +5,7 @@ import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Phone;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ import org.springframework.data.domain.PageRequest;
  * Time: 11:25
  * To change this template use File | Settings | File Templates.
  */
-//@Ignore
+@Ignore
 public class TestPhoneRepository extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;

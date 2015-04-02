@@ -1,16 +1,16 @@
 package by.itecharty.flowerty.dao.repository;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
 import by.itechart.flowerty.dao.repository.ContactRepository;
 import by.itechart.flowerty.model.Address;
 import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Contact;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +19,7 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
  * Time: 7:22
  * To change this template use File | Settings | File Templates.
  */
-//@Ignore
+@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
     @Autowired
     private ContactRepository contactRepository;
