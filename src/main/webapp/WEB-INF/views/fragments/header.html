@@ -24,10 +24,11 @@
                 <li>
                     <a href="/signin" th:href="@{/signin}">Sign in</a>
                 </li>
-                <li>
-                    <a href="/logout" th:href="@{#}" onclick="$(#)">Logout</a>
-                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
-                </li>
+                <li ng-show="authenticated"><a href="" ng-click="logout()">Logout</a></li>
+                <!--<li>-->
+                    <!--<a href="/logout" th:href="@{/logout}" >Logout-</a>-->
+                    <!--<form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>-->
+                <!--</li>-->
                 <li>
                     <a href="#/login">Log in!</a>
                 </li>

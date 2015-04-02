@@ -18,6 +18,15 @@
     <body ng-controller="mainController">
         <div th:replace="fragments/header :: header">&nbsp;</div>
 
+        <h1>Greeting</h1>
+        <div ng-show="authenticated">
+            <p>The ID is {{greeting.id}}</p>
+            <p>The content is {{greeting.content}}</p>
+        </div>
+        <div  ng-show="!authenticated">
+            <p>Login to see your greeting</p>
+        </div>
+
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
@@ -27,7 +36,5 @@
         </div>
 		
         <div ng-view="" class="container"></div>
-		
-        <div ng-view=""></div>
     </body>
 </html>

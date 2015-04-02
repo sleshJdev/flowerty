@@ -30,6 +30,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userRepository.findUserByLogin(login);
+
+        if (user == null) {
+            return null;
+        }
+
         List<GrantedAuthority> authorities = buildUserAuthority(user.getRole().getName().toString());
 
         return buildUserForAuthentication(user, authorities);
@@ -40,9 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
         setAuths.add(new SimpleGrantedAuthority("ROLE_" + userRole));
 
-        List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
-
-        return result;
+        return new ArrayList<GrantedAuthority>(setAuths);
     }
 
     private org.springframework.security.core.userdetails.User buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
