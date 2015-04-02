@@ -3,7 +3,7 @@ package by.itechart.flowerty.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "right")
+@Table(name = "access")
 public class Right {
 
     private Long id;

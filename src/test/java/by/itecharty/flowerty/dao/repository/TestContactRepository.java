@@ -1,7 +1,6 @@
 package by.itecharty.flowerty.dao.repository;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,67 +19,63 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
  * Time: 7:22
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
+//@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
-	@Autowired
-	private ContactRepository contactRepository;
-
-	@Test
-	public void findContactGoodId() {
-		Contact contact = contactRepository.findOne(1l);
-		Assert.assertNotNull(contact);
-		Assert.assertEquals(contact.getName(), "TestName");
-		Assert.assertEquals(contact.getSurname(), "TestSurname");
-		Assert.assertNotNull(contact.getAddress());
-		Assert.assertEquals(contact.getAddress().getCountry(), "Belarus");
-	}
-
-	@Test
-	public void findContactBadId() {
-		Contact contact = contactRepository.findOne(1000l);
-		Assert.assertNull(contact);
-	}
-
-	@Test
-	public void findByGoodCompany() {
-		Company company = new Company();
-		company.setId(1l);
-		Page page = contactRepository.findByCompany(company, new PageRequest(0, 10));
-		Assert.assertNotNull(page);
-		Assert.assertNotEquals(0, page.getContent().size());
-	}
-
-	@Test
-	public void findByBadCompany() {
-		Company company = new Company();
-		company.setId(1000l);
-		Page page = contactRepository.findByCompany(company, new PageRequest(1, 10));
-		Assert.assertNotNull(page);
-		Assert.assertEquals(0, page.getNumberOfElements());
-	}
-
-	@Test
-	public void saveContact() {
-		Company company = new Company();
-		company.setId(2l);
-		Address address = new Address();
-		address.setId(1l);
-		Contact contact = new Contact();
-		contact.setCompany(company);
-		contact.setAddress(address);
-		contact.setName("Petr");
-		contact.setSurname("Petrov");
-		contact.setEmail("petrov@mail.com");
-		contact = contactRepository.save(contact);
-		Assert.assertNotNull(contact);
-		Assert.assertNotNull(contact.getAddress());
-		Assert.assertNotNull(contact.getCompany());
-		Assert.assertEquals("Petr", contact.getName());
-	}
+    @Autowired
+    private ContactRepository contactRepository;
     @Test
-    public void deleteContactValidId() {
-        contactRepository.delete(6l);
+    public void findContact_ValidId_ContactReturned() {
+           Contact contact = contactRepository.findOne(1l);
+            Assert.assertNotNull(contact);
+        Assert.assertEquals(contact.getName(), "TestName");
+        Assert.assertEquals(contact.getSurname(), "TestSurname");
+        Assert.assertNotNull(contact.getAddress());
+        Assert.assertEquals(contact.getAddress().getCountry(), "Belarus");
     }
+    @Test
+    public void findContact_InvalidId_NullReturned() {
+        Contact contact = contactRepository.findOne(1000l);
+        Assert.assertNull(contact);
+    }
+    @Test
+    public void findContactByCompany_ValidCompany_PageOfContactsReturned() {
+        Company company = new Company();
+        company.setId(1l);
+        Page page = contactRepository.findByCompany(company, new PageRequest(0, 10));
+        Assert.assertNotNull(page);
+        Assert.assertNotEquals(0, page.getContent().size());
+    }
+    @Test
+    public void findContact_InvalidCompany_EmptyPageReturned() {
+        Company company = new Company();
+        company.setId(1000l);
+        Page page = contactRepository.findByCompany(company, new PageRequest(1, 10));
+        Assert.assertNotNull(page);
+        Assert.assertEquals(0, page.getNumberOfElements());
+    }
+    @Test
+    public void saveContact_CorrectContact_SameContactReturned() {
+        Company company = new Company();
+        company.setId(2l);
+        Address address = new Address();
+        address.setId(1l);
+        Contact contact = new Contact();
+        contact.setCompany(company);
+        contact.setAddress(address);
+        contact.setName("Petr");
+        contact.setSurname("Petrov");
+        contact.setEmail("petrov@mail.com");
+        contact = contactRepository.save(contact);
+        Assert.assertNotNull(contact);
+        Assert.assertNotNull(contact.getAddress());
+        Assert.assertNotNull(contact.getCompany());
+        Assert.assertEquals("Petr", contact.getName());
+    }
+//    @Test
+//    public void deleteContactValidId() {
+//        contactRepository.delete(6l);
+//    }
+
 //    @Test
 //    public void deleteContactInvalidId() {
 //        try {

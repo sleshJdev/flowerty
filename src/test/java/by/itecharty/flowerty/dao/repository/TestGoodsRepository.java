@@ -26,17 +26,17 @@ public class TestGoodsRepository extends JpaConfigurationAware {
     private GoodsRepository goodsRepository;
 
     @Test
-    public void findGoodsValidId () {
+    public void findGoods_ValidId_ReturnsGoods () {
         Goods goods = goodsRepository.findOne(1l);
         Assert.assertEquals("Yellow Tulip", goods.getFlower().getName());
     }
     @Test
-    public void findGoodsInvalidId () {
+    public void findGoods_InvalidId_ReturnsNull () {
         Goods goods = goodsRepository.findOne(100l);
         Assert.assertNull(goods);
     }
     @Test
-    public void saveGoods() {
+    public void saveGoods_ValidGoods_ReturnsSameGoods() {
         Flower fl = new Flower();
         fl.setId(4l);
         Company company = new Company();
@@ -51,7 +51,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
 
     }
     @Test
-    public void findByGoodCompany() {
+    public void findGoods_ValidCompany_ReturnsPageOfGoods() {
         Company company = new Company();
         company.setId(1l);
         Page page = goodsRepository.findByCompany(company, new PageRequest(0, 10));
@@ -59,7 +59,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
         Assert.assertNotEquals(0, page.getContent().size());
     }
     @Test
-    public void findByBadCompany() {
+    public void findGoods_InvalidCompany_ReturnsEmptyPage() {
         Company company = new Company();
         company.setId(1000l);
         Page page = goodsRepository.findByCompany(company, new PageRequest(1, 10));

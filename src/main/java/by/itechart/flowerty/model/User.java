@@ -56,12 +56,12 @@ public class User {
         this.password = password;
     }
 
-//    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "ROLE_ID")
-    public Role getRole() {
-        return role;
-    }
+//	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ROLE_ID")
+	public Role getRole() {
+		return role;
+	}
 
     public void setRole(Role role) {
         this.role = role;
@@ -71,10 +71,12 @@ public class User {
         this.contact = contact;
     }
 
-//    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "CONTACT_ID")
-    public Contact getContact() {
-        return contact;
-    }
+//	@JsonIgnore
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CONTACT_ID")
+	public Contact getContact() {
+		return contact;
+	}
+
+
 }
