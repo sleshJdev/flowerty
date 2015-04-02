@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
-        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <property name="company.id" value="1"/>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
 <changeSet id="testdata-1.0-1" author="Maria">
         <insert tableName="company">
-            <column name="ID" value="${company.id}"/>
             <column name="NAME" value="FandJ"/>
             <column name="WEBSITE" value="www.FandJ.com"/>
         </insert>
         <insert tableName="company">
-            <column name="ID" value="${company.id}"/>
             <column name="NAME" value="FlowersForYou"/>
             <column name="WEBSITE" value="www.FlowersForYou.com"/>
         </insert>
         <insert tableName="company">
-            <column name="ID" value="${company.id}"/>
             <column name="NAME" value="GoodPresents"/>
             <column name="WEBSITE" value="www.GoodPresents.com"/>
         </insert>
@@ -26,7 +18,6 @@
     </changeSet>
     <changeSet id="testdata-1.0-2" author="Maria">
         <insert tableName="address">
-            <column name="ID" value="${address.id}"/>
             <column name="TOWN" value="Minsk"/>
             <column name="STREET" value="Kirova"/>
             <column name="HOUSE" value="10"/>
@@ -34,7 +25,6 @@
             <column name="COUNTRY" value="Belarus"/>
         </insert>
         <insert tableName="address">
-            <column name="ID" value="${address.id}"/>
             <column name="TOWN" value="Moscow"/>
             <column name="STREET" value="Lermontova"/>
             <column name="HOUSE" value="1"/>
@@ -42,7 +32,6 @@
             <column name="COUNTRY" value="Russia"/>
         </insert>
         <insert tableName="address">
-            <column name="ID" value="${address.id}"/>
             <column name="TOWN" value="London"/>
             <column name="STREET" value="Orange"/>
             <column name="HOUSE" value="12"/>
@@ -53,49 +42,40 @@
     </changeSet>
     <changeSet id="testdata-1.0-3" author="Maria">
         <insert tableName="flower">
-            <column name="ID" value="${flower.id}"/>
             <column name="NAME" value="Red Rose"/>
         </insert>
         <insert tableName="flower">
-            <column name="ID" value="${flower.id}"/>
             <column name="NAME" value="White Rose"/>
         </insert>
         <insert tableName="flower">
-            <column name="ID" value="${flower.id}"/>
             <column name="NAME" value="Yellow Tulip"/>
         </insert>
         <insert tableName="flower">
-            <column name="ID" value="${flower.id}"/>
             <column name="NAME" value="Camomile"/>
         </insert>
         <insert tableName="flower">
-            <column name="ID" value="${flower.id}"/>
             <column name="NAME" value="Iris"/>
         </insert>
         <insert tableName="flower">
-            <column name="ID" value="${flower.id}"/>
             <column name="NAME" value="Violet"/>
         </insert>
         <rollback/>
     </changeSet>
     <changeSet id="testdata-1.0-4" author="Maria">
         <insert tableName="goods">
-            <column name="ID" value="${goods.id}"/>
-            <column name="PRICE" value="12.12"/>
+            <column name="COST" value="12.12"/>
             <column name="FLOWER_ID" value="1"/>
             <column name="COMPANY_ID" value="1"/>
             <column name="REMAIN" value="11"/>
         </insert>
         <insert tableName="goods">
-            <column name="ID" value="${goods.id}"/>
-            <column name="PRICE" value="132.12"/>
+            <column name="COST" value="132.12"/>
             <column name="FLOWER_ID" value="2"/>
             <column name="COMPANY_ID" value="1"/>
             <column name="REMAIN" value="110"/>
         </insert>
         <insert tableName="goods">
-            <column name="ID" value="${goods.id}"/>
-            <column name="PRICE" value="12.12"/>
+            <column name="COST" value="12.12"/>
             <column name="FLOWER_ID" value="3"/>
             <column name="COMPANY_ID" value="2"/>
             <column name="REMAIN" value="150"/>
@@ -104,78 +84,60 @@
     </changeSet>
     <changeSet id="testdata-1.0-5" author="Maria">
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="ASSIGN_ROLE"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="COMMENT_ORDER"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="CREATE_CONTACT"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="CREATE_ORDER"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="CREATE_USER"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="DELETE_USER"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="EDIT_CONTACT"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="EDIT_USER"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="SEARCH_CONTACT"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="SETTINGS"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="VIEW_ORDERS_ACCEPTED"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="VIEW_ORDERS_READY"/>
         </insert>
         <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="VIEW_ORDERS_ALL"/>
         </insert>
         <rollback/>
     </changeSet>
     <changeSet id="testdata-1.0-6" author="Maria">
         <insert tableName="role">
-            <column name="ID" value="${access.id}"/>
             <column name="NAME" value="ADMIN"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
+        <insert tableName="role">
             <column name="NAME" value="DELIVERY_MANAGER"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
+        <insert tableName="role">
             <column name="NAME" value="ORDERS_MANAGER"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
+        <insert tableName="role">
             <column name="NAME" value="ORDERS_PROCESSOR"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${access.id}"/>
+        <insert tableName="role">
             <column name="NAME" value="SUPERVISOR"/>
         </insert>
         <rollback/>
@@ -247,44 +209,37 @@
             <column name="ROLE_ID" value="5"/>
             <column name="RIGHT_ID" value="13"/>
         </insert>
+        <rollback/>
     </changeSet>
     <changeSet id="testdata-1.0-8" author="Maria">
         <insert tableName="state">
-            <column name="ID" value="${state.id}"/>
             <column name="DESCRIPTION" value="ACCEPTED"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${state.id}"/>
+        <insert tableName="state">
             <column name="DESCRIPTION" value="CANCELED"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${state.id}"/>
+        <insert tableName="state">
             <column name="DESCRIPTION" value="CLOSED"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${state.id}"/>
+        <insert tableName="state">
             <column name="DESCRIPTION" value="DELIVERY"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${state.id}"/>
+        <insert tableName="state">
             <column name="DESCRIPTION" value="IMPOSSIBLE"/>
         </insert>
         <insert tableName="state">
-            <column name="ID" value="${state.id}"/>
             <column name="DESCRIPTION" value="NEW"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${state.id}"/>
+        <insert tableName="state">
             <column name="DESCRIPTION" value="PROCESSING"/>
         </insert>
-        <insert tableName="access">
-            <column name="ID" value="${state.id}"/>
+        <insert tableName="state">
             <column name="DESCRIPTION" value="READY"/>
         </insert>
         <rollback/>
+    </changeSet>
     <changeSet id="testdata-1.0-9" author="Maria">
         <insert tableName="contact">
-            <column name="ID" value="${contact.id}"/>
             <column name="NAME" value="Anton"/>
             <column name="SURNAME" value="Antonov"/>
             <column name="FATHERNAME" value="Antonovich"/>
@@ -295,7 +250,6 @@
         </insert>
 
         <insert tableName="contact">
-            <column name="ID" value="${contact.id}"/>
             <column name="NAME" value="Ivan"/>
             <column name="SURNAME" value="Ivanov"/>
             <column name="FATHERNAME" value="Ivanovich"/>
@@ -307,7 +261,6 @@
     </changeSet>
         <changeSet id="testdata-1.0-10" author="Maria">
             <insert tableName="user">
-                <column name="ID" value="${user.id}"/>
                 <column name="LOGIN" value="sergeM"/>
                 <column name="PASSWORD" value="sergeM"/>
                 <column name="CONTACT_ID" value="2"/>
@@ -315,13 +268,12 @@
             </insert>
 
             <insert tableName="user">
-                <column name="ID" value="${user.id}"/>
                 <column name="LOGIN" value="sergeM"/>
                 <column name="PASSWORD" value="sergeM"/>
                 <column name="CONTACT_ID" value="1"/>
                 <column name="ROLE_ID" value="3"/>
             </insert>
         </changeSet>
-    </changeSet>
+
 
 </databaseChangeLog>
