@@ -6,7 +6,6 @@ import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Contact;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,7 @@ import org.springframework.data.domain.PageRequest;
  * Time: 7:22
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
+//@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
     @Autowired
     private ContactRepository contactRepository;
@@ -27,8 +26,8 @@ public class TestContactRepository extends JpaConfigurationAware {
     public void findContact_ValidId_ContactReturned() {
            Contact contact = contactRepository.findOne(1l);
             Assert.assertNotNull(contact);
-        Assert.assertEquals(contact.getName(), "TestName");
-        Assert.assertEquals(contact.getSurname(), "TestSurname");
+        Assert.assertEquals(contact.getName(), "Anton");
+        Assert.assertEquals(contact.getSurname(), "Antonov");
         Assert.assertNotNull(contact.getAddress());
         Assert.assertEquals(contact.getAddress().getCountry(), "Belarus");
     }

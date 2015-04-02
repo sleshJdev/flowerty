@@ -5,11 +5,11 @@
             <column autoIncrement="true" name="ID" type="INT(10)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="TOWN" type="VARCHAR(20)"/>
-            <column name="STREET" type="VARCHAR(20)"/>
+            <column name="TOWN" type="VARCHAR(100)"/>
+            <column name="STREET" type="VARCHAR(100)"/>
             <column name="HOUSE" type="VARCHAR(10)"/>
             <column name="FLAT" type="VARCHAR(10)"/>
-            <column name="COUNTRY" type="VARCHAR(20)"/>
+            <column name="COUNTRY" type="VARCHAR(100)"/>
         </createTable>
     </changeSet>
     <changeSet author="Maria" id="changelog-1.0-2">
@@ -18,7 +18,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="NAME" type="VARCHAR(20)"/>
-            <column name="WEBSITE" type="VARCHAR(20)"/>
+            <column name="WEBSITE" type="VARCHAR(100)"/>
         </createTable>
     </changeSet>
     <changeSet author="Maria" id="changelog-1.0-3">
