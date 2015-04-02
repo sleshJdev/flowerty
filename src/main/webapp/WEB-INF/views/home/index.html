@@ -15,8 +15,11 @@
 		<script src="../../../resources/js/app/UserModule/UserModule.js" th:src="@{/resources/js/app/UserModule/UserModule.js}"></script>
         <script src="../../../resources/js/app/FlowertyApplication.js" th:src="@{/resources/js/app/FlowertyApplication.js}"></script>
     </head>
-    <body>
-        <div th:replace="fragments/header :: header">&nbsp;</div>
+    <body ng-controller="ViewResolverController">
+    
+	<div ng-include="template.url">{{template.url}}asdasdasd</div>
+    
+<!--         <div th:replace="fragments/header :: header">&nbsp;</div> -->
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
