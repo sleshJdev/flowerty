@@ -25,19 +25,19 @@ public class TestItemRepository extends JpaConfigurationAware {
     private ItemRepository itemRepository;
 
     @Test
-    public void findByGoodId() {
+    public void findItem_ValidId_ReturnsItem() {
         Item item = itemRepository.findOne(1l);
         Assert.assertEquals(item.getQuantity(), 10);
         Assert.assertEquals(item.getFlower().getFlower().getName(), "Yellow Tulip");
     }
 
     @Test
-    public void findByBadId() {
+    public void findItem_InValidId_ReturnsNull() {
         Item item = itemRepository.findOne(1000l);
         Assert.assertNull(item);
     }
     @Test
-    public void saveItem() {
+    public void saveItem_ValidItem_ReturnsSameItem() {
         Goods goods = new Goods();
         goods.setId(1l);
         Item item = new Item();
@@ -51,7 +51,7 @@ public class TestItemRepository extends JpaConfigurationAware {
         Assert.assertEquals(goods, item.getFlower());
     }
     @Test
-    public void findByGoodOrder() {
+    public void findItemsByOrder_ValidOrder_ReturnsPageOfItems() {
         Order order = new Order();
         order.setId(1l);
         Page page = itemRepository.findByOrder(order, new PageRequest(0, 10));
@@ -60,7 +60,7 @@ public class TestItemRepository extends JpaConfigurationAware {
     }
 
     @Test
-    public void findByNullOrder() {
+    public void findItemsByOrder_NullOrder_ReturnsEmptyPage() {
         Order order = null;
         Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
         Assert.assertEquals(page.getContent().size(), 0);

@@ -1,13 +1,13 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "role")
 public class Role {
+
 	private Long id;
 	private ROLE_TYPE name;
 	private Set<Right> rights = new HashSet<Right>();
@@ -16,7 +16,8 @@ public class Role {
 		ORDERS_MANAGER, 
 		ORDERS_PROCESSOR, 
 		DELIVERY_MANAGER,
-		SUPERVISOR, ADMIN
+		SUPERVISOR,
+		ADMIN
 	}
 
 	public Role() {
@@ -34,11 +35,11 @@ public class Role {
 	public ROLE_TYPE getName() {
 		return name;
 	}
-	
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
+
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@JoinTable(name = "role_right", 
-		joinColumns = { @JoinColumn(name = "ROLE_ID") }, 
-		inverseJoinColumns = { @JoinColumn(name = "RIGHT_ID") })
+				joinColumns = { @JoinColumn(name = "RIGHT_ID") }, 
+				inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
 	public Set<Right> getRights() {
 		return rights;
 	}
