@@ -1,19 +1,21 @@
 package by.itecharty.flowerty.web.controller;
 
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.Phone;
-import by.itechart.flowerty.model.Role;
-import by.itechart.flowerty.model.User;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.springframework.http.MediaType;
+
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.model.Phone;
+import by.itechart.flowerty.model.Role;
+import by.itechart.flowerty.model.User;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -73,6 +75,8 @@ public final class TestControllerHelper {
 		Role adminRole = new Role();
 		adminRole.setName(Role.ROLE_TYPE.ADMIN);
 		adminRole.setId(1L);
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(adminRole);
 
 		Phone phoneAdmin = new Phone();
 		phoneAdmin.setComment("admin nice comment");
@@ -103,6 +107,8 @@ public final class TestControllerHelper {
 		Role delivetyManagerRole = new Role();
 		delivetyManagerRole.setName(Role.ROLE_TYPE.DELIVERY_MANAGER);
 		delivetyManagerRole.setId(2L);
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(delivetyManagerRole);
 
 		Phone phoneManager = new Phone();
 		phoneManager.setComment("delivery nice comment");

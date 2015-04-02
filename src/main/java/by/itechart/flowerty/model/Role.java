@@ -16,7 +16,8 @@ public class Role {
 		ORDERS_MANAGER, 
 		ORDERS_PROCESSOR, 
 		DELIVERY_MANAGER,
-		SUPERVISOR, ADMIN
+		SUPERVISOR,
+		ADMIN
 	}
 
 	public Role() {

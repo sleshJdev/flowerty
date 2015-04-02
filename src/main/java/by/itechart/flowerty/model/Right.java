@@ -14,7 +14,6 @@ public class Right {
         return id;
     }
 
-
     @Enumerated(value = EnumType.STRING)
     @Column(name = "NAME", length = 20, nullable = false)
     public RIGHT_TYPE getName() {
