@@ -261,8 +261,8 @@
     </changeSet>
         <changeSet id="testdata-1.0-10" author="Maria">
             <insert tableName="user">
-                <column name="LOGIN" value="sergeM"/>
-                <column name="PASSWORD" value="sergeM"/>
+                <column name="LOGIN" value="test"/>
+                <column name="PASSWORD" value="test"/>
                 <column name="CONTACT_ID" value="2"/>
                 <column name="ROLE_ID" value="2"/>
             </insert>
