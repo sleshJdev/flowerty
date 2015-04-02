@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
 
 /**
@@ -32,16 +33,16 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public User getById(@PathVariable("id") Long id) throws Exception {
+	public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
 		LOGGER.info("id: {}", id);
 
 		if (id < 1) {
 			throw new Exception("user id cannot be negative or 0");
 		}
-
-		return userService.findOne(id);
+		
+		return userService.getUserEditBundleFor(id);
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getList() {

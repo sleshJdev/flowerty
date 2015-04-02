@@ -61,7 +61,8 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 		method: "get",
 		url: "user/details/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
-		$scope.user = data;
+		$scope.bundle = data;
+		alert(JSON.stringify(data));
 	}).error(function(data, status, headers, config) {
 		alert("Problem occurred during get details about user with id: " + $routeParams.id + ": " + JSON.stringify(data));
 	});

@@ -40,16 +40,23 @@ public class TestUserRepository extends JpaConfigurationAware {
 		Assert.assertEquals(String.format("second user login must be eqaul %s", secondUserLogin), secondUserLogin,
 				second.getLogin());
 	}
-
+	
 	@Test
-	public void getUserById_PassIdOfExistsUser_ShouldReturnAccordingUser() {
+	public void findUserByLogin_PassValidLogin_MustReturnTheCorrespondingUser(){
+		final String login = "test";
+		
+		User user = userRepository.findUserByLogin(login);
+
+		Assert.assertNotNull("user cannot be equal null", user);
+		Assert.assertEquals(String.format("user login must be %s", login), login, user.getLogin());
+	}
+	
+	@Test
+	public void getUserById_PassIdOfExistsUser_MustReturnTheCorrespondingUser() {
 		// expected
 		final Long id = 1L;
 		final String login = "sergeM";
-
 		User user = userRepository.findOne(id);
-		
-		System.out.println(user.getRole().getName());
 
 		Assert.assertNotNull("user cannot be equal null", user);
 		Assert.assertEquals(String.format("user id must be %s", id), id, user.getId());

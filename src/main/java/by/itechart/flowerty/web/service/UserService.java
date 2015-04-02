@@ -6,8 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import by.itechart.flowerty.dao.repository.ContactRepository;
+import by.itechart.flowerty.dao.repository.RoleRepository;
 import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.model.UserEditBundle;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -16,9 +21,13 @@ import by.itechart.flowerty.model.User;
  */
 @Service
 public class UserService {
-
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ContactRepository contactRepository;
+	
+	@Autowired RoleRepository roleRepository;
 
 	/**
 	 * @param id
@@ -27,7 +36,16 @@ public class UserService {
 	public User findOne(Long id) {
 		return userRepository.findOne(id);
 	}
-
+	
+	public UserEditBundle getUserEditBundleFor(Long id){
+		UserEditBundle bundle = new UserEditBundle();
+		bundle.setUser(findOne(id));
+		bundle.setContacts((List<Contact>) contactRepository.findAll());
+//		bundle.setRoles((List<Role>)roleRepository.findAll());
+	
+		return bundle;
+	}
+	
 	/**
 	 * @return all users
 	 */
