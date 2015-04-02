@@ -1,58 +1,53 @@
+'use strict';
 
-var app = angular.module('flowertyApp', ['ngRoute']);
+angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 
-app.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-            when('/login', {
-                templateUrl: 'partial/_logInForm.html',
-                controller: 'logInController'
-            }).
-            when('/users', {
-                templateUrl: 'partial/_usersListForm.html',
-                controller: 'usersController'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
-    }]);
+.config(["$routeProvider", function($routeProvider) {
+	$routeProvider
+	.when("/users", {
+        templateUrl: USER_MODULE_PATH + "user-list.html",
+        controller: "UsersListController"
+    })
+	.when("/useredit", {
+		templateUrl: USER_MODULE_PATH + "/user-edit.html",
+		controller: "UserActionProcessController"
+	})
+	.when("/user-remove", {
+		templateUrl: USER_MODULE_PATH + "/user-list.html",
+		controller: "UserActionProcessController"
+	});
+}])
 
-/**
- * Created by Катерина on 19.03.2015.
- */
+.controller("UserActionProcessController", ["$scope", "$http", function($scope, $http) {
+	$scope.remove = function(id) {
+		$http
+			.get("user/remove/" + id)
+			.success(function(data, status, headers, config) {
+				alert("Remove Ok!");
+			})
+			.error(function(data, status, headers, config) {
+				alert("Remove Error!");
+			});
+	}
+     
+    $scope.edit = function(id) {
+    	$http
+			.get("user/details/" + id)
+			.success(function(data, status, headers, config) {
+				$scope.userrr = data;
+				alert("Edit Ok!" + JSON.stringify({data: data}));
+			})
+			.error(function(data, status, headers, config) {
+				alert("Edit Error!");
+			});
+    }
+    
+    $scope.saveContact = function() {
+    	alert("Save user ok!");
+    }
+}])
 
-app.controller('logInController', function($scope, $http) {
-
-    $scope.login = '';
-    $scope.password = '';
-
-    $scope.logIn = function() {
-
-        var logged = {
-            'login' : $scope.login,
-            'password' : $scope.password
-        };
-
-        var request = $http({
-            method: "post",
-            url: "login",
-            data: {
-                loggedInUser: logged
-            }
-        });
-        request.success(function(data, status, headers, config) {
-            alert( "User logged in: " + JSON.stringify(data));
-        });
-        request.error(function(data, status, headers, config) {
-            alert( "Exception details: " + JSON.stringify({data: data}));
-        });
-    };
-});
-
-/**
- * Created by Катерина on 24.03.2015.
- */
-
-app.controller('usersController', function($scope, $http) {
+.controller('UsersListController', function($scope, $http) {
 
     $scope.users = {
         pages : [],
@@ -88,13 +83,13 @@ app.controller('usersController', function($scope, $http) {
         });
 
         request.success(function(data, status, headers, config) {
-            alert( "Response: " + JSON.stringify({data: data}));
+//            alert( "Response: " + JSON.stringify({data: data}));
             $scope.users.usersList = data;
             $scope.users.pagesCount = 3;
         });
 
         request.error(function(data, status, headers, config) {
-            alert( "Exception details: " + JSON.stringify({data: data}));
+//            alert( "Exception details: " + JSON.stringify({data: data}));
         });
     };
 
@@ -114,4 +109,8 @@ app.controller('usersController', function($scope, $http) {
 
     $scope.users.getPage(1);
 
-});
+})
+
+.controller("SayHelloController", function() {//for test
+	alert("I say hello!");
+})

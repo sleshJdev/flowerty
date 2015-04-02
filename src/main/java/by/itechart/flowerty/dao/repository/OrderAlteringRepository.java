@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public interface OrderAlteringRepository extends PagingAndSortingRepository<OrderAltering, Long> {
     public OrderAltering findOne(Long id);
     public OrderAltering save(OrderAltering orderAltering);

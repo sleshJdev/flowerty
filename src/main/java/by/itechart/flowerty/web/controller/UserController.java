@@ -29,7 +29,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
+	
 	@RequestMapping(value = "user/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody User getById(@PathVariable("id") Long id) throws Exception {
 		LOGGER.info("id: {}", id);

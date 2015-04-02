@@ -1,0 +1,21 @@
+<div ng-app="FlowertyApplication.UserModule" ng-controller="UserActionProcessController" class="ng-scope">
+	<form class="ng-pristine ng-valid">
+		<input class="ng-pristine ng-valid" ng-model="user.id" type="hidden">
+
+		<h1>{{userrr.contact.name}}131</h1>
+
+		<label>Name</label> 
+		<input class="ng-pristine ng-valid" name="user.contact.name" ng-model="newuser.contact.name" type="text"> <br> 
+		
+		<label>Email</label> 
+		<input class="ng-pristine ng-valid" name="user.contacte.mail" ng-model="newuser.contact.mail" type="text"> <br> 
+		
+		<label>Login</label>
+		<input class="ng-pristine ng-valid" name="user.login" ng-model="newuser.login" type="text"> <br> 
+		
+		<label>Password</label>
+		<input class="ng-pristine ng-valid" name="user.password" ng-model="newuser.password" type="text"> <br> 
+		
+		<input value="Save" ng-click="saveContact()" type="button">
+	</form>
+</div>
