@@ -1,26 +1,39 @@
 
-var app = angular.module('flowertyApp', ['ngRoute']);
-
-app.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-            when('/login', {
-                templateUrl: 'partial/_logInForm.html',
-                controller: 'logInController'
-            }).
-            when('/users', {
-                templateUrl: 'partial/_usersListForm.html',
-                controller: 'usersController'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
-    }]);
-
 /**
  * Created by Катерина on 19.03.2015.
  */
 
-app.controller('logInController', function($scope, $http) {
+var APP_PATH = "resources/js/app/";
+
+var app = angular.module('flowertyApplication', ['ngRoute']).config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+        when('/users', {
+            templateUrl: APP_PATH + "user/partial/users-list-form.html",
+            controller: "UsersController"
+        }).
+        when('/login', {
+            templateUrl: APP_PATH + 'login/partial/log-in-form.html',
+            controller: 'LogInController'
+        });
+}]);
+
+app.controller('ViewController', ['$scope', function($scope) {
+    $scope.templates =
+        [
+            {
+                name: 'header.html',
+                url: 'resources/partial/header.html'
+            },
+            {
+                name: 'footer.html',
+                url: 'resources/partial/footer.html'
+            }
+        ];
+    $scope.templates.header = $scope.templates[0];
+    $scope.templates.footer = $scope.templates[1];
+}]);
+
+app.controller('LogInController', function($scope, $http) {
 
     $scope.login = '';
     $scope.password = '';
@@ -48,11 +61,40 @@ app.controller('logInController', function($scope, $http) {
     };
 });
 
+app.controller("UserActionProcessController", ["$scope", "$http", function($scope, $http) {
+    $scope.remove = function(id) {
+        $http
+            .get("user/remove/" + id)
+            .success(function(data, status, headers, config) {
+                alert("Remove Ok!");
+            })
+            .error(function(data, status, headers, config) {
+                alert("Remove Error!");
+            });
+    };
+
+    $scope.edit = function(id) {
+        $http
+            .get("user/details/" + id)
+            .success(function(data, status, headers, config) {
+                $scope.userrr = data;
+                alert("Edit Ok!" + JSON.stringify({data: data}));
+            })
+            .error(function(data, status, headers, config) {
+                alert("Edit Error!");
+            });
+    };
+
+    $scope.saveContact = function() {
+        alert("Save user ok!");
+    }
+}]);
+
 /**
  * Created by Катерина on 24.03.2015.
  */
 
-app.controller('usersController', function($scope, $http) {
+app.controller('UsersController', function($scope, $http) {
 
     $scope.users = {
         pages : [],

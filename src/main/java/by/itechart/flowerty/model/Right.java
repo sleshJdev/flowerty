@@ -3,7 +3,7 @@ package by.itechart.flowerty.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "right")
+@Table(name = "access")
 public class Right {
 
     private Long id;
@@ -32,7 +32,9 @@ public class Right {
         CREATE_CONTACT,
         EDIT_CONTACT,
         SEARCH_CONTACT,
-        VIEW_ORDERS,
+        VIEW_ORDERS_READY,
+        VIEW_ORDERS_ACCEPTED,
+        VIEW_ORDERS_ALL,
         COMMENT_ORDER,
         SETTINGS,
         CREATE_USER,

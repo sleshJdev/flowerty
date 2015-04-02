@@ -1,27 +1,25 @@
-'use strict';
+/**
+ * Created by Катерина on 03.04.2015.
+ */
 
 var APP_PATH = "resources/js/app/";
-var USER_MODULE_PATH = APP_PATH + "UserModule/";
+var USER_MODULE_PATH = APP_PATH + "login/";
 
-console.log("APP_PATH: " + APP_PATH);
-console.log("USER_MODULE_PATH: " + USER_MODULE_PATH);
+var loginModule = angular.module("flowertyApplication.loginModule", ['ngRoute']);
 
-angular.module('FlowertyApplication', [
-	"ngRoute", 
-	"FlowertyApplication.UserModule"])
+userModule.config(["$routeProvider", function($routeProvider) {
+    $routeProvider.
+        when('/login', {
+            templateUrl: USER_MODULE_PATH + 'partial/log-in-form.html',
+            controller: 'LogInController'
+        });
+}]);
 
-.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-            when('/login', {
-                templateUrl: 'partial/_logInForm.html',
-                controller: 'logInController'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
-}])
+/**
+ * Created by Катерина on 19.03.2015.
+ */
 
-.controller('logInController', function($scope, $http) {
+loginModule.controller('LogInController', function($scope, $http) {
 
     $scope.login = '';
     $scope.password = '';

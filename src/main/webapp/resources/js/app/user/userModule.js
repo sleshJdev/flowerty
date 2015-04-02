@@ -1,24 +1,29 @@
-'use strict';
+/**
+ * Created by Катерина on 24.03.2015.
+ */
 
-angular.module("FlowertyApplication.UserModule", ['ngRoute'])
+var APP_PATH = "resources/js/app/";
+var USER_MODULE_PATH = APP_PATH + "user/";
 
-.config(["$routeProvider", function($routeProvider) {
+var userModule = angular.module("flowertyApplication.userModule", ['ngRoute']);
+
+userModule.config(["$routeProvider", function($routeProvider) {
 	$routeProvider
 	.when("/users", {
-        templateUrl: USER_MODULE_PATH + "user-list.html",
-        controller: "UsersListController"
+        templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
+        controller: "UsersController"
     })
-	.when("/useredit", {
-		templateUrl: USER_MODULE_PATH + "/user-edit.html",
+	.when("/edit-user", {
+		templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
 		controller: "UserActionProcessController"
 	})
-	.when("/user-remove", {
-		templateUrl: USER_MODULE_PATH + "/user-list.html",
+	.when("/remove-user", {
+		templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
 		controller: "UserActionProcessController"
 	});
-}])
+}]);
 
-.controller("UserActionProcessController", ["$scope", "$http", function($scope, $http) {
+userModule.controller("UserActionProcessController", ["$scope", "$http", function($scope, $http) {
 	$scope.remove = function(id) {
 		$http
 			.get("user/remove/" + id)
@@ -28,7 +33,7 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 			.error(function(data, status, headers, config) {
 				alert("Remove Error!");
 			});
-	}
+	};
      
     $scope.edit = function(id) {
     	$http
@@ -40,14 +45,18 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 			.error(function(data, status, headers, config) {
 				alert("Edit Error!");
 			});
-    }
+    };
     
     $scope.saveContact = function() {
     	alert("Save user ok!");
     }
-}])
+}]);
 
-.controller('UsersListController', function($scope, $http) {
+/**
+ * Created by Катерина on 24.03.2015.
+ */
+
+userModule.controller('UsersController', function($scope, $http) {
 
     $scope.users = {
         pages : [],
@@ -83,13 +92,13 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
         });
 
         request.success(function(data, status, headers, config) {
-//            alert( "Response: " + JSON.stringify({data: data}));
+            alert( "Response: " + JSON.stringify({data: data}));
             $scope.users.usersList = data;
             $scope.users.pagesCount = 3;
         });
 
         request.error(function(data, status, headers, config) {
-//            alert( "Exception details: " + JSON.stringify({data: data}));
+            alert( "Exception details: " + JSON.stringify({data: data}));
         });
     };
 
@@ -109,8 +118,4 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 
     $scope.users.getPage(1);
 
-})
-
-.controller("SayHelloController", function() {//for test
-	alert("I say hello!");
-})
+});

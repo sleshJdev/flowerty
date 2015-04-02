@@ -1,23 +1,23 @@
+
 /**
  * Created by Катерина on 19.03.2015.
  */
 
 angular.module('flowertyApp', ['ngRoute']).controller('logInController', function($scope, $http) {
 
-    alert("logInController");
     $scope.login = '';
     $scope.password = '';
 
     $scope.logIn = function() {
 
         var logged = {
-                'login' : $scope.login,
-                'password' : $scope.password
+            'login' : $scope.login,
+            'password' : $scope.password
         };
 
         var request = $http({
             method: "post",
-            url: "/",
+            url: "login",
             data: {
                 loggedInUser: logged
             }

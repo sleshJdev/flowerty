@@ -2,12 +2,11 @@ package by.itechart.flowerty.web.service;
 
 import java.util.List;
 
+import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
