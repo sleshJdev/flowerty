@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
     public Item save(Item item);
     public void delete (Item item);

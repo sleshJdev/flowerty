@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public interface PhoneRepository extends PagingAndSortingRepository<Phone, Long> {
     public Phone findOne(Long id);
     public Phone save (Phone phone);

@@ -1,45 +1,35 @@
 package by.itecharty.flowerty.dao.repository;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.User;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *
  *         Test for UserRepository
  */
-@Ignore
 public class TestUserRepository extends JpaConfigurationAware {
 	@Autowired
 	private UserRepository userRepository;
 
-	public void findWithPagination_PassPageNumberAndPageSize_ShouldReturnListWithSizeEqualPageSizeAndStartFromPageNumber(){
-		final int pageNumber = 1;
-		final int pageSize = 10;
-		
-	}
-	
 	@Test
 	public void findAll_ShouldReturnListOfUser() {
 		// expected
 		final String firstUserLogin = "sergeM";
 		final String secondUserLogin = "test";
-		final int quantityUser = 4;//list size
 
 		Iterable<User> allUsers = userRepository.findAll();
 		Assert.assertNotNull("user list cannot be null", allUsers);
 
-//		Assert.assertEquals(String.format("quantity users must be equal %s", quantityUser), quantityUser,
-//				((Collection<User>) allUsers).size());
         Assert.assertNotEquals(0, ((Collection<User>) allUsers).size());
 
 		Iterator<User> i = allUsers.iterator();
@@ -59,7 +49,7 @@ public class TestUserRepository extends JpaConfigurationAware {
 
 		User user = userRepository.findOne(id);
 		
-		System.out.println(user);
+		System.out.println(user.getRole().getName());
 
 		Assert.assertNotNull("user cannot be equal null", user);
 		Assert.assertEquals(String.format("user id must be %s", id), id, user.getId());
