@@ -1,16 +1,15 @@
 package by.itecharty.flowerty.dao.repository;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.User;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -25,8 +24,8 @@ public class TestUserRepository extends JpaConfigurationAware {
 	@Test
 	public void findAll_ShouldReturnListOfUser() {
 		// expected
-		final String firstUserLogin = "sergeM";
-		final String secondUserLogin = "test";
+		final String firstUserLogin = "test";
+		final String secondUserLogin = "sergeM";
 
 		Iterable<User> allUsers = userRepository.findAll();
 		Assert.assertNotNull("user list cannot be null", allUsers);
@@ -45,14 +44,14 @@ public class TestUserRepository extends JpaConfigurationAware {
 	@Test
 	public void getUserById_PassIdOfExistsUser_MustReturnTheCorrespondingUser() {
 		// expected
-		final Long id = 1L;
+		final Long id = 2L;
 		final String login = "sergeM";
 		User user = userRepository.findOne(id);
 
 		Assert.assertNotNull("user cannot be equal null", user);
 		Assert.assertEquals(String.format("user id must be %s", id), id, user.getId());
 		Assert.assertEquals(String.format("user login must be %s", login), login, user.getLogin());
-        Assert.assertEquals("Sergey", user.getContact().getName());
+        Assert.assertEquals("Anton", user.getContact().getName());
 	}
     @Test
     public void getUserById_PassIdOfNotExistsUser_ShouldReturnNull() {
