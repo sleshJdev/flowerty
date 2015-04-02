@@ -3,8 +3,6 @@ package by.itechart.flowerty.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * Created with IntelliJ IDEA. User: Мария Date: 19.03.15 Time: 22:29 To change
  * this template use File | Settings | File Templates.
@@ -57,8 +55,8 @@ public class User {
         this.password = password;
     }
 
-	@JsonIgnore
-	@ManyToOne
+//	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID")
 	public Role getRole() {
 		return role;
@@ -72,8 +70,8 @@ public class User {
         this.contact = contact;
     }
 
-	@JsonIgnore
-	@OneToOne
+//	@JsonIgnore
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CONTACT_ID")
 	public Contact getContact() {
 		return contact;

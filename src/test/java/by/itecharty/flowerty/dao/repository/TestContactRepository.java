@@ -6,7 +6,6 @@ import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Contact;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,12 +18,12 @@ import org.springframework.data.domain.PageRequest;
  * Time: 7:22
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
+//@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
     @Autowired
     private ContactRepository contactRepository;
     @Test
-    public void findContactGoodId() {
+    public void findContact_ValidId_ContactReturned() {
            Contact contact = contactRepository.findOne(1l);
             Assert.assertNotNull(contact);
         Assert.assertEquals(contact.getName(), "TestName");
@@ -33,12 +32,12 @@ public class TestContactRepository extends JpaConfigurationAware {
         Assert.assertEquals(contact.getAddress().getCountry(), "Belarus");
     }
     @Test
-    public void findContactBadId() {
+    public void findContact_InvalidId_NullReturned() {
         Contact contact = contactRepository.findOne(1000l);
         Assert.assertNull(contact);
     }
     @Test
-    public void findByGoodCompany() {
+    public void findContactByCompany_ValidCompany_PageOfContactsReturned() {
         Company company = new Company();
         company.setId(1l);
         Page page = contactRepository.findByCompany(company, new PageRequest(0, 10));
@@ -46,7 +45,7 @@ public class TestContactRepository extends JpaConfigurationAware {
         Assert.assertNotEquals(0, page.getContent().size());
     }
     @Test
-    public void findByBadCompany() {
+    public void findContact_InvalidCompany_EmptyPageReturned() {
         Company company = new Company();
         company.setId(1000l);
         Page page = contactRepository.findByCompany(company, new PageRequest(1, 10));
@@ -54,7 +53,7 @@ public class TestContactRepository extends JpaConfigurationAware {
         Assert.assertEquals(0, page.getNumberOfElements());
     }
     @Test
-    public void saveContact() {
+    public void saveContact_CorrectContact_SameContactReturned() {
         Company company = new Company();
         company.setId(2l);
         Address address = new Address();
@@ -71,10 +70,10 @@ public class TestContactRepository extends JpaConfigurationAware {
         Assert.assertNotNull(contact.getCompany());
         Assert.assertEquals("Petr", contact.getName());
     }
-    @Test
-    public void deleteContactValidId() {
-        contactRepository.delete(6l);
-    }
+//    @Test
+//    public void deleteContactValidId() {
+//        contactRepository.delete(6l);
+//    }
 //    @Test
 //    public void deleteContactInvalidId() {
 //        try {

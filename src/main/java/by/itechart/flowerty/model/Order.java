@@ -1,6 +1,7 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,6 +23,7 @@ public class Order {
     private User manager;
     private User delivery;
     private String description;
+    private Set<Item> items;
 
     public Order() {
     }
@@ -70,6 +72,14 @@ public class Order {
     @Column(name = "DESCRIPTION")
     public String getDescription() {
         return description;
+    }
+    @OneToMany(mappedBy = "order")
+    public Set<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<Item> items) {
+        this.items = items;
     }
 
     public void setDescription(String description) {
