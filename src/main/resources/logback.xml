@@ -16,4 +16,5 @@
 	</root>
 
 	<logger name="by.itechart.flowerty" level="ALL" />
+	<!--<logger name="org.springframework" level="DEBUG" />-->
 </configuration>

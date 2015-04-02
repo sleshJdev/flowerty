@@ -1,12 +1,13 @@
 package by.itecharty.flowerty.dao.repository;
 
-import by.itechart.flowerty.dao.repository.AddressRepository;
-import by.itechart.flowerty.model.Address;
-import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import by.itechart.flowerty.dao.repository.AddressRepository;
+import by.itechart.flowerty.model.Address;
+import by.itecharty.flowerty.config.JpaConfigurationAware;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +28,7 @@ public class TestAddressRepository extends JpaConfigurationAware {
         address.setHouse("12");
         address.setStreet("Independence prospect");
         address.setTown("Brest");
-       // address = addressRepository.save(address);
+        address = addressRepository.save(address);
         Assert.assertNotNull(address);
         Assert.assertNotNull(address.getId());
     }

@@ -6,6 +6,7 @@ import by.itechart.flowerty.model.Item;
 import by.itechart.flowerty.model.Order;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,7 @@ import org.springframework.data.domain.PageRequest;
  * Time: 7:00
  * To change this template use File | Settings | File Templates.
  */
-//@Ignore
+@Ignore
 public class TestItemRepository extends JpaConfigurationAware {
     @Autowired
     private ItemRepository itemRepository;
@@ -64,11 +65,12 @@ public class TestItemRepository extends JpaConfigurationAware {
         Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
         Assert.assertEquals(page.getContent().size(), 0);
     }
-@Test
-public void findItemsByOrder_InvalidOrder_ReturnsEmptyPage() {
-     Order order = new Order();
-     order.setId(1000l);
-     Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
-     Assert.assertEquals(page.getContent().size(), 0);
-}
+
+	@Test
+	public void findByBadOrder() {
+		Order order = new Order();
+		order.setId(1000l);
+		Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
+		Assert.assertEquals(page.getContent().size(), 0);
+	}
 }

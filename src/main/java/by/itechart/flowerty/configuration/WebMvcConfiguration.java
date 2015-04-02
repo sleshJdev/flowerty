@@ -34,6 +34,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
 		requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
 		requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
+		
 		return requestMappingHandlerMapping;
 	}
 
@@ -44,6 +45,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
 		templateResolver.setCacheable(false);
+		
 		return templateResolver;
 	}
 
@@ -52,6 +54,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
 		templateEngine.addDialect(new SpringSecurityDialect());
+		
 		return templateEngine;
 	}
 
@@ -60,12 +63,14 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
 		thymeleafViewResolver.setCharacterEncoding("UTF-8");
+		
 		return thymeleafViewResolver;
 	}
 
 	@Override
 	public Validator getValidator() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		
 		return validator;
 	}
 

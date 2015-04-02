@@ -20,7 +20,7 @@ import java.util.Date;
  * Time: 9:14
  * To change this template use File | Settings | File Templates.
  */
-//@Ignore
+@Ignore
 public class TestOrderAlteringRepository extends JpaConfigurationAware {
     @Autowired
     private OrderAlteringRepository orderAlteringRepository;

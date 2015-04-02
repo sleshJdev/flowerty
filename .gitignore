@@ -8,6 +8,8 @@
 lib/
 *.iml
 *.iws
+/target/
+*.properties
 
 # Mac
 .DS_Store

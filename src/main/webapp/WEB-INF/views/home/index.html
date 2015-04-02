@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html ng-app="flowertyApp" xmlns:th="http://www.thymeleaf.org">
+<html ng-app="FlowertyApplication" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Welcome!</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+		<!-- styles -->
+		<link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="all" th:href="@{/resources/css/bootstrap.min.css}"/>
         <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
         <link href="../../../resources/css/app/css.css" rel="stylesheet" media="screen" th:href="@{/resources/css/app/css.css}" />
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-        <script src="https://code.angularjs.org/1.3.14/angular-route.min.js"></script>
+        <!-- external -->
+        <script src="../../../resources/js/external/jquery-2.1.3.min.js" th:src="@{/resources/js/external/jquery-2.1.3.min.js}"></script>
         <script src="../../../resources/js/external/bootstrap.min.js" th:src="@{/resources/js/external/bootstrap.min.js}"></script>
-        <script src="../../../resources/js/app/flowertyApp.js" th:src="@{/resources/js/app/flowertyApp.js}"></script>
-        <script src="../../../resources/js/app/controller/mainController.js" th:src="@{/resources/js/app/controller/mainController.js}"></script>
-        <script src="../../../resources/js/app/controller/logInController.js" th:src="@{/resources/js/app/controller/mainController.js}"></script>
-        <script src="../../../resources/js/app/controller/usersController.js" th:src="@{/resources/js/app/controller/mainController.js}"></script>
+        <script src="../../../resources/js/external/angular.js" th:src="@{/resources/js/external/angular.js}"></script>
+        <script src="../../../resources/js/external/angular-route.js" th:src="@{/resources/js/external/angular-route.js}"></script>
+        <!-- app -->
+		<script src="../../../resources/js/app/UserModule/UserModule.js" th:src="@{/resources/js/app/UserModule/UserModule.js}"></script>
+        <script src="../../../resources/js/app/FlowertyApplication.js" th:src="@{/resources/js/app/FlowertyApplication.js}"></script>
     </head>
-    <body ng-controller="mainController">
+    <body>
         <div th:replace="fragments/header :: header">&nbsp;</div>
-        <a href="#/login">Log in!</a>
-        <a href="#	/showUsers">Users</a>
-        <div ng-view=""></div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#/user-list">Users</a>
+                    <a href="#/edit-mock-user">Edit Mock User</a>
+                </li>
+            </ul>
+        </div>
+        <div ng-view="" class="container"></div>
     </body>
 </html>

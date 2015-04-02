@@ -1,5 +1,4 @@
 package by.itechart.flowerty.dao.repository;
-
 import by.itechart.flowerty.model.Role;
 import org.springframework.data.repository.CrudRepository;
 

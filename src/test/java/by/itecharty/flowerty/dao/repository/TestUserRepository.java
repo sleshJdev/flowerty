@@ -1,44 +1,36 @@
 package by.itecharty.flowerty.dao.repository;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.User;
-import by.itecharty.flowerty.config.JpaConfigurationAware;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collection;
-import java.util.Iterator;
+import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.model.User;
+import by.itecharty.flowerty.config.JpaConfigurationAware;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *
  *         Test for UserRepository
  */
-//@Ignore
+
 public class TestUserRepository extends JpaConfigurationAware {
 	@Autowired
 	private UserRepository userRepository;
 
-	public void findWithPagination_PassPageNumberAndPageSize_ShouldReturnListWithSizeEqualPageSizeAndStartFromPageNumber(){
-		final int pageNumber = 1;
-		final int pageSize = 10;
-		
-	}
-	
 	@Test
 	public void findAll_ShouldReturnListOfUser() {
 		// expected
 		final String firstUserLogin = "sergeM";
 		final String secondUserLogin = "test";
-		final int quantityUser = 4;//list size
 
 		Iterable<User> allUsers = userRepository.findAll();
 		Assert.assertNotNull("user list cannot be null", allUsers);
 
-//		Assert.assertEquals(String.format("quantity users must be equal %s", quantityUser), quantityUser,
-//				((Collection<User>) allUsers).size());
         Assert.assertNotEquals(0, ((Collection<User>) allUsers).size());
 
 		Iterator<User> i = allUsers.iterator();
@@ -49,13 +41,12 @@ public class TestUserRepository extends JpaConfigurationAware {
 		Assert.assertEquals(String.format("second user login must be eqaul %s", secondUserLogin), secondUserLogin,
 				second.getLogin());
 	}
-
+	
 	@Test
-	public void getUserById_PassIdOfExistsUser_ShouldReturnAccordingUser() {
+	public void getUserById_PassIdOfExistsUser_MustReturnTheCorrespondingUser() {
 		// expected
 		final Long id = 1L;
 		final String login = "sergeM";
-
 		User user = userRepository.findOne(id);
 
 		Assert.assertNotNull("user cannot be equal null", user);
@@ -115,4 +106,14 @@ public class TestUserRepository extends JpaConfigurationAware {
 //    public void  deleteUser() {
 //        userRepository.delete(2l);
 //    }
+
+	@Test
+	public void findUserByLogin_PassValidLogin_MustReturnTheCorrespondingUser(){
+		final String login = "test";
+
+		User user = userRepository.findUserByLogin(login);
+
+		Assert.assertNotNull("user cannot be equal null", user);
+		Assert.assertEquals(String.format("user login must be %s", login), login, user.getLogin());
+	}
 }

@@ -77,8 +77,6 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 
 		Properties jpaProperties = new Properties();
 		jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
-		// jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO,
-		// hbm2ddlAuto);
 		jpaProperties.put(org.hibernate.cfg.Environment.SHOW_SQL, showSql);
 		jpaProperties.put(org.hibernate.cfg.Environment.FORMAT_SQL, formatSql);
 

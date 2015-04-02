@@ -16,7 +16,8 @@ public class Role {
 		ORDERS_MANAGER, 
 		ORDERS_PROCESSOR, 
 		DELIVERY_MANAGER,
-		SUPERVISOR, ADMIN
+		SUPERVISOR,
+		ADMIN
 	}
 
 	public Role() {
@@ -37,18 +38,11 @@ public class Role {
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@JoinTable(name = "role_right", 
-		joinColumns = { @JoinColumn(name = "RIGHT_ID") }, 
-		inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+				joinColumns = { @JoinColumn(name = "RIGHT_ID") }, 
+				inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
 	public Set<Right> getRights() {
 		return rights;
 	}
-
-
-//    @OneToMany(mappedBy = "role")
-//    public Set<User> getUsers() {
-//        return users;
-//    }
-
 
 	public void setId(Long id) {
 		this.id = id;
@@ -61,5 +55,4 @@ public class Role {
 	public void setRights(Set<Right> rights) {
 		this.rights = rights;
 	}
-
 }

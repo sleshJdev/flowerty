@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.service.UserService;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -23,7 +23,7 @@ public class SignupController {
 	private Logger LOGGER = LoggerFactory.getLogger(SignupController.class);
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@RequestMapping(value = "signup", method = RequestMethod.GET)
 	public String signup() {
@@ -34,7 +34,7 @@ public class SignupController {
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(@Valid @RequestBody User newUser) {
 		LOGGER.info("register new user: {name:{}, password:{}}", newUser.getLogin(), newUser.getPassword());
-		userRepository.save(newUser);
+		userService.save(newUser);
 
 		return "home/index";
 	}
