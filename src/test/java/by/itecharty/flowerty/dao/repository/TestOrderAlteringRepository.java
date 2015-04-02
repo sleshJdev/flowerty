@@ -8,6 +8,8 @@ import by.itechart.flowerty.model.User;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.Date;
 
@@ -24,7 +26,7 @@ public class TestOrderAlteringRepository extends JpaConfigurationAware {
     private OrderAlteringRepository orderAlteringRepository;
 
     @Test
-    public void save() {
+    public void saveOrderAltering_ValidOrderAltering_ReturnsSameOrderAltering() {
         OrderAltering orderAltering = new OrderAltering();
         Order order = new Order();
         order.setId(1l);
@@ -39,6 +41,33 @@ public class TestOrderAlteringRepository extends JpaConfigurationAware {
         orderAltering.setComment("comment");
         orderAltering = orderAlteringRepository.save(orderAltering);
         Assert.assertEquals(orderAltering.getState(), state);
+    }
+    @Test
+    public void findOne_ValidId_ReturnsOrder() {
+        OrderAltering orderAltering = orderAlteringRepository.findOne(1l);
+        Assert.assertEquals((Object) orderAltering.getState().getId(), 1l);
+        Assert.assertEquals(orderAltering.getUser().getContact().getName(), "Sergey");
+        Assert.assertEquals(orderAltering.getComment(), "comment");
+    }
+    @Test
+    public void findOne_InvalidId_ReturnsNull() {
+        OrderAltering orderAltering = orderAlteringRepository.findOne(1000l);
+        Assert.assertNull(orderAltering);
+    }
+    @Test
+    public void findByOrder_CorrectOrder_ReturnsPageOfOrderAltering() {
+        Order order = new Order();
+        order.setId(1l);
+        Page<OrderAltering> page = orderAlteringRepository.findByOrder(order, new PageRequest(0, 10));
+        Assert.assertNotEquals(page.getContent().size(), 0);
+        Assert.assertEquals(page.getContent().get(0).getComment(), "comment");
+    }
+    @Test
+    public void findByOrder_InvalidOrder_ReturnsEmptyPage() {
+        Order order = new Order();
+        order.setId(100l);
+        Page<OrderAltering> page = orderAlteringRepository.findByOrder(order, new PageRequest(0, 10));
+        Assert.assertEquals(page.getContent().size(), 0);
     }
 
 }

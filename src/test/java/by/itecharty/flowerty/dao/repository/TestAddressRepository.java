@@ -21,7 +21,7 @@ public class TestAddressRepository extends JpaConfigurationAware {
     @Autowired
     private AddressRepository addressRepository;
     @Test
-    public void saveAddress() {
+    public void saveAddress_CorrectAddress_SameAddressReturned() {
         Address address = new Address();
         address.setCountry("Belarus");
         address.setFlat("10");

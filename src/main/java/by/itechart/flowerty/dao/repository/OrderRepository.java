@@ -1,10 +1,12 @@
 package by.itechart.flowerty.dao.repository;
 
-import by.itechart.flowerty.model.*;
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.model.Order;
+import by.itechart.flowerty.model.State;
+import by.itechart.flowerty.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
     public Order findOne(Long id);

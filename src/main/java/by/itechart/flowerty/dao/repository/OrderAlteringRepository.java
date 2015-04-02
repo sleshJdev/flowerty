@@ -13,13 +13,10 @@ import by.itechart.flowerty.model.OrderAltering;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderAlteringRepository extends PagingAndSortingRepository<OrderAltering, Long> {
     public OrderAltering findOne(Long id);
     public OrderAltering save(OrderAltering orderAltering);
     public void delete (OrderAltering orderAltering);
     public Page<OrderAltering> findByOrder(Order order, Pageable pageable);
-   // Page<OrderAltering> findAll(Pageable pageable);
-
 }

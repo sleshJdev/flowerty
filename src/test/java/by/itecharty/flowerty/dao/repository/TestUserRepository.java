@@ -1,22 +1,24 @@
 package by.itecharty.flowerty.dao.repository;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.User;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *
  *         Test for UserRepository
  */
+
+@Ignore
 public class TestUserRepository extends JpaConfigurationAware {
 	@Autowired
 	private UserRepository userRepository;
@@ -81,7 +83,7 @@ public class TestUserRepository extends JpaConfigurationAware {
 				Boolean.TRUE, isExists);
 	}
     @Test
-    public void exists_PassInvalidLoginAndPassword_ShoudReturnTrue() {
+    public void exists_PassInvalidLoginAndPassword_ShouldReturnFalse() {
         final String login = "sergeM";
         final String password = "sergeMM";
 
@@ -92,7 +94,7 @@ public class TestUserRepository extends JpaConfigurationAware {
                 Boolean.FALSE, isExists);
     }
     @Test
-    public void  saveUser() {
+    public void  saveUser_ValidUser_ReturnsSameUser() {
      //   Address address = new Address();
      //   address.setId(2l);
         Contact contact = new Contact();
@@ -108,4 +110,14 @@ public class TestUserRepository extends JpaConfigurationAware {
 //    public void  deleteUser() {
 //        userRepository.delete(2l);
 //    }
+
+	@Test
+	public void findUserByLogin_PassValidLogin_MustReturnTheCorrespondingUser(){
+		final String login = "test";
+
+		User user = userRepository.findUserByLogin(login);
+
+		Assert.assertNotNull("user cannot be equal null", user);
+		Assert.assertEquals(String.format("user login must be %s", login), login, user.getLogin());
+	}
 }
