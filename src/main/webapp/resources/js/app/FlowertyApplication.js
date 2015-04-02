@@ -41,10 +41,10 @@ angular.module('FlowertyApplication', [
             }
         });
         request.success(function(data, status, headers, config) {
-            alert( "User logged in: " + JSON.stringify(data));
+        	console.log( "User logged in: " + JSON.stringify(data));
         });
         request.error(function(data, status, headers, config) {
-            alert( "Exception details: " + JSON.stringify({data: data}));
+        	console.log( "Exception details: " + JSON.stringify({data: data}));
         });
     };
 });

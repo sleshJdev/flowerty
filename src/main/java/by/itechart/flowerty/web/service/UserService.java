@@ -41,7 +41,7 @@ public class UserService {
 		UserEditBundle bundle = new UserEditBundle();
 		bundle.setUser(findOne(id));
 		bundle.setContacts((List<Contact>) contactRepository.findAll());
-//		bundle.setRoles((List<Role>)roleRepository.findAll());
+		bundle.setRoles((List<Role>)roleRepository.findAll());
 	
 		return bundle;
 	}

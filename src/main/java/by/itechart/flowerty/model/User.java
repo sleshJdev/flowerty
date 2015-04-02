@@ -58,7 +58,6 @@ public class User {
         this.password = password;
     }
 
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID")
 	public Role getRole() {
@@ -73,12 +72,9 @@ public class User {
         this.contact = contact;
     }
 
-	@JsonIgnore
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CONTACT_ID")
 	public Contact getContact() {
 		return contact;
 	}
-
-
 }

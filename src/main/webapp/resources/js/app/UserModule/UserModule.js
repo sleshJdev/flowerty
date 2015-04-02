@@ -50,9 +50,9 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 		method: "get",
 		url: "user/delete/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
-			alert("Remove Ok!");
+		console.log("Remove Ok!");
 	}).error(function(data, status, headers, config) {
-			alert("Remove error: " + JSON.stringify(data));
+		console.log("Remove error: " + JSON.stringify(data));
 	});
 }])
 
@@ -62,9 +62,9 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 		url: "user/details/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
 		$scope.bundle = data;
-		alert(JSON.stringify(data));
+		console.log(JSON.stringify(data));
 	}).error(function(data, status, headers, config) {
-		alert("Problem occurred during get details about user with id: " + $routeParams.id + ": " + JSON.stringify(data));
+		console.log("Problem occurred during get details about user with id: " + $routeParams.id + ": " + JSON.stringify(data));
 	});
 	
     $scope.save = function() {
@@ -73,9 +73,9 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
 			url: "user/save", 
 			data: $scope.user
     	}).success(function(data, status, headers, config) {
-    		alert("User successfully saved!");
+    		console.log("User successfully saved!");
 		}).error(function(data, status, headers, config) {
-			alert("The problem occurred while saving the user: " + JSON.stringify(data));
+			console.log("The problem occurred while saving the user: " + JSON.stringify(data));
 		});
     };
 }])
@@ -118,10 +118,11 @@ angular.module("FlowertyApplication.UserModule", ['ngRoute'])
         request.success(function(data, status, headers, config) {
             $scope.users.usersList = data;
             $scope.users.pagesCount = 3;
+            console.log("User list: " + JSON.stringify(data));
         });
 
         request.error(function(data, status, headers, config) {
-            alert( "Exception details: " + JSON.stringify({data: data}));
+        	console.log( "Exception details: " + JSON.stringify({data: data}));
         });
     };
 

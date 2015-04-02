@@ -1,6 +1,9 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -92,7 +95,6 @@ public class Contact {
 	this.email = email;
     }
 
-   // @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
     public Address getAddress() {
@@ -102,8 +104,8 @@ public class Contact {
     public void setAddress(Address address) {
 	this.address = address;
     }
-    //@JsonIgnore
-    @OneToMany(mappedBy = "contact")
+    
+    @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
     public Set<Phone> getPhones() {
 	return phones;
     }
@@ -111,6 +113,7 @@ public class Contact {
     public void setPhones(Set<Phone> phones) {
 	this.phones = phones;
     }
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="COMPANY_ID")
     public Company getCompany() {
