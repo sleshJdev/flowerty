@@ -4,7 +4,7 @@ var app = angular.module('flowertyApp', ['ngRoute']);
 app.config(['$routeProvider', function($routeProvider) {
         $routeProvider.
             when('/login', {
-                templateUrl: 'partial/_logInForm.html',
+                templateUrl: 'partial/_SignInForm.html',
                 controller: 'logInController'
             }).
             when('/users', {
