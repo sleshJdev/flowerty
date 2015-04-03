@@ -1,9 +1,5 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.security.AuthFailure;
-import by.itechart.flowerty.security.AuthSuccess;
-import by.itechart.flowerty.security.CustomAuthenticationProvider;
-import by.itechart.flowerty.security.EntryPointUnauthorizedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +8,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+
+import by.itechart.flowerty.security.AuthFailure;
+import by.itechart.flowerty.security.AuthSuccess;
+import by.itechart.flowerty.security.CustomAuthenticationProvider;
+import by.itechart.flowerty.security.EntryPointUnauthorizedHandler;
 
 /**
  * Created by Rostislav on 26-Mar-15.)
@@ -60,6 +61,5 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .logout()
 //                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/signin?logout");
-
     }
 }

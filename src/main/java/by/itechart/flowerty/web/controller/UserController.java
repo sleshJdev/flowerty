@@ -30,7 +30,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
@@ -39,10 +39,10 @@ public class UserController {
 		if (id < 1) {
 			throw new Exception("user id cannot be negative or 0");
 		}
-		
+
 		return userService.getUserEditBundleFor(id);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getList() {
@@ -56,13 +56,13 @@ public class UserController {
 	@RequestMapping(value = "user/delete/{id}")
 	public String delete(@PathVariable("id") Long id) throws Exception {
 		LOGGER.info("try delete user with id: {}", id);
-		
+
 		if (id < 1) {
 			throw new Exception("user id cannot be negative or 0");
 		}
-		
+
 		userService.delete(id);
-		
+
 		return "home/index";
 	}
 
@@ -72,11 +72,10 @@ public class UserController {
 		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
 
 		userService.save(newUser);
-		
+
 		return newUser;
 	}
 
-	
 	@ResponseBody
 	@RequestMapping(value = "user/list/{page}")
 	public List<User> getPage(@PathVariable("page") Integer page) throws Exception {

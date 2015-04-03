@@ -1,11 +1,21 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "contact")
@@ -113,7 +123,6 @@ public class Contact {
     public void setPhones(Set<Phone> phones) {
 	this.phones = phones;
     }
-    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="COMPANY_ID")
     public Company getCompany() {
@@ -123,19 +132,6 @@ public class Contact {
     public void setCompany(Company company) {
         this.company = company;
     }
-
-    /*
-		private Long id;
-    private String name;
-    private String surname;
-    private String fathername;
-    private Date birthday;
-    private String email;
-    private Address address;
-    private Set<Phone> phones;
-    private Company company;
-
-     */
     
     
 	@Override
