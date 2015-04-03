@@ -24,9 +24,9 @@ public class SigninController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "signin", method = RequestMethod.GET)
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
-		LOGGER.info("move to signin page");
+		LOGGER.info("move to login page");
 
 		if (logout != null) {
 			LOGGER.info("logout user");
