@@ -35,11 +35,11 @@ public class SigninController {
 		return "signin/signin";
 	}
 	
-	@RequestMapping(value = "authenticate", method = RequestMethod.POST)
-	public String signin(@RequestParam("username") String username, @RequestParam("password") String password) {
-		LOGGER.info("try signin user with login: {} and password: {}", username, password);
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String signin(@RequestParam("login") String login, @RequestParam("password") String password) {
+		LOGGER.info("try signin user with login: {} and password: {}", login, password);
 
-		boolean isExist = (userService.findUserByLoginAndPassword(username, password) != null);
+		boolean isExist = (userService.findUserByLoginAndPassword(login, password) != null);
 
 		if (isExist) {
 			LOGGER.info("success. redirect to home/index page");
