@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 
  *         Test for SiginController
  */
-@Ignore
 public class TestSigninController extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;

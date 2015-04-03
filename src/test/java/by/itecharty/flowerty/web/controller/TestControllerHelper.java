@@ -42,17 +42,17 @@ public final class TestControllerHelper {
 
 		return builder.toString();
 	}
-	
-	public static List<User> buildValidUserListForTest(int size){
+
+	public static List<User> buildValidUserListForTest(int size) {
 		List<User> users = new ArrayList<User>(size);
 		users.add(buildUserAdminForTest());
 		users.add(buildUserManagerForTest());
-		for(int i = 0; i < size - 2; ++i){
+		for (int i = 0; i < size - 2; ++i) {
 			users.add(new User(0L, "stubLogin", "stubPassword", null, null));
 		}
-		
+
 		return users;
-		
+
 	}
 
 	public static User buildValidShortUserForTest() {
@@ -62,8 +62,8 @@ public final class TestControllerHelper {
 
 		return existsUser;
 	}
-	
-	public static User buildInvalideShordUserForTest(){
+
+	public static User buildInvalideShordUserForTest() {
 		User notExistsUser = new User();
 		notExistsUser.setLogin("iamnotexists");
 		notExistsUser.setPassword("fk2");

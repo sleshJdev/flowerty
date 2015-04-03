@@ -25,21 +25,8 @@ public class SigninController {
 	private UserService userService;
 	
 	@RequestMapping(value = "signin", method = RequestMethod.GET)
-<<<<<<< HEAD
 	public String login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
 		LOGGER.info("move to signin page");
-=======
-	public String signin() {
-		LOGGER.info("move to sigin page");
-		return "signin/signin";
-	}
-	
-	@RequestMapping(value = "authenticate", method = RequestMethod.POST)
-	public String signin(
-			@RequestParam("username") String username,
-			@RequestParam("password") String password) {
-		LOGGER.info("try signin user with login: {} and password: {}", username, password);
->>>>>>> 27450d30d448a5a98ba14d72ceb239cc2ca97d80
 
 		if (logout != null) {
 			LOGGER.info("logout user");
@@ -48,20 +35,18 @@ public class SigninController {
 		return "signin/signin";
 	}
 	
-//	@RequestMapping(value = "authenticate", method = RequestMethod.POST)
-//	public String signin(
-//			@RequestParam("username") String username,
-//			@RequestParam("password") String password) {
-//		LOGGER.info("try signin user with login: {} and password: {}", username, password);
-//
-//		boolean isExist = (userService.findUserByLoginAndPassword(username, password) != null);
-//
-//		if (isExist) {
-//			LOGGER.info("success. redirect to home/index page");
-//			return "home/index";
-//		} else {
-//			LOGGER.info("unsuccess. redirect to back: signin/signin");
-//			return "signin/signin";
-//		}
-//	}
+	@RequestMapping(value = "authenticate", method = RequestMethod.POST)
+	public String signin(@RequestParam("username") String username, @RequestParam("password") String password) {
+		LOGGER.info("try signin user with login: {} and password: {}", username, password);
+
+		boolean isExist = (userService.findUserByLoginAndPassword(username, password) != null);
+
+		if (isExist) {
+			LOGGER.info("success. redirect to home/index page");
+			return "home/index";
+		} else {
+			LOGGER.info("unsuccess. redirect to back: signin/signin");
+			return "signin/signin";
+		}
+	}
 }
