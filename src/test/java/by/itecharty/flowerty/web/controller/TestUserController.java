@@ -111,10 +111,9 @@ public class TestUserController extends MockTestConfigigurationAware {
 	@Test
 	public void findAll_ShouldReturnListOfUsers() throws Exception {
 		User admin = TestControllerHelper.buildUserAdminForTest();
-		User manager = TestControllerHelper.buildUserManagerForTest();
-		
+
 		when(userServiceMock.findAll())
-			.thenReturn(Arrays.asList(admin, manager));
+			.thenReturn(Arrays.asList(admin, admin));
 
 		mock
 			.perform(get("/user/list"))
@@ -122,7 +121,7 @@ public class TestUserController extends MockTestConfigigurationAware {
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$", hasSize(2)))
 			.andExpect(jsonPath("$[0].login", is(admin.getLogin())))
-			.andExpect(jsonPath("$[1].login", is(manager.getLogin())))
+			.andExpect(jsonPath("$[1].login", is(admin.getLogin())))
 			.andReturn();
 		
 		verify(userServiceMock, times(1))
@@ -132,11 +131,6 @@ public class TestUserController extends MockTestConfigigurationAware {
 	
 	@Test
 	public void getPage_PassValidPageNumber_ShouldReturnLisUserOnThisPage(){
-//		final int pageNumber = 1;
-//		final int size = 10;
-//		List<User> users = TestControllerHelper.buildValidUserListForTest(size);
-//		PageRequest pageRequest = new PageRequest(pageNumber, size);
-		//TODO: implement test for this method
-		
+		//TODO: need implements this method
 	}
 }
