@@ -92,13 +92,13 @@ userModule.controller('UsersController', function($scope, $http) {
         });
 
         request.success(function(data, status, headers, config) {
-            alert( "Response: " + JSON.stringify({data: data}));
-            $scope.users.usersList = data;
-            $scope.users.pagesCount = 3;
+            console.log("Response: " + JSON.stringify({data: data}));
+            $scope.users.usersList = data.content;
+            $scope.users.pagesCount = data.totalElements;
         });
 
         request.error(function(data, status, headers, config) {
-            alert( "Exception details: " + JSON.stringify({data: data}));
+            console.log("Exception details: " + JSON.stringify({data: data}));
         });
     };
 

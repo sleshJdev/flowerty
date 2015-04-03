@@ -17,7 +17,7 @@
             </tr>
         </table>
     </form>
-    <ul class="pagination">
+    <ul class="pagination container">
         <li><a href="" data-ng-click="users.getPreviousPage()">&lt;</a></li>
         <li data-ng-repeat="page in users.pages" data-ng-class="[ users.pageClass(page.value)]"><a href="" data-ng-click="users.getPage(page.value)">{{page.value}}</a></li>
         <li><a href="" data-ng-click="users.getNextPage()">&gt;</a></li>
