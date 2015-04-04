@@ -1,9 +1,7 @@
-/**
- * Created by Катерина on 03.04.2015.
- */
 
-var APP_PATH = "resources/js/app/";
-var AUTHENTICATION_MODULE_PATH = APP_PATH + "authentication/";
+/**
+ * Created by Катерина on 19.03.2015.
+ */
 
 var authenticationModule = angular.module("flowertyApplication.authenticationModule", ['ngRoute']);
 
@@ -19,24 +17,11 @@ authenticationModule.config(["$routeProvider", function($routeProvider) {
         });
 }]);
 
-/**
- * Created by Катерина on 19.03.2015.
- */
 
 authenticationModule.controller('LogInController', function($scope, $http) {
 
-//    $scope.login = '';
-//    $scope.password = '';
-
     $scope.logIn = function() {
 
-        var logged = {
-            login : $scope.login,
-            password : $scope.password
-        };
-
-        console.log("user to log: " + JSON.stringify(logged));
-        
         var request = $http({
             method: "post",
             url: "login",
@@ -48,7 +33,7 @@ authenticationModule.controller('LogInController', function($scope, $http) {
 
         // Just emulation
         $scope.current.isLogged = true;
-        $scope.current.user.login = logged.login;
+        $scope.current.user.login = $scope.login;
         $scope.current.user.role = {name : 'ADMIN'};
 
         request.success(function(data, status, headers, config) {
@@ -56,7 +41,7 @@ authenticationModule.controller('LogInController', function($scope, $http) {
 
             $scope.current.isLogged = true;
             //$rootScope.current.user = data.user;
-            $scope.current.user.login = logged.login;
+            $scope.current.user.login = $scope.login;
             $scope.current.user.role = {name : 'ADMIN'};
         });
         request.error(function(data, status, headers, config) {
@@ -66,22 +51,18 @@ authenticationModule.controller('LogInController', function($scope, $http) {
 
     $scope.logOut = function() {
 
-        var logged = {
-            login : $scope.login,
-            password : $scope.password
-        };
-
         var request = $http({
             method: "post",
             url: "login",
             data: {
-                loggedInUser: logged
+                login : $scope.login,
+                password : $scope.password
             }
         });
 
         // Just emulation
         $scope.current.isLogged = true;
-        $scope.current.user.login = logged.login;
+        $scope.current.user.login = $scope.login;
         $scope.current.user.role = {name : 'ADMIN'};
 
         request.success(function(data, status, headers, config) {
@@ -89,7 +70,7 @@ authenticationModule.controller('LogInController', function($scope, $http) {
 
             $scope.current.isLogged = true;
             //$rootScope.current.user = data.user;
-            $scope.current.user.login = logged.login;
+            $scope.current.user.login = $scope.login;
             $scope.current.user.role = {name : 'ADMIN'};
         });
         request.error(function(data, status, headers, config) {
@@ -97,10 +78,6 @@ authenticationModule.controller('LogInController', function($scope, $http) {
         });
     };
 });
-
-/**
- * Created by Катерина on 03.04.2015.
- */
 
 authenticationModule.controller('SignUpController', function($scope, $http) {
 

@@ -2,8 +2,6 @@
  * Created by Катерина on 19.03.2015.
  */
 
-var APP_PATH = "resources/js/app/";
-
 var app = angular.module('flowertyApplication', ['ngRoute', 'flowertyApplication.userModule', 'flowertyApplication.authenticationModule']).config(['$routeProvider', function($routeProvider) {
     $routeProvider.
         when('/users', {
