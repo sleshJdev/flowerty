@@ -10,7 +10,7 @@
             </tr>
             <tr class="row" data-ng-repeat="user in users.usersList" >
                 <td><input type="checkbox"/></td>
-                <td><a href="#/edit-user/{{user.id}}">{{user.contact.name}} {user.contact.surname}} {{user.contact.fathername}}</a></td>
+                <td><a href="#/edit-user/{{user.id}}">{{user.contact.name + " " +user.contact.surname + " " + user.contact.fathername}}</a></td>
                 <td>{{user.login}}</td>
                 <td>{{user.role.name}}</td>
             </tr>

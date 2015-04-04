@@ -90,15 +90,10 @@ public class UserController {
 		}
 		--page;
 
-		Page<User> pageUser = userService.findAll(page, 10);
+		Page<User> pageUsers = userService.getPage(page, 10);
 
-		LOGGER.info("fetch users. numberOfElements: {}, number: {}, size: {},total elements: {}, total pages: {}",
-				pageUser.getNumberOfElements(), 
-				pageUser.getNumber(), 
-				pageUser.getSize(), 
-				pageUser.getTotalElements(),
-				pageUser.getTotalPages());
+		LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 
-		return pageUser;
+		return pageUsers;
 	}
 }

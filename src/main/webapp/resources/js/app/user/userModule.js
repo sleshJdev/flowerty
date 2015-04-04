@@ -15,7 +15,7 @@ userModule.config(["$routeProvider", function($routeProvider) {
     })
 	.when("/edit-user", {
 		templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
-		controller: "UserActionProcessController"
+		controller: "UserEditController"
 	})
 	.when("/remove-user", {
 		templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
@@ -23,33 +23,28 @@ userModule.config(["$routeProvider", function($routeProvider) {
 	});
 }]);
 
-userModule.controller("UserActionProcessController", ["$scope", "$http", function($scope, $http) {
-	$scope.remove = function(id) {
-		$http
-			.get("user/remove/" + id)
-			.success(function(data, status, headers, config) {
-				alert("Remove Ok!");
-			})
-			.error(function(data, status, headers, config) {
-				alert("Remove Error!");
-			});
-	};
-     
-    $scope.edit = function(id) {
-    	$http
-			.get("user/details/" + id)
-			.success(function(data, status, headers, config) {
-				$scope.userrr = data;
-				alert("Edit Ok!" + JSON.stringify({data: data}));
-			})
-			.error(function(data, status, headers, config) {
-				alert("Edit Error!");
-			});
+userModule.controller("UserEditController", ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+	$http({
+		method: "get",
+		url: "user/details/" + $routeParams.id
+	}).success(function(data, status, headers, config) {
+		$scope.bundle = data;
+		console.log(JSON.stringify(data));
+	}).error(function(data, status, headers, config) {
+		console.log("Problem occurred during get details about user with id: " + $routeParams.id + ": " + JSON.stringify(data));
+	});
+	
+    $scope.save = function() {
+    	$http({
+			method: "post",
+			url: "user/save", 
+			data: $scope.user
+    	}).success(function(data, status, headers, config) {
+    		console.log("User successfully saved!");
+		}).error(function(data, status, headers, config) {
+			console.log("The problem occurred while saving the user: " + JSON.stringify(data));
+		});
     };
-    
-    $scope.saveContact = function() {
-    	alert("Save user ok!");
-    }
 }]);
 
 /**
