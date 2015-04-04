@@ -5,7 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -78,7 +78,7 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "user/list/{page}")
-	public List<User> getPage(@PathVariable("page") Integer page) throws Exception {
+	public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
 		LOGGER.info("get page with number {}", page);
 
 		// TODO: maybe implement throw exception if page has incorrect format???
@@ -90,10 +90,15 @@ public class UserController {
 		}
 		--page;
 
-		List<User> pageUsers = userService.findAll(new PageRequest(page, 10));
+		Page<User> pageUser = userService.findAll(page, 10);
 
-		LOGGER.info("fetch {} users", pageUsers.size());
+		LOGGER.info("fetch users. numberOfElements: {}, number: {}, size: {},total elements: {}, total pages: {}",
+				pageUser.getNumberOfElements(), 
+				pageUser.getNumber(), 
+				pageUser.getSize(), 
+				pageUser.getTotalElements(),
+				pageUser.getTotalPages());
 
-		return pageUsers;
+		return pageUser;
 	}
 }
