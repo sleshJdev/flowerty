@@ -1,33 +1,33 @@
 <div ng-app="FlowertyApplication.UserModule" class="ng-scope">
 	<form class="form-horizontal" ng-submit="save()">
 		<div class="form-group">
-			<label for="selectContacts" class="col-sm-2 control-label">Contacts</label>
+			<label class="col-sm-2 control-label">Contacts</label>
 			<div class="col-sm-6">
-				<select id = "selectContacts" class="selectpicker">
-					<option ng-repeat="contact in bundle.contacts">
-						{{contact.name + " " + contact.surname + " " + contact.fathername}}
-					</option>
+				<select class="selectpicker" 
+						ng-model="bundle.user.contact" 
+						data-ng-options = "c as c.name + ' ' + c.surname + ' ' + c.fathername for c in bundle.contacts">
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="selectRole" class="col-sm-2 control-label">Roles</label>
+			<label class="col-sm-2 control-label">Roles</label>
 			<div class="col-sm-6">
-				<select id = "selectRole" class="selectpicker">
-					<option ng-repeat="role in bundle.roles">{{role.name}}</option>
+				<select class="selectpicker"
+					ng-model="bundle.user.role"
+					data-ng-options="r as r.name | flowerSplit:'_' for r in bundle.roles">
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputLogin" class="col-sm-2 control-label">Login</label>
+			<label class="col-sm-2 control-label">Login</label>
 			<div class="col-sm-6">
-				<input id="inputLogin" type="text" class="form-control"  ng-model="bundle.user.login" placeholder="Login">
+				<input type="text" class="form-control"  ng-model="bundle.user.login" placeholder="Login">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputPasswor" class="col-sm-2 control-label">Password</label>
+			<label class="col-sm-2 control-label">Password</label>
 			<div class="col-sm-6">
-				<input id="inputPasswor" type="text" class="form-control" ng-model="bundle.user.password" placeholder="Password">
+				<input type="text" class="form-control" ng-model="bundle.user.password" placeholder="Password">
 			</div>
 		</div>
 		<div class="form-group">
