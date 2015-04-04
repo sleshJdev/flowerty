@@ -1,6 +1,8 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,16 +29,19 @@ public class Item {
         return id;
     }
     @Column(name = "QUANTITY", nullable=false)
+    @NotNull
     public int getQuantity() {
         return quantity;
     }
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
+    @Valid
     public Order getOrder() {
         return order;
     }
     @ManyToOne
     @JoinColumn(name = "FLOWER_ID")
+    @Valid
     public Goods getFlower() {
         return flower;
     }

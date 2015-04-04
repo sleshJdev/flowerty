@@ -1,6 +1,8 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,39 +24,35 @@ public class Phone {
 
 	public Phone() {
 	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    public Long getId() {
+        return id;
+    }
 
-	@ManyToOne
+    @ManyToOne
 	@JoinColumn(name = "CONTACT_ID")
+    @Valid
 	public Contact getContact() {
 		return contact;
 	}
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public Long getId() {
-		return id;
-	}
-
-	public String getComment() {
-		return comment;
-	}
 
 	@Column(name = "COUNTRY", length = 5, nullable = true)
-	public String getCountry() {
+	@Size(max=5)
+    public String getCountry() {
 		return country;
 	}
 
 	@Column(name = "NUMBER", length = 10, nullable = true)
+    @Size(max=10)
 	public String getNumber() {
 		return number;
 	}
 
 	@Column(name = "OPERATOR", length = 5, nullable = true)
+    @Size(max=5)
 	public String getOperator() {
 		return operator;
 	}
@@ -89,7 +87,11 @@ public class Phone {
 		this.type = type;
 	}
 
-	public static enum PHONE_TYPE {
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public static enum PHONE_TYPE {
 		HOME, CELL
 	}
 }

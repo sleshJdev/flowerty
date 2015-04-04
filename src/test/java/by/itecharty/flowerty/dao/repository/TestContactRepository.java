@@ -6,10 +6,15 @@ import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Contact;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,8 +25,14 @@ import org.springframework.data.domain.PageRequest;
  */
 //@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
+    private static Validator validator;
     @Autowired
     private ContactRepository contactRepository;
+    @BeforeClass
+    public static void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
     @Test
     public void findContact_ValidId_ContactReturned() {
            Contact contact = contactRepository.findOne(1l);
@@ -69,6 +80,25 @@ public class TestContactRepository extends JpaConfigurationAware {
         Assert.assertNotNull(contact.getAddress());
         Assert.assertNotNull(contact.getCompany());
         Assert.assertEquals("Petr", contact.getName());
+    }
+    @Test
+    public void saveContact_InvalidContact_ThrowsException() {
+        Company company = new Company();
+        company.setId(2l);
+        Address address = new Address();
+        address.setId(1l);
+        Contact contact = new Contact();
+        contact.setCompany(company);
+        contact.setAddress(address);
+        contact.setName("Petr");
+        contact.setSurname("Petrov");
+        contact.setEmail("petrov!!@mail.com");
+        try {
+        contact = contactRepository.save(contact);
+        } catch (ExceptionInInitializerError ex) {
+            return;
+        }
+        Assert.assertEquals(1,2);
     }
 //    @Test
 //    public void deleteContactValidId() {

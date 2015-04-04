@@ -101,6 +101,23 @@ public class TestUserRepository extends JpaConfigurationAware {
         user = userRepository.save(user);
   //      Assert.assertEquals(user.getLogin(), "TestLogin");
     }
+    @Test
+    public void  saveUser_InvalidUser_ThrowsException() {
+        //   Address address = new Address();
+        //   address.setId(2l);
+        Contact contact = new Contact();
+        contact.setId(1l);
+        User user = new User();
+        user.setLogin("testLogintoooooooooooooooooooooooooooooolonglogin");
+        user.setPassword("testPassword");
+        user.setContact(contact);
+        try {
+        user = userRepository.save(user);
+        } catch (ExceptionInInitializerError ex) {
+            return;
+        }
+        Assert.assertEquals(1,2);
+    }
 //    @Test
 //    public void  deleteUser() {
 //        userRepository.delete(2l);

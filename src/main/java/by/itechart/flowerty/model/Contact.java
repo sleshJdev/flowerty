@@ -1,9 +1,11 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
@@ -45,100 +47,97 @@ public class Contact {
 	return id;
     }
 
-    public void setId(Long id) {
-	this.id = id;
-    }
-
     @Column(name = "NAME", length = 20, nullable = true)
+    @NotNull
+    @Size(max = 20)
     public String getName() {
 	return name;
     }
 
-    public void setName(String name) {
-	this.name = name;
-    }
-
     @Column(name = "SURNAME", length = 20, nullable = true)
+    @NotNull
+    @Size(max = 20)
     public String getSurname() {
 	return surname;
     }
 
-    public void setSurname(String surname) {
-	this.surname = surname;
-    }
-
     @Column(name = "FATHERNAME", length = 20, nullable = true)
+    @Size(max = 20)
     public String getFathername() {
 	return fathername;
     }
 
-    public void setFathername(String fathername) {
-	this.fathername = fathername;
-    }
-
     @Column(name = "BIRTHDAY", nullable = true)
     @Temporal(value = TemporalType.DATE)
+    @Past
     public Date getBirthday() {
 	return birthday;
     }
 
-    public void setBirthday(Date birthday) {
-	this.birthday = birthday;
-    }
-
     @Column(name = "EMAIL", length = 50, nullable = true)
+    @Size(max = 50)
+    @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
     public String getEmail() {
 	return email;
     }
 
-    public void setEmail(String email) {
-	this.email = email;
-    }
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
+    @Valid
     public Address getAddress() {
 	return address;
     }
 
-    public void setAddress(Address address) {
-	this.address = address;
-    }
-    
     @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
+    @Valid
     public Set<Phone> getPhones() {
 	return phones;
     }
 
-    public void setPhones(Set<Phone> phones) {
-	this.phones = phones;
-    }
-    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="COMPANY_ID")
+    @Valid
     public Company getCompany() {
         return company;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setFathername(String fathername) {
+        this.fathername = fathername;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
     }
 
     public void setCompany(Company company) {
         this.company = company;
     }
 
-    /*
-		private Long id;
-    private String name;
-    private String surname;
-    private String fathername;
-    private Date birthday;
-    private String email;
-    private Address address;
-    private Set<Phone> phones;
-    private Company company;
-
-     */
-    
-    
-	@Override
+    @Override
 	public String toString() {
 		return new StringBuilder()
 			.append("[id:").append(id)

@@ -1,8 +1,9 @@
 package by.itechart.flowerty.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created with IntelliJ IDEA. User: Мария Date: 19.03.15 Time: 22:29 To change
@@ -36,33 +37,48 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Column(name = "LOGIN", length = 20, nullable = false)
+    @NotNull
+    @Size(max=20)
     public String getLogin() {
         return login;
+    }
+
+
+    @Column(name = "PASSWORD", length = 20, nullable = false)
+    @NotNull
+    @Size(max=20)
+    public String getPassword() {
+        return password;
+    }
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ROLE_ID")
+    @Valid
+	public Role getRole() {
+		return role;
+	}
+
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CONTACT_ID")
+  //  @Valid
+	public Contact getContact() {
+		return contact;
+	}
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setLogin(String login) {
         this.login = login;
     }
 
-    @Column(name = "PASSWORD", length = 20, nullable = false)
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ROLE_ID")
-	public Role getRole() {
-		return role;
-	}
 
     public void setRole(Role role) {
         this.role = role;
@@ -71,10 +87,4 @@ public class User {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
-
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CONTACT_ID")
-	public Contact getContact() {
-		return contact;
-	}
 }

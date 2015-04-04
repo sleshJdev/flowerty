@@ -1,6 +1,7 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +26,7 @@ public class Flower {
         return id;
     }
     @Column(name = "NAME", length = 20, nullable = false)
+    @Size(max=20)
     public String getName() {
         return name;
     }

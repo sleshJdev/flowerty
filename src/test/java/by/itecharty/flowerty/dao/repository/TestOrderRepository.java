@@ -18,7 +18,7 @@ import org.springframework.data.domain.PageRequest;
  * Time: 14:52
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
+//@Ignore
 public class TestOrderRepository extends JpaConfigurationAware {
     @Autowired
     private OrderRepository orderRepository;
@@ -29,6 +29,7 @@ public class TestOrderRepository extends JpaConfigurationAware {
         user.setId(1l);
         Contact contact = new Contact();
         contact.setId(1l);
+        contact.setName("TestName");
         Order order = new Order();
         order.setCost(12.987);
         order.setCustomer(contact);
@@ -39,12 +40,14 @@ public class TestOrderRepository extends JpaConfigurationAware {
         order.setState(state);
         order.setReceiver(contact);
         order.setManager(user);
+        order.setDescription("WE");
+        orderRepository.save(order);
     }
     @Test
     public void findOne_ValidId_ReturnsOrder() {
         Order order = orderRepository.findOne(1l);
         Assert.assertEquals(order.getDescription(), "WE");
-        Assert.assertEquals(order.getCustomer().getName(), "TestName");
+        Assert.assertEquals(order.getCustomer().getName(), "Anton");
     }
     @Test
     public void findOne_InvalidId_ReturnsNull() {
@@ -56,7 +59,7 @@ public class TestOrderRepository extends JpaConfigurationAware {
         Contact contact = new Contact();
         contact.setId(1l);
         Page<Order> page = orderRepository.findByCustomer(contact, new PageRequest(0, 10));
-        Assert.assertEquals(page.getContent().get(0).getCustomer().getName(), "TestName");
+        Assert.assertEquals(page.getContent().get(0).getCustomer().getName(), "Anton");
     }
 
 }

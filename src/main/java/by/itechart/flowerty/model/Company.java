@@ -2,6 +2,8 @@ package by.itechart.flowerty.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,11 +33,15 @@ public class Company {
     public Long getId() {
         return id;
     }
+
     @Column(name = "NAME", length = 20)
+    @Size(max = 100)
     public String getName() {
         return name;
     }
-    @Column(name = "WEBSITE", length = 20)
+    @Column(name = "WEBSITE", length = 100)
+    @Size(max = 100)
+    @Pattern(regexp = "/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/")
     public String getWebsite() {
         return website;
     }
