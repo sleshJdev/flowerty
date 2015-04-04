@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -27,6 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.controller.UserController;
+import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
 import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 
@@ -51,35 +53,38 @@ public class TestUserController extends MockTestConfigigurationAware {
 				.build();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
-	public void getById_PassNotValidUserId_ShouldReturnHttpStatusCode404() throws Exception {
+	public void getById_PassNotValidUserId_ShouldReturnShouldRedirectToErroPage() throws Exception {
 		final Long id = Long.MAX_VALUE;
 
-		when(userServiceMock.findOne(id)).thenReturn(null);
+		when(userServiceMock.getUserEditBundleFor(id))
+			.thenReturn(null)
+			.thenThrow(Exception.class);
 		
 		mock.perform(get("/user/details/{id}", id))
 			.andExpect(status().isOk());
 
-		verify(userServiceMock, times(1)).findOne(id);
+		verify(userServiceMock, times(1)).getUserEditBundleFor(id);
 		verifyNoMoreInteractions(userServiceMock);
 	}
 	
 	@Test
-	public void getById_PassValidUserId_ShouldReturnExistsUser() throws Exception {
-		User returnedUser = TestControllerHelper.buildUserAdminForTest();
-
-		when(userServiceMock.findOne(returnedUser.getId())).thenReturn(returnedUser);
-
+	public void getById_PassValidUserId_ShouldReturnUserEditBundle() throws Exception {
+		UserEditBundle bundle = TestControllerHelper.buildUserEditBundleForTest();
+		User returnedUser = bundle.getUser();
+		
+		when(userServiceMock.getUserEditBundleFor(returnedUser.getId())).thenReturn(bundle);
+		
 		mock
 			.perform(get("/user/details/{id}", returnedUser.getId()))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect(jsonPath("$.id", is(1)))
-			.andExpect(jsonPath("$.login", is(returnedUser.getLogin())))
-			.andExpect(jsonPath("$.password", is(returnedUser.getPassword())));
+			.andExpect(jsonPath("$.user.id", is(1)))
+			.andExpect(jsonPath("$.user.login", is(returnedUser.getLogin())))
+			.andExpect(jsonPath("$.user.password", is(returnedUser.getPassword())));
 
-		verify(userServiceMock, times(1))
-			.findOne(returnedUser.getId());
+		verify(userServiceMock, times(1)).getUserEditBundleFor(returnedUser.getId());
 		verifyNoMoreInteractions(userServiceMock);
 	}
 
@@ -111,10 +116,9 @@ public class TestUserController extends MockTestConfigigurationAware {
 	@Test
 	public void findAll_ShouldReturnListOfUsers() throws Exception {
 		User admin = TestControllerHelper.buildUserAdminForTest();
-		User manager = TestControllerHelper.buildUserManagerForTest();
 		
 		when(userServiceMock.findAll())
-			.thenReturn(Arrays.asList(admin, manager));
+			.thenReturn(Arrays.asList(admin, admin));
 
 		mock
 			.perform(get("/user/list"))
@@ -122,7 +126,7 @@ public class TestUserController extends MockTestConfigigurationAware {
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$", hasSize(2)))
 			.andExpect(jsonPath("$[0].login", is(admin.getLogin())))
-			.andExpect(jsonPath("$[1].login", is(manager.getLogin())))
+			.andExpect(jsonPath("$[1].login", is(admin.getLogin())))
 			.andReturn();
 		
 		verify(userServiceMock, times(1))
@@ -130,13 +134,9 @@ public class TestUserController extends MockTestConfigigurationAware {
 		verifyNoMoreInteractions(userServiceMock);
 	}
 	
+	@Ignore
 	@Test
-	public void getPage_PassValidPageNumber_ShouldReturnLisUserOnThisPage(){
-//		final int pageNumber = 1;
-//		final int size = 10;
-//		List<User> users = TestControllerHelper.buildValidUserListForTest(size);
-//		PageRequest pageRequest = new PageRequest(pageNumber, size);
-		//TODO: implement test for this method
-		
+	public void getPage_PassValidPageNumber_ShouldReturnLisUserOnThisPage() {
+		// TODO: need implements this test
 	}
 }

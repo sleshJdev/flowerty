@@ -5,24 +5,24 @@ package by.itechart.flowerty.web.model;
  *
  */
 public class SigninForm {
-	private String username;
+	private String login;
 	private String password;
 
 	public SigninForm() {
 	}
 
-	public SigninForm(String username, String password) {
+	public SigninForm(String login, String password) {
 		super();
-		this.username = username;
+		this.login = login;
 		this.password = password;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setLogin(String username) {
+		this.login = username;
 	}
 
 	public String getPassword() {

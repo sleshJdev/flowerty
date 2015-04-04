@@ -1,11 +1,12 @@
 package by.itechart.flowerty.dao.repository;
 
-import by.itechart.flowerty.model.Company;
-import by.itechart.flowerty.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import by.itechart.flowerty.model.Company;
+import by.itechart.flowerty.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	public User findUserByLoginAndPassword(String login, String password);

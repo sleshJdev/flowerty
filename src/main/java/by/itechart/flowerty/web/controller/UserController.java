@@ -5,7 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -30,7 +30,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
@@ -39,10 +39,10 @@ public class UserController {
 		if (id < 1) {
 			throw new Exception("user id cannot be negative or 0");
 		}
-		
+
 		return userService.getUserEditBundleFor(id);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getList() {
@@ -56,13 +56,13 @@ public class UserController {
 	@RequestMapping(value = "user/delete/{id}")
 	public String delete(@PathVariable("id") Long id) throws Exception {
 		LOGGER.info("try delete user with id: {}", id);
-		
+
 		if (id < 1) {
 			throw new Exception("user id cannot be negative or 0");
 		}
-		
+
 		userService.delete(id);
-		
+
 		return "home/index";
 	}
 
@@ -72,14 +72,13 @@ public class UserController {
 		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
 
 		userService.save(newUser);
-		
+
 		return newUser;
 	}
 
-	
 	@ResponseBody
 	@RequestMapping(value = "user/list/{page}")
-	public List<User> getPage(@PathVariable("page") Integer page) throws Exception {
+	public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
 		LOGGER.info("get page with number {}", page);
 
 		// TODO: maybe implement throw exception if page has incorrect format???
@@ -91,9 +90,9 @@ public class UserController {
 		}
 		--page;
 
-		List<User> pageUsers = userService.findAll(new PageRequest(page, 10));
+		Page<User> pageUsers = userService.getPage(page, 10);
 
-		LOGGER.info("fetch {} users", pageUsers.size());
+		LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 
 		return pageUsers;
 	}

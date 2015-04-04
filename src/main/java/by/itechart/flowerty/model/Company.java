@@ -1,6 +1,5 @@
 package by.itechart.flowerty.model;
 
-
 import javax.persistence.*;
 
 /**
