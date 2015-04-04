@@ -25,8 +25,8 @@ authenticationModule.config(["$routeProvider", function($routeProvider) {
 
 authenticationModule.controller('LogInController', function($scope, $http) {
 
-    $scope.login = '';
-    $scope.password = '';
+//    $scope.login = '';
+//    $scope.password = '';
 
     $scope.logIn = function() {
 
@@ -35,11 +35,14 @@ authenticationModule.controller('LogInController', function($scope, $http) {
             password : $scope.password
         };
 
+        console.log("user to log: " + JSON.stringify(logged));
+        
         var request = $http({
             method: "post",
             url: "login",
             data: {
-                loggedInUser: logged
+                login : $scope.login,
+                password : $scope.password
             }
         });
 

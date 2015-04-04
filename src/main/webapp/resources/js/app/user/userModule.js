@@ -92,7 +92,7 @@ userModule.controller('UsersController', function($scope, $http) {
         });
 
         request.success(function(data, status, headers, config) {
-            console.log("Response: " + JSON.stringify({data: data}));
+            console.log("Response: " + JSON.stringify({data: data.content}));
             $scope.users.usersList = data.content;
             $scope.users.pagesCount = data.totalElements;
         });

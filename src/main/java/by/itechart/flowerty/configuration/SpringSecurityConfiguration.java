@@ -32,7 +32,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticator());
+//        auth.authenticationProvider(authenticator());
     }
 
     @Bean
@@ -43,18 +43,18 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.csrf().disable();
-        http
-	        .authorizeRequests()
-	        .antMatchers("/user/list/**")
-	        .access("hasRole('ROLE_ADMIN')")
-	    .and()
-	        .formLogin()
-	        .loginPage("/login")
-	        .loginProcessingUrl("/login")
-	        .successHandler(authSuccess)
-	        .defaultSuccessUrl("/", false)
-	    .and()
-	        .logout()
-	        .logoutSuccessUrl("/login?logout");
+//        http
+//	        .authorizeRequests()
+//	        .antMatchers("/user/list/**")
+//	        .access("hasRole('ROLE_ADMIN')")
+//	    .and()
+//	        .formLogin()
+//	        .loginPage("/login")
+//	        .loginProcessingUrl("/authenticate")
+//	        .successHandler(authSuccess)
+//	        .defaultSuccessUrl("/", false)
+//	    .and()
+//	        .logout()
+//	        .logoutSuccessUrl("/login?logout");
     }
 }
