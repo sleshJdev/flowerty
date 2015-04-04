@@ -1,24 +1,29 @@
-<!-- Form for showing list of users, deleting users -->
-<div  ng-app="flowertyApplication.userModule">
-    <form>
-        <table class="table table-hover">
-            <tr class="row" >
-                <th></th>
-                <th>full name</th>
-                <th>login</th>
-                <th>role</th>
-            </tr>
-            <tr class="row" data-ng-repeat="user in users.usersList" >
-                <td><input type="checkbox"/></td>
-                <td><a href="#/edit-user/{{user.id}}">{{user.contact.name + " " +user.contact.surname + " " + user.contact.fathername}}</a></td>
-                <td>{{user.login}}</td>
-                <td>{{user.role.name}}</td>
-            </tr>
-        </table>
-    </form>
-    <ul class="pagination container">
-        <li><a href="" data-ng-click="users.getPreviousPage()">&lt;</a></li>
-        <li data-ng-repeat="page in users.pages" data-ng-class="[ users.pageClass(page.value)]"><a href="" data-ng-click="users.getPage(page.value)">{{page.value}}</a></li>
-        <li><a href="" data-ng-click="users.getNextPage()">&gt;</a></li>
-    </ul>
+<div ng-app="flowertyApplication.userModule" class="ng-scope">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Full Name</th>
+				<th>Login</th>
+				<th>Role</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="ng-scope" ng-repeat="user in users.usersList">
+				<td>{{user.contact.name}}</td>
+				<td>{{user.contact.surname}}</td>
+				<td>{{user.contact.fathername}}</td>
+				<td>
+					<a href="#/edit-user?id={{user.id}}">edit</a> |
+        			<a href="#/remove-user?id={{user.id}}">delete</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
+<ul class="pagination">
+	<li><a href="" data-ng-click="users.getPreviousPage()">&lt;</a></li>
+	<li data-ng-repeat="page in users.pages"
+		data-ng-class="[ users.pageClass(page.value)]"><a href=""
+		data-ng-click="users.getPage(page.value)">{{page.value}}</a></li>
+	<li><a href="" data-ng-click="users.getNextPage()">&gt;</a></li>
+</ul>
