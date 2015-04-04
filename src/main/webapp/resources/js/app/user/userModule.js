@@ -68,7 +68,6 @@ userModule.controller("UserEditController", ['$scope', '$http', '$location', '$r
 }]);
 
 userModule.controller("UserDeleteController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
-	alert($routeParams.id);
 	$http({
 		method: "get",
 		url: "user/delete/" + $routeParams.id
