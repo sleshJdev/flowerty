@@ -15,9 +15,8 @@ import by.itechart.flowerty.security.CustomAuthenticationProvider;
 import by.itechart.flowerty.security.EntryPointUnauthorizedHandler;
 
 /**
- * Created by Rostislav on 26-Mar-15.)
+ * Created by Rostislav on 26-Mar-15.
  */
-
 @Configuration
 @EnableWebMvcSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
