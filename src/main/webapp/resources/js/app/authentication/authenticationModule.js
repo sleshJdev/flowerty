@@ -19,6 +19,10 @@ authenticationModule.config(["$routeProvider", function ($routeProvider) {
         });
 }]);
 
+/**
+ * Created by Rostislav on 05-Apr-15.
+ */
+
 authenticationModule.factory('sessionService', function ($http) {
     var session = {};
     session.login = function (data, $scope, $location) {
@@ -26,14 +30,12 @@ authenticationModule.factory('sessionService', function ($http) {
         "&password=" + data.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (data) {
-            alert("login successful");
             localStorage.setItem("session", {});
             $scope.current.isLogged = true;
-            $scope.current.user.login = $scope.account.login;
+            $scope.current.user.login = $scope.user.login;
             $scope.current.errorLogin = false;
             $location.path("/");
         }, function (data) {
-            alert("error logging in");
             $scope.current.isLogged = false;
             $scope.current.errorLogin = true;
             $location.path("/login");
@@ -49,7 +51,7 @@ authenticationModule.factory('sessionService', function ($http) {
 });
 
 /**
- * Created by Катерина on 19.03.2015.
+ * Created by Rostislav on 05-Apr-15.
  */
 
 authenticationModule.controller('LogInController', function ($scope, $http, $location, sessionService) {
@@ -63,33 +65,7 @@ authenticationModule.controller('LogInController', function ($scope, $http, $loc
 
         console.log("user to log: " + JSON.stringify(logged));
 
-        //var request = $http({
-        //    method: "post",
-        //    url: "login",
-        //    data: {
-        //        login: $scope.login,
-        //        password: $scope.password
-        //    }
-        //});
-
-        sessionService.login($scope.account, $scope, $location);
-
-        // Just emulation
-        //$scope.current.isLogged = true;
-        //$scope.current.user.login = logged.login;
-        //$scope.current.user.role = {name: 'ADMIN'};
-
-        //request.success(function (data, status, headers, config) {
-        //    console.log("User logged in: " + JSON.stringify({data: data}));
-        //
-        //    $scope.current.isLogged = true;
-        //    //$rootScope.current.user = data.user;
-        //    $scope.current.user.login = logged.login;
-        //    $scope.current.user.role = {name: 'ADMIN'};
-        //});
-        //request.error(function (data, status, headers, config) {
-        //    console.log("Exception details: " + JSON.stringify({data: data}));
-        //});
+        sessionService.login($scope.user, $scope, $location);
     };
 });
 

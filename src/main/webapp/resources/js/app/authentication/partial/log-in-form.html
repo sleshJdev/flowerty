@@ -1,21 +1,6 @@
 <!-- The form for logging in -->
 <div ng-app="flowertyApplication.authenticationModule">
-    <!--<h1 class="page-header">-->
-    <!--Login-->
-    <!--</h1>-->
-    <!--<form ng-submit="login()">-->
-    <!--<div class="form-group">-->
-    <!--<label>Username:</label>-->
-    <!--<input type="text" ng-model="account.name" class="form-control"/>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-    <!--<label>Password:</label>-->
-    <!--<input type="password" ng-model="account.password" class="form-control"/>-->
-    <!--</div>-->
-    <!--<button class="btn btn-success" type="submit">Login</button>-->
-    <!--</form>-->
-
-    <form id="log-in-form" class="form-narrow form-horisontal">
+    <form id="log-in-form" class="form-narrow form-horisontal" ng-submit="logIn()">
         <div class="alert alert-danger" ng-show="current.errorLogin">
             There was a problem logging in. Please try again.
         </div>
@@ -26,7 +11,7 @@
 
                 <div class="col-lg-10">
                     <!--<input id="login" type="text" class="form-control" placeholder="login" data-ng-model="login"/>-->
-                    <input type="text" id="login" ng-model="account.login" class="form-control"/>
+                    <input type="text" id="login" ng-model="user.login" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -34,7 +19,7 @@
 
                 <div class="col-lg-10">
                     <!--<input id="password" type="password" class="form-control" placeholder="password" data-ng-model="password"/>-->
-                    <input type="password" id="password" ng-model="account.password" class="form-control"/>
+                    <input type="password" id="password" ng-model="user.password" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -48,7 +33,8 @@
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
-                    <input type="submit" class="btn btn-default" value="Log in!" data-ng-click="logIn()"/>
+                    <button class="btn btn-success" type="submit">Login</button>
+                    <!--<input type="submit" class="btn btn-default" value="Log in!" data-ng-click="logIn()"/>-->
                 </div>
             </div>
             <div class="form-group">
