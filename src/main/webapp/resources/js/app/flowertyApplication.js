@@ -9,8 +9,8 @@ var app = angular.module('flowertyApplication', ['ngRoute', 'flowertyApplication
         when('/users', {
             templateUrl: APP_PATH + "user/partial/users-list-form.html",
             controller: "UsersController"
-        }).
-        when('/login', {
+        })
+        .when('/login', {
             templateUrl: APP_PATH + 'authentication/partial/log-in-form.html',
             controller: 'LogInController'
         });
@@ -32,18 +32,29 @@ app.controller('ViewController', ['$scope', function($scope) {
     $scope.templates.footer = $scope.templates[1];
 }]);
 
-app.controller('MainController', function($scope) {
+app.controller('MainController', function($scope, $http, $location, sessionService) {
 
     $scope.current = {
-        isLogged : false,
-        user : {}
+        isLogged : sessionService.isLoggedIn(),
+        user : {},
+        errorLogin : false
     };
 
     $scope.current.logOut = function(){
 
         // Logout logic here
 
-        $scope.current.isLogged = false;
-        $scope.user = {};
+        sessionService.logout();
+
+        $http.post('logout', {}).success(function() {
+            $scope.current.isLogged = false;
+            $scope.user = {};
+            $location.path("/");
+        }).error(function(data) {
+            $scope.current.isLogged = false;
+            $scope.user = {};
+            $location.path("/");
+        });
+
     };
 });

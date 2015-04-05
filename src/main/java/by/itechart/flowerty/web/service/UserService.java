@@ -1,12 +1,5 @@
 package by.itechart.flowerty.web.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-
 import by.itechart.flowerty.dao.repository.ContactRepository;
 import by.itechart.flowerty.dao.repository.RoleRepository;
 import by.itechart.flowerty.dao.repository.UserRepository;
@@ -14,6 +7,12 @@ import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
