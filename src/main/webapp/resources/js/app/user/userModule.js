@@ -2,9 +2,6 @@
  * Created by Катерина on 24.03.2015.
  */
 
-var APP_PATH = "resources/js/app/";
-var USER_MODULE_PATH = APP_PATH + "user/";
-
 var userModule = angular.module("flowertyApplication.userModule", ['ngRoute']);
 
 userModule.config(["$routeProvider", function($routeProvider) {
@@ -13,10 +10,10 @@ userModule.config(["$routeProvider", function($routeProvider) {
         templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
         controller: "UsersController"
     })
-	.when("/edit-user", {
-		templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
-		controller: "UserEditController"
-	})
+    .when("/edit-user/:id", {
+        templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
+        controller: "UserEditController"
+    })
 	.when("/remove-user", {
 		templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
 		controller: "UserDeleteController"
@@ -29,6 +26,9 @@ userModule.config(["$routeProvider", function($routeProvider) {
  */
 userModule.filter("flowerSplit", function() {
 	return function(value, separator) {
+        if(value === undefined){
+            return '';
+        }
 		var tokens = value.toLowerCase().split(separator);
 		var result = "";
 		for(var i = 0; i < tokens.length; ++i){
@@ -40,7 +40,7 @@ userModule.filter("flowerSplit", function() {
 		}
 		return result;
 	}
-})
+});
 
 userModule.controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 	$http({
@@ -76,17 +76,13 @@ userModule.controller("UserDeleteController", ['$scope', '$http', '$location', '
 	}).error(function(data, status, headers, config) {
 		console.log("Remove error: " + JSON.stringify(data));
 	});
-}])
-
-/**
- * Created by Катерина on 24.03.2015.
- */
+}]);
 
 userModule.controller('UsersController', function($scope, $http) {
 
     $scope.users = {
         pages : [],
-        pagesCount : 3,
+        pagesCount : 1,
         currentPage : 1,
         usersList : []
     };
@@ -120,7 +116,7 @@ userModule.controller('UsersController', function($scope, $http) {
         request.success(function(data, status, headers, config) {
             console.log("Response: " + JSON.stringify({data: data.content}));
             $scope.users.usersList = data.content;
-            $scope.users.pagesCount = data.totalElements;
+            $scope.users.pagesCount = data.totalPages;
         });
 
         request.error(function(data, status, headers, config) {
@@ -142,6 +138,10 @@ userModule.controller('UsersController', function($scope, $http) {
         $scope.users.getPage($scope.users.currentPage);
     };
 
-    $scope.users.getPage(1);
+    $scope.init = function () {
+        $scope.users.getPage(1);
+        $scope.users.getPage(1);
+    };
 
+    $scope.init();
 });

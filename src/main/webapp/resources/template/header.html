@@ -20,12 +20,6 @@
                 <li id="logged-user" class="active">
                     <a href="" data-ng-show="current.isLogged"><strong>{{current.user.login}}</strong></a>
                 </li>
-                <!--<li>-->
-                    <!--<a href="#/login" data-ng-hide="current.isLogged">Log in!</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<a href="" data-ng-show="current.isLogged" data-ng-click="current.logOut()">Logout</a>-->
-                <!--</li>-->
                 <li data-ng-show="!current.isLogged"><a href="#/login">login</a></li>
                 <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()">logout</a></li>
             </ul>

@@ -1,9 +1,7 @@
-/**
- * Created by Катерина on 03.04.2015.
- */
 
-var APP_PATH = "resources/js/app/";
-var AUTHENTICATION_MODULE_PATH = APP_PATH + "authentication/";
+/**
+ * Created by Катерина on 19.03.2015.
+ */
 
 var authenticationModule = angular.module('flowertyApplication.authenticationModule', ['ngRoute']);
 
