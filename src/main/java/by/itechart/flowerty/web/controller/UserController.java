@@ -38,6 +38,7 @@ public class UserController {
 		return userService.getUserEditBundleFor(id);
 	}
 
+//	@Secured("ROLE_ADMIN")
 	@ResponseBody
 	@RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getList() {

@@ -49,11 +49,11 @@ app.controller('MainController', function($scope, $http, $location, sessionServi
         $http.post('logout', {}).success(function() {
             $scope.current.isLogged = false;
             $scope.user = {};
-            $location.path("/");
+            //$location.path("/");
         }).error(function(data) {
             $scope.current.isLogged = false;
             $scope.user = {};
-            $location.path("/");
+            //$location.path("/");
         });
 
     };
