@@ -1,0 +1,27 @@
+
+<!-- Form for showing list of contacts, deleting contacts -->
+<div data-ng-app="flowertyApplication.userModule">
+    <form>
+        <table class="table table-bordered">
+            <tr>
+                <th></th>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>Birthday</th>
+            </tr>
+            <tr data-ng-repeat="contact in contacts.list" >
+                <td><input type="checkbox"/></td>
+                <td><a href="#/edit-contact/{{contact.id}}"><span class="glyphicon glyphicon-edit"></span> {{contact.name + ' ' + contact.surname + ' ' + contact.fathername}}</a></td>
+                <td>{{contact.birthday}}</td>
+                <td>{{contact.address.town + ', ' + contact.address.street + ', ' + contact.address.house + ', ' + contact.address.flat}}</td>
+            </tr>
+        </table>
+    </form>
+    <ul class="pagination container">
+        <li><a href="" data-ng-click="contacts.getPreviousPage()">&lt;</a></li>
+        <li data-ng-repeat="page in [] | flowerRange:contacts.totalPages"  data-ng-class="{active : $index + 1 == contacts.currentPage}" >
+        	<a href="" data-ng-click="contacts.getPage($index + 1)">{{$index + 1}}</a>
+       	</li>
+        <li><a href="" data-ng-click="contacts.getNextPage()">&gt;</a></li>
+    </ul>
+</div>

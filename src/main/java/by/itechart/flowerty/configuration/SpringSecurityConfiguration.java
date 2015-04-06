@@ -42,20 +42,20 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-            .and()
-                .authorizeRequests()
-                .antMatchers("/user/list/**")
-                .access("hasRole('ROLE_ADMIN')")
-            .and()
-                .formLogin()
-                .successHandler(authSuccess)
-                .failureHandler(authFailure)
-                .defaultSuccessUrl("/", false)
-            .and()
-                .logout()
-                .logoutSuccessUrl("/login?logout");
+                .csrf().disable();
+//                .exceptionHandling()
+//                .authenticationEntryPoint(unauthorizedHandler)
+//            .and()
+//                .authorizeRequests()
+//                .antMatchers("/user/list/**")
+//                .access("hasRole('ROLE_ADMIN')")
+//            .and()
+//                .formLogin()
+//                .successHandler(authSuccess)
+//                .failureHandler(authFailure)
+//                .defaultSuccessUrl("/", false)
+//            .and()
+//                .logout()
+//                .logoutSuccessUrl("/login?logout");
     }
 }

@@ -2,7 +2,14 @@
  * Created by Катерина on 19.03.2015.
  */
 
-var app = angular.module('flowertyApplication', ['ngRoute', 'flowertyApplication.userModule', 'flowertyApplication.authenticationModule']).config(['$routeProvider', function($routeProvider) {
+var app = angular.module('flowertyApplication', [
+                             		'ngRoute', 
+                             		'flowertyApplication.userModule', 
+                             		'flowertyApplication.authenticationModule',
+                             		'flowertyApplication.contactModule',
+                             		'flowertyApplication.flowerFilters'])
+
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
         when('/users', {
             templateUrl: APP_PATH + "user/partial/users-list-form.html",
