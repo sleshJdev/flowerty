@@ -18,14 +18,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li id="logged-user" class="active">
-                    <a href="" data-ng-show="current.isLogged">Hello, <strong>{{current.user.login}}</strong>! Your role is <strong>{{current.user.role.name}}</strong></a>
+                    <a href="" data-ng-show="current.isLogged"><strong>{{current.user.login}}</strong></a>
                 </li>
-                <li>
-                    <a href="#/login" data-ng-hide="current.isLogged">Log in!</a>
-                </li>
-                <li>
-                    <a href="" data-ng-show="current.isLogged" data-ng-click="current.logOut()">Logout</a>
-                </li>
+                <li data-ng-show="!current.isLogged"><a href="#/login">login</a></li>
+                <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()">logout</a></li>
             </ul>
         </div>
     </div>
