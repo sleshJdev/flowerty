@@ -15,14 +15,15 @@ import by.itechart.flowerty.security.CustomAuthenticationProvider;
 import by.itechart.flowerty.security.EntryPointUnauthorizedHandler;
 
 /**
- * Created by Rostislav on 26-Mar-15.
+ * Created by Rostislav on 26-Mar-15.)
  */
+
 @Configuration
 @EnableWebMvcSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthFailure authFailure;
-
+    
     @Autowired
     private AuthSuccess authSuccess;
 
@@ -31,7 +32,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticator());
+//        auth.authenticationProvider(authenticator());
     }
 
     @Bean
@@ -41,21 +42,19 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-            .and()
-                .authorizeRequests()
-                .antMatchers("/user/list/**")
-                .access("hasRole('ROLE_ADMIN')")
-            .and()
-                .formLogin()
-                .successHandler(authSuccess)
-                .failureHandler(authFailure)
-                .defaultSuccessUrl("/", false)
-            .and()
-                .logout()
-                .logoutSuccessUrl("/login?logout");
+    	http.csrf().disable();
+//        http
+//	        .authorizeRequests()
+//	        .antMatchers("/user/list/**")
+//	        .access("hasRole('ROLE_ADMIN')")
+//	    .and()
+//	        .formLogin()
+//	        .loginPage("/login")
+//	        .loginProcessingUrl("/authenticate")
+//	        .successHandler(authSuccess)
+//	        .defaultSuccessUrl("/", false)
+//	    .and()
+//	        .logout()
+//	        .logoutSuccessUrl("/login?logout");
     }
 }

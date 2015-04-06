@@ -1,69 +1,100 @@
-
 /**
- * Created by Катерина on 19.03.2015.
+ * Created by Катерина on 03.04.2015.
  */
 
-var authenticationModule = angular.module('flowertyApplication.authenticationModule', ['ngRoute']);
+var APP_PATH = "resources/js/app/";
+var AUTHENTICATION_MODULE_PATH = APP_PATH + "authentication/";
 
-authenticationModule.config(["$routeProvider", function ($routeProvider) {
-    $routeProvider
-        .when('/login', {
+var authenticationModule = angular.module("flowertyApplication.authenticationModule", ['ngRoute']);
+
+authenticationModule.config(["$routeProvider", function($routeProvider) {
+    $routeProvider.
+        when('/login', {
             templateUrl: AUTHENTICATION_MODULE_PATH + 'partial/log-in-form.html',
             controller: 'LogInController'
-        })
-        .when('/signup', {
+        }).
+        when('/signup', {
             templateUrl: AUTHENTICATION_MODULE_PATH + 'partial/sign-up-form.html',
             controller: 'SignUpController'
         });
 }]);
 
 /**
- * Created by Rostislav on 05-Apr-15.
+ * Created by Катерина on 19.03.2015.
  */
 
-authenticationModule.factory('sessionService', function ($http) {
-    var session = {};
-    session.login = function (data, $scope, $location) {
-        return $http.post("/login", "username=" + data.login +
-        "&password=" + data.password, {
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function (data) {
-            localStorage.setItem("session", {});
-            $scope.current.isLogged = true;
-            $scope.current.user.login = $scope.user.login;
-            $scope.current.errorLogin = false;
-            $location.path("/");
-        }, function (data) {
-            $scope.current.isLogged = false;
-            $scope.current.errorLogin = true;
-            $location.path("/login");
-        });
-    };
-    session.logout = function () {
-        localStorage.removeItem("session");
-    };
-    session.isLoggedIn = function () {
-        return localStorage.getItem("session") !== null;
-    };
-    return session;
-});
+authenticationModule.controller('LogInController', function($scope, $http) {
 
-/**
- * Created by Rostislav on 05-Apr-15.
- */
+//    $scope.login = '';
+//    $scope.password = '';
 
-authenticationModule.controller('LogInController', function ($scope, $http, $location, sessionService) {
-
-    $scope.logIn = function () {
+    $scope.logIn = function() {
 
         var logged = {
-            login: $scope.login,
-            password: $scope.password
+            login : $scope.login,
+            password : $scope.password
         };
 
         console.log("user to log: " + JSON.stringify(logged));
+        
+        var request = $http({
+            method: "post",
+            url: "login",
+            data: {
+                login : $scope.login,
+                password : $scope.password
+            }
+        });
 
-        sessionService.login($scope.user, $scope, $location);
+        // Just emulation
+        $scope.current.isLogged = true;
+        $scope.current.user.login = logged.login;
+        $scope.current.user.role = {name : 'ADMIN'};
+
+        request.success(function(data, status, headers, config) {
+            console.log("User logged in: " + JSON.stringify({data: data}));
+
+            $scope.current.isLogged = true;
+            //$rootScope.current.user = data.user;
+            $scope.current.user.login = logged.login;
+            $scope.current.user.role = {name : 'ADMIN'};
+        });
+        request.error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+        });
+    };
+
+    $scope.logOut = function() {
+
+        var logged = {
+            login : $scope.login,
+            password : $scope.password
+        };
+
+        var request = $http({
+            method: "post",
+            url: "login",
+            data: {
+                loggedInUser: logged
+            }
+        });
+
+        // Just emulation
+        $scope.current.isLogged = true;
+        $scope.current.user.login = logged.login;
+        $scope.current.user.role = {name : 'ADMIN'};
+
+        request.success(function(data, status, headers, config) {
+            console.log("User logged in: " + JSON.stringify({data: data}));
+
+            $scope.current.isLogged = true;
+            //$rootScope.current.user = data.user;
+            $scope.current.user.login = logged.login;
+            $scope.current.user.role = {name : 'ADMIN'};
+        });
+        request.error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+        });
     };
 });
 
@@ -71,19 +102,21 @@ authenticationModule.controller('LogInController', function ($scope, $http, $loc
  * Created by Катерина on 03.04.2015.
  */
 
-authenticationModule.controller('SignUpController', function ($scope, $http) {
+authenticationModule.controller('SignUpController', function($scope, $http) {
 
-    $scope.signUp = function () {
+    $scope.signUp = function() {
 
         var request = $http({
             method: "post",
             url: "signup",
-            data: {}
+            data: {
+
+            }
         });
-        request.success(function (data, status, headers, config) {
+        request.success(function(data, status, headers, config) {
 
         });
-        request.error(function (data, status, headers, config) {
+        request.error(function(data, status, headers, config) {
 
         });
     };

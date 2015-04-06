@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Rostislav on 30-Mar-15.
+ * Created by Rostislav on 30-Mar-15.)
  */
+
 @Component
 public class AuthSuccess extends SimpleUrlAuthenticationSuccessHandler {
     @Override

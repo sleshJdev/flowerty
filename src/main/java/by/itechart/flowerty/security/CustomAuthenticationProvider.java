@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
- * Created by Rostislav on 31-Mar-15.
+ * Created by Rostislav on 31-Mar-15.)
  */
+
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
