@@ -17,8 +17,8 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li id="logged-user" class="active">
-                    <a href="" data-ng-show="current.isLogged"><strong>{{current.user.login}}</strong></a>
+                <li id="logged-user" class="active" data-ng-show="current.isLogged">
+                    <a href="" ><strong>{{current.user}}</strong></a>
                 </li>
                 <li data-ng-show="!current.isLogged"><a href="#/login">login</a></li>
                 <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()">logout</a></li>

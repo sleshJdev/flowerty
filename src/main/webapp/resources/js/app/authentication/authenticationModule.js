@@ -28,15 +28,15 @@ authenticationModule.factory('sessionService', function ($http) {
         "&password=" + data.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (data) {
-            localStorage.setItem("session", {});
+            localStorage.setItem("session", $scope.user.login);
             $scope.current.isLogged = true;
-            $scope.current.user.login = $scope.user.login;
+            $scope.current.user = $scope.user.login;
             $scope.current.errorLogin = false;
             $location.path("/");
         }, function (data) {
             $scope.current.isLogged = false;
             $scope.current.errorLogin = true;
-            $location.path("/login");
+            $scope.user.password = '';
         });
     };
     session.logout = function () {

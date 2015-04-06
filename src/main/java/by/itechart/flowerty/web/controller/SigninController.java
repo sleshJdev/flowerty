@@ -1,7 +1,8 @@
 package by.itechart.flowerty.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import by.itechart.flowerty.web.exception.NotFoundException;
+import by.itechart.flowerty.web.model.SigninForm;
+import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import by.itechart.flowerty.web.exception.NotFoundException;
-import by.itechart.flowerty.web.model.SigninForm;
-import by.itechart.flowerty.web.service.UserService;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -36,7 +35,7 @@ public class SigninController {
 			return "home/index";
 		}
 
-		return "signin/signin";
+		return "home/index";
 	}
 	
 	@RequestMapping(value = "authenticate", method = RequestMethod.POST)

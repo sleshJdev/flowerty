@@ -32,9 +32,11 @@ app.controller('ViewController', ['$scope', function($scope) {
 
 app.controller('MainController', function($scope, $http, $location, sessionService) {
 
+    var user = localStorage.getItem("session") !== null ? localStorage.getItem("session") : {};
+
     $scope.current = {
         isLogged : sessionService.isLoggedIn(),
-        user : {},
+        user : user,
         errorLogin : false
     };
 
