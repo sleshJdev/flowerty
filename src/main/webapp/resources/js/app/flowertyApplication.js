@@ -7,7 +7,7 @@ var app = angular.module('flowertyApplication', [
                              		'flowertyApplication.userModule', 
                              		'flowertyApplication.authenticationModule',
                              		'flowertyApplication.contactModule',
-                             		'flowertyApplication.flowerFilters'])
+                             		'flowertyApplication.utilModule'])
 
 .config(['$routeProvider', function($routeProvider) {
     $routeProvider.

@@ -4,6 +4,8 @@
  */
 package by.itechart.flowerty.web.controller;
 
+import java.util.HashSet;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.model.Phone;
+import by.itechart.flowerty.model.Phone.PHONE_TYPE;
 import by.itechart.flowerty.web.exception.NotFoundException;
 import by.itechart.flowerty.web.service.ContactService;
 
@@ -49,7 +53,29 @@ public class ContactController {
 	    throw new NotFoundException("contact id cannot be negative or null");
 	}
 
-	return contactService.getById(id);
+	final Phone phone = new Phone();
+	phone.setId(1L);
+	phone.setCountry("+375");
+	phone.setOperator("029");
+	phone.setNumber("8272039");
+	phone.setType(PHONE_TYPE.CELL);
+	phone.setComment("nice number");
+	
+	final Phone phone1 = new Phone();
+	phone1.setId(2L);
+	phone1.setCountry("+375");
+	phone1.setOperator("029");
+	phone1.setNumber("8272037");
+	phone1.setType(PHONE_TYPE.HOME);
+	phone1.setComment("cool number");
+	
+	Contact contact = contactService.getById(id);
+	contact.setPhones(new HashSet<Phone>(){{
+	    add(phone);
+	    add(phone1);
+	}});
+	
+	return contact;
     }
 
     @ResponseBody

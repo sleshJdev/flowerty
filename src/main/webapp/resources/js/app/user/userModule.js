@@ -1,7 +1,6 @@
 /**
  * Created by Катерина on 24.03.2015.
  */
-
 var userModule = angular.module("flowertyApplication.userModule", ['ngRoute']);
 
 userModule.config(["$routeProvider", function($routeProvider) {
@@ -19,28 +18,6 @@ userModule.config(["$routeProvider", function($routeProvider) {
 		controller: "UserDeleteController"
 	});
 }]);
-
-/*
- * Make separating, paste together tokens and make capitalize first character of first token.
- * Example: UPPER_CASE -> Upper case. I this case, seprator='_'.
- */
-userModule.filter("flowerSplit", function() {
-	return function(value, separator) {
-        if(value === undefined){
-            return '';
-        }
-		var tokens = value.toLowerCase().split(separator);
-		var result = "";
-		for(var i = 0; i < tokens.length; ++i){
-			if(i == 0){
-				result = tokens[i].charAt(0).toUpperCase() + tokens[i].substring(1);
-				continue;
-			}
-			result += " " + tokens[i];
-		}
-		return result;
-	}
-});
 
 userModule.controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 	$http({
