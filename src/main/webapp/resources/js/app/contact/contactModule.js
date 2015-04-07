@@ -22,24 +22,19 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		url: "contact/details/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
 		$scope.contact = data;
-		console.log(JSON.stringify(data)); //COMMENT HERE
-		console.log("user for editing obtained successful") //COMMENT HERE
 	}).error(function(data, status, headers, config) {
-		
-		console.log("error: " + JSON.stringify(data)) //COMMENT HERE
+		console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
 	});
 	
 	$scope.save = function(){
-		console.log("contact to save: " + JSON.stringify($scope.contact)); //COMMENT HERE
 		$http({
 			method: "post",
 			url: "contact/save",
 			data: $scope.contact
 		}).success(function(data, status, headers, config) {
 			$location.path("contacts");
-			console.log("contact save successful!");// COMMENT HERE
 		}).error(function(data, status, headers, config) {
-			console.log("error: " + JSON.stringify(data));// COMMENT HERE
+			console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
 		});
 	}
 }])
@@ -56,11 +51,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
             method: "get",
             url: "contact/list/" + $scope.contacts.currentPage
         }).success(function(data, status, headers, config) {
-            console.log("response: " + JSON.stringify(data));//COMMENT HERE
             $scope.contacts.list = data.content;
             $scope.contacts.totalPages = data.totalPages;
         }).error(function(data, status, headers, config) {
-            console.log("exception details: " + JSON.stringify({data: data}));//COMMENT HERE
+        	console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
         });
     };
     

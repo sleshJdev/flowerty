@@ -25,9 +25,8 @@ userModule.controller("UserEditController", ['$scope', '$http', '$location', '$r
 		url: "user/details/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
 		$scope.bundle = data;
-		console.log("user details: " + JSON.stringify(data));//COMMENT HERE
 	}).error(function(data, status, headers, config) {
-		console.log("Problem occurred during get details about user with id: " + $routeParams.id + ": " + JSON.stringify(data));//COMMENT HERE
+		console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
 	});
 	
     $scope.save = function() {
@@ -36,10 +35,8 @@ userModule.controller("UserEditController", ['$scope', '$http', '$location', '$r
 			url: "user/save", 
 			data: $scope.bundle.user
     	}).success(function(data, status, headers, config) {
-    		console.log("user successfully saved!");//COMMENT HERE
     		$location.path("users");
     	}).error(function(data, status, headers, config) {
-			console.log("The problem occurred while saving the user: " + JSON.stringify(data));//COMMENT HERE
 		});
     };
 }]);
@@ -49,9 +46,8 @@ userModule.controller("UserDeleteController", ['$scope', '$http', '$location', '
 		method: "get",
 		url: "user/delete/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
-		console.log("Remove Ok!");//COMMENT HERE
 	}).error(function(data, status, headers, config) {
-		console.log("Remove error: " + JSON.stringify(data));//COMMENT HERE
+		console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
 	});
 }]);
 
@@ -91,7 +87,6 @@ userModule.controller('UsersController', function($scope, $http) {
         });
 
         request.success(function(data, status, headers, config) {
-            console.log("Response: " + JSON.stringify({data: data.content}));//COMMENT HERE
             $scope.users.usersList = data.content;
             $scope.users.pagesCount = data.totalPages;
         });
