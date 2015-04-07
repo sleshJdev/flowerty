@@ -51,6 +51,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .formLogin()
                 .loginPage("/login")
+//                .defaultSuccessUrl("/login")
                 .successHandler(authSuccess)
                 .failureHandler(authFailure)
                 .defaultSuccessUrl("/", false)
@@ -59,7 +60,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-                .csrf().csrfTokenRepository(csrfTokenRepository());
+                .csrf().csrfTokenRepository(csrfTokenRepository())
+        ;
     }
 
     private CsrfTokenRepository csrfTokenRepository() {

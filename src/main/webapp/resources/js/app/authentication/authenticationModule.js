@@ -1,4 +1,3 @@
-
 /**
  * Created by Катерина on 19.03.2015.
  */
@@ -23,12 +22,17 @@ authenticationModule.config(["$routeProvider", function ($routeProvider) {
 
 authenticationModule.factory('sessionService', function ($http) {
     var session = {};
-    session.login = function (data, $scope, $location) {
-        return $http.post("/login", "username=" + data.login +
-        "&password=" + data.password, {
+    session.login = function ($scope, $location) {
+        return $http.post("/login", "username=" + $scope.user.login +
+        "&password=" + $scope.user.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (data) {
             localStorage.setItem("session", $scope.user.login);
+            //if ($scope.rememberMe) {
+            //    $cookies.token = "user";
+            //} else {
+            //    $window.sessionStorage.token = "user";
+            //}
             $scope.current.isLogged = true;
             $scope.current.user = $scope.user.login;
             $scope.current.errorLogin = false;
@@ -63,7 +67,18 @@ authenticationModule.controller('LogInController', function ($scope, $http, $loc
 
         console.log("user to log: " + JSON.stringify(logged));
 
-        sessionService.login($scope.user, $scope, $location);
+        //$http({
+        //    method: "post",
+        //    url: "user/" + "test" + "&" + "test"
+        //}).success(function(data, status, headers, config) {
+        //    $scope.bundle = data;
+        //    console.log("user details: " + JSON.stringify(data));
+        //}).error(function(data, status, headers, config) {
+        //    console.log("Problem occurred during get details about user with id");
+        //    console.log("user details: " + JSON.stringify(data));
+        //});
+
+        sessionService.login($scope, $location);
     };
 });
 

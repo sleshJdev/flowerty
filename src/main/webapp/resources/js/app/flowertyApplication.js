@@ -46,14 +46,15 @@ app.controller('MainController', function($scope, $http, $location, sessionServi
 
         sessionService.logout();
 
+        //delete $window.sessionStorage.token;
+        //$cookieStore.remove("token");
+
         $http.post('logout', {}).success(function() {
             $scope.current.isLogged = false;
             $scope.user = {};
-            //$location.path("/");
         }).error(function(data) {
             $scope.current.isLogged = false;
             $scope.user = {};
-            //$location.path("/");
         });
 
     };

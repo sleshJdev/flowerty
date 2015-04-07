@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ public class SigninController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login")
 	public String login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws NotFoundException {
 		LOGGER.info("move to login page");
 
