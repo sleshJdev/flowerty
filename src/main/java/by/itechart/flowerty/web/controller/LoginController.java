@@ -1,10 +1,12 @@
 package by.itechart.flowerty.web.controller;
 
 import by.itechart.flowerty.web.exception.NotFoundException;
-import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,11 +19,8 @@ import javax.servlet.http.HttpServletRequest;
  *         Signin handler
  */
 @Controller
-public class SigninController {
-	private Logger LOGGER = LoggerFactory.getLogger(SigninController.class);
-	
-	@Autowired
-	private UserService userService;
+public class LoginController {
+	private Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	
 	@RequestMapping(value = "/login")
 	public String login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws NotFoundException {
@@ -30,6 +29,12 @@ public class SigninController {
 		if (logout != null) {
 			LOGGER.info("logout user");
 			return "home/index";
+		}
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			System.out.println(userDetail);
 		}
 
 		return "home/index";

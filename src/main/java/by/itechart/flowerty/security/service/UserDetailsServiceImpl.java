@@ -1,4 +1,4 @@
-package by.itechart.flowerty.service;
+package by.itechart.flowerty.security.service;
 
 import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;

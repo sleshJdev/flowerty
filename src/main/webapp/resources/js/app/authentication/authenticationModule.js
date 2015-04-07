@@ -24,7 +24,7 @@ authenticationModule.factory('sessionService', function ($http) {
     var session = {};
     session.login = function ($scope, $location) {
     	console.log("login()");
-        return $http.post("login", "username=" + $scope.user.login + "&password=" + $scope.user.password, {
+        return $http.post("/login", "username=" + $scope.user.login + "&password=" + $scope.user.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (data) {
             localStorage.setItem("session", $scope.user.login);
