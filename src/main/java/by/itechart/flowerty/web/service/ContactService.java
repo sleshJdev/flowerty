@@ -3,6 +3,7 @@ package by.itechart.flowerty.web.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import by.itechart.flowerty.dao.repository.ContactRepository;
@@ -20,11 +21,12 @@ public class ContactService {
     public Page<Contact> getPage(int page, int size) {
 	return contactRepository.findAll(new PageRequest(page, size));
     }
-
+    
     public Contact getById(Long id) {
 	return contactRepository.findOne(id);
     }
 
+    @Transactional
     public void save(Contact contact) {
 	contactRepository.save(contact);
     }

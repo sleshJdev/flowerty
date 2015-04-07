@@ -55,15 +55,15 @@ public class UserController {
 	if (id < 1) {
 	    throw new Exception("user id cannot be negative or 0");
 	}
-
+	
 	userService.delete(id);
-
+	
 	return "home/index";
     }
 
     @ResponseBody
     @RequestMapping(value = "user/save", method = RequestMethod.POST)
-    public User add(@Validated @RequestBody User user) {
+    public User add(@RequestBody User user) {
 	LOGGER.info("add new user with login: {} and password: {}", user.getLogin(), user.getPassword());
 
 	userService.save(user);
@@ -78,7 +78,7 @@ public class UserController {
 
 	// TODO: *add testing for this method
 
-	page = (page == null || page < 1) ? 1 : --page;
+	page = (page == null || page < 1) ? 0 : --page;
 	Page<User> pageUsers = userService.getPage(page, 10);
 
 	LOGGER.info("fetch {} users", pageUsers.getTotalElements());

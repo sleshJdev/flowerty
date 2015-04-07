@@ -36,10 +36,9 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			url: "contact/save",
 			data: $scope.contact
 		}).success(function(data, status, headers, config) {
-			
+			$location.path("contacts");
 			console.log("contact save successful!");// COMMENT HERE
 		}).error(function(data, status, headers, config) {
-			
 			console.log("error: " + JSON.stringify(data));// COMMENT HERE
 		});
 	}
