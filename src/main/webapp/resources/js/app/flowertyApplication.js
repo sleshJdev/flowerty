@@ -42,9 +42,11 @@ app.controller('ViewController', ['$scope', function($scope) {
 
 app.controller('MainController', function($scope, $http, $location, sessionService) {
 
+    var user = localStorage.getItem("session") !== null ? localStorage.getItem("session") : {};
+
     $scope.current = {
         isLogged : sessionService.isLoggedIn(),
-        user : {},
+        user : user,
         errorLogin : false
     };
 
@@ -54,14 +56,15 @@ app.controller('MainController', function($scope, $http, $location, sessionServi
 
         sessionService.logout();
 
+        //delete $window.sessionStorage.token;
+        //$cookieStore.remove("token");
+
         $http.post('logout', {}).success(function() {
             $scope.current.isLogged = false;
             $scope.user = {};
-            $location.path("/");
         }).error(function(data) {
             $scope.current.isLogged = false;
             $scope.user = {};
-            $location.path("/");
         });
 
     };

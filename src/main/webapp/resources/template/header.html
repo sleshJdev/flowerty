@@ -10,7 +10,7 @@
 			<li><a href="#/contacts"><span class="glyphicon glyphicon-list-alt"></span> Contacts</a></li>
 			<li><a href="#/edit-mock-user"><span class="glyphicon glyphicon-edit"></span> Edit Mock User</a></li>
 			<li><a href="#"><span class="glyphicon glyphicon-search"></span> Search contacts</a></li>
-            <li id="logged-user" class="active"> <a href="" data-ng-show="current.isLogged"><strong>{{current.user.login}}</strong></a> </li>
+            <li id="logged-user" class="active" data-ng-show="current.isLogged"><a href="" ><strong>{{current.user}}</strong></a></li>
             <li data-ng-show="!current.isLogged"><a href="#/login"><span class="glyphicon glyphicon-log-in">Login </span> </a></li>
             <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()"> <span class="glyphicon glyphicon-log-out">Logout</span> </a></li>
 	</ul>
