@@ -21,74 +21,68 @@ import java.util.List;
  */
 @Controller
 public class UserController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@ResponseBody
-	@RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
-		LOGGER.info("id: {}", id);
+    @ResponseBody
+    @RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
+	LOGGER.info("id: {}", id);
 
-		if (id < 1) {
-			throw new Exception("user id cannot be negative or 0");
-		}
-
-		return userService.getUserEditBundleFor(id);
+	if (id < 1) {
+	    throw new Exception("user id cannot be negative or 0");
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<User> getList() {
-		List<User> allUsers = (List<User>) userService.findAll();
+	return userService.getUserEditBundleFor(id);
+    }
 
-		LOGGER.info("fetch {} users", allUsers.size());
+    @ResponseBody
+    @RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getList() {
+	List<User> allUsers = (List<User>) userService.findAll();
 
-		return allUsers;
+	LOGGER.info("fetch {} users", allUsers.size());
+
+	return allUsers;
+    }
+
+    @RequestMapping(value = "user/delete/{id}")
+    public String delete(@PathVariable("id") Long id) throws Exception {
+	LOGGER.info("try delete user with id: {}", id);
+
+	if (id < 1) {
+	    throw new Exception("user id cannot be negative or 0");
 	}
 
-	@RequestMapping(value = "user/delete/{id}")
-	public String delete(@PathVariable("id") Long id) throws Exception {
-		LOGGER.info("try delete user with id: {}", id);
+	userService.delete(id);
 
-		if (id < 1) {
-			throw new Exception("user id cannot be negative or 0");
-		}
+	return "home/index";
+    }
 
-		userService.delete(id);
+    @ResponseBody
+    @RequestMapping(value = "user/save", method = RequestMethod.POST)
+    public User add(@Validated @RequestBody User user) {
+	LOGGER.info("add new user with login: {} and password: {}", user.getLogin(), user.getPassword());
 
-		return "home/index";
-	}
+	userService.save(user);
 
-	@ResponseBody
-	@RequestMapping(value = "user/save", method = RequestMethod.POST)
-	public User add(@Validated @RequestBody User newUser) {
-		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
+	return user;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "user/list/{page}")
+    public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
+	LOGGER.info("get page with number {}", page);
 
-		userService.save(newUser);
+	// TODO: *add testing for this method
 
-		return newUser;
-	}
+	page = (page == null || page < 1) ? 1 : --page;
+	Page<User> pageUsers = userService.getPage(page, 10);
 
-	@ResponseBody
-	@RequestMapping(value = "user/list/{page}")
-	public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
-		LOGGER.info("get page with number {}", page);
+	LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 
-		// TODO: maybe implement throw exception if page has incorrect format???
-		// TODO: change throw exception type. maybe BadRequestException
-		// TODO: *add testing for this method
-
-		if (page == null || page < 1) {
-			page = 1;
-		}
-		--page;
-
-		Page<User> pageUsers = userService.getPage(page, 10);
-
-		LOGGER.info("fetch {} users", pageUsers.getTotalElements());
-
-		return pageUsers;
-	}
+	return pageUsers;
+    }
 }

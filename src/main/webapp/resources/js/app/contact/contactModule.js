@@ -9,7 +9,40 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		.when("/contacts", {
 			templateUrl: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
 			controller: "ContactListController"
+		})
+		.when("/edit-contact/:id", {
+			templateUrl: CONTACT_MODULE_PATH + "partial/contact-edit.html",
+			controller: "ContactEditController"
+		})
+}])
+
+.controller("ContactEditController", ["$scope", "$http", "$location", "$routeParams", function($scope, $http, $location, $routeParams){
+	$http({
+		method: "get",
+		url: "contact/details/" + $routeParams.id
+	}).success(function(data, status, headers, config) {
+		$scope.contact = data;
+		console.log(JSON.stringify(data)); //COMMENT HERE
+		console.log("user for editing obtained successful") //COMMENT HERE
+	}).error(function(data, status, headers, config) {
+		
+		console.log("error: " + JSON.stringify(data)) //COMMENT HERE
+	});
+	
+	$scope.save = function(){
+		console.log("contact to save: " + JSON.stringify($scope.contact)); //COMMENT HERE
+		$http({
+			method: "post",
+			url: "contact/save",
+			data: $scope.contact
+		}).success(function(data, status, headers, config) {
+			
+			console.log("contact save successful!");// COMMENT HERE
+		}).error(function(data, status, headers, config) {
+			
+			console.log("error: " + JSON.stringify(data));// COMMENT HERE
 		});
+	}
 }])
 
 .controller("ContactListController", ["$scope", "$http", function($scope, $http) {

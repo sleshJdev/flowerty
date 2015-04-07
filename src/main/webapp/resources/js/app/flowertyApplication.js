@@ -18,7 +18,10 @@ var app = angular.module('flowertyApplication', [
         .when('/login', {
             templateUrl: APP_PATH + 'authentication/partial/log-in-form.html',
             controller: 'LogInController'
-        });
+        })
+        .when('/', {
+        	templateUrl: 'resources/template/welcome.html',
+        })
 }]);
 
 app.controller('ViewController', ['$scope', function($scope) {

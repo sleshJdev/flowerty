@@ -1,28 +1,17 @@
-
-<!-- Header template -->
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Demo project</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li id="logged-user" class="active">
-                    <a href="" data-ng-show="current.isLogged"><strong>{{current.user.login}}</strong></a>
-                </li>
-                <li data-ng-show="!current.isLogged"><a href="#/login">login</a></li>
-                <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()">logout</a></li>
-            </ul>
-        </div>
-    </div>
+<div class="row">
+	<a href="#" class="thumbnail"> <img
+		src="resources/images/header.jpg">
+	</a>
+</div>
+<div class="header clearfix">
+	<ul class="pull-right">
+		<ul class="list-inline">
+			<li><a href="#/users"><span class="glyphicon glyphicon-th-list"></span> Users</a></li>
+			<li><a href="#/contacts"><span class="glyphicon glyphicon-list-alt"></span> Contacts</a></li>
+			<li><a href="#/edit-mock-user"><span class="glyphicon glyphicon-edit"></span> Edit Mock User</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-search"></span> Search contacts</a></li>
+            <li id="logged-user" class="active"> <a href="" data-ng-show="current.isLogged"><strong>{{current.user.login}}</strong></a> </li>
+            <li data-ng-show="!current.isLogged"><a href="#/login"><span class="glyphicon glyphicon-log-in">Login </span> </a></li>
+            <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()"> <span class="glyphicon glyphicon-log-out">Logout</span> </a></li>
+	</ul>
 </div>

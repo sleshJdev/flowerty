@@ -1,45 +1,32 @@
 <!DOCTYPE html>
-<html data-ng-app="flowertyApplication" data-ng-controller="MainController">
+<html data-ng-app="flowertyApplication"
+	data-ng-controller="MainController">
 <head>
-    <title>Welcome!</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<!-- styles -->
-	<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet" media="all" />
-	<link href="resources/css/bootstrap/core.css" rel="stylesheet" media="screen" />
-	<link href="resources/css/app/css.css" rel="stylesheet" media="screen" />
-	<link href="resources/css/sticky-footer.css" rel="stylesheet" media="screen" />
-	<!-- external -->
-	<script src="resources/js/external/jquery-2.1.3.min.js"></script>
-	<script src="resources/js/external/bootstrap.min.js"></script>
-	<script src="resources/js/external/angular.js"></script>
-	<script src="resources/js/external/angular-route.js"></script>
-	<!-- app -->
-    <script src="resources/js/app/flowertyApplication.js" ></script>
-    <script src="resources/js/app/authentication/authenticationModule.js" ></script>
-    <script src="resources/js/app/user/userModule.js" ></script>
-    <script src="resources/js/app/contact/contactModule.js" ></script>
-    <script src="resources/js/app/util/filters.js" ></script>
-    <script src="resources/js/app/global.js" ></script>
+<title>Welcome!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- styles -->
+<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+	media="all" />
+<link href="resources/css/bootstrap/core.css" rel="stylesheet"
+	media="screen" />
+<!-- external -->
+<script src="resources/js/external/jquery-2.1.3.min.js"></script>
+<script src="resources/js/external/bootstrap.min.js"></script>
+<script src="resources/js/external/angular.js"></script>
+<script src="resources/js/external/angular-route.js"></script>
+<!-- app -->
+<script src="resources/js/app/flowertyApplication.js"></script>
+<script src="resources/js/app/authentication/authenticationModule.js"></script>
+<script src="resources/js/app/user/userModule.js"></script>
+<script src="resources/js/app/contact/contactModule.js"></script>
+<script src="resources/js/app/util/filters.js"></script>
+<script src="resources/js/app/global.js"></script>
 </head>
-    <body data-ng-controller="ViewController">
-
-        <div data-ng-include="templates.header.url"></div>
-
-        <div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-3 col-md-2 sidebar nav .navmenu-fixed-left">
-					<ul class="nav nav-sidebar navbar-inverse">
-						<li><a href="#/users"><span class="glyphicon glyphicon-th-list"></span> Users</a></li>
-                        <li><a href="#/contacts"><span class="glyphicon glyphicon-list-alt"></span> Contacts</a></li>
-						<li><a href="#/edit-mock-user"><span class="glyphicon glyphicon-edit"></span> Edit Mock User</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-search"></span> Search contacts</a></li>
-					</ul>
-				</div>
-                <div data-ng-view="" class="col-sm-7 col-sm-offset-3 col-md-offset-2 main"></div>
-			</div>
-		</div>
-
-        <div data-ng-include="templates.footer.url"></div>
-
-    </body>
+<body data-ng-controller="ViewController">
+	<div class="container">
+		<div data-ng-include="templates.header.url"></div>
+		<div data-ng-view="" class="clearfix"> </div>
+		<div data-ng-include="templates.footer.url"></div> 
+	</div>
+</body>
 </html>
