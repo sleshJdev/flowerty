@@ -41,7 +41,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+//                .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(unauthorizedHandler)
             .and()
@@ -59,8 +59,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/login?logout")
             .and()
-//                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-//                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+                .csrf().csrfTokenRepository(csrfTokenRepository())
         ;
     }
 
