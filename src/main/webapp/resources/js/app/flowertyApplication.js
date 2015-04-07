@@ -2,7 +2,14 @@
  * Created by Катерина on 19.03.2015.
  */
 
-var app = angular.module('flowertyApplication', ['ngRoute', 'flowertyApplication.userModule', 'flowertyApplication.authenticationModule']).config(['$routeProvider', function($routeProvider) {
+var app = angular.module('flowertyApplication', [
+                             		'ngRoute', 
+                             		'flowertyApplication.userModule', 
+                             		'flowertyApplication.authenticationModule',
+                             		'flowertyApplication.contactModule',
+                             		'flowertyApplication.flowerFilters'])
+
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
         when('/users', {
             templateUrl: APP_PATH + "user/partial/users-list-form.html",
@@ -11,7 +18,10 @@ var app = angular.module('flowertyApplication', ['ngRoute', 'flowertyApplication
         .when('/login', {
             templateUrl: APP_PATH + 'authentication/partial/log-in-form.html',
             controller: 'LogInController'
-        });
+        })
+        .when('/', {
+        	templateUrl: 'resources/template/welcome.html',
+        })
 }]);
 
 app.controller('ViewController', ['$scope', function($scope) {
