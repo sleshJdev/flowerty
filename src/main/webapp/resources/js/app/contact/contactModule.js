@@ -30,7 +30,6 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		url: "contact/details/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
 		$scope.bundle.contact = data;
-		console.log("data: " + JSON.stringify(data));
 	}).error(function(data, status, headers, config) {
 	});
 	
