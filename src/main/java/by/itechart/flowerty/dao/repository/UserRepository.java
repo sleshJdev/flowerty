@@ -14,6 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.contact.company = ?1")
     public Page<User> findByCompany(Company company, Pageable pageable);
     public User save (User user);
-    Page<User> findAll(Pageable pageable);
+    //Page<User> findAll(Pageable pageable);
     public void delete(Long id);
 }

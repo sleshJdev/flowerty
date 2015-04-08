@@ -2,8 +2,7 @@ package by.itechart.flowerty.dao.repository;
 
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Phone;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface PhoneRepository extends PagingAndSortingRepository<Phone, Long> {

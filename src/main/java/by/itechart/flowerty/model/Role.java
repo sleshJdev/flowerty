@@ -1,23 +1,19 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "ROLE")
 public class Role {
-
 	private Long id;
 	private ROLE_TYPE name;
 	private Set<Right> rights = new HashSet<Right>();
 
 	public static enum ROLE_TYPE {
-		ORDERS_MANAGER, 
-		ORDERS_PROCESSOR, 
-		DELIVERY_MANAGER,
-		SUPERVISOR,
-		ADMIN
+		ORDERS_MANAGER, ORDERS_PROCESSOR, DELIVERY_MANAGER, SUPERVISOR, ADMIN
 	}
 
 	public Role() {

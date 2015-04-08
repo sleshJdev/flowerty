@@ -5,6 +5,7 @@ import by.itechart.flowerty.model.Address;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,13 +17,9 @@ import java.util.Set;
 
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
- * Date: 28.03.15
- * Time: 19:44
- * To change this template use File | Settings | File Templates.
+ @author Мария 28.03.15
  */
-//@Ignore
+@Ignore
 public class TestAddressRepository extends JpaConfigurationAware {
     private static Validator validator;
     @Autowired

@@ -12,13 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
- * Date: 27.03.15
- * Time: 14:52
- * To change this template use File | Settings | File Templates.
+    @author Мария 27.03.15
  */
-//@Ignore
+@Ignore
 public class TestOrderRepository extends JpaConfigurationAware {
     @Autowired
     private OrderRepository orderRepository;

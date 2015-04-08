@@ -4,38 +4,35 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 /**
- * Created with IntelliJ IDEA. User: Мария Date: 19.03.15 Time: 22:29 To change
- * this template use File | Settings | File Templates.
+ * User: Мария Date: 19.03.15
  */
 @Entity
 @Table(name = "user")
 public class User {
-    public User() {
-    }
+	public User() {
+	}
 
-    public User(Long id, String login, String password, Role role, Contact contact) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.role = role;
-        this.contact = contact;
-    }
+	public User(Long id, String login, String password, Role role, Contact contact) {
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.role = role;
+		this.contact = contact;
+	}
 
-    private Long id;
-    private String login;
-    private String password;
-    private Role role;
-    private Contact contact;
+	private Long id;
+	private String login;
+	private String password;
+	private Role role;
+	private Contact contact;
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    public Long getId() {
-        return id;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return id;
+	}
 
     @Column(name = "LOGIN", length = 20, nullable = false)
     @NotNull
@@ -63,7 +60,7 @@ public class User {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CONTACT_ID")
-  //  @Valid
+    @Valid
 	public Contact getContact() {
 		return contact;
 	}
@@ -87,4 +84,5 @@ public class User {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
+
 }

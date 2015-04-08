@@ -1,7 +1,5 @@
 package by.itechart.flowerty.configuration;
 
-import static org.springframework.context.annotation.ComponentScan.Filter;
-
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +18,7 @@ import by.itechart.flowerty.listener.StartContextApplicationListener;
  *         Configuration for fetch properties from resources
  */
 @Configuration
-@ComponentScan(basePackageClasses = Application.class, excludeFilters = @Filter({ Controller.class, Configuration.class }))
+@ComponentScan(basePackageClasses = Application.class, excludeFilters = @ComponentScan.Filter({ Controller.class, Configuration.class }))
 public class ApplicationConfiguration {
 	@Bean
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {

@@ -1,21 +1,17 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
+ * @author Maria
  * Date: 20.03.15
- * Time: 22:41
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @Table(name = "phone")
 public class Phone {
 	private Long id;
-	private Contact contact;
+//	private Contact contact;
 	private String comment;
 	private String country;
 	private String number;
@@ -31,12 +27,12 @@ public class Phone {
         return id;
     }
 
-    @ManyToOne
-	@JoinColumn(name = "CONTACT_ID")
-    @Valid
-	public Contact getContact() {
-		return contact;
-	}
+//    @ManyToOne
+//	@JoinColumn(name = "CONTACT_ID")
+//    @Valid
+//	public Contact getContact() {
+//		return contact;
+//	}
 
 
 	@Column(name = "COUNTRY", length = 5, nullable = true)
@@ -87,9 +83,9 @@ public class Phone {
 		this.type = type;
 	}
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
+//    public void setContact(Contact contact) {
+//        this.contact = contact;
+//    }
 
     public static enum PHONE_TYPE {
 		HOME, CELL
