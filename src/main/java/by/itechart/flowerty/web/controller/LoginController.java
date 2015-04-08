@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,22 +22,23 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController {
 	private Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
-	
+
+	@ResponseBody
 	@RequestMapping(value = "/login")
-	public String login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws NotFoundException {
+	public UserDetails login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws NotFoundException {
 		LOGGER.info("move to login page");
 
 		if (logout != null) {
 			LOGGER.info("logout user");
-			return "home/index";
+			return null;
 		}
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			System.out.println(userDetail);
+			return userDetail;
 		}
 
-		return "home/index";
+		return null;
 	}
 }

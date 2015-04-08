@@ -1,10 +1,10 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.security.AuthFailure;
-import by.itechart.flowerty.security.AuthSuccess;
-import by.itechart.flowerty.security.CustomAuthenticationProvider;
-import by.itechart.flowerty.security.EntryPointUnauthorizedHandler;
+import by.itechart.flowerty.security.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
@@ -29,6 +32,19 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private EntryPointUnauthorizedHandler unauthorizedHandler;
+
+    @Autowired
+    @Qualifier("userDetailsService")
+    UserDetailsService userDetailsService;
+
+    private Logger LOGGER = LoggerFactory.getLogger(SpringSecurityConfiguration.class);
+
+    @Bean
+    public RememberMeServices rememberMeServices(String internalSecretKey) {
+        TokenBasedRememberMeServices services = new TokenBasedRememberMeServices(internalSecretKey, userDetailsService, LOGGER);
+        services.setAlwaysRemember(true);
+        return services;
+    }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,21 +66,23 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/list/**")
                 .access("hasRole('ROLE_ADMIN')")
             .and()
+                .rememberMe()
+                .rememberMeServices(rememberMeServices("key")).key("key")
+        .and()
                 .formLogin()
                 .loginPage("/#/login")
                 .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/login")
-                .successHandler(authSuccess)
+//                .successHandler(authSuccess)
                 .failureHandler(authFailure)
             .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
             .and()
-                .csrf().disable()
-//                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-//                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+                .csrf().csrfTokenRepository(csrfTokenRepository())
         ;
     }
 

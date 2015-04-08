@@ -23,18 +23,19 @@ authenticationModule.config(["$routeProvider", function ($routeProvider) {
 authenticationModule.factory('sessionService', function ($http) {
     var session = {};
     session.login = function ($scope, $location) {
-    	console.log("login()");
+        console.log("login()");
         return $http.post("/login", "username=" + $scope.user.login + "&password=" + $scope.user.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (data) {
-            localStorage.setItem("session", $scope.user.login);
+            localStorage.setItem("session", data.data.username);
             //if ($scope.rememberMe) {
             //    $cookies.token = "user";
             //} else {
             //    $window.sessionStorage.token = "user";
             //}
             $scope.current.isLogged = true;
-            $scope.current.user = $scope.user.login;
+            $scope.current.user.name = data.data.username;
+            $scope.current.user.role = data.data.authorities[0].authority;
             $scope.current.errorLogin = false;
             $location.path("/");
         }, function (data) {

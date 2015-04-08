@@ -3,28 +3,28 @@
  */
 
 var app = angular.module('flowertyApplication', [
-                             		'ngRoute', 
-                             		'flowertyApplication.userModule', 
-                             		'flowertyApplication.authenticationModule',
-                             		'flowertyApplication.contactModule',
-                             		'flowertyApplication.utilModule'])
+    'ngRoute',
+    'flowertyApplication.userModule',
+    'flowertyApplication.authenticationModule',
+    'flowertyApplication.contactModule',
+    'flowertyApplication.utilModule'])
 
-.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.
-        when('/users', {
-            templateUrl: APP_PATH + "user/partial/users-list-form.html",
-            controller: "UsersController"
-        })
-        .when('/login', {
-            templateUrl: APP_PATH + 'authentication/partial/log-in-form.html',
-            controller: 'LogInController'
-        })
-        .when('/', {
-        	templateUrl: 'resources/template/welcome.html',
-        })
-}]);
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.
+            when('/users', {
+                templateUrl: APP_PATH + "user/partial/users-list-form.html",
+                controller: "UsersController"
+            })
+            .when('/login', {
+                templateUrl: APP_PATH + 'authentication/partial/log-in-form.html',
+                controller: 'LogInController'
+            })
+            .when('/', {
+                templateUrl: 'resources/template/welcome.html',
+            })
+    }]);
 
-app.controller('ViewController', ['$scope', function($scope) {
+app.controller('ViewController', ['$scope', function ($scope) {
     $scope.templates =
         [
             {
@@ -40,17 +40,17 @@ app.controller('ViewController', ['$scope', function($scope) {
     $scope.templates.footer = $scope.templates[1];
 }]);
 
-app.controller('MainController', function($scope, $http, $location, sessionService) {
+app.controller('MainController', function ($scope, $http, $location, sessionService) {
 
     var user = localStorage.getItem("session") !== null ? localStorage.getItem("session") : {};
 
     $scope.current = {
-        isLogged : sessionService.isLoggedIn(),
-        user : user,
-        errorLogin : false
+        isLogged: sessionService.isLoggedIn(),
+        user: user,
+        errorLogin: false
     };
 
-    $scope.current.logOut = function(){
+    $scope.current.logOut = function () {
 
         // Logout logic here
 
@@ -59,13 +59,15 @@ app.controller('MainController', function($scope, $http, $location, sessionServi
         //delete $window.sessionStorage.token;
         //$cookieStore.remove("token");
 
-        $http.post('logout', {}).success(function() {
-            $scope.current.isLogged = false;
-            $scope.user = {};
-        }).error(function(data) {
-            $scope.current.isLogged = false;
-            $scope.user = {};
-        });
+        $http.post('logout', {})
+            .success(function () {
+                $scope.current.isLogged = false;
+                $scope.user = {};
+            })
+            .error(function (data) {
+                $scope.current.isLogged = false;
+                $scope.user = {};
+            });
 
     };
 });
