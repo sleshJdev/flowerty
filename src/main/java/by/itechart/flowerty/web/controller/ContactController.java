@@ -41,7 +41,7 @@ public class ContactController {
 	
 	page = (page == null || page < 1) ? 0 : --page;
 	
-	return contactService.getPage(page, 1);
+	return contactService.getPage(page, 10);
     }
     
     @ResponseBody
@@ -68,11 +68,25 @@ public class ContactController {
 	phone1.setNumber("8272037");
 	phone1.setType(PHONE_TYPE.HOME);
 	phone1.setComment("cool number");
+
+	final Phone phone2 = new Phone();
+	phone2.setId(3L);
+	phone2.setCountry("+375");
+	phone2.setOperator("029");
+	phone2.setNumber("1234567");
+	phone2.setType(PHONE_TYPE.HOME);
+	phone2.setComment("cool number 123");
 	
 	Contact contact = contactService.getById(id);
+	// if uncomment, then get exception: java.lang.IllegalStateException: Cannot forward after response has been committed
+//	phone.setContact(contact);
+//	phone1.setContact(contact);
+//	phone2.setContact(contact);
+	
 	contact.setPhones(new HashSet<Phone>(){{
 	    add(phone);
 	    add(phone1);
+	    add(phone2);
 	}});
 	
 	return contact;
@@ -83,6 +97,7 @@ public class ContactController {
     public Contact save(@RequestBody Contact contact) {
 	LOGGER.info("save contact: {} {} {}", contact.getName(), contact.getSurname(), contact.getFathername());
 	
+	contact.setPhones(null);
 	contactService.save(contact);
 	
 	return contact;
