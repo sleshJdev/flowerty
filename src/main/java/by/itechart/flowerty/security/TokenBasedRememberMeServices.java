@@ -21,25 +21,24 @@ import java.util.Arrays;
 import java.util.Date;
 
 /**
- * Created by Rostislav on 08-Apr-15.
+ * Created by Rostislav on 08-Apr-15
  */
-
 public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
     private Logger LOGGER = LoggerFactory.getLogger(TokenBasedRememberMeServices.class);
 
-    public TokenBasedRememberMeServices(String key, UserDetailsService userDetailsService, Logger LOGGER) {
+    public TokenBasedRememberMeServices(String key, UserDetailsService userDetailsService) {
         super(key, userDetailsService);
-        this.LOGGER = LOGGER;
     }
 
     @Override
     protected void onLoginSuccess(HttpServletRequest request, HttpServletResponse response, Authentication successfulAuthentication) {
+        if (!"true".equals(request.getParameter(getParameter()))) {
+            return;
+        };
+
         String username = retrieveUserName(successfulAuthentication);
         String password = retrievePassword(successfulAuthentication);
 
-        // If unable to find a username and password, just abort as
-        // TokenBasedRememberMeServices is
-        // unable to construct a valid token in this case.
         if (!StringUtils.hasLength(username)) {
             LOGGER.debug("Unable to retrieve username");
             return;
@@ -57,7 +56,6 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 
         int tokenLifetime = calculateLoginLifetime(request, successfulAuthentication);
         long expiryTime = System.currentTimeMillis();
-        // SEC-949
         expiryTime += 1000L * (tokenLifetime < 0 ? TWO_WEEKS_S : tokenLifetime);
 
         String signatureValue = makeTokenSignature(expiryTime, username, password);
@@ -83,7 +81,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
         long tokenExpiryTime;
 
         try {
-            tokenExpiryTime = new Long(cookieTokens[1]).longValue();
+            tokenExpiryTime = Long.parseLong(cookieTokens[1]);
         }
         catch (NumberFormatException nfe) {
             throw new InvalidCookieException(
@@ -97,19 +95,8 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
                     + "')");
         }
 
-        // Check the user exists.
-        // Defer lookup until after expiry time checked, to possibly avoid expensive
-        // database call.
-
         UserDetails userDetails = getUserDetailsService().loadUserByUsername(cookieTokens[0]);
 
-        // Check signature of token matches remaining details.
-        // Must do this after user lookup, as we need the DAO-derived password.
-        // If efficiency was a major issue, just add in a UserCache implementation,
-        // but recall that this method is usually only called once per HttpSession - if
-        // the token is valid,
-        // it will cause SecurityContextHolder population, whilst if invalid, will cause
-        // the cookie to be cancelled.
         String expectedTokenSignature = makeTokenSignature(tokenExpiryTime,
                 userDetails.getUsername(), userDetails.getPassword());
 

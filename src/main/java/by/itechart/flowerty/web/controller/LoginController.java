@@ -35,8 +35,7 @@ public class LoginController {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			return userDetail;
+			return (UserDetails) auth.getPrincipal();
 		}
 
 		return null;

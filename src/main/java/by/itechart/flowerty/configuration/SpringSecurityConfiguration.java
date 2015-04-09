@@ -1,8 +1,6 @@
 package by.itechart.flowerty.configuration;
 
 import by.itechart.flowerty.security.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +17,7 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 /**
- * Created by Rostislav on 26-Mar-15.
+ * Created by Rostislav on 26-Mar-15
  */
 @Configuration
 @EnableWebMvcSecurity
@@ -32,19 +30,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private EntryPointUnauthorizedHandler unauthorizedHandler;
-
-    @Autowired
-    @Qualifier("userDetailsService")
-    UserDetailsService userDetailsService;
-
-    private Logger LOGGER = LoggerFactory.getLogger(SpringSecurityConfiguration.class);
-
-    @Bean
-    public RememberMeServices rememberMeServices(String internalSecretKey) {
-        TokenBasedRememberMeServices services = new TokenBasedRememberMeServices(internalSecretKey, userDetailsService, LOGGER);
-        services.setAlwaysRemember(true);
-        return services;
-    }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -59,16 +44,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .exceptionHandling()
-//                .authenticationEntryPoint(unauthorizedHandler)
-//            .and()
                 .authorizeRequests()
                 .antMatchers("/user/list/**")
                 .access("hasRole('ROLE_ADMIN')")
             .and()
                 .rememberMe()
-                .rememberMeServices(rememberMeServices("key")).key("key")
-        .and()
+                .rememberMeServices(rememberMeServices())
+                .key(KEY)
+            .and()
                 .formLogin()
                 .loginPage("/#/login")
                 .loginProcessingUrl("/login")
@@ -84,6 +67,19 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
         ;
+    }
+
+    @Autowired
+    @Qualifier("userDetailsService")
+    UserDetailsService userDetailsService;
+
+    private final String KEY = "e9862d10db8e7de7877e9d28ef8153b4f0e209b8";
+
+    @Bean
+    public RememberMeServices rememberMeServices() {
+        TokenBasedRememberMeServices services = new TokenBasedRememberMeServices(KEY, userDetailsService);
+        services.setAlwaysRemember(true);
+        return services;
     }
 
     private CsrfTokenRepository csrfTokenRepository() {
