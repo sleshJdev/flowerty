@@ -3,11 +3,7 @@ package by.itechart.flowerty.model;
 import javax.persistence.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
- * Date: 23.03.15
- * Time: 23:20
- * To change this template use File | Settings | File Templates.
+ * User: Мария Date: 23.03.15
  */
 @Entity
 @Table(name = "company")
@@ -20,34 +16,37 @@ public class Company {
     }
 
     public Company(String website, String name, Long id) {
-        this.website = website;
-        this.name = name;
-        this.id = id;
+	this.id = id;
+	this.name = name;
+	this.website = website;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public Long getId() {
-        return id;
+	return id;
     }
+
     @Column(name = "NAME", length = 20)
     public String getName() {
-        return name;
+	return name;
     }
+
     @Column(name = "WEBSITE", length = 20)
     public String getWebsite() {
-        return website;
+	return website;
     }
 
     public void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
 
     public void setName(String name) {
-        this.name = name;
+	this.name = name;
     }
 
     public void setWebsite(String website) {
-        this.website = website;
+	this.website = website;
     }
 }

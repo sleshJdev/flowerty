@@ -2,43 +2,86 @@
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
  *
  */
+'use strict'
 
 angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
-.config(["$routeProvider", function($routeProvider) {
+.constant("CONSTANTS", (function(){
+	var CONTACT_MODULE_PATH = "resources/js/app/contact/";
+	
+	return {
+		CONTACTS : CONTACT_MODULE_PATH + "partial/contact-list-form.html",
+		EDIT_CONTACT: CONTACT_MODULE_PATH + "partial/contact-form.html",
+		ADD_CONTACT: CONTACT_MODULE_PATH + "partial/contact-form.html",
+		EDIT_PHONE: CONTACT_MODULE_PATH + "partial/phone-form.html",
+		
+		PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
+		
+		PROCESS_TYPES : { 
+			ADD:{
+				name: "add", 
+				titleContact: "Add Contact",
+				titlePhone: "Add phone",
+			}, 
+			EDIT:{ 
+				name: "edit",
+				titleContact: "Edit Contact",
+				titlePhone: "Edit phone",
+			} 
+		}
+	}
+})())
+
+.config(["$routeProvider", "CONSTANTS", function($routeProvider, CONSTANTS) {
 	$routeProvider
 		.when("/contacts", {
-			templateUrl: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
+			templateUrl: CONSTANTS.CONTACTS,
 			controller: "ContactListController"
 		})
 		.when("/edit-contact/:id", {
-			templateUrl: CONTACT_MODULE_PATH + "partial/contact-edit.html",
-			controller: "ContactEditController"
+			templateUrl: CONSTANTS.EDIT_CONTACT,
+			controller: "EditContactController"
+		})
+		.when("/add-contact", {
+			templateUrl: CONSTANTS.ADD_CONTACT,
+			controller: "AddContactController"
 		})
 }])
 
-.controller("ContactEditController", ["$scope", "$http", "$location", "$routeParams", function($scope, $http, $location, $routeParams){
-	$scope.bundle = {
-			template: CONTACT_MODULE_PATH + "partial/phone-edit.html",
-			types: [{name: "CELL"}, {name: "HOME"}],
+.service("deleteService", function(){
+	this.deleteById = function(collection){
+		var isBreak = true;
+		do{
+			isBreak = true;
+			for(var i = 0; i < collection.length; ++i){
+				if(collection[i].id < 0){
+					collection.splice(i, 1);
+					isBreak = false;
+				}
+			}
+		}while(!isBreak);
+	}
+})
+
+.service("processContactService", ["$http", "$location", "deleteService", "CONSTANTS",
+                                   function($http, $location, deleteService, CONSTANTS) {
+	var me = this;
+	
+	me.bundle = {
+			template: CONSTANTS.EDIT_PHONE,
+			types: CONSTANTS.PROCESS_TYPES,
 			contact: {},
 			actions: []
 	};
 	
-	$http({
-		method: "get",
-		url: "contact/details/" + $routeParams.id
-	}).success(function(data, status, headers, config) {
-		$scope.bundle.contact = data;
-		console.log("data: " + JSON.stringify(data));
-	}).error(function(data, status, headers, config) {
-	});
-	
-	$scope.bundle.actions.saveContact = function(){
+	/*
+	 * save/update contact after editing/creating
+	 */
+	me.bundle.actions.saveContact = function(contact){
 		$http({
 			method: "post",
 			url: "contact/save",
-			data: $scope.bundle.contact
+			data: contact
 		}).success(function(data, status, headers, config) {
 			$location.path("contacts");
 		}).error(function(data, status, headers, config) {
@@ -46,49 +89,90 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	}
 
 	/*
-	 * util function
-	 * TODO: maybe moved to a separate file. for example util.js or in module
+	 * delete phone. remove all phone at which id < 0
 	 */
-	getPhoneById = function(id){
-		var phones = $scope.bundle.contact.phones;
-		for(var i = 0; i < phones.length; ++i){
-			if(id == phones[i].id){
-				return {
-					index: i,
-					item: phones[i]
-				};
-			}
-		}
-	};
-	
-	/* 
-	 * Edit phone. Show pop-up to editing specific phone.
-	 */
-	$scope.bundle.actions.editPhone = function(id){
-		// find contact by id and make copy
-		$scope.bundle.editablePhone = angular.copy(getPhoneById(id).item);
-		// show edit dialog
-		$("#show-edit-phone-pop-up").click();
+	me.bundle.actions.deletePhone = function(){
+		console.log("delete phone");
+		deleteService.deleteById(me.bundle.contact.phones);
+		$location.path("contacts");
 	};
 	
 	/*
-	 * Save/Update phone after editing
+	 * add new phone
 	 */
-	$scope.bundle.actions.savePhone = function(updatedPhone){
-		angular.copy(updatedPhone, getPhoneById(updatedPhone.id).item);
+	me.bundle.actions.addPhone = function(){
+		console.log("show pop to create new phone");
+		me.bundle.phone = {};
+	}
+	
+	/* 
+	 * edit phone. Show pop-up to editing specific phone.
+	 */
+	me.bundle.actions.editPhone = function(editablePhone){
+		console.log("edit phone");
+		me.bundle.phone = angular.copy(editablePhone);
+		me.bundle.originPhone = editablePhone;
 	};
 	
-	$scope.bundle.actions.deletePhone = function(phoneId){
-		//TODO: for implement this feature need find way select all checked box
-	}
+	/*
+	 * save/update phone after creating/editing
+	 */
+	me.bundle.actions.savePhone = function(newPhone){
+		if(!newPhone.id){
+			newPhone.id = {};
+			me.bundle.contact.phones.push(newPhone)
+			console.log("add new phone");
+		}else{
+			angular.copy(newPhone, me.bundle.originPhone);
+			console.log("update phone");
+		}
+	};
 }])
 
-.controller("ContactListController", ["$scope", "$http", function($scope, $http) {
-	$scope.contacts= {
+.controller("AddContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "CONSTANTS",
+                                     function($scope, $http, $location, $routeParams, processContactService, CONSTANTS){
+	$scope.bundle = processContactService.bundle;
+	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.ADD;
+	$scope.bundle.contact = {};
+	$scope.bundle.contact.phones = [];
+}]) 
+
+.controller("EditContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "deleteService",  "CONSTANTS",
+                                      function($scope, $http, $location, $routeParams, processContactService, deleteService, CONSTANTS){
+	$scope.bundle = processContactService.bundle;
+	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.EDIT;
+	
+	$http({
+		method: "get",
+		url: "contact/details/" + $routeParams.id
+	}).success(function(data, status, headers, config) {
+		$scope.bundle.contact = data;
+	}).error(function(data, status, headers, config) {
+	});
+}])
+
+.controller("ContactListController", ["$scope", "$http", "deleteService", function($scope, $http, deleteService) {
+	$scope.contacts = {
 			currentPage: 1,
 			totalPage: [],			
 			list: []
 	} 
+	
+	$scope.contacts.deleteContact = function(){
+		console.log("delete contact");
+		deleteService.deleteById($scope.contacts.list);		
+		
+		$http({
+			method: "post",
+			url: "contact/remove",
+			data: $scope.contacts.list
+		}).success(function(data, status, headers, config) {
+			console.log("contact delete successful");
+			$location.path("contacts");
+		}).error(function(data, status, headers, config) {
+			console.log("contact delete error: " + JSON.stringify(data))
+		})
+	}
 		
     $scope.contacts.getPageFromServer = function(){
         $http({

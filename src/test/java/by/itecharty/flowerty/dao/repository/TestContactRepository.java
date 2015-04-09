@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import by.itechart.flowerty.dao.repository.ContactRepository;
 import by.itechart.flowerty.model.Address;
 import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.web.service.ContactService;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 
 /**
@@ -18,7 +18,7 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
  */
 public class TestContactRepository extends JpaConfigurationAware {
 	@Autowired
-	private ContactRepository contactRepository;
+	private ContactService contactRepository;
 
 	@Test
 	public void findContact_ValidId_ContactReturned() {
@@ -60,7 +60,6 @@ public class TestContactRepository extends JpaConfigurationAware {
 		Company company = new Company();
 		company.setId(2l);
 		Address address = new Address();
-		address.setId(1l);
 		Contact contact = new Contact();
 		contact.setCompany(company);
 		contact.setAddress(address);

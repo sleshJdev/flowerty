@@ -5,6 +5,7 @@
 package by.itechart.flowerty.web.controller;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import by.itechart.flowerty.model.Address;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Phone;
 import by.itechart.flowerty.model.Phone.PHONE_TYPE;
@@ -77,7 +79,7 @@ public class ContactController {
 	phone2.setType(PHONE_TYPE.HOME);
 	phone2.setComment("cool number 123");
 	
-	Contact contact = contactService.getById(id);
+	Contact contact = contactService.findOne(id);
 	// if uncomment, then get exception: java.lang.IllegalStateException: Cannot forward after response has been committed
 //	phone.setContact(contact);
 //	phone1.setContact(contact);
@@ -91,11 +93,23 @@ public class ContactController {
 	
 	return contact;
     }
+    
+    @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
+    public void remove(@RequestBody List<Contact> contacts){
+	LOGGER.info("remove contacts. obtained {} contacts, wicht not remove", contacts.size());
+	
+	for (Contact contact : contacts) {
+	    contactService.delete(contact.getId());
+	}
+    }
 
     @ResponseBody
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
 	LOGGER.info("save contact: {} {} {}", contact.getName(), contact.getSurname(), contact.getFathername());
+	Address a = contact.getAddress();
+	LOGGER.info("address details: id:{}, town:{}, street:{}, house:{}, flat:{}, country:{}", 
+		    		a.getId(), a.getTown(), a.getStreet(), a.getHouse(), a.getFlat(), a.getCountry());
 	
 	contact.setPhones(null);
 	contactService.save(contact);

@@ -3,6 +3,7 @@ package by.itechart.flowerty.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +17,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "contact")
 public class Contact {
-
     private Long id;
     private String name;
     private String surname;
@@ -29,9 +30,13 @@ public class Contact {
     private String email;
     private Address address;
     private Set<Phone> phones;
-    private Company company;
+    private Company company = getStub();
 
-
+    @Transient
+    private Company getStub(){
+	return new Company("itechart@mail.com,", "itechart", 1L);
+    }
+    
     public Contact() {
     }
 
@@ -44,7 +49,7 @@ public class Contact {
 	this.birthday = birthday;
 	this.email = email;
 	this.address = address;
-    this.company = company;
+	this.company = company;
 
     }
 
@@ -105,7 +110,7 @@ public class Contact {
 	this.email = email;
     }
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
     public Address getAddress() {
 	return address;
@@ -114,7 +119,7 @@ public class Contact {
     public void setAddress(Address address) {
 	this.address = address;
     }
-    
+
     @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
     public Set<Phone> getPhones() {
 	return phones;
@@ -123,28 +128,23 @@ public class Contact {
     public void setPhones(Set<Phone> phones) {
 	this.phones = phones;
     }
+    
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="COMPANY_ID")
+    @JoinColumn(name = "COMPANY_ID")
     public Company getCompany() {
-        return company;
+	return company;
     }
 
     public void setCompany(Company company) {
-        this.company = company;
+	this.company = company;
     }
-    
-    
-	@Override
-	public String toString() {
-		return new StringBuilder()
-			.append("[id:").append(id)
-			.append("\n name:").append(name)
-			.append("\n surname:").append(surname)
-			.append("\n fathername:").append(fathername)
-			.append("\n birthday:").append(birthday)
-			.append("\n email:").append(email)
-			.append("\n address:").append(address).append("]\n")
-//			.append("; phones:").append(phones)
-			.toString();
-	}
+
+    @Override
+    public String toString() {
+	return new StringBuilder().append("[id:").append(id).append("\n name:").append(name).append("\n surname:")
+		.append(surname).append("\n fathername:").append(fathername).append("\n birthday:").append(birthday)
+		.append("\n email:").append(email).append("\n address:").append(address).append("]\n")
+		// .append("; phones:").append(phones)
+		.toString();
+    }
 }
