@@ -18,6 +18,7 @@ import java.util.Set;
 
 /**
  @author Мария 28.03.15
+
  */
 @Ignore
 public class TestAddressRepository extends JpaConfigurationAware {
@@ -32,15 +33,11 @@ public class TestAddressRepository extends JpaConfigurationAware {
     @Test
     public void saveAddress_CorrectAddress_SameAddressReturned() {
         Address address = new Address();
-        address.setCountry("Belarus");
-        address.setFlat("10");
-        address.setHouse("12");
-        address.setStreet("Independence prospect");
-        address.setTown("Brest");
-        Set<ConstraintViolation<Address>> constraintViolations =
-                validator.validate( address );
-
-        Assert.assertEquals( 0, constraintViolations.size() );
+//        address.setCountry("Belarus");
+//        address.setFlat("10");
+//        address.setHouse("12");
+//        address.setStreet("Independence");
+//        address.setTown("Brest");
         address = addressRepository.save(address);
         Assert.assertNotNull(address);
         Assert.assertNotNull(address.getId());

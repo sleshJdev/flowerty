@@ -14,10 +14,10 @@ public class Address {
 	private String country;
 
 	public Address() {
+	    
 	}
-
+	
 	public Address(Long id, String town, String street, String house, String flat, String country) {
-		super();
 		this.id = id;
 		this.town = town;
 		this.street = street;
@@ -62,7 +62,6 @@ public class Address {
 	public String getCountry() {
 		return country;
 	}
-
 
 	public void setCountry(String country) {
 		this.country = country;
