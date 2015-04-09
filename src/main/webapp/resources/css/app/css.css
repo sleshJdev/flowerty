@@ -1,3 +1,7 @@
 #footer{
     margin-left: 40%;
 }
+
+body{
+    background: #ffffff url("../../images/head_back.jpg") no-repeat fixed center;
+}
