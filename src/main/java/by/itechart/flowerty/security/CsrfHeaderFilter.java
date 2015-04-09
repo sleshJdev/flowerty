@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Rostislav on 06-Apr-15.
+ * Created by Rostislav on 06-Apr-15
  */
 public class CsrfHeaderFilter extends OncePerRequestFilter {
     @Override

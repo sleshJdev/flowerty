@@ -1,4 +1,4 @@
-package by.itechart.flowerty.service;
+package by.itechart.flowerty.security.service;
 
 import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.model.User;
@@ -17,9 +17,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Rostislav on 31-Mar-15.
+ * Created by Rostislav on 31-Mar-15
  */
-
 @Component
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {

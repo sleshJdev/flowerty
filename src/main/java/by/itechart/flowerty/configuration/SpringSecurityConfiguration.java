@@ -2,6 +2,7 @@ package by.itechart.flowerty.configuration;
 
 import by.itechart.flowerty.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -9,12 +10,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 /**
- * Created by Rostislav on 26-Mar-15.
+ * Created by Rostislav on 26-Mar-15
  */
 @Configuration
 @EnableWebMvcSecurity
@@ -41,20 +44,21 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-            .and()
                 .authorizeRequests()
                 .antMatchers("/user/list/**")
                 .access("hasRole('ROLE_ADMIN')")
             .and()
+                .rememberMe()
+                .rememberMeServices(rememberMeServices())
+                .key(KEY)
+            .and()
                 .formLogin()
-                .loginPage("/login")
-//                .defaultSuccessUrl("/login")
+                .loginPage("/#/login")
+                .loginProcessingUrl("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .successHandler(authSuccess)
                 .failureHandler(authFailure)
-                .defaultSuccessUrl("/", false)
             .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
@@ -62,6 +66,19 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
         ;
+    }
+
+    @Autowired
+    @Qualifier("userDetailsService")
+    UserDetailsService userDetailsService;
+
+    private final String KEY = "e9862d10db8e7de7877e9d28ef8153b4f0e209b8";
+
+    @Bean
+    public RememberMeServices rememberMeServices() {
+        TokenBasedRememberMeServices services = new TokenBasedRememberMeServices(KEY, userDetailsService);
+        services.setAlwaysRemember(true);
+        return services;
     }
 
     private CsrfTokenRepository csrfTokenRepository() {
