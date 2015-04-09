@@ -21,12 +21,12 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			ADD:{
 				name: "add", 
 				titleContact: "Add Contact",
-				titlePhone: "Add phone",
+				titlePhone: "Add phone"
 			}, 
 			EDIT:{ 
 				name: "edit",
 				titleContact: "Edit Contact",
-				titlePhone: "Edit phone",
+				titlePhone: "Edit phone"
 			} 
 		}
 	}
@@ -73,7 +73,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			contact: {},
 			actions: []
 	};
-	
+
 	/*
 	 * save/update contact after editing/creating
 	 */

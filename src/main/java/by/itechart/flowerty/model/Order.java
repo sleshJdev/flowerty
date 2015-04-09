@@ -1,6 +1,8 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
@@ -37,6 +39,7 @@ public class Order {
     
     @ManyToOne
     @JoinColumn(name = "STATE_ID")
+    @Valid
     public State getState() {
         return state;
     }
@@ -46,30 +49,36 @@ public class Order {
     }
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
+    @Valid
     public Contact getCustomer() {
         return customer;
     }
     @ManyToOne
     @JoinColumn(name = "RECEIVER_ID")
+    @Valid
     public Contact getReceiver() {
         return receiver;
     }
     @ManyToOne
     @JoinColumn(name = "STAFF_ID")
+    @Valid
     public User getStaff() {
         return staff;
     }
     @ManyToOne
     @JoinColumn(name = "MANAGER_ID")
+    @Valid
     public User getManager() {
         return manager;
     }
     @ManyToOne
     @JoinColumn(name = "DELIVERY_MANAGER_ID")
+    @Valid
     public User getDelivery() {
         return delivery;
     }
     @Column(name = "DESCRIPTION")
+    @Size(max=300)
     public String getDescription() {
         return description;
     }

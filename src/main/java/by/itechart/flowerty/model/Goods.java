@@ -1,6 +1,7 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,11 +37,13 @@ public class Goods {
     }
     @ManyToOne
     @JoinColumn(name="COMPANY_ID")
+    @Valid
     public Company getCompany() {
         return company;
     }
     @ManyToOne
     @JoinColumn(name="FLOWER_ID")
+    @Valid
     public Flower getFlower() {
         return flower;
     }

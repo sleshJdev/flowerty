@@ -1,19 +1,17 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
+ * @author Maria
  * Date: 20.03.15
- * Time: 22:41
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @Table(name = "phone")
 public class Phone {
 	private Long id;
-	private Contact contact;
+//	private Contact contact;
 	private String comment;
 	private String country;
 	private String number;
@@ -22,39 +20,35 @@ public class Phone {
 
 	public Phone() {
 	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    public Long getId() {
+        return id;
+    }
 
-	@ManyToOne
-	@JoinColumn(name = "CONTACT_ID")
-	public Contact getContact() {
-		return contact;
-	}
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//	@JoinColumn(name = "CONTACT_ID", nullable = false)
+//    @Valid
+//	public Contact getContact() {
+//		return contact;
+//	}
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public Long getId() {
-		return id;
-	}
-
-	public String getComment() {
-		return comment;
-	}
 
 	@Column(name = "COUNTRY", length = 5, nullable = true)
-	public String getCountry() {
+	@Size(max=5)
+    public String getCountry() {
 		return country;
 	}
 
 	@Column(name = "NUMBER", length = 10, nullable = true)
+    @Size(max=10)
 	public String getNumber() {
 		return number;
 	}
 
 	@Column(name = "OPERATOR", length = 5, nullable = true)
+    @Size(max=5)
 	public String getOperator() {
 		return operator;
 	}
@@ -89,7 +83,11 @@ public class Phone {
 		this.type = type;
 	}
 
-	public static enum PHONE_TYPE {
+//    public void setContact(Contact contact) {
+//        this.contact = contact;
+//    }
+
+    public static enum PHONE_TYPE {
 		HOME, CELL
 	}
 }

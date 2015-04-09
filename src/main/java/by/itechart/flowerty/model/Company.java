@@ -1,6 +1,8 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * User: Мария Date: 23.03.15
@@ -29,11 +31,14 @@ public class Company {
     }
 
     @Column(name = "NAME", length = 20)
+    @Size(max = 100)
     public String getName() {
 	return name;
     }
+    @Column(name = "WEBSITE", length = 100)
+    @Size(max = 100)
+    @Pattern(regexp = "/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/")
 
-    @Column(name = "WEBSITE", length = 20)
     public String getWebsite() {
 	return website;
     }

@@ -20,7 +20,7 @@ var app = angular.module('flowertyApplication', [
             controller: 'LogInController'
         })
         .when('/', {
-        	templateUrl: 'resources/template/welcome.html',
+        	templateUrl: 'resources/template/welcome.html'
         })
 }]);
 
