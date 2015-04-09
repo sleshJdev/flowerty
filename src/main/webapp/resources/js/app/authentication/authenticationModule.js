@@ -1,99 +1,93 @@
-
 /**
  * Created by Катерина on 19.03.2015.
  */
 
-var authenticationModule = angular.module("flowertyApplication.authenticationModule", ['ngRoute']);
+var authenticationModule = angular.module('flowertyApplication.authenticationModule', ['ngRoute']);
 
-authenticationModule.config(["$routeProvider", function($routeProvider) {
-    $routeProvider.
-        when('/login', {
+authenticationModule.config(["$routeProvider", function ($routeProvider) {
+    $routeProvider
+        .when('/login', {
             templateUrl: AUTHENTICATION_MODULE_PATH + 'partial/log-in-form.html',
             controller: 'LogInController'
-        }).
-        when('/signup', {
+        })
+        .when('/signup', {
             templateUrl: AUTHENTICATION_MODULE_PATH + 'partial/sign-up-form.html',
             controller: 'SignUpController'
         });
 }]);
 
+/**
+ * Created by Rostislav on 05-Apr-15.
+ */
 
-authenticationModule.controller('LogInController', function($scope, $http) {
-
-    $scope.logIn = function() {
-
-        var request = $http({
-            method: "post",
-            url: "login",
-            data: {
-                login : $scope.login,
-                password : $scope.password
-            }
-        });
-
-        // Just emulation
-        $scope.current.isLogged = true;
-        $scope.current.user.login = $scope.login;
-        $scope.current.user.role = {name : 'ADMIN'};
-
-        request.success(function(data, status, headers, config) {
-            console.log("User logged in: " + JSON.stringify({data: data}));
-
+authenticationModule.factory('sessionService', function ($http) {
+    var session = {};
+    session.login = function ($scope, $location) {
+    	console.log("login()");
+        return $http.post("login", "username=" + $scope.user.login + "&password=" + $scope.user.password, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (data) {
+            localStorage.setItem("session", $scope.user.login);
+            //if ($scope.rememberMe) {
+            //    $cookies.token = "user";
+            //} else {
+            //    $window.sessionStorage.token = "user";
+            //}
             $scope.current.isLogged = true;
-            //$rootScope.current.user = data.user;
-            $scope.current.user.login = $scope.login;
-            $scope.current.user.role = {name : 'ADMIN'};
-        });
-        request.error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));
+            $scope.current.user = $scope.user.login;
+            $scope.current.errorLogin = false;
+            $location.path("/");
+        }, function (data) {
+            $scope.current.isLogged = false;
+            $scope.current.errorLogin = true;
+            $scope.user.password = '';
         });
     };
+    session.logout = function () {
+        localStorage.removeItem("session");
+    };
+    session.isLoggedIn = function () {
+        return localStorage.getItem("session") !== null;
+    };
+    return session;
+});
 
-    $scope.logOut = function() {
+/**
+ * Created by Rostislav on 05-Apr-15.
+ */
 
-        var request = $http({
-            method: "post",
-            url: "login",
-            data: {
-                login : $scope.login,
-                password : $scope.password
-            }
-        });
+authenticationModule.controller('LogInController', function ($scope, $http, $location, sessionService) {
 
-        // Just emulation
-        $scope.current.isLogged = true;
-        $scope.current.user.login = $scope.login;
-        $scope.current.user.role = {name : 'ADMIN'};
+    $scope.logIn = function () {
 
-        request.success(function(data, status, headers, config) {
-            console.log("User logged in: " + JSON.stringify({data: data}));
+        var logged = {
+            login: $scope.login,
+            password: $scope.password
+        };
 
-            $scope.current.isLogged = true;
-            //$rootScope.current.user = data.user;
-            $scope.current.user.login = $scope.login;
-            $scope.current.user.role = {name : 'ADMIN'};
-        });
-        request.error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));
-        });
+        console.log("user to log: " + JSON.stringify(logged));
+
+        sessionService.login($scope, $location);
     };
 });
 
-authenticationModule.controller('SignUpController', function($scope, $http) {
+/**
+ * Created by Катерина on 03.04.2015.
+ */
 
-    $scope.signUp = function() {
+authenticationModule.controller('SignUpController', function ($scope, $http) {
+
+    $scope.signUp = function () {
 
         var request = $http({
             method: "post",
             url: "signup",
-            data: {
-
-            }
+            data: {}
         });
-        request.success(function(data, status, headers, config) {
+        request.success(function (data, status, headers, config) {
 
         });
-        request.error(function(data, status, headers, config) {
+        request.error(function (data, status, headers, config) {
 
         });
     };

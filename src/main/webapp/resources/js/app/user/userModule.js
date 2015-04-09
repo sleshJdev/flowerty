@@ -1,7 +1,6 @@
 /**
  * Created by Катерина on 24.03.2015.
  */
-
 var userModule = angular.module("flowertyApplication.userModule", ['ngRoute']);
 
 userModule.config(["$routeProvider", function($routeProvider) {
@@ -20,37 +19,14 @@ userModule.config(["$routeProvider", function($routeProvider) {
 	});
 }]);
 
-/*
- * Make separating, paste together tokens and make capitalize first character of first token.
- * Example: UPPER_CASE -> Upper case. I this case, seprator='_'.
- */
-userModule.filter("flowerSplit", function() {
-	return function(value, separator) {
-        if(value === undefined){
-            return '';
-        }
-		var tokens = value.toLowerCase().split(separator);
-		var result = "";
-		for(var i = 0; i < tokens.length; ++i){
-			if(i == 0){
-				result = tokens[i].charAt(0).toUpperCase() + tokens[i].substring(1);
-				continue;
-			}
-			result += " " + tokens[i];
-		}
-		return result;
-	}
-});
-
 userModule.controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 	$http({
 		method: "get",
 		url: "user/details/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
 		$scope.bundle = data;
-		console.log("user details: " + JSON.stringify(data));
 	}).error(function(data, status, headers, config) {
-		console.log("Problem occurred during get details about user with id: " + $routeParams.id + ": " + JSON.stringify(data));
+		console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
 	});
 	
     $scope.save = function() {
@@ -59,10 +35,8 @@ userModule.controller("UserEditController", ['$scope', '$http', '$location', '$r
 			url: "user/save", 
 			data: $scope.bundle.user
     	}).success(function(data, status, headers, config) {
-    		console.log("user successfully saved!");
     		$location.path("users");
     	}).error(function(data, status, headers, config) {
-			console.log("The problem occurred while saving the user: " + JSON.stringify(data));
 		});
     };
 }]);
@@ -72,9 +46,8 @@ userModule.controller("UserDeleteController", ['$scope', '$http', '$location', '
 		method: "get",
 		url: "user/delete/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
-		console.log("Remove Ok!");
 	}).error(function(data, status, headers, config) {
-		console.log("Remove error: " + JSON.stringify(data));
+		console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
 	});
 }]);
 
@@ -114,13 +87,12 @@ userModule.controller('UsersController', function($scope, $http) {
         });
 
         request.success(function(data, status, headers, config) {
-            console.log("Response: " + JSON.stringify({data: data.content}));
             $scope.users.usersList = data.content;
             $scope.users.pagesCount = data.totalPages;
         });
 
         request.error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));
+            console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
         });
     };
 
