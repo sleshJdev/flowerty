@@ -15,9 +15,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
- * Created by Rostislav on 31-Mar-15.)
+ * Created by Rostislav on 31-Mar-15.
  */
-
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
@@ -30,6 +29,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
+        System.out.println("password: " + password);
+        System.out.println("username: " + username);
+        
         UserDetails user = userDetailsService.loadUserByUsername(username);
 
         if (user == null) {

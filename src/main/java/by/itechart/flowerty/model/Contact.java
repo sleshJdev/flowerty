@@ -88,9 +88,10 @@ public class Contact {
     public Address getAddress() {
 	return address;
     }
-
-    @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
+  //  @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
     @Valid
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CONTACT_ID", nullable=false)
     public Set<Phone> getPhones() {
 	return phones;
     }

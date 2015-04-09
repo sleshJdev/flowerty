@@ -1,10 +1,7 @@
 package by.itechart.flowerty.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,11 +11,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
- * Created by Rostislav on 31-Mar-15.)
+ * Created by Rostislav on 31-Mar-15.
  */
 
 @Component

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,74 +20,68 @@ import java.util.List;
  */
 @Controller
 public class UserController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@ResponseBody
-	@RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
-		LOGGER.info("id: {}", id);
+    @ResponseBody
+    @RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
+	LOGGER.info("id: {}", id);
 
-		if (id < 1) {
-			throw new Exception("user id cannot be negative or 0");
-		}
-
-		return userService.getUserEditBundleFor(id);
+	if (id < 1) {
+	    throw new Exception("user id cannot be negative or 0");
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<User> getList() {
-		List<User> allUsers = (List<User>) userService.findAll();
+	return userService.getUserEditBundleFor(id);
+    }
 
-		LOGGER.info("fetch {} users", allUsers.size());
+    @ResponseBody
+    @RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getList() {
+	List<User> allUsers = (List<User>) userService.findAll();
 
-		return allUsers;
+	LOGGER.info("fetch {} users", allUsers.size());
+
+	return allUsers;
+    }
+
+    @RequestMapping(value = "user/delete/{id}")
+    public String delete(@PathVariable("id") Long id) throws Exception {
+	LOGGER.info("try delete user with id: {}", id);
+
+	if (id < 1) {
+	    throw new Exception("user id cannot be negative or 0");
 	}
+	
+	userService.delete(id);
+	
+	return "home/index";
+    }
 
-	@RequestMapping(value = "user/delete/{id}")
-	public String delete(@PathVariable("id") Long id) throws Exception {
-		LOGGER.info("try delete user with id: {}", id);
+    @ResponseBody
+    @RequestMapping(value = "user/save", method = RequestMethod.POST)
+    public User add(@RequestBody User user) {
+	LOGGER.info("add new user with login: {} and password: {}", user.getLogin(), user.getPassword());
 
-		if (id < 1) {
-			throw new Exception("user id cannot be negative or 0");
-		}
+	userService.save(user);
 
-		userService.delete(id);
+	return user;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "user/list/{page}")
+    public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
+	LOGGER.info("get page with number {}", page);
 
-		return "home/index";
-	}
+	// TODO: *add testing for this method
 
-	@ResponseBody
-	@RequestMapping(value = "user/save", method = RequestMethod.POST)
-	public User add(@Validated @RequestBody User newUser) {
-		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
+	page = (page == null || page < 1) ? 0 : --page;
+	Page<User> pageUsers = userService.getPage(page, 1);
 
-		userService.save(newUser);
+	LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 
-		return newUser;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "user/list/{page}")
-	public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
-		LOGGER.info("get page with number {}", page);
-
-		// TODO: maybe implement throw exception if page has incorrect format???
-		// TODO: change throw exception type. maybe BadRequestException
-		// TODO: *add testing for this method
-
-		if (page == null || page < 1) {
-			page = 1;
-		}
-		--page;
-
-		Page<User> pageUsers = userService.getPage(page, 10);
-
-		LOGGER.info("fetch {} users", pageUsers.getTotalElements());
-
-		return pageUsers;
-	}
+	return pageUsers;
+    }
 }

@@ -27,8 +27,8 @@ public class Phone {
         return id;
     }
 
-//    @ManyToOne
-//	@JoinColumn(name = "CONTACT_ID")
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//	@JoinColumn(name = "CONTACT_ID", nullable = false)
 //    @Valid
 //	public Contact getContact() {
 //		return contact;
