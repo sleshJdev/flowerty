@@ -10,34 +10,50 @@ angular.module("flowertyApplication.utilModule", [])
  */
 .filter('flowerRange', function() {
 	return function(range, total) {
+		if (range === undefined || total === undefined) {
+			return '';
+		}
 		total = parseInt(total);
 		for (var i = 0; i < total; ++i) {
 			range.push(i);
 		}
+		
 		return range;
 	};
 })
 
 /*
- * Make separating, paste together tokens and make capitalize first character of
- * first token. Example: UPPER_CASE -> Upper case. I this case, seprator='_'.
+ * Make separating, paste together tokens. 
+ * Example: UPPER_CASE -> Upper case. I this case, seprator='_', connector: ' '
  */
-.filter(
-		"flowerSplit",
-		function() {
-			return function(value, separator) {
-				if (value === undefined) {
-					return '';
-				}
-				var tokens = value.toLowerCase().split(separator);
-				var result = "";
-				for (var i = 0; i < tokens.length; ++i) {
-					if (i == 0) {
-						result = tokens[i].charAt(0).toUpperCase() + tokens[i].substring(1);
-						continue;
-					}
-					result += " " + tokens[i];
-				}
-				return result;
-			}
-		});
+.filter( "flowerSplit", function() {
+	return function(value, separator, connector){
+		if (value === undefined) {
+			return '';
+		}
+	    var tokens = value.split(separator);
+	    var result = '';
+	    var l = tokens.length;
+	    for(var i = 0; i < l; ++i){
+	        result += tokens[i] + (i != l - 1 ? connector : '');
+	    }
+	    
+	    return result;
+	}
+})
+/*
+ * Filter to change case all character from by length
+ */
+.filter("flowerCase", function() {
+	return function(value, from, length, isUp){
+		if (value === undefined) {
+			return '';
+		}
+		var left = value.substr(0, from);
+		var center = value.substr(from, length);
+		center = isUp ? center.toUpperCase() : center.toLowerCase()
+	    var right = value.substr(from + length, value.length);
+	    
+	    return left.concat(center).concat(right);
+	}
+})

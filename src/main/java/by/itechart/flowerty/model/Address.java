@@ -1,6 +1,7 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "address")
@@ -13,10 +14,10 @@ public class Address {
 	private String country;
 
 	public Address() {
+	    
 	}
-
+	
 	public Address(Long id, String town, String street, String house, String flat, String country) {
-		super();
 		this.id = id;
 		this.town = town;
 		this.street = street;
@@ -28,35 +29,39 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
+   // @NotNull
+  //  @Min(value = 1)
 	public Long getId() {
 		return id;
 	}
 
-	@Column(name = "TOWN", length = 20, nullable = true)
+	@Column(name = "TOWN", length = 100, nullable = true)
+    @Size(max = 100)
 	public String getTown() {
 		return town;
 	}
 
-	@Column(name = "STREET", length = 20, nullable = true)
+    @Size(max = 100)
+    @Column(name = "STREET", length = 100, nullable = true)
 	public String getStreet() {
 		return street;
 	}
 
+    @Size(max = 20)
 	@Column(name = "HOUSE", length = 20, nullable = true)
 	public String getHouse() {
 		return house;
 	}
-
+    @Size(max = 10)
 	@Column(name = "FLAT", length = 10, nullable = true)
 	public String getFlat() {
 		return flat;
 	}
-
-	@Column(name = "COUNTRY", length = 10, nullable = true)
+    @Size(max = 100)
+	@Column(name = "COUNTRY", length = 100, nullable = true)
 	public String getCountry() {
 		return country;
 	}
-
 
 	public void setCountry(String country) {
 		this.country = country;

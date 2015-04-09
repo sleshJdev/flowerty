@@ -56,9 +56,6 @@ app.controller('MainController', function ($scope, $http, $location, sessionServ
 
         sessionService.logout();
 
-        //delete $window.sessionStorage.token;
-        //$cookieStore.remove("token");
-
         $http.post('logout', {})
             .success(function () {
                 $scope.current.isLogged = false;

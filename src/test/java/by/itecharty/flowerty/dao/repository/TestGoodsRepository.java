@@ -14,11 +14,7 @@ import by.itechart.flowerty.model.Goods;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
- * Date: 29.03.15
- * Time: 22:26
- * To change this template use File | Settings | File Templates.
+ @author Мария 29.03.15
  */
 @Ignore
 public class TestGoodsRepository extends JpaConfigurationAware {

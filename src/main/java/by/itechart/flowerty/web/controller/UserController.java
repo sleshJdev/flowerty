@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -79,7 +78,7 @@ public class UserController {
 	// TODO: *add testing for this method
 
 	page = (page == null || page < 1) ? 0 : --page;
-	Page<User> pageUsers = userService.getPage(page, 10);
+	Page<User> pageUsers = userService.getPage(page, 1);
 
 	LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 

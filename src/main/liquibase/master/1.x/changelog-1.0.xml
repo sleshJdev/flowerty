@@ -107,7 +107,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="CUSTOMER_ID" type="INT(10)"/>
-            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="DESCRIPTION" type="VARCHAR(300)"/>
             <column name="MANAGER_ID" type="INT(10)"/>
             <column name="COST" type="FLOAT(22)"/>
             <column name="STAFF_ID" type="INT(10)"/>
