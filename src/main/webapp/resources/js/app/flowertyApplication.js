@@ -42,7 +42,7 @@ app.controller('ViewController', ['$scope', function ($scope) {
 
 app.controller('MainController', function ($scope, $http, $location, sessionService) {
 
-    sessionService.isLoggedIn($scope);
+    sessionService.getLoggedUser($scope);
 
     $scope.current = {
         isLogged: false,

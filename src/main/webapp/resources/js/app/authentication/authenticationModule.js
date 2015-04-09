@@ -33,17 +33,14 @@ authenticationModule.factory('sessionService', function ($http) {
         //        headers: {'Content-Type': 'application/json;charset=UTF-8'}
 
         return $http.post(
-            "/login",
+            "login",
             "username=" + $scope.user.login +
             "&password=" + $scope.user.password +
             "&_spring_security_remember_me=" + !!$scope.rememberMe, {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
             }).then(function (data) {
-                $scope.current.isLogged = true;
-                $scope.current.user.name = data.data.username;
-                $scope.current.user.role = data.data.authorities[0].authority;
-                $scope.current.errorLogin = false;
+                session.getLoggedUser($scope);
                 $location.path("/");
             }, function (data) {
                 $scope.current.isLogged = false;
@@ -54,10 +51,10 @@ authenticationModule.factory('sessionService', function ($http) {
     session.logout = function () {
         //localStorage.removeItem("session");
     };
-    session.isLoggedIn = function ($scope) {
+    session.getLoggedUser = function ($scope) {
         $http({
             method: "get",
-            url: "/login"
+            url: "login"
         }).success(function(data, status, headers, config) {
             if (data) {
                 $scope.current.isLogged = true;
