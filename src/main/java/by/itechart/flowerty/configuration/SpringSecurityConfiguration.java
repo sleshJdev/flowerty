@@ -47,6 +47,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/list/**")
                 .access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/contact/**")
+                .access("hasRole('ROLE_SUPERVISOR')")
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())
@@ -65,6 +67,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
+//            .and()
+//                .addFilterBefore(new CustomUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         ;
     }
 

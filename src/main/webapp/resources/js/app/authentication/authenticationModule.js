@@ -27,10 +27,11 @@ authenticationModule.factory('sessionService', function ($http) {
 
         //return $http.post(
         //    "/login", {
-        //        username: $scope.user.login,
-        //        password: $scope.user.password
+        //        username : $scope.user.login,
+        //        password : $scope.user.password,
+        //        _spring_security_remember_me : !!$scope.rememberMe
         //    }, {
-        //        headers: {'Content-Type': 'application/json;charset=UTF-8'}
+        //        headers: {'Content-Type': 'application/json'}
 
         return $http.post(
             "login",
