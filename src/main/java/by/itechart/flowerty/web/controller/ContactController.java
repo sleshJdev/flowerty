@@ -4,18 +4,23 @@
  */
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.model.Address;
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.web.exception.NotFoundException;
-import by.itechart.flowerty.web.service.ContactService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import by.itechart.flowerty.model.Address;
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.web.exception.NotFoundException;
+import by.itechart.flowerty.web.service.ContactService;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -98,12 +103,11 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
-	LOGGER.info("save contact: {} {} {}", contact.getName(), contact.getSurname(), contact.getFathername());
+	LOGGER.info("save contact: ", contact.toString());
 	Address a = contact.getAddress();
 	LOGGER.info("address details: id:{}, town:{}, street:{}, house:{}, flat:{}, country:{}", 
 		    		a.getId(), a.getTown(), a.getStreet(), a.getHouse(), a.getFlat(), a.getCountry());
-	
-	contact.setPhones(null);
+
 	contactService.save(contact);
 	
 	return contact;

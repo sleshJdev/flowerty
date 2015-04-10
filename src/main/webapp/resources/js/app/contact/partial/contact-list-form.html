@@ -17,7 +17,7 @@
 			<td>
 				<a href="#/edit-contact/{{contact.id}}"> 
 					<span class="glyphicon glyphicon-edit"></span> 
-					{{contact.name + ' ' + contact.surname + ' ' + contact.fathername}}
+					{{contact | flowerFullContactName}}
 				</a>
 			</td>
 			<td>{{contact.birthday}}</td>

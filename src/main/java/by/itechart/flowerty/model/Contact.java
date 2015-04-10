@@ -8,6 +8,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b9e06c3f7fbc4b2363faff308ce0caafdf470527
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -85,14 +89,14 @@ public class Contact {
 	return email;
     }
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
     @Valid
     public Address getAddress() {
 	return address;
     }
     @Valid
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CONTACT_ID", nullable=false)
     public Set<Phone> getPhones() {
 	return phones;

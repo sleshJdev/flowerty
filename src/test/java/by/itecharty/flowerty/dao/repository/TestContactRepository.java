@@ -16,7 +16,6 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
 /**
  *@author Мария Date: 26.03.15
  */
-@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
 	@Autowired
 	private ContactService contactRepository;
