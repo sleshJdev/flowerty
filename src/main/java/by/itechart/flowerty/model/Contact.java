@@ -5,7 +5,7 @@ import javax.validation.*;
 import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.*;
+
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -81,7 +81,7 @@ public class Contact {
 	return email;
     }
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
     @Valid
     public Address getAddress() {
@@ -89,7 +89,7 @@ public class Contact {
     }
   //  @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
     @Valid
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CONTACT_ID", nullable=false)
     public Set<Phone> getPhones() {
 	return phones;

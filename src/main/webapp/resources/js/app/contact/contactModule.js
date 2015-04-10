@@ -4,6 +4,11 @@
  */
 'use strict'
 
+/*
+ * TODO: 1. need think about that the do separate file for filters, services and
+ * etc, because over-head code obtained
+ */
+
 angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .constant("CONSTANTS", (function(){
@@ -48,6 +53,14 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		})
 }])
 
+.filter("flowerFullContactName", function() {
+	return function(cortege){
+		return (!cortege.name ? "" : cortege.name) + " " + 
+			   (!cortege.surname ? "" : cortege.surname) + " " + 
+			   (!cortege.fathername ? "" : cortege.fathername);
+	}
+})
+
 .service("deleteService", function(){
 	this.deleteById = function(collection){
 		var isBreak = true;
@@ -69,7 +82,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	
 	me.bundle = {
 			template: CONSTANTS.EDIT_PHONE,
-			types: CONSTANTS.PROCESS_TYPES,
+			types: CONSTANTS.PHONE_TYPES,
 			contact: {},
 			actions: []
 	};
@@ -119,7 +132,6 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	 */
 	me.bundle.actions.savePhone = function(newPhone){
 		if(!newPhone.id){
-			newPhone.id = {};
 			me.bundle.contact.phones.push(newPhone)
 			console.log("add new phone");
 		}else{
