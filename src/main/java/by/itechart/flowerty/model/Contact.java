@@ -1,11 +1,13 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-import javax.validation.*;
-import javax.validation.constraints.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.*;
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -47,22 +49,24 @@ public class Contact {
 	return id;
     }
 
-    @Column(name = "NAME", length = 20, nullable = true)
+  //  @Column(name = "NAME", length = 20, nullable = true)
+   // @Field("SURNAME")
     @NotNull
     @Size(max = 20)
     public String getName() {
 	return name;
     }
 
-    @Column(name = "SURNAME", length = 20, nullable = true)
+    //@Column(name = "SURNAME", length = 20, nullable = true)
+   // @Field("NAME")
     @NotNull
     @Size(max = 20)
     public String getSurname() {
 	return surname;
     }
 
-    @Column(name = "FATHERNAME", length = 20, nullable = true)
-    @Size(max = 20)
+   // @Column(name = "FATHERNAME", length = 20, nullable = true)
+   // @Size(max = 20)
     public String getFathername() {
 	return fathername;
     }
@@ -87,7 +91,6 @@ public class Contact {
     public Address getAddress() {
 	return address;
     }
-  //  @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER)
     @Valid
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "CONTACT_ID", nullable=false)
