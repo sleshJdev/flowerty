@@ -37,6 +37,7 @@ import by.itecharty.flowerty.config.MockTestConfigigurationAware;
  *
  *         Test for UserController
  */
+@Ignore
 public class TestUserController extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
