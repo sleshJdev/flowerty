@@ -5,7 +5,7 @@
 
 angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
-.config(["$routeProvider", function($routeProvider) {
+.config(["$routeProvider", '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when("/contacts", {
 			templateUrl: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
@@ -87,7 +87,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			currentPage: 1,
 			totalPage: [],			
 			list: []
-	} 
+	};
 		
     $scope.contacts.getPageFromServer = function(){
         $http({
@@ -118,6 +118,19 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         }
         $scope.contacts.getPageFromServer();
     };
-    
-    $scope.contacts.getPage(1);
+
+    $scope.contacts.getPagesCount = function(){
+        return $scope.contacts.pagesCount;
+    };
+
+    $scope.init = function () {
+        $scope.contacts.getPage(1);
+        $scope.pagination.getNextPage = $scope.contacts.getNextPage;
+        $scope.pagination.getPreviousPage = $scope.contacts.getPreviousPage;
+        $scope.pagination.getPage = $scope.contacts.getPage;
+        $scope.pagination.pageClass = $scope.contacts.pageClass;
+        $scope.pagination.getPagesCount = $scope.contacts.getPagesCount;
+    };
+
+    $scope.init();
 }]);

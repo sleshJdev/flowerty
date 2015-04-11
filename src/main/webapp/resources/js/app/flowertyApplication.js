@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by Катерина on 19.03.2015.
  */
@@ -9,7 +10,7 @@ var app = angular.module('flowertyApplication', [
                              		'flowertyApplication.contactModule',
                              		'flowertyApplication.utilModule'])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
         when('/users', {
             templateUrl: APP_PATH + "user/partial/users-list-form.html",
@@ -20,8 +21,11 @@ var app = angular.module('flowertyApplication', [
             controller: 'LogInController'
         })
         .when('/', {
-        	templateUrl: 'resources/template/welcome.html',
-        })
+        	templateUrl: 'resources/template/welcome.html'
+        });
+
+    //  for smart urls
+    $locationProvider.html5Mode(true);
 }]);
 
 app.controller('ViewController', ['$scope', function($scope) {
@@ -34,10 +38,15 @@ app.controller('ViewController', ['$scope', function($scope) {
             {
                 name: 'footer.html',
                 url: 'resources/template/footer.html'
+            },
+            {
+                name: 'pagination.html',
+                url: 'resources/template/pagination.html'
             }
         ];
     $scope.templates.header = $scope.templates[0];
     $scope.templates.footer = $scope.templates[1];
+    $scope.templates.pagination = $scope.templates[2];
 }]);
 
 app.controller('MainController', function($scope, $http, $location, sessionService) {
@@ -66,6 +75,13 @@ app.controller('MainController', function($scope, $http, $location, sessionServi
             $scope.current.isLogged = false;
             $scope.user = {};
         });
-
     };
+
+    $scope.pagination = {
+        getPagesCount : function(){},
+        pageClass : function(page){},
+        getPage : function(page){},
+        getPreviousPage : function(){},
+        getNextPage : function(){}
+    }
 });

@@ -1,10 +1,11 @@
+'use strict';
 /**
  * Created by Катерина on 19.03.2015.
  */
 
 var authenticationModule = angular.module('flowertyApplication.authenticationModule', ['ngRoute']);
 
-authenticationModule.config(["$routeProvider", function ($routeProvider) {
+authenticationModule.config(["$routeProvider", '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
         .when('/login', {
             templateUrl: AUTHENTICATION_MODULE_PATH + 'partial/log-in-form.html',
@@ -14,6 +15,9 @@ authenticationModule.config(["$routeProvider", function ($routeProvider) {
             templateUrl: AUTHENTICATION_MODULE_PATH + 'partial/sign-up-form.html',
             controller: 'SignUpController'
         });
+
+    //  for smart urls
+    $locationProvider.html5Mode(true);
 }]);
 
 /**

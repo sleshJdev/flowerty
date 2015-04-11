@@ -1,17 +1,45 @@
-<div class="row">
-	<a href="#" class="thumbnail"> <img
-		src="resources/images/header.jpg">
-	</a>
+
+<!-- Header template -->
+<div id="header" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header navbar-left">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <img class="navbar-brand" src="../../../resources/images/logo1.png"/>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left container btn-toolbar">
+            <li class="btn-group active">
+                <a href="/users" class="btn">Users</a>
+                <a href="/add-user" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="/search-user" class="btn"><span class="glyphicon glyphicon-search"></span></a>
+            </li>
+            <li class="divider-vertical"></li>
+            <li class="btn-group active">
+                <a href="/contacts" class="btn">Contacts</a>
+                <a href="/add-contact" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="/search-contact" class="btn"><span class="glyphicon glyphicon-search"></span></a>
+            </li>
+            <li class="divider-vertical"></li>
+            <li class="btn-group active">
+                <a href="/orders" class="btn">Orders</a>
+                <a href="/add-contact" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="/search-contact" class="btn"><span class="glyphicon glyphicon-search"></span></a>
+                <a href="/orders-history" class="btn"><span class="glyphicon glyphicon-time"></span></a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right container">
+            <li id="logged-user" class="active" data-ng-show="current.isLogged"><a href="" >Hi, <strong>{{current.user}}</strong></a></li>
+            <li data-ng-show="current.isLogged"><a href="" class="btn"> <span class="glyphicon glyphicon-cog"></span> </a></li>
+            <li data-ng-show="current.isLogged"><a href="" class="btn"> <span class="glyphicon glyphicon-user"></span> </a></li>
+            <li data-ng-show="!current.isLogged"><a href="/login"><span class="glyphicon glyphicon-log-in"> Login</span> </a></li>
+            <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()"> <span class="glyphicon glyphicon-log-out"> Logout</span> </a></li>
+        </ul>
+    </div>
 </div>
-<div class="header clearfix">
-	<ul class="pull-right">
-		<ul class="list-inline">
-			<li><a href="#/users"><span class="glyphicon glyphicon-th-list"></span> Users</a></li>
-			<li><a href="#/contacts"><span class="glyphicon glyphicon-list-alt"></span> Contacts</a></li>
-			<li><a href="#/edit-mock-user"><span class="glyphicon glyphicon-edit"></span> Edit Mock User</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-search"></span> Search contacts</a></li>
-            <li id="logged-user" class="active" data-ng-show="current.isLogged"><a href="" ><strong>{{current.user}}</strong></a></li>
-            <li data-ng-show="!current.isLogged"><a href="#/login"><span class="glyphicon glyphicon-log-in">Login </span> </a></li>
-            <li data-ng-show="current.isLogged"><a href="" data-ng-click="current.logOut()"> <span class="glyphicon glyphicon-log-out">Logout</span> </a></li>
-	</ul>
-</div>
+
+<a href="#/edit-mock-user"><span class="glyphicon glyphicon-edit"></span> Edit Mock User</a>
+
+<div id="main-container-layout"></div>

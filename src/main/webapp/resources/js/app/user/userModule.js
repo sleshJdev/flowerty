@@ -1,22 +1,26 @@
+'use strict';
 /**
  * Created by Катерина on 24.03.2015.
  */
 var userModule = angular.module("flowertyApplication.userModule", ['ngRoute']);
 
-userModule.config(["$routeProvider", function($routeProvider) {
+userModule.config(["$routeProvider", '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider
-	.when("/users", {
-        templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
-        controller: "UsersController"
-    })
-    .when("/edit-user/:id", {
-        templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
-        controller: "UserEditController"
-    })
-	.when("/remove-user", {
-		templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
-		controller: "UserDeleteController"
-	});
+        .when("/users", {
+            templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
+            controller: "UsersController"
+        })
+        .when("/edit-user/:id", {
+            templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
+            controller: "UserEditController"
+        })
+        .when("/remove-user", {
+            templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
+            controller: "UserDeleteController"
+        });
+
+    //  for smart urls
+    $locationProvider.html5Mode(true);
 }]);
 
 userModule.controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
@@ -64,20 +68,9 @@ userModule.controller('UsersController', function($scope, $http) {
         return pageNumber == $scope.users.currentPage ? 'active' : '';
     };
 
-    $scope.users.setPagination = function(){
-        $scope.users.pages = [];
-        for(var i = 1; i <= $scope.users.pagesCount; i++){
-            var obj = {
-                value : i
-            };
-            $scope.users.pages.push(obj);
-        }
-    };
-
     $scope.users.getPage = function(pageNumber){
         $scope.users.currentPage = pageNumber;
         $scope.users.getPageFromServer();
-        $scope.users.setPagination();
     };
 
     $scope.users.getPageFromServer = function(){
@@ -110,9 +103,17 @@ userModule.controller('UsersController', function($scope, $http) {
         $scope.users.getPage($scope.users.currentPage);
     };
 
+    $scope.users.getPagesCount = function(){
+        return $scope.users.pagesCount;
+    };
+
     $scope.init = function () {
         $scope.users.getPage(1);
-        $scope.users.getPage(1);
+        $scope.pagination.getNextPage = $scope.users.getNextPage;
+        $scope.pagination.getPreviousPage = $scope.users.getPreviousPage;
+        $scope.pagination.getPage = $scope.users.getPage;
+        $scope.pagination.pageClass = $scope.users.pageClass;
+        $scope.pagination.getPagesCount = $scope.users.getPagesCount;
     };
 
     $scope.init();
