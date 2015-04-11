@@ -1,10 +1,7 @@
 package by.itecharty.flowerty.dao.repository;
 
 import by.itechart.flowerty.dao.repository.OrderRepository;
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.Order;
-import by.itechart.flowerty.model.State;
-import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.model.*;
 import by.itecharty.flowerty.config.JpaConfigurationAware;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;

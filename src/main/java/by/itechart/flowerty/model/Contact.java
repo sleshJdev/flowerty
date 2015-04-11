@@ -1,5 +1,7 @@
 package by.itechart.flowerty.model;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -8,10 +10,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
-<<<<<<< HEAD
-=======
-
->>>>>>> b9e06c3f7fbc4b2363faff308ce0caafdf470527
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -49,28 +47,29 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
+    @Field
     public Long getId() {
 	return id;
     }
 
-  //  @Column(name = "NAME", length = 20, nullable = true)
-   // @Field("SURNAME")
+    @Column(name = "NAME", length = 20, nullable = true)
+    @Field("NAME")
     @NotNull
     @Size(max = 20)
     public String getName() {
 	return name;
     }
 
-    //@Column(name = "SURNAME", length = 20, nullable = true)
-   // @Field("NAME")
+    @Column(name = "SURNAME", length = 20, nullable = true)
+    @Field("SURNAME")
     @NotNull
     @Size(max = 20)
     public String getSurname() {
 	return surname;
     }
-
-   // @Column(name = "FATHERNAME", length = 20, nullable = true)
-   // @Size(max = 20)
+    @Field("FATHERNAME")
+    @Column(name = "FATHERNAME", length = 20, nullable = true)
+    @Size(max = 20)
     public String getFathername() {
 	return fathername;
     }
