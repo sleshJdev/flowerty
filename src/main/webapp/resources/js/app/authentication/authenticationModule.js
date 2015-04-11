@@ -41,7 +41,7 @@ authenticationModule.factory('sessionService', function ($http) {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
             }).then(function (data) {
-                session.getLoggedUser($scope);
+                session.setLoggedUser($scope);
                 $location.path("/");
             }, function (data) {
                 $scope.current.isLogged = false;
@@ -52,7 +52,7 @@ authenticationModule.factory('sessionService', function ($http) {
     session.logout = function () {
         //localStorage.removeItem("session");
     };
-    session.getLoggedUser = function ($scope) {
+    session.setLoggedUser = function ($scope) {
         $http({
             method: "get",
             url: "login"

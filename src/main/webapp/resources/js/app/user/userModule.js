@@ -51,7 +51,7 @@ userModule.controller("UserDeleteController", ['$scope', '$http', '$location', '
 	});
 }]);
 
-userModule.controller('UsersController', function($scope, $http) {
+userModule.controller('UsersController', function($scope, $http, $location) {
 
     $scope.users = {
         pages : [],
@@ -87,12 +87,16 @@ userModule.controller('UsersController', function($scope, $http) {
         });
 
         request.success(function(data, status, headers, config) {
+            if (!data.content) {
+                $location.path("/login");
+            }
             $scope.users.usersList = data.content;
             $scope.users.pagesCount = data.totalPages;
         });
 
         request.error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
+            $location.path("/");
         });
     };
 

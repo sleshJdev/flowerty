@@ -42,7 +42,7 @@ app.controller('ViewController', ['$scope', function ($scope) {
 
 app.controller('MainController', function ($scope, $http, $location, sessionService) {
 
-    sessionService.getLoggedUser($scope);
+    sessionService.setLoggedUser($scope);
 
     $scope.current = {
         isLogged: false,
@@ -60,10 +60,12 @@ app.controller('MainController', function ($scope, $http, $location, sessionServ
             .success(function () {
                 $scope.current.isLogged = false;
                 $scope.user = {};
+                $location.path("/");
             })
             .error(function (data) {
                 $scope.current.isLogged = false;
                 $scope.user = {};
+                $location.path("/");
             });
 
     };
