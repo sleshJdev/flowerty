@@ -1,24 +1,28 @@
 package by.itecharty.flowerty.web.controller;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import org.junit.Ignore;
+import org.springframework.http.MediaType;
+
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Phone;
 import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  * 
  *         Helper for test
  */
+@Ignore
 @SuppressWarnings("serial")
 public final class TestControllerHelper {
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
