@@ -179,9 +179,13 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
             method: "get",
             url: "contact/list/" + $scope.contacts.currentPage
         }).success(function(data, status, headers, config) {
+			if (!data.content) {
+				$location.path("/login");
+			}
             $scope.contacts.list = data.content;
             $scope.contacts.totalPages = data.totalPages;
         }).error(function(data, status, headers, config) {
+			$location.path("/");
         });
     };
     
