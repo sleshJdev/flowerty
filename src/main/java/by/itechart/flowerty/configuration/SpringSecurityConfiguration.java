@@ -68,8 +68,20 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
 //            .and()
+//                .addFilter(customUsernamePasswordAuthenticationFilter())
 //                .addFilterBefore(new CustomUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         ;
+    }
+
+    @Bean
+    public CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter()
+            throws Exception {
+        CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter = new CustomUsernamePasswordAuthenticationFilter();
+        customUsernamePasswordAuthenticationFilter
+                .setAuthenticationManager(authenticationManagerBean());
+//        customUsernamePasswordAuthenticationFilter
+//                .setAuthenticationSuccessHandler(customSuccessHandler());
+        return customUsernamePasswordAuthenticationFilter;
     }
 
     @Autowired

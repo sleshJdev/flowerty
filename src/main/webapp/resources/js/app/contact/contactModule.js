@@ -151,12 +151,12 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	});
 }])
 
-.controller("ContactListController", ["$scope", "$http", "deleteService", function($scope, $http, deleteService) {
+.controller("ContactListController", ["$scope", "$http", "$location", "deleteService", function($scope, $http, $location, deleteService) {
 	$scope.contacts = {
 			currentPage: 1,
 			totalPage: [],			
 			list: []
-	} 
+	};
 	
 	$scope.contacts.deleteContact = function(){
 		console.log("delete contact");
@@ -172,7 +172,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		}).error(function(data, status, headers, config) {
 			console.log("contact delete error: " + JSON.stringify(data))
 		})
-	}
+	};
 		
     $scope.contacts.getPageFromServer = function(){
         $http({
@@ -180,10 +180,11 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
             url: "contact/list/" + $scope.contacts.currentPage
         }).success(function(data, status, headers, config) {
 			if (!data.content) {
-				$location.path("/login");
+				$location.path("login");
+			} else {
+				$scope.contacts.list = data.content;
+				$scope.contacts.totalPages = data.totalPages;
 			}
-            $scope.contacts.list = data.content;
-            $scope.contacts.totalPages = data.totalPages;
         }).error(function(data, status, headers, config) {
 			$location.path("/");
         });

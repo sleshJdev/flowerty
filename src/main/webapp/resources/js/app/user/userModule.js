@@ -88,10 +88,11 @@ userModule.controller('UsersController', function($scope, $http, $location) {
 
         request.success(function(data, status, headers, config) {
             if (!data.content) {
-                $location.path("/login");
+                $location.path("login");
+            } else {
+                $scope.users.usersList = data.content;
+                $scope.users.pagesCount = data.totalPages;
             }
-            $scope.users.usersList = data.content;
-            $scope.users.pagesCount = data.totalPages;
         });
 
         request.error(function(data, status, headers, config) {
