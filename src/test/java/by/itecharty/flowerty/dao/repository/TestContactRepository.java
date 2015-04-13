@@ -19,7 +19,7 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
 public class TestContactRepository extends JpaConfigurationAware {
 	@Autowired
 	private ContactService contactRepository;
-    
+
 	@Test
 	public void findContact_ValidId_ContactReturned() {
 		Contact contact = contactRepository.findOne(2l);
