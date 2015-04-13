@@ -18,11 +18,11 @@ import org.springframework.data.domain.PageRequest;
  * Time: 14:52
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
 public class TestOrderRepository extends JpaConfigurationAware {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Ignore
     @Test
     public void saveOrder_ValidOrder_ReturnsSameOrder() {
         User user = new User();
@@ -40,17 +40,20 @@ public class TestOrderRepository extends JpaConfigurationAware {
         order.setReceiver(contact);
         order.setManager(user);
     }
+    @Ignore
     @Test
     public void findOne_ValidId_ReturnsOrder() {
         Order order = orderRepository.findOne(1l);
         Assert.assertEquals(order.getDescription(), "WE");
         Assert.assertEquals(order.getCustomer().getName(), "TestName");
     }
+    @Ignore
     @Test
     public void findOne_InvalidId_ReturnsNull() {
         Order order = orderRepository.findOne(100l);
         Assert.assertNull(order);
     }
+    @Ignore
     @Test
     public void findByCustomer_ValidId_ReturnsPageOfOrders() {
         Contact contact = new Contact();

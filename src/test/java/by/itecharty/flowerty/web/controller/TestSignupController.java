@@ -29,7 +29,6 @@ import by.itecharty.flowerty.config.MockTestConfigigurationAware;
  * 
  *         Test for SignupController
  */
-@Ignore
 public class TestSignupController extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
@@ -46,6 +45,7 @@ public class TestSignupController extends MockTestConfigigurationAware {
 				.build();
 	}
 
+    @Ignore
 	@Test
 	public void signup_ShouldReturnViewNameForSignup() throws Exception{
 		mock
@@ -54,6 +54,7 @@ public class TestSignupController extends MockTestConfigigurationAware {
 			.andExpect(forwardedUrl("signup/signup"));
 	}
 
+    @Ignore
 	@Test
 	public void signup_PassSiginFormFromClient_ShouldSaveNewUserAndReturnNameIndexPage() throws Exception{
 		User newUser = TestControllerHelper.buildValidShortUserForTest();

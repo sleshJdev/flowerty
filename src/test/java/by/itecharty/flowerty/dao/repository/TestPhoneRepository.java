@@ -18,10 +18,10 @@ import org.springframework.data.domain.PageRequest;
  * Time: 11:25
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
 public class TestPhoneRepository extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
+    @Ignore
     @Test
     public void savePhone_ValidPhones_ReturnsPageOfPhones() {
         Phone phone = new Phone();
@@ -33,17 +33,20 @@ public class TestPhoneRepository extends JpaConfigurationAware {
         phone.setComment("PhoneComment");
         phoneRepository.save(phone);
     }
+    @Ignore
     @Test
     public void findPhone_ValidId_ReturnsPhone() {
         Phone phone = phoneRepository.findOne(1l);
         Assert.assertEquals(phone.getContact().getName(), "TestName");
         Assert.assertEquals(phone.getNumber(), "1232121");
     }
+    @Ignore
     @Test
     public void findPhone_InvalidId_ReturnsNull() {
         Phone phone = phoneRepository.findOne(1000l);
         Assert.assertNull(phone);
     }
+    @Ignore
     @Test
     public void findPhones_ValidContact_ReturnsPageOfPhones() {
         Contact contact = new Contact();
@@ -52,6 +55,7 @@ public class TestPhoneRepository extends JpaConfigurationAware {
         Assert.assertEquals(phones.getContent().get(0).getNumber(), "1232121");
         Assert.assertEquals(phones.getContent().get(0).getContact().getName(), "TestName");
     }
+    @Ignore
     @Test
     public void findPhones_InvalidContact_ReturnsEmptyPage() {
         Contact contact = null;

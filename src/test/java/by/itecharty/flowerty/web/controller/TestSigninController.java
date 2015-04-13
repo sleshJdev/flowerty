@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 
  *         Test for SiginController
  */
-@Ignore
 public class TestSigninController extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
@@ -41,6 +40,7 @@ public class TestSigninController extends MockTestConfigigurationAware {
 				.build();
 	}
 
+    @Ignore
 	@Test
 	public void signin_ShouldReturnViewNameForSignin() throws Exception {
 		mock
@@ -48,7 +48,8 @@ public class TestSigninController extends MockTestConfigigurationAware {
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("signin/signin"));			
 	}
-	
+
+    @Ignore
 	@Test
 	public void signin_PassValidLoginAndPassword_ShouldAuthenticate() throws Exception{
 		User existsUser = TestControllerHelper.buildValidShortUserForTest();
@@ -71,7 +72,8 @@ public class TestSigninController extends MockTestConfigigurationAware {
 			.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword());
 		verifyNoMoreInteractions(userServiceMock);
 	}
-	
+
+    @Ignore
 	@Test
 	public void signin_PassInvalidLoginAndPassword_NotAuthenticateShouldRedirectToSigninPage() throws Exception{
 		User notExistsUser = TestControllerHelper.buildInvalideShordUserForTest();

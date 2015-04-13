@@ -18,6 +18,7 @@ import java.util.List;
 public class TestRoleRepository extends JpaConfigurationAware {
     @Autowired
     private RoleRepository roleRepository;
+    @Ignore
     @Test
     public void findAll_ReturnsListOfAllRoles() {
         List<Role> list = roleRepository.findAll();

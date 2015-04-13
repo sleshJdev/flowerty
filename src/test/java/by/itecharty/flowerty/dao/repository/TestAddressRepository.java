@@ -16,10 +16,10 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
  * Time: 19:44
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
 public class TestAddressRepository extends JpaConfigurationAware {
     @Autowired
     private AddressRepository addressRepository;
+    @Ignore
     @Test
     public void saveAddress_CorrectAddress_SameAddressReturned() {
         Address address = new Address();

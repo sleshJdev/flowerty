@@ -20,21 +20,23 @@ import by.itecharty.flowerty.config.JpaConfigurationAware;
  * Time: 22:26
  * To change this template use File | Settings | File Templates.
  */
-@Ignore
 public class TestGoodsRepository extends JpaConfigurationAware {
     @Autowired
     private GoodsRepository goodsRepository;
 
+    @Ignore
     @Test
     public void findGoods_ValidId_ReturnsGoods () {
         Goods goods = goodsRepository.findOne(1l);
         Assert.assertEquals("Yellow Tulip", goods.getFlower().getName());
     }
+    @Ignore
     @Test
     public void findGoods_InvalidId_ReturnsNull () {
         Goods goods = goodsRepository.findOne(100l);
         Assert.assertNull(goods);
     }
+    @Ignore
     @Test
     public void saveGoods_ValidGoods_ReturnsSameGoods() {
         Flower fl = new Flower();
@@ -50,6 +52,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
         Assert.assertEquals((Object) goods.getCost(), 15.7);
 
     }
+    @Ignore
     @Test
     public void findGoods_ValidCompany_ReturnsPageOfGoods() {
         Company company = new Company();
@@ -58,6 +61,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
         Assert.assertNotNull(page);
         Assert.assertNotEquals(0, page.getContent().size());
     }
+    @Ignore
     @Test
     public void findGoods_InvalidCompany_ReturnsEmptyPage() {
         Company company = new Company();

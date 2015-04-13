@@ -24,7 +24,12 @@ userModule.config(["$routeProvider", '$locationProvider', function($routeProvide
 }]);
 
 userModule.controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
-	$http({
+
+    $scope.option = {
+        edit : true
+    };
+
+    $http({
 		method: "get",
 		url: "user/details/" + $routeParams.id
 	}).success(function(data, status, headers, config) {
@@ -143,11 +148,35 @@ userModule.controller('UsersController', function($scope, $http) {
     $scope.init();
 });
 
-userModule.controller("UserAddController", ['$scope', '$http', '$location', function($scope, $http, $location) {
+userModule.controller("UserAddController", ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
+
+    $scope.option = {
+        edit : false
+    };
 
     $scope.bundle = {
-        user : {}
+        user : {
+            contact : null
+        }
     };
+
+    $scope.dynamicSearch = {
+        enteredSurname : '',
+        offerContacts : function(entered) {
+            $scope.dynamicSearch.offeredContacts = $filter('bySurname')([], entered);
+            $scope.bundle.user.contact = $scope.dynamicSearch.offeredContacts[0];
+        },
+        showResults : function(){
+            return $scope.dynamicSearch.offeredContacts && $scope.dynamicSearch.offeredContacts.length > 0;
+        },
+        selectContact : function(){
+            //  Setting empty array hides select element
+            $scope.dynamicSearch.offeredContacts = [];
+            var contact = $scope.bundle.user.contact;
+            $scope.dynamicSearch.enteredSurname = contact.name + ' ' + contact.fathername + ' ' + contact.surname;
+        }
+    };
+
 
     $scope.save = function() {
         $http({
@@ -160,4 +189,85 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', func
             console.log("Exception details in UserAddController.save() : " + JSON.stringify({data: data}));
         });
     };
+}]);
+
+userModule.filter('bySurname', ['$http', function($http){
+    return function(offeredContacts, enteredSurname){
+        if(enteredSurname.length < 3){
+            return [];
+        }
+
+        console.log('Searching by surname: ' + enteredSurname);
+
+        //  Getting search by surname results from server
+        $http({
+            method: "get",
+            url: "user/search/" + enteredSurname,
+            data: {}
+        }).success(function(data, status, headers, config) {
+            return data.content;
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details in bySurname filter : " + JSON.stringify({data: data}));
+            //return [];
+
+            //  Just emulation
+            var offered = [
+                {
+                    name : 'Пётр',
+                    surname : 'Первый',
+                    fathername : 'Петрович'
+                },
+                {
+                    name : 'Николай',
+                    surname : 'Басков',
+                    fathername : 'Николаевич'
+                },
+                {
+                    name : 'Александр',
+                    surname : 'Пушкин',
+                    fathername : 'Сергеевич'
+                },
+                {
+                    name : 'Катерина',
+                    surname : 'Петрова',
+                    fathername : 'Ивановна'
+                },
+                {
+                    name : 'Наталья',
+                    surname : 'Иванова',
+                    fathername : 'Ивановна'
+                }
+            ];
+            return offered.slice(enteredSurname.length - 3);
+        });
+        //  Just emulation
+        var offered = [
+            {
+                name : 'Пётр',
+                surname : 'Первый',
+                fathername : 'Петрович'
+            },
+            {
+                name : 'Николай',
+                surname : 'Басков',
+                fathername : 'Николаевич'
+            },
+            {
+                name : 'Александр',
+                surname : 'Пушкин',
+                fathername : 'Сергеевич'
+            },
+            {
+                name : 'Катерина',
+                surname : 'Петрова',
+                fathername : 'Ивановна'
+            },
+            {
+                name : 'Наталья',
+                surname : 'Иванова',
+                fathername : 'Ивановна'
+            }
+        ];
+        return offered.slice(enteredSurname.length - 3);
+    }
 }]);
