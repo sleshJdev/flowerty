@@ -15,23 +15,40 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	var CONTACT_MODULE_PATH = "resources/js/app/contact/";
 	
 	return {
-		CONTACTS : CONTACT_MODULE_PATH + "partial/contact-list-form.html",
-		EDIT_CONTACT: CONTACT_MODULE_PATH + "partial/contact-form.html",
-		ADD_CONTACT: CONTACT_MODULE_PATH + "partial/contact-form.html",
-		EDIT_PHONE: CONTACT_MODULE_PATH + "partial/phone-form.html",
+		CONTACTS 		: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
+		EDIT_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
+		ADD_CONTACT		: CONTACT_MODULE_PATH + "partial/contact-form.html",
+		SEARCH_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
+		EDIT_PHONE		: CONTACT_MODULE_PATH + "partial/phone-form.html",
+		PHONES			: CONTACT_MODULE_PATH + "partial/phone-list-form.html",
+		DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
 		
 		PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
 		
 		PROCESS_TYPES : { 
 			ADD:{
-				name: "add", 
+				name: "Add new contact", 
 				titleContact: "Add Contact",
-				titlePhone: "Add phone"
+				titlePhone: "Add phone",//init below
+				isShowPhones: true,
+				widthClass: "col-md-6",
+				action: []//main action
 			}, 
 			EDIT:{ 
-				name: "edit",
-				titleContact: "Edit Contact",
-				titlePhone: "Edit phone"
+				name: "Save contact",
+				titleContact: "Edit Contact",				
+				titlePhone: "Add phone",//init below
+				isShowPhones: true,
+				widthClass: "col-md-6",
+				action: []//main action					
+			}, 
+			SEARCH:{ 
+				name: "Search contact",
+				titleContact: "Search Contact",
+				titlePhone: "",//not use
+				isShowPhones: false,
+				widthClass: "col-md-10",
+				action: []//main action
 			} 
 		}
 	}
@@ -51,16 +68,23 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			templateUrl: CONSTANTS.ADD_CONTACT,
 			controller: "AddContactController"
 		})
+		.when("/search-contact", {
+			templateUrl: CONSTANTS.SEARCH_CONTACT,
+			controller: "SearchContactController"
+		});
 }])
 
 .filter("flowerFullContactName", function() {
-	return function(cortege){
-		return (!cortege.name ? "" : cortege.name) + " " + 
-			   (!cortege.surname ? "" : cortege.surname) + " " + 
-			   (!cortege.fathername ? "" : cortege.fathername);
+	return function(contact){
+		return (!contact.name ? "" : contact.name) + " " + 
+			   (!contact.surname ? "" : contact.surname) + " " + 
+			   (!contact.fathername ? "" : contact.fathername);
 	}
 })
 
+/*
+ * remove item from collection, if his id < 0
+ */
 .service("deleteService", function(){
 	this.deleteById = function(collection){
 		var isBreak = true;
@@ -76,12 +100,17 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	}
 })
 
+/*
+ * provides a method for crete/edit/remove contact and phones
+ */
 .service("processContactService", ["$http", "$location", "deleteService", "CONSTANTS",
                                    function($http, $location, deleteService, CONSTANTS) {
 	var me = this;
 	
 	me.bundle = {
-			template: CONSTANTS.EDIT_PHONE,
+			phoneTemplate: CONSTANTS.EDIT_PHONE,
+			phoneListTemplate: CONSTANTS.PHONES, 
+			datePickerTemplate: CONSTANTS.DATE_PICKER, 
 			types: CONSTANTS.PHONE_TYPES,
 			contact: {},
 			actions: []
@@ -107,7 +136,6 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	me.bundle.actions.deletePhone = function(){
 		console.log("delete phone");
 		deleteService.deleteById(me.bundle.contact.phones);
-		$location.path("contacts");
 	};
 	
 	/*
@@ -116,7 +144,8 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	me.bundle.actions.addPhone = function(){
 		console.log("show pop to create new phone");
 		me.bundle.phone = {};
-	}
+		me.bundle.processType.titlePhone = "Add phone";
+	};
 	
 	/* 
 	 * edit phone. Show pop-up to editing specific phone.
@@ -125,6 +154,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		console.log("edit phone");
 		me.bundle.phone = angular.copy(editablePhone);
 		me.bundle.originPhone = editablePhone;
+		me.bundle.processType.titlePhone = "Edit phone";
 	};
 	
 	/*
@@ -145,14 +175,16 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                                      function($scope, $http, $location, $routeParams, processContactService, CONSTANTS){
 	$scope.bundle = processContactService.bundle;
 	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.ADD;
+	$scope.bundle.processType.action = $scope.bundle.actions.saveContact;
 	$scope.bundle.contact = {};
 	$scope.bundle.contact.phones = [];
 }]) 
 
-.controller("EditContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "deleteService",  "CONSTANTS",
+.controller("EditContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "deleteService", "CONSTANTS",
                                       function($scope, $http, $location, $routeParams, processContactService, deleteService, CONSTANTS){
 	$scope.bundle = processContactService.bundle;
 	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.EDIT;
+	$scope.bundle.processType.action = $scope.bundle.actions.saveContact;
 	
 	$http({
 		method: "get",
@@ -163,13 +195,55 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	});
 }])
 
-.controller("ContactListController", ["$scope", "$http", "deleteService", function($scope, $http, deleteService) {
+.controller("SearchContactController", ["$scope", "$http", "processContactService", "CONSTANTS",
+                                        function($scope, $http, processContactService, CONSTANTS){	
+	$scope.bundle = processContactService.bundle;
+	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
+	$scope.bundle.processType.action = search;
+	$scope.bundle.contact = {};
+	$scope.bundle.contact.phones = [];
+	$scope.bundle.date = {
+			year: {
+				value: "",
+				isUse: true
+			},
+			month: {
+				value: "",
+				isUse: true
+			},
+			day: {
+				value: "",
+				isUse: true
+			}
+	};
+	$scope.bundle.dateListener = function(date){
+		bundle.contact = date.year.value + "-"+date.month.value+"-"+date.day.value;
+	}
+	
+	var search = function(contact){
+		bundle.contact.birthday = bundle.date.year + "-" + bundle.date.month + "-" + bundle.date.day;
+		$http({
+			method: "post",
+			url: "contact/serach"
+		}).success(function(data, status, headers, config) {
+			consloe.log(JSON.stringify(data));//REMOVE COMMENT
+		}).error(function(data, status, headers, config) {
+			console.log("error occured during search contact. details: " + JSON.stringify(data))
+		});
+	};
+}])
+
+.controller("ContactListController", ["$scope", "$http", "$location", "deleteService", 
+                                      function($scope, $http, $location, deleteService) {
 	$scope.contacts = {
 			currentPage: 1,
 			totalPage: [],			
 			list: []
-	} 
+	};
 	
+	/*
+	 * remove spicific contact(s)
+	 */
 	$scope.contacts.deleteContact = function(){
 		console.log("delete contact");
 		deleteService.deleteById($scope.contacts.list);		
@@ -184,7 +258,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		}).error(function(data, status, headers, config) {
 			console.log("contact delete error: " + JSON.stringify(data))
 		})
-	}
+	};
 		
     $scope.contacts.getPageFromServer = function(){
         $http({
@@ -215,6 +289,19 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         }
         $scope.contacts.getPageFromServer();
     };
-    
-    $scope.contacts.getPage(1);
+
+    $scope.contacts.getPagesCount = function(){
+        return $scope.contacts.pagesCount;
+    };
+
+    $scope.init = function () {
+        $scope.contacts.getPage(1);
+        $scope.pagination.getNextPage = $scope.contacts.getNextPage;
+        $scope.pagination.getPreviousPage = $scope.contacts.getPreviousPage;
+        $scope.pagination.getPage = $scope.contacts.getPage;
+        $scope.pagination.pageClass = $scope.contacts.pageClass;
+        $scope.pagination.getPagesCount = $scope.contacts.getPagesCount;
+    };
+
+    $scope.init();
 }]);

@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by Катерина on 24.03.2015.
  */
@@ -5,18 +6,18 @@ var userModule = angular.module("flowertyApplication.userModule", ['ngRoute']);
 
 userModule.config(["$routeProvider", function($routeProvider) {
 	$routeProvider
-	.when("/users", {
-        templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
-        controller: "UsersController"
-    })
-    .when("/edit-user/:id", {
-        templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
-        controller: "UserEditController"
-    })
-	.when("/remove-user", {
-		templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
-		controller: "UserDeleteController"
-	});
+        .when("/users", {
+            templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
+            controller: "UsersController"
+        })
+        .when("/edit-user/:id", {
+            templateUrl: USER_MODULE_PATH + "partial/user-edit.html",
+            controller: "UserEditController"
+        })
+        .when("/remove-user", {
+            templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
+            controller: "UserDeleteController"
+        });
 }]);
 
 userModule.controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
@@ -64,20 +65,9 @@ userModule.controller('UsersController', function($scope, $http) {
         return pageNumber == $scope.users.currentPage ? 'active' : '';
     };
 
-    $scope.users.setPagination = function(){
-        $scope.users.pages = [];
-        for(var i = 1; i <= $scope.users.pagesCount; i++){
-            var obj = {
-                value : i
-            };
-            $scope.users.pages.push(obj);
-        }
-    };
-
     $scope.users.getPage = function(pageNumber){
         $scope.users.currentPage = pageNumber;
         $scope.users.getPageFromServer();
-        $scope.users.setPagination();
     };
 
     $scope.users.getPageFromServer = function(){
@@ -88,7 +78,7 @@ userModule.controller('UsersController', function($scope, $http) {
 
         request.success(function(data, status, headers, config) {
             $scope.users.usersList = data.content;
-            $scope.users.pagesCount = data.totalPages;
+            $scope.users.totalPages = data.totalPages;
         });
 
         request.error(function(data, status, headers, config) {
@@ -110,10 +100,61 @@ userModule.controller('UsersController', function($scope, $http) {
         $scope.users.getPage($scope.users.currentPage);
     };
 
+    $scope.users.getPagesCount = function(){
+        return $scope.users.pagesCount;
+    };
+    
+    $scope.users.delete = function(){
+        var toDeleteIds = [];
+        console.log("users to del : " + JSON.stringify({users: $scope.users.usersList}));
+        var user;
+        for(var i = 0; i < $scope.users.usersList.length; i++){
+            user = $scope.users.usersList[i];
+            if(user.checked){
+                toDeleteIds.push(user.id);
+            }
+        }
+        if(toDeleteIds.length <= 0){
+            return true;
+        }
+        $http({
+            method: "post",
+            url: "user/delete",
+            data: toDeleteIds
+        }).success(function(data, status, headers, config) {
+            $location.path("users");
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details in UsersController.delete() : " + JSON.stringify({data: data}));
+        });
+    };
+
     $scope.init = function () {
         $scope.users.getPage(1);
-        $scope.users.getPage(1);
+        $scope.pagination.getNextPage = $scope.users.getNextPage;
+        $scope.pagination.getPreviousPage = $scope.users.getPreviousPage;
+        $scope.pagination.getPage = $scope.users.getPage;
+        $scope.pagination.pageClass = $scope.users.pageClass;
+        $scope.pagination.getPagesCount = $scope.users.getPagesCount;
     };
 
     $scope.init();
 });
+
+userModule.controller("UserAddController", ['$scope', '$http', '$location', function($scope, $http, $location) {
+
+    $scope.bundle = {
+        user : {}
+    };
+
+    $scope.save = function() {
+        $http({
+            method: "post",
+            url: "user/add",
+            data: $scope.bundle.user
+        }).success(function(data, status, headers, config) {
+            $location.path("users");
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details in UserAddController.save() : " + JSON.stringify({data: data}));
+        });
+    };
+}]);

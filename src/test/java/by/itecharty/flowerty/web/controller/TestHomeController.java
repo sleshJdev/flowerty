@@ -3,6 +3,7 @@ package by.itecharty.flowerty.web.controller;
 import by.itechart.flowerty.web.controller.HomeController;
 import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  *         Test for HomeController
  */
+@Ignore
 public class TestHomeController extends MockTestConfigigurationAware {
 	@InjectMocks
 	private HomeController homeControllerMock;

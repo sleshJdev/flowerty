@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -28,6 +29,7 @@ import by.itecharty.flowerty.config.MockTestConfigigurationAware;
  * 
  *         Test for SignupController
  */
+@Ignore
 public class TestSignupController extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
