@@ -4,12 +4,12 @@
  */
 
 var app = angular.module('flowertyApplication', [
-                             		'ngRoute', 
-                             		'flowertyApplication.userModule', 
-                             		'flowertyApplication.authenticationModule',
-                             		'flowertyApplication.contactModule',
-                             		'flowertyApplication.utilModule'])
-
+    'ngRoute',
+    'flowertyApplication.userModule',
+    'flowertyApplication.authenticationModule',
+    'flowertyApplication.contactModule',
+    'flowertyApplication.utilModule'])
+ 
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
         when('/users', {
@@ -32,7 +32,7 @@ var app = angular.module('flowertyApplication', [
     $locationProvider.html5Mode(true);
 }]);
 
-app.controller('ViewController', ['$scope', function($scope) {
+app.controller('ViewController', ['$scope', function ($scope) {
     $scope.templates =
         [
             {
@@ -53,17 +53,17 @@ app.controller('ViewController', ['$scope', function($scope) {
     $scope.templates.pagination = $scope.templates[2];
 }]);
 
-app.controller('MainController', function($scope, $http, $location, sessionService) {
+app.controller('MainController', function ($scope, $http, $location, sessionService) {
 
-    var user = localStorage.getItem("session") !== null ? localStorage.getItem("session") : {};
+    sessionService.getLoggedUser($scope);
 
     $scope.current = {
-        isLogged : sessionService.isLoggedIn(),
-        user : user,
-        errorLogin : false
+        isLogged: false,
+        user: {},
+        errorLogin: false
     };
 
-    $scope.current.logOut = function(){
+    $scope.current.logOut = function () {
 
         // Logout logic here
 

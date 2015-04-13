@@ -1,9 +1,8 @@
-
 <!-- Form for showing list of contacts, deleting contacts -->
 <div data-ng-app="flowertyApplication.contactModule">
      <table class="table table-bordered">
          <tr>
-             <th></th>
+             <th> <a href="" class="btn"> <span data-ng-click="contacts.deleteContact()" class="glyphicon glyphicon-remove"></span> </a> </th>
              <th>Full Name</th>
              <th>Address</th>
              <th>Birthday</th>
@@ -11,8 +10,8 @@
          <tr data-ng-repeat="contact in contacts.list" >
              <td><input type="checkbox"/></td>
              <td> 
-             	<a href="/edit-contact/{{contact.id}}"> <span class="glyphicon glyphicon-edit"></span>
-           			{{contact.name + ' ' + contact.surname + ' ' + contact.fathername}} 
+             	<a href="edit-contact/{{contact.id}}"> <span class="glyphicon glyphicon-edit"></span>
+           			{{contact | flowerFullContactName}} 
            		</a> 
          	 </td>
              <td>{{contact.birthday}}</td>

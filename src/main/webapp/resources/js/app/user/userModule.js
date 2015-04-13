@@ -4,7 +4,7 @@
  */
 var userModule = angular.module("flowertyApplication.userModule", ['ngRoute']);
 
-userModule.config(["$routeProvider", '$locationProvider', function($routeProvider, $locationProvider) {
+userModule.config(["$routeProvider", function($routeProvider) {
 	$routeProvider
         .when("/users", {
             templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
@@ -18,9 +18,6 @@ userModule.config(["$routeProvider", '$locationProvider', function($routeProvide
             templateUrl: USER_MODULE_PATH + "partial/users-list-form.html",
             controller: "UserDeleteController"
         });
-
-    //  for smart urls
-    $locationProvider.html5Mode(true);
 }]);
 
 userModule.controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
@@ -86,7 +83,7 @@ userModule.controller('UsersController', function($scope, $http) {
 
         request.success(function(data, status, headers, config) {
             $scope.users.usersList = data.content;
-            $scope.users.pagesCount = data.totalPages;
+            $scope.users.totalPages = data.totalPages;
         });
 
         request.error(function(data, status, headers, config) {
@@ -111,7 +108,7 @@ userModule.controller('UsersController', function($scope, $http) {
     $scope.users.getPagesCount = function(){
         return $scope.users.pagesCount;
     };
-
+    
     $scope.users.delete = function(){
         var toDeleteIds = [];
         console.log("users to del : " + JSON.stringify({users: $scope.users.usersList}));

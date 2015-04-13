@@ -14,11 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
- * Date: 30.03.15
- * Time: 9:14
- * To change this template use File | Settings | File Templates.
+ @author  Мария 30.03.15
  */
 public class TestOrderAlteringRepository extends JpaConfigurationAware {
     @Autowired

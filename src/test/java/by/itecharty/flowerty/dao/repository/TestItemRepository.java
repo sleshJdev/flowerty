@@ -13,11 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
- * Date: 30.03.15
- * Time: 7:00
- * To change this template use File | Settings | File Templates.
+@author Мария 30.03.15
  */
 public class TestItemRepository extends JpaConfigurationAware {
     @Autowired

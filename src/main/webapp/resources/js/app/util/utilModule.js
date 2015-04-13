@@ -23,8 +23,8 @@ angular.module("flowertyApplication.utilModule", [])
 })
 
 /*
- * Make separating, paste together tokens. 
- * Example: UPPER_CASE -> Upper case. I this case, seprator='_', connector: ' '
+ * make separating, paste together tokens. 
+ * example: UPPER_CASE -> Upper case. I this case, seprator='_', connector: ' '
  */
 .filter( "flowerSplit", function() {
 	return function(value, separator, connector){
@@ -42,7 +42,8 @@ angular.module("flowertyApplication.utilModule", [])
 	}
 })
 /*
- * Filter to change case all character from by length
+ * filter to change case all character 'from' by 'length'.
+ * 
  */
 .filter("flowerCase", function() {
 	return function(value, from, length, isUp){

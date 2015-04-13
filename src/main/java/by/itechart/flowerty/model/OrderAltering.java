@@ -1,14 +1,14 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
+ * @author Maria
  * Date: 20.03.15
- * Time: 22:41
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @Table(name = "order_altering")
@@ -31,26 +31,31 @@ public class OrderAltering {
     }
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
+    @Valid
     public Order getOrder() {
         return order;
     }
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
+    @Valid
     public User getUser() {
         return user;
     }
     @ManyToOne
     @JoinColumn(name = "STATE_ID")
+    @Valid
     public State getState() {
         return state;
     }
     @Column(name = "DATE")
     @Temporal(value = TemporalType.DATE)
+    @Past
     public Date getDate() {
         return date;
     }
     @Column(name = "COMMENT")
+    @Size(max=100)
     public String getComment() {
         return comment;
     }

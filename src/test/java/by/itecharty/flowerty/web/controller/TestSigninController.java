@@ -1,7 +1,7 @@
 package by.itecharty.flowerty.web.controller;
 
 import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.web.controller.SigninController;
+import by.itechart.flowerty.web.controller.LoginController;
 import by.itechart.flowerty.web.model.SigninForm;
 import by.itechart.flowerty.web.service.UserService;
 import by.itecharty.flowerty.config.MockTestConfigigurationAware;
@@ -29,13 +29,13 @@ public class TestSigninController extends MockTestConfigigurationAware {
 	private UserService userServiceMock;
 
 	@InjectMocks
-	private SigninController signinControllerMock;
+	private LoginController loginControllerMock;
 
 	private MockMvc mock;
 
 	@Before
 	public void setUp() {
-		mock = MockMvcBuilders.standaloneSetup(signinControllerMock)
+		mock = MockMvcBuilders.standaloneSetup(loginControllerMock)
 				.setHandlerExceptionResolvers(withExceptionControllerAdvice())
 				.build();
 	}

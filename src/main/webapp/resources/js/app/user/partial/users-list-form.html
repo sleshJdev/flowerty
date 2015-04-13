@@ -14,7 +14,7 @@
                         type="checkbox"
                         data-ng-model="user.checked"/>
                 </td>
-                <td><a href="/edit-user/{{user.id}}"><span class="glyphicon glyphicon-edit"></span> {{user.contact.name + ' ' + user.contact.surname + ' ' + user.contact.fathername}}</a></td>
+                <td><a href="edit-user/{{user.id}}"><span class="glyphicon glyphicon-edit"></span> {{user.contact.name + ' ' + user.contact.surname + ' ' + user.contact.fathername}}</a></td>
                 <td>{{user.login}}</td>
                 <td>{{user.role.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
             </tr>

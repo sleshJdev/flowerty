@@ -1,16 +1,9 @@
 package by.itechart.flowerty.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 /**
  * User: Мария Date: 19.03.15
  */
@@ -41,45 +34,55 @@ public class User {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Column(name = "LOGIN", length = 20, nullable = false)
+    @NotNull
+    @Size(max=20)
+    public String getLogin() {
+        return login;
+    }
 
-	@Column(name = "LOGIN", length = 20, nullable = false)
-	public String getLogin() {
-		return login;
-	}
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    @Column(name = "PASSWORD", length = 20, nullable = false)
+    @NotNull
+    @Size(max=20)
+    public String getPassword() {
+        return password;
+    }
 
-	@Column(name = "PASSWORD", length = 20, nullable = false)
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID")
+    @Valid
 	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CONTACT_ID")
+    @Valid
 	public Contact getContact() {
 		return contact;
 	}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
 }
