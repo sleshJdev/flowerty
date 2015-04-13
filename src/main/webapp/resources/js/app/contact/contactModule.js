@@ -216,9 +216,9 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 				isUse: true
 			}
 	};
-	$scope.$watch("bundle.date.day.value", function(newValue, oldValue) {
-		alert("date changed!");
-	});
+	$scope.bundle.dateListener = function(date){
+		bundle.contact = date.year.value + "-"+date.month.value+"-"+date.day.value;
+	}
 	
 	var search = function(contact){
 		bundle.contact.birthday = bundle.date.year + "-" + bundle.date.month + "-" + bundle.date.day;
