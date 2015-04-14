@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  *         Test for HomeController
  */
-@Ignore
 public class TestHomeController extends MockTestConfigigurationAware {
 	@InjectMocks
 	private HomeController homeControllerMock;
@@ -31,6 +30,7 @@ public class TestHomeController extends MockTestConfigigurationAware {
 				.build();
 	}
 
+    @Ignore
 	@Test
 	public void index_ShouldReturnViewNameForIndexPage() throws Exception {
 		mock

@@ -15,11 +15,11 @@ import org.springframework.data.domain.PageRequest;
 /**
 @author Мария 30.03.15
  */
-@Ignore
 public class TestItemRepository extends JpaConfigurationAware {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Ignore
     @Test
     public void findItem_ValidId_ReturnsItem() {
         Item item = itemRepository.findOne(1l);
@@ -27,11 +27,13 @@ public class TestItemRepository extends JpaConfigurationAware {
         Assert.assertEquals(item.getFlower().getFlower().getName(), "Yellow Tulip");
     }
 
+    @Ignore
     @Test
     public void findItem_InValidId_ReturnsNull() {
         Item item = itemRepository.findOne(1000l);
         Assert.assertNull(item);
     }
+    @Ignore
     @Test
     public void saveItem_ValidItem_ReturnsSameItem() {
         Goods goods = new Goods();
@@ -46,6 +48,7 @@ public class TestItemRepository extends JpaConfigurationAware {
         Assert.assertEquals(10, item.getQuantity());
         Assert.assertEquals(goods, item.getFlower());
     }
+    @Ignore
     @Test
     public void findItemsByOrder_ValidOrder_ReturnsPageOfItems() {
         Order order = new Order();
@@ -55,6 +58,7 @@ public class TestItemRepository extends JpaConfigurationAware {
         Assert.assertEquals(((Item)(page.getContent().get(0))).getQuantity() , 10);
     }
 
+    @Ignore
     @Test
     public void findItemsByOrder_NullOrder_ReturnsEmptyPage() {
         Order order = null;
@@ -62,6 +66,7 @@ public class TestItemRepository extends JpaConfigurationAware {
         Assert.assertEquals(page.getContent().size(), 0);
     }
 
+    @Ignore
 	@Test
 	public void findByBadOrder() {
 		Order order = new Order();

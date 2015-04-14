@@ -24,6 +24,7 @@ public class TestUserRepository extends JpaConfigurationAware {
 	@Autowired
 	private UserRepository userRepository;
 
+    @Ignore
 	@Test
 	public void findAll_ShouldReturnListOfUser() {
 		// expected
@@ -46,6 +47,7 @@ public class TestUserRepository extends JpaConfigurationAware {
 		Assert.assertEquals(secondUserLogin, second.getLogin());
 	}
 
+    @Ignore
 	@Test
 	public void getUserById_PassIdOfExistsUser_MustReturnTheCorrespondingUser() {
 		// expected
@@ -59,11 +61,13 @@ public class TestUserRepository extends JpaConfigurationAware {
 		Assert.assertEquals("Ivan", user.getContact().getName());
 	}
 
+    @Ignore
 	@Test
 	public void getUserById_PassIdOfNotExistsUser_ShouldReturnNull() {
 		// TODO: need implements
 	}
 
+    @Ignore
 	@Test
 	public void exists_PassValidLoginAndPassword_ShoudReturnTrue() {
 		// expected
@@ -75,6 +79,7 @@ public class TestUserRepository extends JpaConfigurationAware {
 		Assert.assertTrue(isExists);
 	}
 
+    @Ignore
 	@Test
 	public void exists_PassInvalidLoginAndPassword_ShouldReturnFalse() {
 		final String login = "sergeM";
@@ -103,7 +108,7 @@ public class TestUserRepository extends JpaConfigurationAware {
 		userRepository.delete(2l);
 	}
 
-
+    @Ignore
     @Test
     public void  saveUser_InvalidUser_ThrowsException() {
         //   Address address = new Address();
