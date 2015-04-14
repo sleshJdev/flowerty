@@ -37,7 +37,6 @@ import by.itecharty.flowerty.config.MockTestConfigigurationAware;
  *
  *         Test for UserController
  */
-@Ignore
 public class TestUserController extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
@@ -55,6 +54,7 @@ public class TestUserController extends MockTestConfigigurationAware {
 	}
 
 	@SuppressWarnings("unchecked")
+    @Ignore
 	@Test
 	public void getById_PassNotValidUserId_ShouldReturnShouldRedirectToErroPage() throws Exception {
 		final Long id = Long.MAX_VALUE;
@@ -69,7 +69,8 @@ public class TestUserController extends MockTestConfigigurationAware {
 		verify(userServiceMock, times(1)).getUserEditBundleFor(id);
 		verifyNoMoreInteractions(userServiceMock);
 	}
-	
+
+    @Ignore
 	@Test
 	public void getById_PassValidUserId_ShouldReturnUserEditBundle() throws Exception {
 		UserEditBundle bundle = TestControllerHelper.buildUserEditBundleForTest();
@@ -89,6 +90,7 @@ public class TestUserController extends MockTestConfigigurationAware {
 		verifyNoMoreInteractions(userServiceMock);
 	}
 
+    @Ignore
 	@Test
 	public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
 		User returnedUser = TestControllerHelper.buildUserAdminForTest();
@@ -112,8 +114,9 @@ public class TestUserController extends MockTestConfigigurationAware {
 			.save(userCaptor.capture());
 		verifyNoMoreInteractions(userServiceMock);
 	}
-	
-	
+
+
+    @Ignore
 	@Test
 	public void findAll_ShouldReturnListOfUsers() throws Exception {
 		User admin = TestControllerHelper.buildUserAdminForTest();

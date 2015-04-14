@@ -20,11 +20,11 @@ import java.util.Set;
  @author Мария 28.03.15
 
  */
-@Ignore
 public class TestAddressRepository extends JpaConfigurationAware {
     private static Validator validator;
     @Autowired
     private AddressRepository addressRepository;
+    @Ignore
     @BeforeClass
     public static void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
