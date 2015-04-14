@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.base.Throwables;
 
@@ -18,6 +19,7 @@ import com.google.common.base.Throwables;
  */
 @Controller
 class CustomErrorController {
+    	@ResponseBody
 	@RequestMapping("error")
 	public String generalError(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");

@@ -5,7 +5,7 @@
 'use strict'
 
 /*
- * TODO: 1. need think about that the do separate file for filters, services and
+ * TODO: need think about that the do separate file for filters, services and
  * etc, because over-head code obtained
  */
 
@@ -22,6 +22,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		EDIT_PHONE		: CONTACT_MODULE_PATH + "partial/phone-form.html",
 		PHONES			: CONTACT_MODULE_PATH + "partial/phone-list-form.html",
 		DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
+		SEND_EMAIL		: CONTACT_MODULE_PATH + "partial/send-email-form.html",
 		
 		PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
 		
@@ -71,6 +72,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		.when("/search-contact", {
 			templateUrl: CONSTANTS.SEARCH_CONTACT,
 			controller: "SearchContactController"
+		})
+		.when("/send-email", {
+			templateUrl: CONSTANTS.SEND_EMAIL,
+			controller: "SendEmailController"
 		});
 }])
 
@@ -199,9 +204,18 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                                         function($scope, $http, processContactService, CONSTANTS){	
 	$scope.bundle = processContactService.bundle;
 	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
-	$scope.bundle.processType.action = search;
+	$scope.bundle.processType.action = function(contact){
+		alert(JSON.stringify(contact));
+		$http({
+			method: "post",
+			url: "contact/search"
+		}).success(function(data, status, headers, config) {
+			console.log(JSON.stringify(data));//REMOVE COMMENT
+		}).error(function(data, status, headers, config) {
+			console.log("error occured during search contact. details: " + JSON.stringify(data))
+		});
+	};
 	$scope.bundle.contact = {};
-	$scope.bundle.contact.phones = [];
 	$scope.bundle.date = {
 			year: {
 				value: "",
@@ -216,30 +230,51 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 				isUse: true
 			}
 	};
-	$scope.bundle.dateListener = function(date){
-		bundle.contact = date.year.value + "-"+date.month.value+"-"+date.day.value;
-	}
 	
-	var search = function(contact){
-		bundle.contact.birthday = bundle.date.year + "-" + bundle.date.month + "-" + bundle.date.day;
-		$http({
-			method: "post",
-			url: "contact/serach"
-		}).success(function(data, status, headers, config) {
-			consloe.log(JSON.stringify(data));//REMOVE COMMENT
-		}).error(function(data, status, headers, config) {
-			console.log("error occured during search contact. details: " + JSON.stringify(data))
-		});
+	/*
+	 * if part of the date is not used, we will replace it by a '?'.
+	 * this says that this part is unnecessary to search.
+	 */
+	$scope.bundle.dateListener = function(date){
+		$scope.bundle.contact.birthday = 
+			(!!date.year.isUse ? date.year.value : "?") + "-" +
+			(!!date.month.isUse ? date.month.value : "?") + "-" + 
+			(!!date.day.isUse ? date.day.value : "?");
 	};
 }])
 
-.controller("ContactListController", ["$scope", "$http", "$location", "deleteService", 
-                                      function($scope, $http, $location, deleteService) {
+.service("transportService", function() {
+	var value = {};
+	return {
+		getValue: function(){
+			return value;
+		},
+		setValue: function(newValue){
+			value = newValue;
+		}
+	};
+})
+
+.controller("SendEmailController", ["$scope", "$http", "transportService", 
+                                    function($scope, $http, transportService){
+	$scope.contacts = {
+			sendEmail: function(){
+				var value = transportService.getValue();
+				alert(value);
+			}
+	};
+}])
+
+.controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", 
+                                      function($scope, $http, $location, transportService, deleteService) {
 	$scope.contacts = {
 			currentPage: 1,
 			totalPage: [],			
 			list: []
 	};
+	
+	//for test
+	transportService.setValue("test value");
 	
 	/*
 	 * remove spicific contact(s)
@@ -251,13 +286,16 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		$http({
 			method: "post",
 			url: "contact/remove",
-			data: $scope.contacts.list
+			data: $scope.contacts.list,
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "text/plain"
+			}
 		}).success(function(data, status, headers, config) {
 			console.log("contact delete successful");
 			$location.path("contacts");
 		}).error(function(data, status, headers, config) {
-			console.log("contact delete error: " + JSON.stringify(data))
-		})
+		});
 	};
 		
     $scope.contacts.getPageFromServer = function(){
