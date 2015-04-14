@@ -1,4 +1,4 @@
-package by.itecharty.flowerty.web.controller;
+package by.itechart.flowerty.web.controller;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

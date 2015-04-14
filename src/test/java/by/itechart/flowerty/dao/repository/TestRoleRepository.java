@@ -1,8 +1,9 @@
-package by.itecharty.flowerty.dao.repository;
+package by.itechart.flowerty.dao.repository;
 
+import by.itechart.flowerty.config.JpaConfigurationAware;
 import by.itechart.flowerty.dao.repository.RoleRepository;
 import by.itechart.flowerty.model.Role;
-import by.itecharty.flowerty.config.JpaConfigurationAware;
+
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
 

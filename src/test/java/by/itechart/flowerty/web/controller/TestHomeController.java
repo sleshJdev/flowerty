@@ -1,7 +1,8 @@
-package by.itecharty.flowerty.web.controller;
+package by.itechart.flowerty.web.controller;
 
+import by.itechart.flowerty.config.MockTestConfigigurationAware;
 import by.itechart.flowerty.web.controller.HomeController;
-import by.itecharty.flowerty.config.MockTestConfigigurationAware;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -1,10 +1,11 @@
-package by.itecharty.flowerty.web.controller;
+package by.itechart.flowerty.web.controller;
 
+import by.itechart.flowerty.config.MockTestConfigigurationAware;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.controller.LoginController;
 import by.itechart.flowerty.web.model.SigninForm;
 import by.itechart.flowerty.web.service.UserService;
-import by.itecharty.flowerty.config.MockTestConfigigurationAware;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

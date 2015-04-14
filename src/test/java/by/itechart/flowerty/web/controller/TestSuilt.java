@@ -1,4 +1,4 @@
-package by.itecharty.flowerty.web.controller;
+package by.itechart.flowerty.web.controller;
 
 
 import org.junit.Ignore;

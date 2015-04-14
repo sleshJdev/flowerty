@@ -1,4 +1,4 @@
-package by.itecharty.flowerty.web.controller;
+package by.itechart.flowerty.web.controller;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
@@ -19,10 +19,10 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import by.itechart.flowerty.config.MockTestConfigigurationAware;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.controller.SignupController;
 import by.itechart.flowerty.web.service.UserService;
-import by.itecharty.flowerty.config.MockTestConfigigurationAware;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015

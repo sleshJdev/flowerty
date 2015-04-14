@@ -1,7 +1,8 @@
-package by.itecharty.flowerty.solr.repository;
+package by.itechart.flowerty.solr.repository;
 
+import by.itechart.flowerty.config.JpaConfigurationAware;
 import by.itechart.flowerty.solr.repository.SolrUserRepository;
-import by.itecharty.flowerty.config.JpaConfigurationAware;
+
 import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,9 +1,10 @@
-package by.itecharty.flowerty.dao.repository;
+package by.itechart.flowerty.dao.repository;
 
+import by.itechart.flowerty.config.JpaConfigurationAware;
 import by.itechart.flowerty.dao.repository.PhoneRepository;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Phone;
-import by.itecharty.flowerty.config.JpaConfigurationAware;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

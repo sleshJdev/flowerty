@@ -1,4 +1,4 @@
-package by.itecharty.flowerty.config;
+package by.itechart.flowerty.config;
 
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
