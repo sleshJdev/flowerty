@@ -21,7 +21,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
 
         if ("application/json".equals(request.getHeader("Content-Type"))) {
             password = this.jsonPassword;
-        }else{
+        } else {
             password = super.obtainPassword(request);
         }
 
@@ -29,12 +29,12 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
     }
 
     @Override
-    protected String obtainUsername(HttpServletRequest request){
+    protected String obtainUsername(HttpServletRequest request) {
         String username = null;
 
         if ("application/json".equals(request.getHeader("Content-Type"))) {
             username = this.jsonUsername;
-        }else{
+        } else {
             username = super.obtainUsername(request);
         }
 
@@ -42,7 +42,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response){
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         if ("application/json".equals(request.getHeader("Content-Type"))) {
             try {
                 /*
@@ -52,7 +52,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
                 String line = null;
 
                 BufferedReader reader = request.getReader();
-                while ((line = reader.readLine()) != null){
+                while ((line = reader.readLine()) != null) {
                     sb.append(line);
                 }
 

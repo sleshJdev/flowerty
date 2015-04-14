@@ -33,7 +33,7 @@ authenticationModule.factory('sessionService', function ($http) {
         //        _spring_security_remember_me : !!$scope.rememberMe
         //    }, {
         //        headers: {'Content-Type': 'application/json'}
-
+        //
         return $http.post(
             "login",
             "username=" + $scope.user.login +
