@@ -30,12 +30,14 @@ public class TestContactRepository extends JpaConfigurationAware {
 		Assert.assertEquals(contact.getAddress().getCountry(), "Belarus");
 	}
 
+    @Ignore
 	@Test
 	public void findContact_InvalidId_NullReturned() {
 		Contact contact = contactRepository.findOne(1000l);
 		Assert.assertNull(contact);
 	}
 
+    @Ignore
 	@Test
 	public void findContactByCompany_ValidCompany_PageOfContactsReturned() {
 		Company company = new Company();
@@ -45,6 +47,7 @@ public class TestContactRepository extends JpaConfigurationAware {
 		Assert.assertNotEquals(0, page.getContent().size());
 	}
 
+    @Ignore
 	@Test
 	public void findContact_InvalidCompany_EmptyPageReturned() {
 		Company company = new Company();

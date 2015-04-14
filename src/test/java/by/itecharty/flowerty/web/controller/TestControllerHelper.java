@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 
  *         Helper for test
  */
-@Ignore
 @SuppressWarnings("serial")
 public final class TestControllerHelper {
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),

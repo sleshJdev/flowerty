@@ -16,11 +16,11 @@ import java.util.Date;
 /**
  @author  Мария 30.03.15
  */
-@Ignore
 public class TestOrderAlteringRepository extends JpaConfigurationAware {
     @Autowired
     private OrderAlteringRepository orderAlteringRepository;
 
+    @Ignore
     @Test
     public void saveOrderAltering_ValidOrderAltering_ReturnsSameOrderAltering() {
         OrderAltering orderAltering = new OrderAltering();
@@ -38,6 +38,7 @@ public class TestOrderAlteringRepository extends JpaConfigurationAware {
         orderAltering = orderAlteringRepository.save(orderAltering);
         Assert.assertEquals(orderAltering.getState(), state);
     }
+    @Ignore
     @Test
     public void findOne_ValidId_ReturnsOrder() {
         OrderAltering orderAltering = orderAlteringRepository.findOne(1l);
@@ -45,11 +46,13 @@ public class TestOrderAlteringRepository extends JpaConfigurationAware {
         Assert.assertEquals(orderAltering.getUser().getContact().getName(), "Sergey");
         Assert.assertEquals(orderAltering.getComment(), "comment");
     }
+    @Ignore
     @Test
     public void findOne_InvalidId_ReturnsNull() {
         OrderAltering orderAltering = orderAlteringRepository.findOne(1000l);
         Assert.assertNull(orderAltering);
     }
+    @Ignore
     @Test
     public void findByOrder_CorrectOrder_ReturnsPageOfOrderAltering() {
         Order order = new Order();
@@ -58,6 +61,7 @@ public class TestOrderAlteringRepository extends JpaConfigurationAware {
         Assert.assertNotEquals(page.getContent().size(), 0);
         Assert.assertEquals(page.getContent().get(0).getComment(), "comment");
     }
+    @Ignore
     @Test
     public void findByOrder_InvalidOrder_ReturnsEmptyPage() {
         Order order = new Order();

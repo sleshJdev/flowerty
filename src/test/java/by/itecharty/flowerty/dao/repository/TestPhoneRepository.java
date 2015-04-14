@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  @author Мария 31.03.15
  */
-@Ignore
 public class TestPhoneRepository extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
+    @Ignore
     @Test
     public void savePhone_ValidPhones_ReturnsPageOfPhones() {
         Phone phone = new Phone();
@@ -27,11 +27,13 @@ public class TestPhoneRepository extends JpaConfigurationAware {
         phone.setComment("PhoneComment");
         phoneRepository.save(phone);
     }
+    @Ignore
     @Test
     public void findPhone_ValidId_ReturnsPhone() {
         Phone phone = phoneRepository.findOne(1l);
         Assert.assertEquals(phone.getNumber(), "1232121");
     }
+    @Ignore
     @Test
     public void findPhone_InvalidId_ReturnsNull() {
         Phone phone = phoneRepository.findOne(1000l);
