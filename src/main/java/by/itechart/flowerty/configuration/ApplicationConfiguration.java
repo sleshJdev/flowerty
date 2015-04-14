@@ -10,7 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 
 import by.itechart.flowerty.Application;
-import by.itechart.flowerty.listener.StartContextApplicationListener;
+import by.itechart.flowerty.local.listener.StartContextApplicationListener;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -23,7 +23,7 @@ public class ApplicationConfiguration {
 	@Bean
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		ppc.setLocation(new ClassPathResource("/persistence.properties"));
+		ppc.setLocations(new ClassPathResource("/persistence.properties"), new ClassPathResource("/web.properties"));
 
 		return ppc;
 	}
