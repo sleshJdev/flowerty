@@ -303,7 +303,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                                       function($scope, $http, $location, transportService, deleteService) {
 	$scope.contacts = {
 			currentPage: 1,
-			totalPage: [],			
+			totalPages: [],			
 			list: []
 	};
 	
@@ -376,7 +376,11 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
     };
 
     $scope.contacts.getPagesCount = function(){
-        return $scope.contacts.pagesCount;
+        return $scope.contacts.totalPages;
+    };
+    
+    $scope.contacts.pageClass = function(pageNumber){
+        return pageNumber == $scope.contacts.currentPage ? 'active' : '';
     };
 
     $scope.init = function () {

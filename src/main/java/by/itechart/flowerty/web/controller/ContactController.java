@@ -38,7 +38,7 @@ public class ContactController {
 	
 	page = (page == null || page < 1) ? 0 : --page;
 	
-	return contactService.getPage(page, 10);
+	return contactService.getPage(page, 1);
     }
     
     @ResponseBody
