@@ -28,11 +28,12 @@ authenticationModule.factory('sessionService', function ($http) {
 
         //return $http.post(
         //    "/login", {
-        //        username: $scope.user.login,
-        //        password: $scope.user.password
+        //        username : $scope.user.login,
+        //        password : $scope.user.password,
+        //        _spring_security_remember_me : !!$scope.rememberMe
         //    }, {
-        //        headers: {'Content-Type': 'application/json;charset=UTF-8'}
-
+        //        headers: {'Content-Type': 'application/json'}
+        //
         return $http.post(
             "login",
             "username=" + $scope.user.login +
@@ -41,7 +42,7 @@ authenticationModule.factory('sessionService', function ($http) {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
             }).then(function (data) {
-                session.getLoggedUser($scope);
+                session.setLoggedUser($scope);
                 $location.path("/");
             }, function (data) {
                 $scope.current.isLogged = false;
@@ -52,7 +53,7 @@ authenticationModule.factory('sessionService', function ($http) {
     session.logout = function () {
         //localStorage.removeItem("session");
     };
-    session.getLoggedUser = function ($scope) {
+    session.setLoggedUser = function ($scope) {
         $http({
             method: "get",
             url: "login"
