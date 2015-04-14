@@ -23,7 +23,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
 	private static final String VIEWS = "/WEB-INF/views/";
 
-	private static final String RESOURCES_LOCATION = "/resources/";
+	private static final String RESOURCES_LOCATION = "resources/";
 	private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
 	@Override

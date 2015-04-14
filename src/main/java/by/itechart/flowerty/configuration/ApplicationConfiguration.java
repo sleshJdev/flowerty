@@ -30,6 +30,7 @@ public class ApplicationConfiguration {
 	
 	@Bean
 	public ApplicationListener<ContextStartedEvent> eventListenerBean(){
-		return new StartContextApplicationListener();
+	    //TODO: current version of listener not work. need improve..,
+	    return new StartContextApplicationListener();
 	}
 }
