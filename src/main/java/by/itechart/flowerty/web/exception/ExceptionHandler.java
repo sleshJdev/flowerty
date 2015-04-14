@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
  *
- *         General error handler for the application.
+ *         general error handler for the application.
  */
 @Controller
 public class ExceptionHandler {
@@ -19,9 +19,10 @@ public class ExceptionHandler {
     /**
      * Handle exceptions thrown by handlers.
      */
-//    @org.springframework.web.bind.annotation.ExceptionHandler
-//    public ResponseEntity<String> errorHandler(final Exception exc) { 
-//	LOGGER.error(exc.getMessage(), exc);
-//	return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
+    @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
+    public ResponseEntity<String> errorHandler(final Exception exc) {
+	LOGGER.error(exc.getMessage(), exc);
+	
+	return new ResponseEntity<>("Custom exception handler is work! " + exc.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

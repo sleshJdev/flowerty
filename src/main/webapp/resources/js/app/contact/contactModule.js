@@ -125,6 +125,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	 * save/update contact after editing/creating
 	 */
 	me.bundle.actions.saveContact = function(contact){
+		console.log("contact to save: " + JSON.stringify(contact));//REMOVE
 		$http({
 			method: "post",
 			url: "contact/save",
@@ -204,18 +205,20 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                                         function($scope, $http, processContactService, CONSTANTS){	
 	$scope.bundle = processContactService.bundle;
 	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
+	$scope.bundle.contact = {};
+	$scope.bundle.contact.phones = [];
 	$scope.bundle.processType.action = function(contact){
-		alert(JSON.stringify(contact));
+		console.log("contact for search:" + JSON.stringify(contact));//REMOVE
 		$http({
 			method: "post",
-			url: "contact/search"
+			url: "contact/search",
+			data: $scope.bundle.contact
 		}).success(function(data, status, headers, config) {
-			console.log(JSON.stringify(data));//REMOVE COMMENT
+			console.log(JSON.stringify(data));//REMOVE
 		}).error(function(data, status, headers, config) {
-			console.log("error occured during search contact. details: " + JSON.stringify(data))
+			console.log("error occured during search contact. details: " + JSON.stringify(data))//REMOVE
 		});
 	};
-	$scope.bundle.contact = {};
 	$scope.bundle.date = {
 			year: {
 				value: "",
@@ -243,8 +246,12 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	};
 }])
 
+/*
+ * for pass parameter for search from ContactListController to SendEmailController.
+ * he will be pass emails of contacts.
+ */
 .service("transportService", function() {
-	var value = {};
+	var value = "empty";
 	return {
 		getValue: function(){
 			return value;
@@ -257,12 +264,39 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .controller("SendEmailController", ["$scope", "$http", "transportService", 
                                     function($scope, $http, transportService){
-	$scope.contacts = {
-			sendEmail: function(){
-				var value = transportService.getValue();
-				alert(value);
-			}
+	$scope.bundle = {
+		actions: [],
+		email:{
+			to: ["studentbntu@mail.ru"],//transportService.getValue(),
+			subject: "test",
+			text: "text blob"
+		},
+		templates:[{
+				name: "plain",
+				value: "plain template"
+			},{
+				name: "congratulation",
+				value: "congratulation template"
+		}],
+		template: {}
 	};
+	$scope.bundle.template = $scope.bundle.templates[0]; 
+	$scope.bundle.actions.send = function(email){
+		$scope.bundle.email.text = $scope.bundle.template.value;
+		$http({
+			method: "post",
+			url: "email/send",//TODO: maybe in future we will be read email. url some as email/get/{id}
+			data: email,
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "*/*"
+			}
+		}).success(function(data, status, headers, config) {
+			console.log("emial send successful!");
+		}).error(function(data, status, headers, config){
+			console.log("send emial error!");
+		});
+	}
 }])
 
 .controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", 
@@ -273,8 +307,21 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			list: []
 	};
 	
-	//for test
-	transportService.setValue("test value");
+	/*
+	 * grab emails of selected contact and pass they to SendEmailController
+	 */
+	$scope.contacts.goToEmailSend = function(){
+		var emails = [];
+		for(var i = 0; i < $scope.contacts.list.length; ++i){
+			var contact = $scope.contacts.list[i];
+			if(contact.id < 0){
+				emails.push(contact.email);
+			}
+		}
+		
+		transportService.setValue(emails);
+		$location.path("send-email");
+	}
 	
 	/*
 	 * remove spicific contact(s)

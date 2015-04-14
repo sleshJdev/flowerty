@@ -15,8 +15,9 @@ import com.google.common.base.Throwables;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
- *
+ * 
  */
+//TODO: this class unnecessary. it will be removed in future.
 @Controller
 class CustomErrorController {
     	@ResponseBody

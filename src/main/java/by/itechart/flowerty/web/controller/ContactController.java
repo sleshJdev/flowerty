@@ -10,10 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.web.service.ContactService;
-
- 
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -77,7 +72,7 @@ public class ContactController {
 //	}
 	
 	//for test exception handling
-	throw new NullPointerException("You null parameter ppass!!");
+	throw new NullPointerException("exception handling is work!");
     }
 
     @ResponseBody
@@ -90,11 +85,9 @@ public class ContactController {
 	return contact;
     }
 
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> errorHandler(final Exception exc) {
-	LOGGER.error(exc.getMessage(), exc);
-	
-	return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> errorHandler(final Exception exc) {
+//	LOGGER.error(exc.getMessage(), exc);
+//	return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
+//    }
 }
