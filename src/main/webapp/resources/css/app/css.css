@@ -5,6 +5,11 @@ body{
     padding-bottom: 40px;
 }
 
+#select-select{
+    position: absolute;
+    z-index: 1000;
+}
+
 #main-container-layout{
     background-color: #fff;
     position: fixed;
@@ -31,4 +36,15 @@ body{
 
 .red{
     color: red;
+}
+
+.header {
+    color: #36A0FF;
+    font-size: 27px;
+    padding: 10px;
+}
+
+.bigicon {
+    font-size: 35px;
+    color: #36A0FF;
 }

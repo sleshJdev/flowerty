@@ -1,10 +1,8 @@
-
 <!-- Form for showing list of users, deleting users -->
 <div data-ng-app="flowertyApplication.userModule">
-    <form class="form-horizontal">
         <table class="table table-bordered">
             <tr>
-                <th data-ng-click="users.delete()"><div class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></div></th>
+                <th data-ng-click="users.delete()" class="btn"><span class="glyphicon glyphicon-remove"></span></th>
                 <th>full name</th>
                 <th>login</th>
                 <th>role</th>
@@ -19,6 +17,5 @@
                 <td>{{user.role.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
             </tr>
         </table>
-    </form>
     <div data-ng-include="templates.pagination.url"></div>
 </div>

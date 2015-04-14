@@ -5,7 +5,7 @@
 'use strict'
 
 /*
- * TODO: 1. need think about that the do separate file for filters, services and
+ * TODO: need think about that the do separate file for filters, services and
  * etc, because over-head code obtained
  */
 
@@ -22,6 +22,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		EDIT_PHONE		: CONTACT_MODULE_PATH + "partial/phone-form.html",
 		PHONES			: CONTACT_MODULE_PATH + "partial/phone-list-form.html",
 		DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
+		SEND_EMAIL		: CONTACT_MODULE_PATH + "partial/send-email-form.html",
 		
 		PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
 		
@@ -71,6 +72,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		.when("/search-contact", {
 			templateUrl: CONSTANTS.SEARCH_CONTACT,
 			controller: "SearchContactController"
+		})
+		.when("/send-email", {
+			templateUrl: CONSTANTS.SEND_EMAIL,
+			controller: "SendEmailController"
 		});
 }])
 
@@ -120,6 +125,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	 * save/update contact after editing/creating
 	 */
 	me.bundle.actions.saveContact = function(contact){
+		console.log("contact to save: " + JSON.stringify(contact));//REMOVE
 		$http({
 			method: "post",
 			url: "contact/save",
@@ -199,9 +205,20 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                                         function($scope, $http, processContactService, CONSTANTS){	
 	$scope.bundle = processContactService.bundle;
 	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
-	$scope.bundle.processType.action = search;
 	$scope.bundle.contact = {};
 	$scope.bundle.contact.phones = [];
+	$scope.bundle.processType.action = function(contact){
+		console.log("contact for search:" + JSON.stringify(contact));//REMOVE
+		$http({
+			method: "post",
+			url: "contact/search",
+			data: $scope.bundle.contact
+		}).success(function(data, status, headers, config) {
+			console.log(JSON.stringify(data));//REMOVE
+		}).error(function(data, status, headers, config) {
+			console.log("error occured during search contact. details: " + JSON.stringify(data))//REMOVE
+		});
+	};
 	$scope.bundle.date = {
 			year: {
 				value: "",
@@ -216,30 +233,95 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 				isUse: true
 			}
 	};
+
+	/*
+	 * if part of the date is not used, we will replace it by a '?'.
+	 * this says that this part is unnecessary to search.
+	 */
 	$scope.bundle.dateListener = function(date){
-		bundle.contact = date.year.value + "-"+date.month.value+"-"+date.day.value;
-	};
-	
-	var search = function(contact){
-		bundle.contact.birthday = bundle.date.year + "-" + bundle.date.month + "-" + bundle.date.day;
-		$http({
-			method: "post",
-			url: "contact/serach"
-		}).success(function(data, status, headers, config) {
-			consloe.log(JSON.stringify(data));//REMOVE COMMENT
-		}).error(function(data, status, headers, config) {
-			console.log("error occured during search contact. details: " + JSON.stringify(data))
-		});
+		$scope.bundle.contact.birthday = 
+			(!!date.year.isUse ? date.year.value : "?") + "-" +
+			(!!date.month.isUse ? date.month.value : "?") + "-" + 
+			(!!date.day.isUse ? date.day.value : "?");
 	};
 }])
 
-.controller("ContactListController", ["$scope", "$http", "$location", "deleteService", 
-                                      function($scope, $http, $location, deleteService) {
+/*
+ * for pass parameter for search from ContactListController to SendEmailController.
+ * he will be pass emails of contacts.
+ */
+.service("transportService", function() {
+	var value = "empty";
+	return {
+		getValue: function(){
+			return value;
+		},
+		setValue: function(newValue){
+			value = newValue;
+		}
+	};
+})
+
+.controller("SendEmailController", ["$scope", "$http", "transportService", 
+                                    function($scope, $http, transportService){
+	$scope.bundle = {
+		actions: [],
+		email:{
+			to: ["studentbntu@mail.ru"],//transportService.getValue(),
+			subject: "test",
+			text: "text blob"
+		},
+		templates:[{
+				name: "plain",
+				value: "plain template"
+			},{
+				name: "congratulation",
+				value: "congratulation template"
+		}],
+		template: {}
+	};
+	$scope.bundle.template = $scope.bundle.templates[0]; 
+	$scope.bundle.actions.send = function(email){
+		$scope.bundle.email.text = $scope.bundle.template.value;
+		$http({
+			method: "post",
+			url: "email/send",//TODO: maybe in future we will be read email. url some as email/get/{id}
+			data: email,
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "*/*"
+			}
+		}).success(function(data, status, headers, config) {
+			console.log("emial send successful!");
+		}).error(function(data, status, headers, config){
+			console.log("send emial error!");
+		});
+	}
+}])
+
+.controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", 
+                                      function($scope, $http, $location, transportService, deleteService) {
 	$scope.contacts = {
 			currentPage: 1,
 			totalPage: [],			
 			list: []
 	};
+	
+	/*
+	 * grab emails of selected contact and pass they to SendEmailController
+	 */
+	$scope.contacts.goToEmailSend = function(){
+		var emails = [];
+		for(var i = 0; i < $scope.contacts.list.length; ++i){
+			var contact = $scope.contacts.list[i];
+			if(contact.id < 0){
+				emails.push(contact.email);
+			}
+		}
+		
+		transportService.setValue(emails);
+		$location.path("send-email");
+	}
 	
 	/*
 	 * remove spicific contact(s)
@@ -251,13 +333,16 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		$http({
 			method: "post",
 			url: "contact/remove",
-			data: $scope.contacts.list
+			data: $scope.contacts.list,
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "text/plain"
+			}
 		}).success(function(data, status, headers, config) {
 			console.log("contact delete successful");
 			$location.path("contacts");
 		}).error(function(data, status, headers, config) {
-			console.log("contact delete error: " + JSON.stringify(data))
-		})
+		});
 	};
 		
     $scope.contacts.getPageFromServer = function(){

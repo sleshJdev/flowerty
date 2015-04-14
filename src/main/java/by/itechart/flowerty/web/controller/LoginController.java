@@ -1,6 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.web.exception.NotFoundException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -25,7 +24,7 @@ public class LoginController {
 
 	@ResponseBody
 	@RequestMapping(value = "/login")
-	public UserDetails login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws NotFoundException {
+	public UserDetails login(@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) throws Exception {
 		LOGGER.info("move to login page");
 
 		if (logout != null) {

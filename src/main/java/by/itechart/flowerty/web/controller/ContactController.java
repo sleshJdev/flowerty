@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.web.exception.NotFoundException;
 import by.itechart.flowerty.web.service.ContactService;
 
 /**
@@ -34,7 +33,7 @@ public class ContactController {
     
     @ResponseBody
     @RequestMapping(value = "contact/list/{page}")
-    public Page<Contact> getPage(@PathVariable("page") Integer page) {
+    public Page<Contact> page(@PathVariable("page") Integer page) {
 	LOGGER.info("get contact page with number {}", page);
 	
 	page = (page == null || page < 1) ? 0 : --page;
@@ -44,11 +43,11 @@ public class ContactController {
     
     @ResponseBody
     @RequestMapping(value = "contact/details/{id}")
-    public Contact details(@PathVariable("id") Long id) throws NotFoundException {
+    public Contact details(@PathVariable("id") Long id) throws Exception {
 	LOGGER.info("get details about contact with id: {}", id);
 	
 	if (id == null || id < 0) {
-	    throw new NotFoundException("contact id cannot be negative or null");
+	    throw new Exception("contact id cannot be negative or null");
 	}
 	
 	Contact contact = contactService.findOne(id);
@@ -61,16 +60,19 @@ public class ContactController {
     public Page<Contact> search(@RequestBody Contact contact) {
 	LOGGER.info("search contact");
 	
-	return contactService.getPage(1, 10);
+	return contactService.getPage(0, 10);
     }
     
     @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<Contact> contacts){
 	LOGGER.info("remove contacts. obtained {} contacts, wicht not remove", contacts.size());
 	
-	for (Contact contact : contacts) {
-	    contactService.delete(contact.getId());
-	}
+//	for (Contact contact : contacts) {
+//	    contactService.delete(contact.getId());
+//	}
+	
+	//for test exception handling
+	throw new NullPointerException("exception handling is work!");
     }
 
     @ResponseBody
@@ -82,4 +84,10 @@ public class ContactController {
 	
 	return contact;
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> errorHandler(final Exception exc) {
+//	LOGGER.error(exc.getMessage(), exc);
+//	return new ResponseEntity<>(exc.getMessage(), HttpStatus.BAD_REQUEST);
+//    }
 }

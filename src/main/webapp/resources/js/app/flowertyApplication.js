@@ -8,9 +8,12 @@ var app = angular.module('flowertyApplication', [
     'flowertyApplication.userModule',
     'flowertyApplication.authenticationModule',
     'flowertyApplication.contactModule',
-    'flowertyApplication.utilModule'])
+    //TODO: maybe remove this dependencies, because other dependent from it
+    'flowertyApplication.utilModule',
+    'flowertyApplication.errorModule'])
  
-.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+.config(['$routeProvider', '$locationProvider',  
+         function($routeProvider, $locationProvider) {
     $routeProvider.
         when('/users', {
             templateUrl: APP_PATH + "user/partial/users-list-form.html",
