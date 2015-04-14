@@ -233,7 +233,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 				isUse: true
 			}
 	};
-	
+
 	/*
 	 * if part of the date is not used, we will replace it by a '?'.
 	 * this says that this part is unnecessary to search.
@@ -350,9 +350,14 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
             method: "get",
             url: "contact/list/" + $scope.contacts.currentPage
         }).success(function(data, status, headers, config) {
-            $scope.contacts.list = data.content;
-            $scope.contacts.totalPages = data.totalPages;
+			if (!data.content) {
+				$location.path("login");
+			} else {
+				$scope.contacts.list = data.content;
+				$scope.contacts.totalPages = data.totalPages;
+			}
         }).error(function(data, status, headers, config) {
+			$location.path("/");
         });
     };
     
