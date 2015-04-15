@@ -3,11 +3,14 @@ package by.itechart.flowerty.configuration;
 import by.itechart.flowerty.Application;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -90,6 +93,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return new JpaTransactionManager();
 	}
+<<<<<<< HEAD
  /*   @Resource
     private Environment environment;
 
@@ -105,4 +109,14 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
         SolrTemplate solrTemplate = new SolrTemplate(solrServerFactoryBean().getObject(), "flowerty");
         return solrTemplate;
     }          */
+=======
+    @Bean
+    public SolrServer solrServer() {
+        return new HttpSolrServer("http://localhost:8983/solr");
+    }
+    @Bean
+    public SolrTemplate solrTemplate(SolrServer server) throws Exception {
+        return new SolrTemplate(server);
+    }
+>>>>>>> 86b5b3402b9fab7c02c4a9263a332cdae6f7fcb7
 }
