@@ -1,13 +1,15 @@
 package by.itechart.flowerty.dao.repository;
 
+import by.itechart.flowerty.model.Address;
+import by.itechart.flowerty.model.Company;
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.web.service.ContactService;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
 import by.itechart.flowerty.config.JpaConfigurationAware;
 import by.itechart.flowerty.model.Address;
 import by.itechart.flowerty.model.Company;
@@ -17,6 +19,7 @@ import by.itechart.flowerty.web.service.ContactService;
 /**
  *@author Мария Date: 26.03.15
  */
+@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
 	@Autowired
 	private ContactService contactRepository;

@@ -11,8 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
  *
@@ -37,7 +35,7 @@ public class UserController {
 	return userService.getUserEditBundleFor(id);
     }
 
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getList() {
 	List<User> allUsers = (List<User>) userService.findAll();
@@ -45,7 +43,7 @@ public class UserController {
 	LOGGER.info("fetch {} users", allUsers.size());
 
 	return allUsers;
-    }
+    }                       */
 
     @RequestMapping(value = "user/delete/{id}")
     public String delete(@PathVariable("id") Long id) throws Exception {

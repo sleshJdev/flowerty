@@ -1,10 +1,7 @@
 package by.itechart.flowerty.dao.repository;
 
 import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.dao.repository.PhoneRepository;
-import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Phone;
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -22,8 +19,6 @@ public class TestPhoneRepository extends JpaConfigurationAware {
         Phone phone = new Phone();
         phone.setNumber("1232121");
         phone.setCountry("375");
-        Contact contact = new Contact();
-        contact.setId(1l);
         //phone.setContact(contact);
         phone.setComment("PhoneComment");
         phoneRepository.save(phone);

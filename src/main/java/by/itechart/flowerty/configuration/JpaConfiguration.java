@@ -1,8 +1,9 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.Application;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +16,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import javax.sql.DataSource;
-import java.util.Properties;
+import by.itechart.flowerty.Application;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -26,6 +29,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class)
+//@EnableSolrRepositories(basePackageClasses = Application.class)//, multicoreSupport = true)//(basePackageClasses = Application.class)
 @PropertySource(value = { "classpath:persistence.properties" })
 public class JpaConfiguration implements TransactionManagementConfigurer {
 	@Value("${dataSource.driverClassName}")
@@ -89,4 +93,19 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return new JpaTransactionManager();
 	}
+ /*   @Resource
+    private Environment environment;
+
+    @Bean
+    public HttpSolrServerFactoryBean solrServerFactoryBean() {
+        HttpSolrServerFactoryBean factory = new HttpSolrServerFactoryBean();
+        factory.setUrl(environment.getRequiredProperty("solr.server.url"));
+        return factory;
+    }
+
+    @Bean
+    public SolrTemplate solrTemplate() throws Exception {
+        SolrTemplate solrTemplate = new SolrTemplate(solrServerFactoryBean().getObject(), "flowerty");
+        return solrTemplate;
+    }          */
 }

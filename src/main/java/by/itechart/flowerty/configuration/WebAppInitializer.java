@@ -17,11 +17,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected String[] getServletMappings() {
 	return new String[] { "/" };
     }
-
+	
     @Override
     protected Class<?>[] getRootConfigClasses() {
 	return new Class<?>[] { MailConfiguration.class, ApplicationConfiguration.class, JpaConfiguration.class,
-		SpringSecurityConfiguration.class };
+		SpringSecurityConfiguration.class, SearchContext.class };
     }
 
     @Override

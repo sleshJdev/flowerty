@@ -1,10 +1,10 @@
 package by.itechart.flowerty.web.model;
 
-import java.util.List;
-
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.User;
+
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
