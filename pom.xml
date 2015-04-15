@@ -5,7 +5,7 @@
 	<artifactId>flowerty</artifactId>
 	<packaging>war</packaging>
 	<version>version</version>
-	<name>Flowerty</name>
+	<name>flowerty</name>
 	<properties>
 		<java-version>1.7</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,30 +29,40 @@
 			<artifactId>joda-time</artifactId>
 			<version>${joda-time.version}</version>
 		</dependency>
+
+
 		<!-- To map JodaTime with database type -->
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
 			<version>3.0.0.CR1</version>
 		</dependency>
+
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+
+
 		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
+
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+
+
 		<!-- Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -69,6 +79,8 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>3.2.4.RELEASE</version>
 		</dependency>
+
+
 		<!-- Persistence -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
@@ -85,14 +97,17 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		<!-- Avoid: javax.validation.ValidationException: HV000183: Unable to load 
-			'javax.el.ExpressionFactory' -->
+
+
+		<!-- Avoid: javax.validation.ValidationException: HV000183: Unable to load 'javax.el.ExpressionFactory' -->
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
 			<version>2.2.5</version>
 			<scope>test</scope>
 		</dependency>
+
+
 		<!-- Spring Data -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -116,12 +131,13 @@
 			<version>${spring-data-mongodb.version}</version>
 		</dependency>
 
+
 		<!-- Send mail -->
-		 <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${springframework.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -142,12 +158,29 @@
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
 		</dependency>
+
+
+		<!-- File upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+
 		<!-- Validation -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.3.Final</version>
 		</dependency>
+
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -159,12 +192,16 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.2</version>
 		</dependency>
+
+
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+
+
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -172,6 +209,8 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+
 		<!-- JSON -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -188,12 +227,20 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+		<dependency>
+	        <groupId>org.codehaus.jackson</groupId>
+	        <artifactId>jackson-mapper-asl</artifactId>
+	        <version>1.9.13</version>
+	    </dependency>
+
 		<!-- Utilities -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>17.0</version>
 		</dependency>
+
+
 		<!-- Test -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
@@ -243,8 +290,11 @@
 			<version>1.4.0.RELEASE</version>
 		</dependency>
 	</dependencies>
+
+
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -253,6 +303,8 @@
 					<path>/</path>
 				</configuration>
 			</plugin>
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -262,6 +314,8 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -271,6 +325,8 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -284,6 +340,8 @@
 					</execution>
 				</executions>
 			</plugin>
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -292,6 +350,8 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
+
+
 			<plugin>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
@@ -315,6 +375,8 @@
 					<!-- </execution> -->
 				</executions>
 			</plugin>
+
+
 		</plugins>
 	</build>
 </project>

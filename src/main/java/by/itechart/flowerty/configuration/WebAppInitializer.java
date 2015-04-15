@@ -13,35 +13,36 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  *         Configuration for servlets
  */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-	@Override
-	protected String[] getServletMappings() {
-		return new String[] { "/" };
-	}
+    @Override
+    protected String[] getServletMappings() {
+	return new String[] { "/" };
+    }
 
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { ApplicationConfiguration.class, JpaConfiguration.class, SpringSecurityConfiguration.class, MailingConfiguration.class };
-	}
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+	return new Class<?>[] { MailConfiguration.class, ApplicationConfiguration.class, JpaConfiguration.class,
+		SpringSecurityConfiguration.class };
+    }
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { WebMvcConfiguration.class };
-	}
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+	return new Class<?>[] { WebMvcConfiguration.class };
+    }
 
-	@Override
-	protected Filter[] getServletFilters() {
-		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-		characterEncodingFilter.setEncoding("UTF-8");
-		characterEncodingFilter.setForceEncoding(true);
-		
-		DelegatingFilterProxy securityFilterChain = new DelegatingFilterProxy("springSecurityFilterChain");
-		
-		return new Filter[] { characterEncodingFilter, securityFilterChain };
-	}
+    @Override
+    protected Filter[] getServletFilters() {
+	CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+	characterEncodingFilter.setEncoding("UTF-8");
+	characterEncodingFilter.setForceEncoding(true);
 
-	@Override
-	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-		registration.setInitParameter("defaultHtmlEscape", "true");
-		registration.setInitParameter("spring.profiles.active", "default");
-	}
+	DelegatingFilterProxy securityFilterChain = new DelegatingFilterProxy("springSecurityFilterChain");
+
+	return new Filter[] { characterEncodingFilter, securityFilterChain };
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+	registration.setInitParameter("defaultHtmlEscape", "true");
+	registration.setInitParameter("spring.profiles.active", "default");
+    }
 }

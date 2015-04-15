@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -26,6 +26,14 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	private static final String RESOURCES_LOCATION = "/resources/";
 	private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
+	@Bean
+	public CommonsMultipartResolver multipartResolver(){
+	    CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+	    resolver.setMaxUploadSize(100_000_000);//10mb
+	    
+	    return resolver;
+	}
+	
 	@Override
 	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
 		RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
@@ -61,18 +69,5 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
-
-	/**
-	 * Handles favicon.ico requests assuring no 
-	 * 
-	 * <code>404 Not Found</code> error is returned.
-	 * 
-	 */
-	@Controller
-	static class FaviconController {
-		@RequestMapping("favicon.ico")
-		String favicon() {
-			return "forward:/resources/images/favicon.ico";
-		}
-	}
+	 
 }
