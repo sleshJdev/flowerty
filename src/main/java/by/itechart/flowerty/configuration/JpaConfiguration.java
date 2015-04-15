@@ -7,11 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.solr.core.SolrTemplate;
-import org.springframework.data.solr.repository.config.EnableSolrRepositories;
-import org.springframework.data.solr.server.support.HttpSolrServerFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -19,7 +15,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -31,7 +26,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class)
-@EnableSolrRepositories(basePackageClasses = Application.class)//, multicoreSupport = true)//(basePackageClasses = Application.class)
+//@EnableSolrRepositories(basePackageClasses = Application.class)//, multicoreSupport = true)//(basePackageClasses = Application.class)
 @PropertySource(value = { "classpath:persistence.properties" })
 public class JpaConfiguration implements TransactionManagementConfigurer {
 	@Value("${dataSource.driverClassName}")
@@ -95,7 +90,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return new JpaTransactionManager();
 	}
-    @Resource
+ /*   @Resource
     private Environment environment;
 
     @Bean
@@ -109,5 +104,5 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
     public SolrTemplate solrTemplate() throws Exception {
         SolrTemplate solrTemplate = new SolrTemplate(solrServerFactoryBean().getObject(), "flowerty");
         return solrTemplate;
-    }
+    }          */
 }

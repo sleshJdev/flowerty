@@ -138,13 +138,13 @@ public class Contact {
         this.email = email;
     }
 
-    public ContactDocument buildContactDocument() {
+/*    public ContactDocument buildContactDocument() {
         ContactDocument contactDocument = new ContactDocument();
         contactDocument.setId(String.valueOf(id));
         contactDocument.setName(name);
         contactDocument.setSurname(surname);
         return contactDocument;
-    }
+    }    */
     @Override
 	public String toString() {
 		return new StringBuilder()
