@@ -1,4 +1,4 @@
-package by.itechart.flowerty.solr.repository;
+package by.itechart.flowerty.dao.repository;
 
 import by.itechart.flowerty.model.User;
 import org.springframework.data.solr.repository.SolrCrudRepository;
@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface SolrUserRepository extends SolrCrudRepository<User, String> {
     public List<User> findByLoginContains(String login);
+
 }

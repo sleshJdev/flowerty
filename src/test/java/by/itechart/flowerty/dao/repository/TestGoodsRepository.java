@@ -1,17 +1,15 @@
 package by.itechart.flowerty.dao.repository;
 
+import by.itechart.flowerty.config.JpaConfigurationAware;
+import by.itechart.flowerty.model.Company;
+import by.itechart.flowerty.model.Flower;
+import by.itechart.flowerty.model.Goods;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
-import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.dao.repository.GoodsRepository;
-import by.itechart.flowerty.model.Company;
-import by.itechart.flowerty.model.Flower;
-import by.itechart.flowerty.model.Goods;
 
 /**
  @author Мария 29.03.15
