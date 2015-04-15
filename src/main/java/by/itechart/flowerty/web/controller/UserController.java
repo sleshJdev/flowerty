@@ -1,22 +1,15 @@
 package by.itechart.flowerty.web.controller;
 
-import java.util.List;
-
+import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.web.model.UserEditBundle;
+import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
-import by.itechart.flowerty.web.exception.NotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -25,44 +18,68 @@ import by.itechart.flowerty.web.exception.NotFoundException;
  */
 @Controller
 public class UserController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
-	@RequestMapping(value = "user/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public User getById(@PathVariable("id") Long id) throws NotFoundException {
-		LOGGER.info("id: {}", id);
+    @ResponseBody
+    @RequestMapping(value = "user/details/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserEditBundle getById(@PathVariable("id") Long id) throws Exception {
+	LOGGER.info("id: {}", id);
 
-		if (id <= 0) {
-			throw new NotFoundException("user id cannot be negative or 0");
-		}
-
-		User user = userRepository.findOne(id);
-
-		if (user == null) {
-			throw new NotFoundException(String.format("user with id %s not found", id));
-		}
-
-		return user;
+	if (id < 1) {
+	    throw new Exception("user id cannot be negative or 0");
 	}
 
-	@RequestMapping(value = "user/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<User> getList() {
-		List<User> allUsers = (List<User>) userRepository.findAll();
+	return userService.getUserEditBundleFor(id);
+    }
 
-		LOGGER.info("fetch {} users", allUsers.size());
+    /*@ResponseBody
+    @RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getList() {
+	List<User> allUsers = (List<User>) userService.findAll();
 
-		return allUsers;
+	LOGGER.info("fetch {} users", allUsers.size());
+
+	return allUsers;
+    }                       */
+
+    @RequestMapping(value = "user/delete/{id}")
+    public String delete(@PathVariable("id") Long id) throws Exception {
+	LOGGER.info("try delete user with id: {}", id);
+
+	if (id < 1) {
+	    throw new Exception("user id cannot be negative or 0");
 	}
+	
+	userService.delete(id);
+	
+	return "home/index";
+    }
 
-	@RequestMapping(value = "user/add", method = RequestMethod.POST)
-	@ResponseBody
-	public User add(@Validated @RequestBody User newUser) {
-		LOGGER.info("add new user with login: {} and password: {}", newUser.getLogin(), newUser.getPassword());
+    @ResponseBody
+    @RequestMapping(value = "user/save", method = RequestMethod.POST)
+    public User add(@RequestBody User user) {
+	LOGGER.info("add new user with login: {} and password: {}", user.getLogin(), user.getPassword());
 
-		return userRepository.save(newUser);
-	}
+	userService.save(user);
+
+	return user;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "user/list/{page}")
+    public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
+	LOGGER.info("get page with number {}", page);
+
+	// TODO: *add testing for this method
+
+	page = (page == null || page < 1) ? 0 : --page;
+	Page<User> pageUsers = userService.getPage(page, 1);
+
+	LOGGER.info("fetch {} users", pageUsers.getTotalElements());
+
+	return pageUsers;
+    }
 }

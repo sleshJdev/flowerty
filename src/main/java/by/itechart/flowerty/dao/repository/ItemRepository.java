@@ -1,8 +1,14 @@
 package by.itechart.flowerty.dao.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import by.itechart.flowerty.model.Item;
+import by.itechart.flowerty.model.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ItemRepository extends CrudRepository<Item, Long> {
+public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
+    public Item save(Item item);
+    public void delete (Item item);
+    public Page<Item> findByOrder(Order order, Pageable pageable);
+    public Item  findOne(Long id);
 }

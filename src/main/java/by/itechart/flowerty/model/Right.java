@@ -1,33 +1,40 @@
 package by.itechart.flowerty.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "RIGHT")
+@Table(name = "access")
 public class Right {
-    @Id
-    @Column(name = "ID", length = 10, nullable = false)
+
     private Long id;
+    private RIGHT_TYPE name;
+    @Id
+    @Column(name="ID", length=10, nullable=false)
+    public Long getId() {
+        return id;
+    }
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "NAME", length = 20, nullable = false)
-    private RIGHT_TYPE name;
-    
+    public RIGHT_TYPE getName() {
+        return name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public void setName(RIGHT_TYPE name) {
+        this.name = name;
+    }
+
     public static enum RIGHT_TYPE{
         CREATE_ORDER,
         CREATE_CONTACT,
         EDIT_CONTACT,
         SEARCH_CONTACT,
-        VIEW_ORDERS,
+        VIEW_ORDERS_READY,
+        VIEW_ORDERS_ACCEPTED,
+        VIEW_ORDERS_ALL,
         COMMENT_ORDER,
         SETTINGS,
         CREATE_USER,
@@ -35,7 +42,4 @@ public class Right {
         DELETE_USER, 
         ASSIGN_ROLE
     }
-
-    @ManyToMany(mappedBy = "rights")
-    private Set<Role> employees = new HashSet<Role>();
 }

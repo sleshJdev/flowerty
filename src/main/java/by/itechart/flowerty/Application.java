@@ -1,3 +1,10 @@
 package by.itechart.flowerty;
 
-public interface Application {}
+/**
+ * @author Eugene Putsykovich(slesh) Mar 26, 2015 
+ *
+ */
+public interface Application {
+	
+}
+

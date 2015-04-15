@@ -5,8 +5,11 @@
 
 # Intellij
 .idea/
+lib/
 *.iml
 *.iws
+/target/
+*.properties
 
 # Mac
 .DS_Store

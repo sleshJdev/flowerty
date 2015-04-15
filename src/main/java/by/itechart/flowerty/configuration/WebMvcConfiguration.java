@@ -8,23 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import by.itechart.flowerty.Application;
 
-/**
- * @author Eugene Putsykovich(slesh) Mar 26, 2015
- *
- *         Configuration for mvc support
- */
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
@@ -39,38 +31,24 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 		RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
 		requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
 		requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
+		
 		return requestMappingHandlerMapping;
 	}
 
 	@Bean
-	public TemplateResolver templateResolver() {
-		TemplateResolver templateResolver = new ServletContextTemplateResolver();
-		templateResolver.setPrefix(VIEWS);
-		templateResolver.setSuffix(".html");
-		templateResolver.setTemplateMode("HTML5");
-		templateResolver.setCacheable(false);
-		return templateResolver;
-	}
-
-	@Bean
-	public SpringTemplateEngine templateEngine() {
-		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(templateResolver());
-		templateEngine.addDialect(new SpringSecurityDialect());
-		return templateEngine;
-	}
-
-	@Bean
-	public ThymeleafViewResolver viewResolver() {
-		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
-		thymeleafViewResolver.setTemplateEngine(templateEngine());
-		thymeleafViewResolver.setCharacterEncoding("UTF-8");
-		return thymeleafViewResolver;
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix(VIEWS);
+		resolver.setSuffix(".html");
+		resolver.setCache(false);
+		
+		return resolver;
 	}
 
 	@Override
 	public Validator getValidator() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		
 		return validator;
 	}
 
@@ -85,8 +63,10 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	}
 
 	/**
-	 * Handles favicon.ico requests assuring no <code>404 Not Found</code> error
-	 * is returned.
+	 * Handles favicon.ico requests assuring no 
+	 * 
+	 * <code>404 Not Found</code> error is returned.
+	 * 
 	 */
 	@Controller
 	static class FaviconController {

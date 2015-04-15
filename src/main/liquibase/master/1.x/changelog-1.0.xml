@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Maria" id="changelog-1.0-1">
+        <createTable tableName="address">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="TOWN" type="VARCHAR(100)"/>
+            <column name="STREET" type="VARCHAR(100)"/>
+            <column name="HOUSE" type="VARCHAR(10)"/>
+            <column name="FLAT" type="VARCHAR(10)"/>
+            <column name="COUNTRY" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-2">
+        <createTable tableName="company">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(20)"/>
+            <column name="WEBSITE" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-3">
+        <createTable tableName="contact">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SURNAME" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FATHERNAME" type="VARCHAR(20)"/>
+            <column name="BIRTHDAY" type="date"/>
+            <column name="EMAIL" type="VARCHAR(50)"/>
+            <column name="ADDRESS_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-4">
+        <createTable tableName="flower">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-5">
+        <createTable tableName="goods">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="COST" type="FLOAT(22)"/>
+            <column name="FLOWER_ID" type="INT(10)"/>
+            <column name="COMPANY_ID" type="INT(10)"/>
+            <column name="REMAIN" type="INT(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-6">
+        <createTable tableName="item">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="FLOWER_ID" type="INT(10)"/>
+            <column name="ORDER_ID" type="INT(10)"/>
+            <column name="QUANTITY" type="INT(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-7">
+        <createTable tableName="order_altering">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DATE" type="TIMESTAMP"/>
+            <column name="STATE_ID" type="INT(10)"/>
+            <column name="USER_ID" type="INT(10)"/>
+            <column name="COMMENT" type="VARCHAR(100)"/>
+            <column name="ORDER_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-8">
+        <createTable tableName="phone">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="COUNTRY" type="VARCHAR(5)"/>
+            <column name="OPERATOR" type="VARCHAR(5)"/>
+            <column name="NUMBER" type="VARCHAR(10)"/>
+            <column name="TYPE" type="ENUM('HOME', 'CELL')"/>
+            <column name="COMMENT" type="VARCHAR(50)"/>
+            <column name="CONTACT_ID" type="INT(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-9">
+        <createTable tableName="purchase">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CUSTOMER_ID" type="INT(10)"/>
+            <column name="DESCRIPTION" type="VARCHAR(300)"/>
+            <column name="MANAGER_ID" type="INT(10)"/>
+            <column name="COST" type="FLOAT(22)"/>
+            <column name="STAFF_ID" type="INT(10)"/>
+            <column name="DELIVERY_MANAGER_ID" type="INT(10)"/>
+            <column name="RECEIVER_ID" type="INT(10)"/>
+            <column name="STATE_ID" type="INT(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-10">
+        <createTable tableName="access">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="ENUM('CREATE_ORDER', 'CREATE_CONTACT', 'EDIT_CONTACT', 'SEARCH_CONTACT', 'COMMENT_ORDER', 'SETTINGS', 'CREATE_USER', 'DELETE_USER', 'EDIT_USER', 'ASSIGN_ROLE', 'VIEW_ORDERS_READY', 'VIEW_ORDERS_ACCEPTED', 'VIEW_ORDERS_ALL')">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-11">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="ENUM('ORDERS_MANAGER', 'ORDERS_PROCESSOR', 'DELIVERY_MANAGER', 'SUPERVISOR', 'ADMIN')">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-12">
+        <createTable tableName="role_right">
+            <column name="ROLE_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RIGHT_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-13">
+        <createTable tableName="state">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DESCRIPTION" type="ENUM('NEW', 'ACCEPTED', 'PROCESSING', 'READY', 'DELIVERY', 'IMPOSSIBLE', 'CANCELED', 'CLOSED')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-14">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="ID" type="INT(10)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="LOGIN" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONTACT_ID" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE_ID" type="INT(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-15">
+        <addPrimaryKey columnNames="ROLE_ID, RIGHT_ID" constraintName="PRIMARY" tableName="role_right"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-16">
+        <addForeignKeyConstraint baseColumnNames="ADDRESS_ID" baseTableName="contact" constraintName="contact_address_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-17">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_ID" baseTableName="contact" constraintName="contact_company_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-18">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_ID" baseTableName="goods" constraintName="goods_company_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-19">
+        <addForeignKeyConstraint baseColumnNames="FLOWER_ID" baseTableName="goods" constraintName="goods_flower_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="flower"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-20">
+        <addForeignKeyConstraint baseColumnNames="FLOWER_ID" baseTableName="item" constraintName="item_flower_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="flower"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-21">
+        <addForeignKeyConstraint baseColumnNames="ORDER_ID" baseTableName="item" constraintName="item_order_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="ID" referencedTableName="purchase"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-22">
+        <addForeignKeyConstraint baseColumnNames="ORDER_ID" baseTableName="order_altering" constraintName="order_altering_order_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="purchase"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-23">
+        <addForeignKeyConstraint baseColumnNames="STATE_ID" baseTableName="order_altering" constraintName="order_altering_state_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="state"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-24">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="order_altering" constraintName="order_altering_user_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-25">
+        <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="purchase" constraintName="order_customer_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="contact"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-26">
+        <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_delivery_manager_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-27">
+        <addForeignKeyConstraint baseColumnNames="MANAGER_ID" baseTableName="purchase" constraintName="order_manager_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-28">
+        <addForeignKeyConstraint baseColumnNames="RECEIVER_ID" baseTableName="purchase" constraintName="order_receiver_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="contact"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-29">
+        <addForeignKeyConstraint baseColumnNames="STAFF_ID" baseTableName="purchase" constraintName="order_staff_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-30">
+        <addForeignKeyConstraint baseColumnNames="STATE_ID" baseTableName="purchase" constraintName="order_state_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="state"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-31">
+        <addForeignKeyConstraint baseColumnNames="CONTACT_ID" baseTableName="phone" constraintName="phone_contact_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="contact"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-32">
+        <addForeignKeyConstraint baseColumnNames="RIGHT_ID" baseTableName="role_right" constraintName="role_right_right_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="access"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-33">
+        <addForeignKeyConstraint baseColumnNames="ROLE_ID" baseTableName="role_right" constraintName="role_right_role_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-34">
+        <addForeignKeyConstraint baseColumnNames="CONTACT_ID" baseTableName="user" constraintName="user_contact_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="contact"/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-1.0-35">
+        <addForeignKeyConstraint baseColumnNames="ROLE_ID" baseTableName="user" constraintName="user_role_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="role"/>
+    </changeSet>
+</databaseChangeLog>
