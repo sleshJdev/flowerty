@@ -7,7 +7,7 @@
 					<label class="col-sm-3 control-label">To</label>
 					<div class="col-md-8">
 						<ul class="list-inline">
-							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to}}</li>
+							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeEmail($index)"></span> </li>
 						</ul>
 <!-- 						<input id="fname" data-ng-model="bundle.email.to" placeholder="To" class="form-control"> -->
 					</div>

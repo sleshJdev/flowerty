@@ -331,6 +331,11 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		$scope.bundle.files.splice(number, 1);
 		console.log("remove attachment with number: " + number + ", current quantity: " + $scope.bundle.files.length);
 	};
+	
+	$scope.bundle.actions.removeEmail = function(number){
+		$scope.bundle.email.to.splice(number, 1);
+		console.log("remove email to send with number: " + number + ", current quantity: " + $scope.bundle.email.to.length);
+	}
 }])
 
 .controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", 
