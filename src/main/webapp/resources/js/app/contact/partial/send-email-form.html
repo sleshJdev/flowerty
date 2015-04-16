@@ -6,7 +6,10 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">To</label>
 					<div class="col-md-8">
-						<input id="fname" data-ng-model="bundle.email.to" placeholder="To" class="form-control">
+						<ul class="list-inline">
+							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to}}</li>
+						</ul>
+<!-- 						<input id="fname" data-ng-model="bundle.email.to" placeholder="To" class="form-control"> -->
 					</div>
 				</div>
 				<div class="form-group">

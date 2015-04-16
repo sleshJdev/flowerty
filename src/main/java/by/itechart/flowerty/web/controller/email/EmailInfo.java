@@ -12,11 +12,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class EmailInfo {
-    private String to;
+    private String[] to;
     private String subject;
     private String text;
 
-    public EmailInfo(String to, String subject, String text) {
+    public EmailInfo(String[] to, String subject, String text) {
 	this.to = to;
 	this.subject = subject;
 	this.text = text;
@@ -25,11 +25,11 @@ public class EmailInfo {
     public EmailInfo() {
     }
 
-    public String getTo() {
+    public String[] getTo() {
 	return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(String[] to) {
 	this.to = to;
     }
 

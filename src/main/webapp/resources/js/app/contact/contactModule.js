@@ -93,9 +93,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		link: function (scope, el, attrs) {
 			el.bind('change', function (event) {
 				var files = event.target.files;
-				//iterate files since 'multiple' may be specified on the element
-				for (var i = 0;i<files.length;i++) {
-					//emit event upward
+				for (var i = 0; i < files.length; i++) {
 					scope.$emit("fileSelected", { file: files[i] });
 				}                                       
 			});
@@ -278,15 +276,16 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	};
 }])
 
-.controller("SendEmailController", ["$scope", "$http", "transportService", 
-                                    function($scope, $http, transportService){
+.controller("SendEmailController", ["$scope", "$http", "$location", "transportService", 
+                                    function($scope, $http, $location, transportService){
 	$scope.bundle = {
 			actions: [],
 			email:{
-				to: "studentbntu@mail.ru",//transportService.getValue(),
+				to: transportService.getValue(),//studentbntu@mail.ru
 				subject: "test",
 				text: "text blob"
 			},
+			// hardcode
 			//TODO: add StringTemplate
 			templates:[{
 				name: "plain",
@@ -299,7 +298,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			files: []
 	};
 	$scope.bundle.template = $scope.bundle.templates[0];
-
+	
 	$scope.$on("fileSelected", function (event, args) {
 		$scope.$apply(function () {            
 			$scope.bundle.files.push(args.file);
@@ -307,7 +306,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		});
 	});
 
-	//TODO: add service
+	// TODO: add service
 	$scope.bundle.actions.send = function(){
 		$scope.bundle.email.text = $scope.bundle.template.value;
 
@@ -322,11 +321,11 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			transformRequest: angular.identity
 		}). success(function (data, status, headers, config) {
 			console.log("send email success!");
+			$location.path("send-email");
 		}). error(function (data, status, headers, config) {
 			alert("send email failed!");
 		});
 	};
-
 	
 	$scope.bundle.actions.removeAttachment = function(number){
 		$scope.bundle.files.splice(number, 1);
