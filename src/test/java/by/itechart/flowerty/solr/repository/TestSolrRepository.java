@@ -1,10 +1,8 @@
 package by.itechart.flowerty.solr.repository;
 
 import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.dao.repository.ContactDocumentRepository;
 import by.itechart.flowerty.model.ContactDocument;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +14,7 @@ import java.util.Date;
 * @author Maria
 *         Date: 12.04.15
 */
-@Ignore
+//@Ignore
 public class TestSolrRepository extends JpaConfigurationAware {
     @Autowired
     private ContactDocumentRepository repository;

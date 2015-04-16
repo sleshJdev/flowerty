@@ -3,7 +3,7 @@ package by.itechart.flowerty.web.service;
 import by.itechart.flowerty.dao.repository.ContactRepository;
 import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.solr.repository.SolrContactRepository;
+import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +20,7 @@ public class ContactService {
     private ContactRepository contactRepository;
 
     @Autowired (required = true)
-    private SolrContactRepository solrContactRepository;
+    private ContactDocumentRepository contactDocumentRepository;
 
     public Page<Contact> getPage(int page, int size) {
 	return contactRepository.findAll(new PageRequest(page, size));

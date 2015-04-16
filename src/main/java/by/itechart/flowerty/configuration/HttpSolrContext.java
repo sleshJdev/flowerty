@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @Configuration
 @EnableSolrRepositories("by.itechart.flowerty.dao.repository")
 @Profile("prod")
-@PropertySource("classpath:persistence.properties")
+@PropertySource("classpath:solr.properties")
 public class HttpSolrContext {
 
     @Resource

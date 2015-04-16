@@ -1,6 +1,6 @@
 package by.itechart.flowerty.web.service;
 
-import by.itechart.flowerty.dao.repository.ContactDocumentRepository;
+import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.model.ContactDocument;
 import org.springframework.beans.factory.annotation.Autowired;
