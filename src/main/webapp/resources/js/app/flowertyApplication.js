@@ -28,7 +28,8 @@ var app = angular.module('flowertyApplication', [
             controller: 'LogInController'
         })
         .when('/', {
-        	templateUrl: 'resources/template/welcome.html'
+        	templateUrl: APP_PATH + 'goods/partial/goods-list.html',
+            controller: 'GoodsListController'
         });
 
     //  for smart urls
