@@ -281,7 +281,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	$scope.bundle = {
 			actions: [],
 			email:{
-				to: transportService.getValue(),//studentbntu@mail.ru
+				to: transportService.getValue(),//for test: studentbntu@mail.ru is valid
 				subject: "test",
 				text: "text blob"
 			},
@@ -306,7 +306,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		});
 	});
 
-	// TODO: add service
+	// TODO: add service for this logic
 	$scope.bundle.actions.send = function(){
 		$scope.bundle.email.text = $scope.bundle.template.value;
 
@@ -335,7 +335,15 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	$scope.bundle.actions.removeEmail = function(number){
 		$scope.bundle.email.to.splice(number, 1);
 		console.log("remove email to send with number: " + number + ", current quantity: " + $scope.bundle.email.to.length);
-	}
+	};
+	
+	$scope.bundle.actions.addNewEmail = function(event){
+		if(event.which === 13) {
+			$scope.bundle.email.to.push($scope.bundle.newEmail);
+			$scope.bundle.newEmail = "";
+			console.log("add new email: " + $scope.bundle.newEmail + ", current quantity: " + $scope.bundle.email.to.length);
+		}
+	};
 }])
 
 .controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", 
@@ -345,7 +353,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 			totalPages: [],			
 			list: []
 	};
-
+	
 	/*
 	 * grab emails of selected contact and pass they to SendEmailController
 	 */
