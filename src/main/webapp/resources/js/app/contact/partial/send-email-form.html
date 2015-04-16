@@ -1,13 +1,15 @@
 <div class="row">
 	<div class="col-md-12">
-		{{bundle | json}}
 		<div class="well well-sm">
-			<fieldset class="form-horizontal">
+			<fieldset class="form-horizontal" form="send-email-form">
 				<legend class="text-center header">Send email</legend>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">To</label>
 					<div class="col-md-8">
-						<input id="fname" data-ng-model="bundle.email.to" placeholder="To" class="form-control">
+						<ul class="list-inline">
+							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeEmail($index)"></span> </li>
+						</ul>
+<!-- 						<input id="fname" data-ng-model="bundle.email.to" placeholder="To" class="form-control"> -->
 					</div>
 				</div>
 				<div class="form-group">
@@ -23,6 +25,21 @@
 					</div>
 				</div>
 				<div class="form-group">
+					 <label class="col-sm-3 control-label">Attachments</label>
+					<div class="col-md-8 row">
+				    	<div class="col-md-2">
+							<!-- TODO: add directive for this -->
+				    		<input id="selected-file" type="file" data-ng-hide="true" data-file-upload multiple/><!-- file-upload is custom direction -->
+							<input class="btn" type="button" onclick="$('#selected-file').trigger('click');" value="Browse..." />
+				    	</div>
+			    		<ul class="list-inline list-group">
+						  <li data-ng-repeat="file in bundle.files">
+						  	{{file.name}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeAttachment($index)"></span>
+						  </li>
+						</ul>
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Message</label>
 					<div class="col-md-8">
 						<textarea class="form-control" data-ng-model="bundle.template.value" placeholder="Enter your massage for us here." rows="7">
@@ -31,7 +48,9 @@
 				</div>
 				<div class="form-group">
 					<div class="col-md-12 text-center">
-						<button type="submit" class="btn btn-primary btn-lg" data-ng-click="bundle.actions.send(bundle.email)">Submit</button>
+						<form id="send-email-form">
+							<button type="submit" class="btn btn-primary btn-lg" data-ng-click="bundle.actions.send()">Submit</button>
+						</form>
 					</div>
 				</div>
 			</fieldset>

@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.repository.config.EnableSolrRepositories;
-import org.springframework.data.solr.server.support.HttpSolrServerFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -95,20 +92,5 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return new JpaTransactionManager();
 	}
-   @Resource
-    private Environment environment;
-
-    @Bean
-    public HttpSolrServerFactoryBean solrServerFactoryBean() {
-        HttpSolrServerFactoryBean factory = new HttpSolrServerFactoryBean();
-        factory.setUrl(environment.getRequiredProperty("solr.server.url"));
-        return factory;
-    }
-
-    @Bean
-    public SolrTemplate solrTemplate() throws Exception {
-        SolrTemplate solrTemplate = new SolrTemplate(solrServerFactoryBean().getObject(), "flowerty");
-        return solrTemplate;
-    }
 
 }

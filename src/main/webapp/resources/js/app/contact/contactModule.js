@@ -13,7 +13,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .constant("CONSTANTS", (function(){
 	var CONTACT_MODULE_PATH = "resources/js/app/contact/";
-	
+
 	return {
 		CONTACTS 		: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
 		EDIT_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
@@ -23,9 +23,9 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		PHONES			: CONTACT_MODULE_PATH + "partial/phone-list-form.html",
 		DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
 		SEND_EMAIL		: CONTACT_MODULE_PATH + "partial/send-email-form.html",
-		
+
 		PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
-		
+
 		PROCESS_TYPES : { 
 			ADD:{
 				name: "Add new contact", 
@@ -57,34 +57,48 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .config(["$routeProvider", "CONSTANTS", function($routeProvider, CONSTANTS) {
 	$routeProvider
-		.when("/contacts", {
-			templateUrl: CONSTANTS.CONTACTS,
-			controller: "ContactListController"
-		})
-		.when("/edit-contact/:id", {
-			templateUrl: CONSTANTS.EDIT_CONTACT,
-			controller: "EditContactController"
-		})
-		.when("/add-contact", {
-			templateUrl: CONSTANTS.ADD_CONTACT,
-			controller: "AddContactController"
-		})
-		.when("/search-contact", {
-			templateUrl: CONSTANTS.SEARCH_CONTACT,
-			controller: "SearchContactController"
-		})
-		.when("/send-email", {
-			templateUrl: CONSTANTS.SEND_EMAIL,
-			controller: "SendEmailController"
-		});
+	.when("/contacts", {
+		templateUrl: CONSTANTS.CONTACTS,
+		controller: "ContactListController"
+	})
+	.when("/edit-contact/:id", {
+		templateUrl: CONSTANTS.EDIT_CONTACT,
+		controller: "EditContactController"
+	})
+	.when("/add-contact", {
+		templateUrl: CONSTANTS.ADD_CONTACT,
+		controller: "AddContactController"
+	})
+	.when("/search-contact", {
+		templateUrl: CONSTANTS.SEARCH_CONTACT,
+		controller: "SearchContactController"
+	})
+	.when("/send-email", {
+		templateUrl: CONSTANTS.SEND_EMAIL,
+		controller: "SendEmailController"
+	});
 }])
 
 .filter("flowerFullContactName", function() {
 	return function(contact){
 		return (!contact.name ? "" : contact.name) + " " + 
-			   (!contact.surname ? "" : contact.surname) + " " + 
-			   (!contact.fathername ? "" : contact.fathername);
+		(!contact.surname ? "" : contact.surname) + " " + 
+		(!contact.fathername ? "" : contact.fathername);
 	}
+})
+
+.directive('fileUpload', function () {
+	return {
+		scope: true,        //create a new scope
+		link: function (scope, el, attrs) {
+			el.bind('change', function (event) {
+				var files = event.target.files;
+				for (var i = 0; i < files.length; i++) {
+					scope.$emit("fileSelected", { file: files[i] });
+				}                                       
+			});
+		}
+	};
 })
 
 /*
@@ -111,7 +125,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 .service("processContactService", ["$http", "$location", "deleteService", "CONSTANTS",
                                    function($http, $location, deleteService, CONSTANTS) {
 	var me = this;
-	
+
 	me.bundle = {
 			phoneTemplate: CONSTANTS.EDIT_PHONE,
 			phoneListTemplate: CONSTANTS.PHONES, 
@@ -125,14 +139,15 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	 * save/update contact after editing/creating
 	 */
 	me.bundle.actions.saveContact = function(contact){
-		console.log("contact to save: " + JSON.stringify(contact));//REMOVE
 		$http({
 			method: "post",
 			url: "contact/save",
 			data: contact
 		}).success(function(data, status, headers, config) {
+			console.log("save contact success!")
 			$location.path("contacts");
 		}).error(function(data, status, headers, config) {
+			console.log("save contact error: " + JSON.stringify(data))//REMOVE_COMMENT
 		});
 	}
 
@@ -143,16 +158,16 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		console.log("delete phone");
 		deleteService.deleteById(me.bundle.contact.phones);
 	};
-	
+
 	/*
 	 * add new phone
 	 */
 	me.bundle.actions.addPhone = function(){
-		console.log("show pop to create new phone");
+		console.log("show pop-up to create new phone");
 		me.bundle.phone = {};
 		me.bundle.processType.titlePhone = "Add phone";
 	};
-	
+
 	/* 
 	 * edit phone. Show pop-up to editing specific phone.
 	 */
@@ -162,7 +177,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		me.bundle.originPhone = editablePhone;
 		me.bundle.processType.titlePhone = "Edit phone";
 	};
-	
+
 	/*
 	 * save/update phone after creating/editing
 	 */
@@ -176,6 +191,22 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		}
 	};
 }])
+
+/*
+ * for pass parameter for search from ContactListController to SendEmailController.
+ * he will be pass emails of contacts.
+ */
+.service("transportService", function() {
+	var value = "empty";
+	return {
+		getValue: function(){
+			return value;
+		},
+		setValue: function(newValue){
+			value = newValue;
+		}
+	};
+})
 
 .controller("AddContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "CONSTANTS",
                                      function($scope, $http, $location, $routeParams, processContactService, CONSTANTS){
@@ -191,7 +222,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	$scope.bundle = processContactService.bundle;
 	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.EDIT;
 	$scope.bundle.processType.action = $scope.bundle.actions.saveContact;
-	
+
 	$http({
 		method: "get",
 		url: "contact/details/" + $routeParams.id
@@ -208,15 +239,14 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	$scope.bundle.contact = {};
 	$scope.bundle.contact.phones = [];
 	$scope.bundle.processType.action = function(contact){
-		console.log("contact for search:" + JSON.stringify(contact));//REMOVE
 		$http({
 			method: "post",
 			url: "contact/search",
 			data: $scope.bundle.contact
 		}).success(function(data, status, headers, config) {
-			console.log(JSON.stringify(data));//REMOVE
+			console.log("search contact success:" + JSON.stringify(contact));//REMOVE_COMMENT
 		}).error(function(data, status, headers, config) {
-			console.log("error occured during search contact. details: " + JSON.stringify(data))//REMOVE
+			console.log("error search contact. details: " + JSON.stringify(data))//REMOVE_COMMENT
 		});
 	};
 	$scope.bundle.date = {
@@ -246,56 +276,65 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	};
 }])
 
-/*
- * for pass parameter for search from ContactListController to SendEmailController.
- * he will be pass emails of contacts.
- */
-.service("transportService", function() {
-	var value = "empty";
-	return {
-		getValue: function(){
-			return value;
-		},
-		setValue: function(newValue){
-			value = newValue;
-		}
-	};
-})
-
-.controller("SendEmailController", ["$scope", "$http", "transportService", 
-                                    function($scope, $http, transportService){
+.controller("SendEmailController", ["$scope", "$http", "$location", "transportService", 
+                                    function($scope, $http, $location, transportService){
 	$scope.bundle = {
-		actions: [],
-		email:{
-			to: ["studentbntu@mail.ru"],//transportService.getValue(),
-			subject: "test",
-			text: "text blob"
-		},
-		templates:[{
+			actions: [],
+			email:{
+				to: transportService.getValue(),//studentbntu@mail.ru
+				subject: "test",
+				text: "text blob"
+			},
+			// hardcode
+			//TODO: add StringTemplate
+			templates:[{
 				name: "plain",
 				value: "plain template"
 			},{
 				name: "congratulation",
 				value: "congratulation template"
-		}],
-		template: {}
+			}],
+			template: {},
+			files: []
 	};
-	$scope.bundle.template = $scope.bundle.templates[0]; 
-	$scope.bundle.actions.send = function(email){
-		$scope.bundle.email.text = $scope.bundle.template.value;
-		$http({
-			method: "post",
-			url: "email/send",//TODO: maybe in future we will be read email. url some as email/get/{id}
-			data: email,
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "*/*"
-			}
-		}).success(function(data, status, headers, config) {
-			console.log("emial send successful!");
-		}).error(function(data, status, headers, config){
-			console.log("send emial error!");
+	$scope.bundle.template = $scope.bundle.templates[0];
+	
+	$scope.$on("fileSelected", function (event, args) {
+		$scope.$apply(function () {            
+			$scope.bundle.files.push(args.file);
+			console.log("add attchment: " + args.file.name + ", current quantity: " + $scope.bundle.files.length);
 		});
+	});
+
+	// TODO: add service
+	$scope.bundle.actions.send = function(){
+		$scope.bundle.email.text = $scope.bundle.template.value;
+
+		var formData = new FormData();
+		formData.append("email", angular.toJson($scope.bundle.email));
+		for (var i = 0; i < $scope.bundle.files.length; i++) {
+			formData.append("file", $scope.bundle.files[i]);
+		}
+
+		$http.post("email/send", formData, {
+			headers: {'Content-Type': undefined },
+			transformRequest: angular.identity
+		}). success(function (data, status, headers, config) {
+			console.log("send email success!");
+			$location.path("send-email");
+		}). error(function (data, status, headers, config) {
+			alert("send email failed!");
+		});
+	};
+	
+	$scope.bundle.actions.removeAttachment = function(number){
+		$scope.bundle.files.splice(number, 1);
+		console.log("remove attachment with number: " + number + ", current quantity: " + $scope.bundle.files.length);
+	};
+	
+	$scope.bundle.actions.removeEmail = function(number){
+		$scope.bundle.email.to.splice(number, 1);
+		console.log("remove email to send with number: " + number + ", current quantity: " + $scope.bundle.email.to.length);
 	}
 }])
 
@@ -303,10 +342,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                                       function($scope, $http, $location, transportService, deleteService) {
 	$scope.contacts = {
 			currentPage: 1,
-			totalPage: [],			
+			totalPages: [],			
 			list: []
 	};
-	
+
 	/*
 	 * grab emails of selected contact and pass they to SendEmailController
 	 */
@@ -318,18 +357,18 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 				emails.push(contact.email);
 			}
 		}
-		
+
 		transportService.setValue(emails);
-		$location.path("send-email");
+		$location.path("send-email");//redirect to email form
 	}
-	
+
 	/*
 	 * remove spicific contact(s)
 	 */
 	$scope.contacts.deleteContact = function(){
 		console.log("delete contact");
 		deleteService.deleteById($scope.contacts.list);		
-		
+
 		$http({
 			method: "post",
 			url: "contact/remove",
@@ -344,54 +383,58 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		}).error(function(data, status, headers, config) {
 		});
 	};
-		
-    $scope.contacts.getPageFromServer = function(){
-        $http({
-            method: "get",
-            url: "contact/list/" + $scope.contacts.currentPage
-        }).success(function(data, status, headers, config) {
+
+	$scope.contacts.getPageFromServer = function(){
+		$http({
+			method: "get",
+			url: "contact/list/" + $scope.contacts.currentPage
+		}).success(function(data, status, headers, config) {
 			if (!data.content) {
 				$location.path("login");
 			} else {
 				$scope.contacts.list = data.content;
 				$scope.contacts.totalPages = data.totalPages;
 			}
-        }).error(function(data, status, headers, config) {
+		}).error(function(data, status, headers, config) {
 			$location.path("/");
-        });
-    };
-    
-    $scope.contacts.getPage = function(pageNumber){
-    	$scope.contacts.currentPage = pageNumber;
-    	$scope.contacts.getPageFromServer();
-    };
+		});
+	};
 
-    $scope.contacts.getPreviousPage = function(){
-        if($scope.contacts.currentPage > 1){
-            $scope.contacts.currentPage--;
-        }
-        $scope.contacts.getPageFromServer();
-    };
+	$scope.contacts.getPage = function(pageNumber){
+		$scope.contacts.currentPage = pageNumber;
+		$scope.contacts.getPageFromServer();
+	};
 
-    $scope.contacts.getNextPage = function(){
-        if($scope.contacts.currentPage < $scope.contacts.totalPages){
-            $scope.contacts.currentPage++;
-        }
-        $scope.contacts.getPageFromServer();
-    };
+	$scope.contacts.getPreviousPage = function(){
+		if($scope.contacts.currentPage > 1){
+			$scope.contacts.currentPage--;
+		}
+		$scope.contacts.getPageFromServer();
+	};
 
-    $scope.contacts.getPagesCount = function(){
-        return $scope.contacts.pagesCount;
-    };
+	$scope.contacts.getNextPage = function(){
+		if($scope.contacts.currentPage < $scope.contacts.totalPages){
+			$scope.contacts.currentPage++;
+		}
+		$scope.contacts.getPageFromServer();
+	};
 
-    $scope.init = function () {
-        $scope.contacts.getPage(1);
-        $scope.pagination.getNextPage = $scope.contacts.getNextPage;
-        $scope.pagination.getPreviousPage = $scope.contacts.getPreviousPage;
-        $scope.pagination.getPage = $scope.contacts.getPage;
-        $scope.pagination.pageClass = $scope.contacts.pageClass;
-        $scope.pagination.getPagesCount = $scope.contacts.getPagesCount;
-    };
+	$scope.contacts.getPagesCount = function(){
+		return $scope.contacts.totalPages;
+	};
 
-    $scope.init();
+	$scope.contacts.pageClass = function(pageNumber){
+		return pageNumber == $scope.contacts.currentPage ? 'active' : '';
+	};
+
+	$scope.init = function () {
+		$scope.contacts.getPage(1);
+		$scope.pagination.getNextPage = $scope.contacts.getNextPage;
+		$scope.pagination.getPreviousPage = $scope.contacts.getPreviousPage;
+		$scope.pagination.getPage = $scope.contacts.getPage;
+		$scope.pagination.pageClass = $scope.contacts.pageClass;
+		$scope.pagination.getPagesCount = $scope.contacts.getPagesCount;
+	};
+
+	$scope.init();
 }]);

@@ -50,7 +50,7 @@ public class TestSigninController extends MockTestConfigigurationAware {
 			.andExpect(forwardedUrl("signin/signin"));			
 	}
 
-    @Ignore
+    	@Ignore
 	@Test
 	public void signin_PassValidLoginAndPassword_ShouldAuthenticate() throws Exception{
 		User existsUser = TestControllerHelper.buildValidShortUserForTest();
@@ -74,7 +74,7 @@ public class TestSigninController extends MockTestConfigigurationAware {
 		verifyNoMoreInteractions(userServiceMock);
 	}
 
-    @Ignore
+    	@Ignore
 	@Test
 	public void signin_PassInvalidLoginAndPassword_NotAuthenticateShouldRedirectToSigninPage() throws Exception{
 		User notExistsUser = TestControllerHelper.buildInvalideShordUserForTest();
