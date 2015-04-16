@@ -1,9 +1,7 @@
 package by.itechart.flowerty.dao.repository;
 
 import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.dao.repository.AddressRepository;
 import by.itechart.flowerty.model.Address;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -14,7 +12,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 import java.util.Set;
 
 
@@ -22,6 +19,7 @@ import java.util.Set;
  @author Мария 28.03.15
 
  */
+@Ignore
 public class TestAddressRepository extends JpaConfigurationAware {
     private static Validator validator;
     @Autowired

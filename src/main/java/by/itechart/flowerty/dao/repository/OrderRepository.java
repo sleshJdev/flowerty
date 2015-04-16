@@ -1,9 +1,6 @@
 package by.itechart.flowerty.dao.repository;
 
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.Order;
-import by.itechart.flowerty.model.State;
-import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;

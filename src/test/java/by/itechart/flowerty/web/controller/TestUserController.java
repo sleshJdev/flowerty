@@ -25,7 +25,6 @@ import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import by.itechart.flowerty.config.MockTestConfigigurationAware;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.controller.UserController;
@@ -115,9 +114,11 @@ public class TestUserController extends MockTestConfigigurationAware {
 		verifyNoMoreInteractions(userServiceMock);
 	}
 
+	/*@Test
 
     @Ignore
 	@Test
+>>>>>>> 2e34a32cc3d864fb3c9d28b33b5bb1c392685ae7:src/test/java/by/itechart/flowerty/web/controller/TestUserController.java
 	public void findAll_ShouldReturnListOfUsers() throws Exception {
 		User admin = TestControllerHelper.buildUserAdminForTest();
 		
@@ -136,7 +137,7 @@ public class TestUserController extends MockTestConfigigurationAware {
 		verify(userServiceMock, times(1))
 			.findAll();
 		verifyNoMoreInteractions(userServiceMock);
-	}
+	}    */
 	
 	@Ignore
 	@Test

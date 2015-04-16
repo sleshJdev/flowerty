@@ -1,5 +1,7 @@
 package by.itechart.flowerty.model;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -35,6 +37,7 @@ public class User {
 	}
 
     @Column(name = "LOGIN", length = 20, nullable = false)
+    @Field("LOGIN")
     @NotNull
     @Size(max=20)
     public String getLogin() {

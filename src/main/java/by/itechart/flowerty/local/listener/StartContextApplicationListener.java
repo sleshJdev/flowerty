@@ -1,16 +1,15 @@
 package by.itechart.flowerty.local.listener;
 
-import java.util.List;
-
+import by.itechart.flowerty.dao.repository.RoleRepository;
+import by.itechart.flowerty.local.database.LocalDatabase;
+import by.itechart.flowerty.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextStartedEvent;
 
-import by.itechart.flowerty.dao.repository.RoleRepository;
-import by.itechart.flowerty.local.database.LocalDatabase;
-import by.itechart.flowerty.model.Role;
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015 
