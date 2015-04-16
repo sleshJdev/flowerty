@@ -9,7 +9,7 @@ lib/
 *.iml
 *.iws
 /target/
-*.properties
+persistence.properties
 
 # Mac
 .DS_Store
