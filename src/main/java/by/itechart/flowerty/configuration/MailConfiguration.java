@@ -17,7 +17,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
  *
- *         Mailing configuration
+ *         mailing configuration
  */
 @Configuration
 @PropertySource("classpath:/web.properties")
