@@ -13,7 +13,7 @@
                            data-ng-model="dynamicSearch.enteredSurname"
                             data-ng-change="dynamicSearch.offerContacts(dynamicSearch.enteredSurname)"/>
                 </div>
-                <select id="select-select" class="list-group-item" size="3"
+                <select class="list-group-item select-select" size="3"
                         data-ng-show="dynamicSearch.showResults()"
                         data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
                         data-ng-model="bundle.user.contact"

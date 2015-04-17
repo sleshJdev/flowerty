@@ -119,3 +119,8 @@ a:hover{
     font-size: 35px;
     color: #36A0FF;
 }
+
+.select-select{
+    position: absolute;
+    z-index: 1000;
+}
