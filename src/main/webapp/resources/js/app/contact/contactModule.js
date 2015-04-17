@@ -21,7 +21,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		SEARCH_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
 		EDIT_PHONE		: CONTACT_MODULE_PATH + "partial/phone-form.html",
 		PHONES			: CONTACT_MODULE_PATH + "partial/phone-list-form.html",
+		
+		DATA_PICKER_BOX : CONTACT_MODULE_PATH + "partial/date-picker-box.html",
 		DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
+		
 		SEND_EMAIL		: CONTACT_MODULE_PATH + "partial/send-email-form.html",
 
 		PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
@@ -87,7 +90,42 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	}
 })
 
-.directive('fileUpload', function () {
+.directive('flowertyDate', function ($filter) {
+    return {
+    	restrict: "A",
+        require: "?ngModel",
+        link: function (scope, element, attrs, ngModelCtrl) {
+        	var counter = 1;
+        	element.datepicker({
+                format : " " + attrs.format + " ",//extra space for fetch only year, month or day
+                viewMode : attrs.viewMode,
+                minViewMode : attrs.minViewMode
+            }).on('changeDate', function( e ){
+            	switch(attrs.format.toLowerCase().trim()){
+            	case "yyyy": 
+            		ngModelCtrl.$setViewValue(e.date.getFullYear());
+            		break;
+            	case "mm":
+            		ngModelCtrl.$setViewValue(e.date.getMonth() + 1);
+            		break;
+            	case "dd":
+            		ngModelCtrl.$setViewValue(e.date.getDay() + 1);
+            		break;
+        		default:
+        			ngModelCtrl.$setViewValue($filter('date')(e.date,'yyyy-MM-dd'));
+    			break;
+            	}
+                element.datepicker('hide');
+            });
+            
+            scope.$on('$destroy', function () {
+                element.datepicker('destroy');
+            });
+        }
+    };
+})
+
+.directive('flowertyFileUpload', function () {
 	return {
 		scope: true,        //create a new scope
 		link: function (scope, el, attrs) {
