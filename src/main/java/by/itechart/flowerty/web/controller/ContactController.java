@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import by.itechart.flowerty.model.Contact;
-//import by.itechart.flowerty.model.ContactDocument;
+//import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 
 //import by.itechart.flowerty.web.service.RepositorySolrContactService;

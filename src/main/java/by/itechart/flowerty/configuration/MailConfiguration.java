@@ -47,7 +47,7 @@ public class MailConfiguration {
     }
 
     @Bean
-    public JavaMailSenderImpl javaMailSender() {
+    public JavaMailSenderImpl mailSender() {
 	JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
 	String security = environment.getProperty("mail.security.type");

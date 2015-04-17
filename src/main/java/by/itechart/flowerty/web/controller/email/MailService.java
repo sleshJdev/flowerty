@@ -1,10 +1,5 @@
 package by.itechart.flowerty.web.controller.email;
 
-import java.io.IOException;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -15,6 +10,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
  *
@@ -23,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class MailService {
     @Autowired
-    private JavaMailSenderImpl sender;
+    private JavaMailSenderImpl mailSender;
 
     @Autowired
     private SimpleMailMessage simpleMailMessage;
@@ -35,7 +34,7 @@ public class MailService {
 	simpleMailMessage.setTo(emailInfo.getTo());
 	simpleMailMessage.setSubject(emailInfo.getSubject());
 	simpleMailMessage.setText(emailInfo.getText());
-	sender.send(simpleMailMessage);
+	mailSender.send(simpleMailMessage);
     }
 
     public void send(EmailInfo emailInfo, MultipartFile[] attachments) throws MessagingException, IOException {
@@ -45,7 +44,7 @@ public class MailService {
 	if(emailInfo == null){
 	    throw new IllegalArgumentException("emailInfo is null");
 	}
-	MimeMessage mimeMessage = sender.createMimeMessage();
+	MimeMessage mimeMessage = mailSender.createMimeMessage();
 	MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
 	mimeMessageHelper.setFrom(simpleMailMessage.getFrom());
 	mimeMessageHelper.setTo(emailInfo.getTo());
@@ -55,6 +54,6 @@ public class MailService {
 	    InputStreamSource resource = new ByteArrayResource(IOUtils.toByteArray(attachment.getInputStream()));
 	    mimeMessageHelper.addAttachment(attachment.getOriginalFilename(), resource);
 	}
-	sender.send(mimeMessage);
+	mailSender.send(mimeMessage);
     }
 }

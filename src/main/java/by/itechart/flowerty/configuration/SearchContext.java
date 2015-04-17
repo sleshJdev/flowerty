@@ -6,11 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.repository.config.EnableSolrRepositories;
-
-import javax.annotation.Resource;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,8 +22,8 @@ import javax.annotation.Resource;
 @PropertySource("classpath:solr.properties")
 @EnableSolrRepositories(basePackages={"by.itechart.flowerty"}, multicoreSupport = true)
 public class SearchContext {
-    @Resource
-    private Environment environment;
+//    @Resource
+  //  private Environment environment;
     @Bean
     public SolrServer solrServer() {
         return new HttpSolrServer("${solr.server.url}");

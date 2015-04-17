@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ContactRepository extends PagingAndSortingRepository<Contact, Long> {
+public interface ContactRepository extends PagingAndSortingRepository<Contact, Long>, ContactRepositoryCustom {
     public Contact findOne(Long id);
     public Page<Contact> findByCompany(Company company, Pageable pageable);
     public Contact save (Contact contact);

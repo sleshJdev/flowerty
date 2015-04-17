@@ -4,26 +4,17 @@
  */
 package by.itechart.flowerty.web.controller.email;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.UUID;
-
-import javax.mail.MessagingException;
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.mail.MessagingException;
+import java.io.*;
+import java.util.UUID;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
@@ -51,7 +42,7 @@ public class EmailController {
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    emailInfo = objectMapper.readValue(emailJson, EmailInfo.class);
 
-	    processAttachments(attachments);
+	  //  processAttachments(attachments);
 
 	    if (attachments == null || attachments.length == 0) {
 		mailService.send(emailInfo);

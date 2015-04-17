@@ -1,4 +1,4 @@
-package by.itechart.flowerty.model;
+package by.itechart.flowerty.solr.model;
 
 /**
 * @author Maria
@@ -8,6 +8,7 @@ package by.itechart.flowerty.model;
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
 //@SolrDocument

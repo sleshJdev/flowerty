@@ -1,8 +1,9 @@
 package by.itechart.flowerty.solr.repository;
 
 import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.model.ContactDocument;
+import by.itechart.flowerty.solr.model.ContactDocument;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,7 @@ import java.util.Date;
 * @author Maria
 *         Date: 12.04.15
 */
-//@Ignore
+@Ignore
 public class TestSolrRepository extends JpaConfigurationAware {
     @Autowired
     private ContactDocumentRepository repository;
@@ -38,7 +39,7 @@ public class TestSolrRepository extends JpaConfigurationAware {
         long a = repository.count();
     //    boolean exists123 = repository.exists("123");
    //     repository.findOne("123");
-        repository.findAll();
+       // repository.findAll();
         pg = repository.findAll(new PageRequest(0, 10));
         Assert.assertEquals(pg.getContent().size(), 3);
     }
