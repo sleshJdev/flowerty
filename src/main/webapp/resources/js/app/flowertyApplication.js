@@ -8,6 +8,7 @@ var app = angular.module('flowertyApplication', [
     'flowertyApplication.userModule',
     'flowertyApplication.authenticationModule',
     'flowertyApplication.contactModule',
+    'flowertyApplication.goodsModule',
     //TODO: maybe remove this dependencies, because other dependent from it
     'flowertyApplication.utilModule',
     'flowertyApplication.errorModule'])
@@ -28,7 +29,8 @@ var app = angular.module('flowertyApplication', [
             controller: 'LogInController'
         })
         .when('/', {
-        	templateUrl: 'resources/template/welcome.html'
+        	templateUrl: APP_PATH + 'goods/partial/goods-list.html',
+            controller: 'GoodsListController'
         });
 
     //  for smart urls

@@ -114,7 +114,7 @@ userModule.controller('UsersController', function($scope, $http, $location) {
         return $scope.users.pagesCount;
     };
     
-    $scope.users.delete = function(){
+    $scope.users.deleteUsers = function(){
         var toDeleteIds = [];
         console.log("users to del : " + JSON.stringify({users: $scope.users.usersList}));
         var user;
