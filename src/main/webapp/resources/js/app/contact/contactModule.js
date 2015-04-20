@@ -95,7 +95,6 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
     	restrict: "A",
         require: "?ngModel",
         link: function (scope, element, attrs, ngModelCtrl) {
-        	var counter = 1;
         	element.datepicker({
                 format : " " + attrs.format + " ",//extra space for fetch only year, month or day
                 viewMode : attrs.viewMode,
@@ -277,6 +276,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	$scope.bundle.contact = {};
 	$scope.bundle.contact.phones = [];
 	$scope.bundle.processType.action = function(contact){
+		processDate($scope.bundle.date)
 		$http({
 			method: "post",
 			url: "contact/search",
@@ -306,7 +306,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	 * if part of the date is not used, we will replace it by a '?'.
 	 * this says that this part is unnecessary to search.
 	 */
-	$scope.bundle.dateListener = function(date){
+	function processDate(date){
 		$scope.bundle.contact.birthday = 
 			(!!date.year.isUse ? date.year.value : "?") + "-" +
 			(!!date.month.isUse ? date.month.value : "?") + "-" + 
