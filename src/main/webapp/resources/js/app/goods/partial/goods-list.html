@@ -15,7 +15,7 @@
                     <span class="glyphicon glyphicon-plus" data-ng-click="goods.more(goodsItem)"></span>
                 </p>
                 <div class="btn btn-default" data-ng-show="!goodsItem.ordered" data-ng-click="goods.makeOrder(goodsItem)">Add to basket</div>
-                <div class="btn btn-default" data-ng-show="goodsItem.ordered" data-ng-click="goods.makeOrder(goodsItem)">Remove from basket</div>
+                <div class="btn btn-default" data-ng-show="goodsItem.ordered" data-ng-click="goods.removeFromOrder(goodsItem)">Remove from basket</div>
             </div>
         </div>
     </div>
