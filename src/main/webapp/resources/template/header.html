@@ -12,28 +12,28 @@
     <div class="navbar-collapse collapse">
         <div class="nav navbar-nav navbar-left">
             <div class="navbar-text navigation-group">
-                <a href="users" class="navbar-link navigation-group-item">Users</a>
-                <a href="add-user" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
-                <a href="search-user" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
+                <a href="#users" class="navbar-link navigation-group-item">Users</a>
+                <a href="#add-user" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="#search-user" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
             </div>
             <div class="navbar-text navigation-group">
-                <a href="contacts" class="navbar-link navigation-group-item">Contacts</a>
-                <a href="add-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
-                <a href="search-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
+                <a href="#/contacts" class="navbar-link navigation-group-item">Contacts</a>
+                <a href="#add-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="#search-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
             </div>
             <div class="navbar-text navigation-group">
-                <a href="orders" class="navbar-link navigation-group-item">Orders</a>
-                <a href="add-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
-                <a href="search-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="orders-history" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-time"></span></a>
+                <a href="#orders" class="navbar-link navigation-group-item">Orders</a>
+                <a href="#add-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
+                <a href="#search-contact" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
+                <a href="#orders-history" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-time"></span></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right navbar-text  navigation-group">
-            <a href="" id="logged-user" class="active navigation-group-item" data-ng-show="current.isLogged">Hi, <strong>{{current.user.name}}!</strong> Your role is <strong>{{current.user.role | flowerSplit:'_':' '}}</strong></a>
-            <a href="" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-cog"></span></a>
-            <a href="" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-user"></span></a>
-            <a href="login" class="navbar-link navigation-group-item" data-ng-show="!current.isLogged"><span class="glyphicon glyphicon-log-in"> Login</span></a>
-            <a href="" class="navbar-link navigation-group-item" data-ng-click="current.logOut()" data-ng-show="current.isLogged"><span class="glyphicon glyphicon-log-out"> Logout</span></a>
+            <a href="#" id="logged-user" class="active navigation-group-item" data-ng-show="current.isLogged">Hi, <strong>{{current.user.name}}!</strong> Your role is <strong>{{current.user.role | flowerSplit:'_':' '}}</strong></a>
+            <a href="#" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-cog"></span></a>
+            <a href="#" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-user"></span></a>
+            <a href="#/login" class="navbar-link navigation-group-item" data-ng-show="!current.isLogged"><span class="glyphicon glyphicon-log-in"> Login</span></a>
+            <a href="#" class="navbar-link navigation-group-item" data-ng-click="current.logOut()" data-ng-show="current.isLogged"><span class="glyphicon glyphicon-log-out"> Logout</span></a>
         </div>
     </div>
 </div>

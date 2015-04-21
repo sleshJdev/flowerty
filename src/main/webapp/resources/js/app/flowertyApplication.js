@@ -13,8 +13,7 @@ var app = angular.module('flowertyApplication', [
     'flowertyApplication.utilModule',
     'flowertyApplication.errorModule'])
  
-.config(['$routeProvider', '$locationProvider',  
-         function($routeProvider, $locationProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
         when('/users', {
             templateUrl: APP_PATH + "user/partial/users-list-form.html",
@@ -32,9 +31,6 @@ var app = angular.module('flowertyApplication', [
         	templateUrl: APP_PATH + 'goods/partial/goods-list.html',
             controller: 'GoodsListController'
         });
-
-    //  for smart urls
-    $locationProvider.html5Mode(true);
 }]);
 
 app.controller('ViewController', ['$scope', function ($scope) {
