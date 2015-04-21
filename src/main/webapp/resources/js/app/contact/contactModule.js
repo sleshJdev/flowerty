@@ -58,7 +58,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	}
 })())
 
-.config(["$routeProvider", "CONSTANTS", function($routeProvider, CONSTANTS) {
+.config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
 	$routeProvider
 	.when("/contacts", {
 		templateUrl: CONSTANTS.CONTACTS,
@@ -234,7 +234,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
  * he will be pass emails of contacts.
  */
 .service("transportService", function() {
-	var value = "empty";
+	var value = "";
 	return {
 		getValue: function(){
 			return value;
@@ -266,6 +266,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	}).success(function(data, status, headers, config) {
 		$scope.bundle.contact = data;
 	}).error(function(data, status, headers, config) {
+		console.log("error contact details: " + JSON.stringify(data));
 	});
 }])
 
