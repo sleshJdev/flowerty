@@ -30,11 +30,11 @@ public class TestGoodsRepository extends JpaConfigurationAware {
         Goods goods = goodsRepository.findOne(100l);
         Assert.assertNull(goods);
     }
-    @Ignore
+
+    
     @Test
     public void saveGoods_ValidGoods_ReturnsSameGoods() {
         Flower fl = new Flower();
-        fl.setId(4l);
         Company company = new Company();
         company.setId(1l);
         Goods goods = new Goods();
@@ -46,6 +46,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
         Assert.assertEquals((Object) goods.getCost(), 15.7);
 
     }
+    
     @Ignore
     @Test
     public void findGoods_ValidCompany_ReturnsPageOfGoods() {

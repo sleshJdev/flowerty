@@ -60,19 +60,19 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
 	$routeProvider
-	.when("/contacts", {
+	.when("/contact-list", {
 		templateUrl: CONSTANTS.CONTACTS,
 		controller: "ContactListController"
 	})
-	.when("/edit-contact/:id", {
+	.when("/contact-edit/:id", {
 		templateUrl: CONSTANTS.EDIT_CONTACT,
 		controller: "EditContactController"
 	})
-	.when("/add-contact", {
+	.when("/contact-add", {
 		templateUrl: CONSTANTS.ADD_CONTACT,
 		controller: "AddContactController"
 	})
-	.when("/search-contact", {
+	.when("/contact-search", {
 		templateUrl: CONSTANTS.SEARCH_CONTACT,
 		controller: "SearchContactController"
 	})
@@ -96,9 +96,9 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         require: "?ngModel",
         link: function (scope, element, attrs, ngModelCtrl) {
         	element.datepicker({
-                format : " " + attrs.format + " ",//extra space for fetch only year, month or day
-                viewMode : attrs.viewMode,
-                minViewMode : attrs.minViewMode
+                format : attrs.format.length > 4 ? attrs.format : (" " + attrs.format + " "), //extra space for fetch only year, month or day
+                viewMode : !attrs.viewMode ? "days" : attrs.viewMode,
+                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode 
             }).on('changeDate', function( e ){
             	switch(attrs.format.toLowerCase().trim()){
             	case "yyyy": 
@@ -117,9 +117,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                 element.datepicker('hide');
             });
             
-            scope.$on('$destroy', function () {
-                element.datepicker('destroy');
-            });
+        	//TODO: wtf?? this code thrown exception: data[option] is not a function
+//            scope.$on('$destroy', function () {
+//                element.datepicker('destroy');
+//            });
         }
     };
 })
@@ -128,7 +129,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	return {
 		scope: true,        //create a new scope
 		link: function (scope, el, attrs) {
-			el.bind('change', function (event) {
+				el.bind('change', function (event) {
 				var files = event.target.files;
 				for (var i = 0; i < files.length; i++) {
 					scope.$emit("fileSelected", { file: files[i] });
@@ -383,7 +384,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	};
 	
 	$scope.bundle.actions.addNewEmail = function(event){
-		if(event.which === 13) {
+		if(event.which === 13) {//code of enter button
 			$scope.bundle.email.to.push($scope.bundle.newEmail);
 			$scope.bundle.newEmail = "";
 			console.log("add new email: " + $scope.bundle.newEmail + ", current quantity: " + $scope.bundle.email.to.length);

@@ -4,12 +4,7 @@
  */
 package by.itechart.flowerty.web.controller.email;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.UUID;
 
 import javax.mail.MessagingException;
 
@@ -25,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import by.itechart.flowerty.local.settings.Settings;
+import by.itechart.flowerty.web.controller.util.FlowertUtil;
+
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
  *
@@ -34,8 +32,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class EmailController {
     private Logger LOGGER = LoggerFactory.getLogger(EmailController.class);
 
-    private static final String TARGET_DIRECTORY = "/home/slesh/temp/";
-
+    @Autowired
+    private Settings settings;
+    
     @Autowired
     private MailService mailService;
 
@@ -51,7 +50,7 @@ public class EmailController {
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    emailInfo = objectMapper.readValue(emailJson, EmailInfo.class);
 
-	    processAttachments(attachments);
+	    FlowertUtil.processMultiparts(settings.getAttachmentsPath(), attachments);
 
 	    if (attachments == null || attachments.length == 0) {
 		mailService.send(emailInfo);
@@ -61,22 +60,6 @@ public class EmailController {
 	} catch (IOException | MessagingException e) {
 	    LOGGER.error(e.getMessage());
 	    throw new IOException(e);
-	}
-    }
-
-    private static final void processAttachments(MultipartFile[] attachments) throws IOException {
-	if(attachments == null){
-	    throw new IllegalArgumentException("attachments is null");
-	}
-	for (MultipartFile attachment : attachments) {
-	    String name = String.format("%s_%s", UUID.randomUUID().toString(), attachment.getOriginalFilename());
-	    File file = new File(TARGET_DIRECTORY.concat(name));
-	    OutputStream outputStream = new FileOutputStream(file);
-	    BufferedOutputStream buffereOutputStream = new BufferedOutputStream(outputStream);
-	    byte[] bytes = attachment.getBytes();
-	    buffereOutputStream.write(bytes);
-	    buffereOutputStream.close();
-
 	}
     }
 }

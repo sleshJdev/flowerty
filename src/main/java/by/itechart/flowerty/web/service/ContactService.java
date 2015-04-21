@@ -35,7 +35,6 @@ public class ContactService {
 	return contactRepository.save(contact);
     }
 
-
     public Page<Contact> findByCompany(Company company, PageRequest pageRequest) {
 	return contactRepository.findByCompany(company, pageRequest);
     }
