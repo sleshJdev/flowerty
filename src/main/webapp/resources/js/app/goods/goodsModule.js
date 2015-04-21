@@ -140,10 +140,10 @@ goodsModule.controller("GoodsAddController", ["$scope", "$http", "$location", "g
                                               function($scope, $http, $location, goodsProcessService) {
 	$scope.bundle = {
 			goods: {
-				cost: 0,
+//				cost: 
 				flower: {},
-				company: {},
-				remain: 0
+				company: {}
+//				remain:
 			},
 			actions: [],
 			picture: {}
