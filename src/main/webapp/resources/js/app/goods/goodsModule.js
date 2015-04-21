@@ -118,11 +118,12 @@ goodsModule.directive("flowertyPicturePick", function() {
 });
 
 goodsModule.service("goodsProcessService", ["$http", function($http) {
-	this.addGoods = function(goods, picture){
+	this.addGoods = function(goods, picture, login){
 		console.log("add new goods: " + goods + " picture: " + picture.name);//LOG
 		var formData = new FormData();
 		formData.append("goods", angular.toJson(goods));
 		formData.append("picture", picture);
+		formData.append("login", login);
 		
 		$http.post("goods/add", formData,{
 			headers: {'Content-Type': undefined },
@@ -148,11 +149,10 @@ goodsModule.controller("GoodsAddController", ["$scope", "$http", "$location", "g
 			picture: {}
 	};
 	$scope.bundle.actions.add = function(){
-		goodsProcessService.addGoods($scope.bundle.goods, $scope.bundle.picture)
+		goodsProcessService.addGoods($scope.bundle.goods, $scope.bundle.picture, $scope.$parent.current.user.name)
 	}
-	
 	$scope.$on("picturePicked", function(event, args){
 		console.log("picture picked event: " + args.picture.name);//LOG
-		$scope.picture = args.picture;
+		$scope.bundle.picture = args.picture;
 	});
 }]);

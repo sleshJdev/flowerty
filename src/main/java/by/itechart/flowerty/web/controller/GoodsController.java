@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import by.itechart.flowerty.dao.repository.GoodsRepository;
+import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.local.settings.Settings;
+import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Goods;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
@@ -34,24 +36,27 @@ public class GoodsController {
     @Autowired
     private GoodsRepository goodsRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @ResponseBody
     @RequestMapping(value = "goods/add", method = RequestMethod.POST)
-    public void add(@RequestParam("goods") String goodsJson, @RequestPart(value = "picture") MultipartFile goodsPicture) {
-	try {
-	    LOGGER.info("add new goods. json: {}, picture name: {}", goodsJson, goodsPicture.getOriginalFilename());
+    public void add(@RequestParam("goods") String goodsJson,
+	    @RequestPart(value = "picture") MultipartFile goodsPicture, @RequestParam("login") String login)
+	    throws IOException {
+	LOGGER.info("add new goods. json: {}, picture name: {}", goodsJson, goodsPicture.getOriginalFilename());
 
-	    FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
+	// TODO: need field in db
+	FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
+	LOGGER.info("goods picture saved successful!");
 
-	    LOGGER.info("goods picture saved successful!");
+	ObjectMapper mapper = new ObjectMapper();
+	Goods goods = mapper.readValue(goodsJson, Goods.class);
+	Company company = userRepository.findUserByLogin(login).getContact().getCompany();
+	goods.setCompany(company);
+	LOGGER.info("goods object created successful!");
 
-	    ObjectMapper mapper = new ObjectMapper();
-	    Goods goods = mapper.readValue(goodsJson, Goods.class);
-
-//	    goodsRepository.save(goods);
-
-//	    LOGGER.info("goods saved successful!");
-	} catch (IOException e) {
-	    LOGGER.error(e.getMessage());
-	}
+	goodsRepository.save(goods);
+	LOGGER.info("goods saved successful!");
     }
 }

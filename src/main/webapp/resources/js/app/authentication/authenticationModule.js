@@ -5,7 +5,6 @@
 
 var authenticationModule = angular.module('flowertyApplication.authenticationModule', ['ngRoute']);
 
-
 authenticationModule.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
         .when('/login', {
