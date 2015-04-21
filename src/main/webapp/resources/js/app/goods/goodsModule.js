@@ -118,8 +118,8 @@ goodsModule.directive("flowertyPicturePick", function() {
 });
 
 goodsModule.service("goodsProcessService", ["$http", function($http) {
-	this.addGoods = function(goods, picture, login){
-		console.log("add new goods: " + goods + " picture: " + picture.name);//LOG
+	this.addGoods = function(notification, goods, picture, login){
+		console.log("add new goods: " + JSON.stringify(goods) + " picture: " + picture.name);//LOG
 		var formData = new FormData();
 		formData.append("goods", angular.toJson(goods));
 		formData.append("picture", picture);
@@ -130,8 +130,12 @@ goodsModule.service("goodsProcessService", ["$http", function($http) {
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
 			console.log("goods added success");//LOG
+			notification.message = "Goods added success!";
+			notification.type = "success";
 		}).error(function(data, status, headers, config) {
 			console.log("goods added error: " + JSON.stringify(data));//LOG
+			notification.message = "Error occured during  creating goods.";
+			notification.type = "danger";
 		});
 	}
 }]);
@@ -148,8 +152,16 @@ goodsModule.controller("GoodsAddController", ["$scope", "$http", "$location", "g
 			actions: [],
 			picture: {}
 	};
+	
+	$scope.notification = {
+			status: "hide",
+			message: "",
+			type: ""
+	};
+	
 	$scope.bundle.actions.add = function(){
-		goodsProcessService.addGoods($scope.bundle.goods, $scope.bundle.picture, $scope.$parent.current.user.name)
+		goodsProcessService.addGoods($scope.notification, $scope.bundle.goods, $scope.bundle.picture, $scope.$parent.current.user.name);
+		$scope.notification.status = "show"; 
 	}
 	$scope.$on("picturePicked", function(event, args){
 		console.log("picture picked event: " + args.picture.name);//LOG

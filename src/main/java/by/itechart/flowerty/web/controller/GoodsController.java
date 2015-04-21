@@ -44,7 +44,7 @@ public class GoodsController {
     public void add(@RequestParam("goods") String goodsJson,
 	    @RequestPart(value = "picture") MultipartFile goodsPicture, @RequestParam("login") String login)
 	    throws IOException {
-	LOGGER.info("add new goods. json: {}, picture name: {}", goodsJson, goodsPicture.getOriginalFilename());
+	LOGGER.info("add new goods. json: {}, picture name: {}, login: {}", goodsJson, goodsPicture.getOriginalFilename(), login);
 
 	// TODO: need field in db
 	FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
