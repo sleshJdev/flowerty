@@ -1,11 +1,9 @@
 package by.itechart.flowerty.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 import by.itechart.flowerty.local.settings.Settings;
 
@@ -15,18 +13,20 @@ import by.itechart.flowerty.local.settings.Settings;
  *         configure local components
  */
 @Configuration
-@PropertySource(value={"classpath:/local.properties"})
 @ComponentScan(basePackages = { "by.itechart.flowerty.local" })
 public class LocalConfiguration {
-    @Autowired
-    private Environment environment;
-
+    @Value("${path.picture}")
+    private String picturePath;
+    
+    @Value("${path.attachment}")
+    private String attachmentPath;
+    
     @Bean
     public Settings getSettings() {
 	Settings settings = new Settings();
-	settings.setPicturesPath(environment.getProperty("path.picture"));
-	settings.setAttachmentsPath(environment.getProperty("path.attachment"));
-
+	settings.setPicturesPath(picturePath);
+	settings.setAttachmentsPath(attachmentPath);
+	
 	return settings;
     }
 }

@@ -319,11 +319,6 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 .controller("SendEmailController", ["$scope", "$http", "$location", "transportService", 
                                     function($scope, $http, $location, transportService){
 	
-	$scope.test = {
-			value: "hello!"
-	};
-	
-	
 	$scope.bundle = {
 			actions: [],
 			email:{
