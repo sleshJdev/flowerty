@@ -57,7 +57,6 @@ authenticationModule.factory('sessionService', function ($http) {
             .success(function () {
                 $scope.current.isLogged = false;
                 $scope.current.user = {};
-                $location.path("/");
             });
     };
     session.setLoggedUser = function ($scope) {

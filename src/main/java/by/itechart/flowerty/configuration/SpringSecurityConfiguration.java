@@ -71,7 +71,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureHandler(authFailure)
             .and()
                 .logout()
-                .logoutSuccessUrl("/login?logout")
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
