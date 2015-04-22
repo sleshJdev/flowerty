@@ -6,6 +6,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,22 +45,26 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping(value = "goods/add", method = RequestMethod.POST)
-    public void add(@RequestParam("goods") String goodsJson,
-	    @RequestPart(value = "picture") MultipartFile goodsPicture, @RequestParam("login") String login)
+    public void add(@RequestParam("goods") String goodsJson, @RequestPart(value = "picture") MultipartFile goodsPicture)
 	    throws IOException {
-	LOGGER.info("add new goods. json: {}, picture name: {}, login: {}", goodsJson, goodsPicture.getOriginalFilename(), login);
 
-	// TODO: need field in db
-	FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
-	LOGGER.info("goods picture saved successful!");
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+	    String login = userDetails.getUsername();
 
-	ObjectMapper mapper = new ObjectMapper();
-	Goods goods = mapper.readValue(goodsJson, Goods.class);
-	Company company = userRepository.findUserByLogin(login).getContact().getCompany();
-	goods.setCompany(company);
-	LOGGER.info("goods object created successful!");
+	    LOGGER.info("add new goods. json: {}, picture name: {}, login: {}", goodsJson,
+		    goodsPicture.getOriginalFilename(), login);
 
-	goodsRepository.save(goods);
-	LOGGER.info("goods saved successful!");
+	    // TODO: need field in db
+	    FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
+
+	    ObjectMapper mapper = new ObjectMapper();
+	    Goods goods = mapper.readValue(goodsJson, Goods.class);
+	    Company company = userRepository.findUserByLogin(login).getContact().getCompany();
+	    goods.setCompany(company);
+
+	    goodsRepository.save(goods);
+	}
     }
 }

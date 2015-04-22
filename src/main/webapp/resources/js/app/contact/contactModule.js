@@ -235,7 +235,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
  * he will be pass emails of contacts.
  */
 .service("transportService", function() {
-	var value = "";
+	var value = [];
 	return {
 		getValue: function(){
 			return value;
@@ -316,28 +316,30 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	};
 }])
 
-.controller("SendEmailController", ["$scope", "$http", "$location", "transportService", 
-                                    function($scope, $http, $location, transportService){
-	
+.controller("SendEmailController", ["$scope", "$http", "$location", "transportService",
+                                    function($scope, $http, $location, transportService) {
 	$scope.bundle = {
 			actions: [],
 			email:{
-				to: transportService.getValue(),//for test: studentbntu@mail.ru is valid
-				subject: "test",
-				text: "text blob"
+				to: [],
+				subject: "you subject",
+				text: ""
 			},
-			// hardcode
-			//TODO: add StringTemplate
-			templates:[{
-				name: "plain",
-				value: "plain template"
-			},{
-				name: "congratulation",
-				value: "congratulation template"
-			}],
+			templates: [],
 			template: {},
 			files: []
 	};
+	
+	$http({
+		method: "get",
+		url: "email/templates",
+	}).success(function(data, status, headers, config) {
+		$scope.bundle.templates = data;
+	}).error(function(data, status, headers, config) {
+		console.log("error occured during fetch email templates: " + JSON.stringify(data));//LOG
+	});
+	
+	$scope.bundle.email.to = transportService.getValue();//for test: studentbntu@mail.ru is valid
 	$scope.bundle.template = $scope.bundle.templates[0];
 	
 	$scope.$on("fileSelected", function (event, args) {
@@ -353,6 +355,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 		var formData = new FormData();
 		formData.append("email", angular.toJson($scope.bundle.email));
+		formData.append("template", angular.toJson($scope.bundle.template));
 		for (var i = 0; i < $scope.bundle.files.length; i++) {
 			formData.append("file", $scope.bundle.files[i]);
 		}
@@ -360,10 +363,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		$http.post("email/send", formData, {
 			headers: {'Content-Type': undefined },
 			transformRequest: angular.identity
-		}). success(function (data, status, headers, config) {
+		}).success(function (data, status, headers, config) {
 			console.log("send email success!");
 			$location.path("send-email");
-		}). error(function (data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			alert("send email failed!");
 		});
 	};
@@ -399,20 +402,20 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	 * grab emails of selected contact and pass they to SendEmailController
 	 */
 	$scope.contacts.goToEmailSend = function(){
-		var emails = [];
+		var receivers = [];
 		for(var i = 0; i < $scope.contacts.list.length; ++i){
 			var contact = $scope.contacts.list[i];
 			if(contact.id < 0){
-				emails.push(contact.email);
+				receivers.push(contact);
 			}
 		}
-
-		transportService.setValue(emails);
+		
+		transportService.setValue(receivers);
 		$location.path("send-email");//redirect to email form
 	}
 
 	/*
-	 * remove spicific contact(s)
+	 * remove specific contact(s)
 	 */
 	$scope.contacts.deleteContact = function(){
 		console.log("delete contact");

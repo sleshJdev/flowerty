@@ -34,7 +34,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	private static final String RESOURCES_LOCATION = "/resources/";
 	private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
-	private String PICTURE_HANDLER = "/picture/**";
+	private static final String PICTURE_HANDLER = "/picture/**";
 	
 	@Bean
 	public CommonsMultipartResolver multipartResolver(){
