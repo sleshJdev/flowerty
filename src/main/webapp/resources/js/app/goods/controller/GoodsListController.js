@@ -5,14 +5,13 @@
 
 angular.module("flowertyApplication.goodsModule").controller("GoodsListController", ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
 
-    $scope.basket = [];
     $scope.goods = {};
     $scope.goods.goodsArray = [
         [
             {
                 imageName : 'flowers-iris.jpg',
                 flower : { name : 'Iris' },
-                cost : '13 $',
+                cost : 13,
                 //  This is the count of items you want to order
                 //  Default is 1
                 count : 1,
@@ -21,7 +20,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
             {
                 imageName : 'orchid_rose.jpg',
                 flower : { name : 'Buquet orchid+rose' },
-                cost : '50 $',
+                cost : 50,
                 //  This is the count of items you want to order
                 //  Default is 1
                 count : 1,
@@ -30,7 +29,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
             {
                 imageName : 'bush-rose.jpg',
                 flower : { name : 'Bush rose' },
-                cost : '17 $',
+                cost : 17,
                 //  This is the count of items you want to order
                 //  Default is 1
                 count : 1,
@@ -41,7 +40,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
             {
                 imageName : 'violet-pion.jpg',
                 flower : { name : 'Pion' },
-                cost : '20 $',
+                cost : 20,
                 //  This is the count of items you want to order
                 //  Default is 1
                 count : 1,
@@ -50,7 +49,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
             {
                 imageName : 'coral-pion.jpg',
                 flower : { name : 'Coral pion' },
-                cost : '20 $',
+                cost : 20,
                 //  This is the count of items you want to order
                 //  Default is 1
                 count : 1,
@@ -61,27 +60,40 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
 
     $scope.goods.makeOrder = function(goodsItem){
         goodsItem.ordered = true;
-        $scope.basket.push(goodsItem);
+        $scope.current.basket.goods.push(goodsItem);
+        $scope.current.basket.info.itemsCount += goodsItem.count;
+        $scope.current.basket.info.fullCost += goodsItem.cost * goodsItem.count;
     };
 
     $scope.goods.removeFromOrder = function(goodsItem) {
-        var index = $scope.basket.indexOf(goodsItem);
+        var index = $scope.current.basket.goods.indexOf(goodsItem);
         if (index !== -1) {
-            $scope.basket.splice(index, 1);
+            $scope.current.basket.goods.splice(index, 1);
             goodsItem.ordered = false;
+            $scope.current.basket.info.itemsCount -= goodsItem.count;
+            $scope.current.basket.info.fullCost -= goodsItem.cost * goodsItem.count;
+            goodsItem.count = 1;
         }
     };
 
     $scope.goods.less = function(goodsItem){
         if(goodsItem.count > 1) {
             goodsItem.count--;
+            var index = $scope.current.basket.goods.indexOf(goodsItem);
+            if (index !== -1) {
+                $scope.current.basket.info.itemsCount--;
+                $scope.current.basket.info.fullCost -= goodsItem.cost;
+            }
         }
 
     };
 
     $scope.goods.more = function(goodsItem){
         goodsItem.count++;
+        var index = $scope.current.basket.goods.indexOf(goodsItem);
+        if (index !== -1) {
+            $scope.current.basket.info.itemsCount++;
+            $scope.current.basket.info.fullCost += goodsItem.cost;
+        }
     };
-
-
 }]);

@@ -13,6 +13,14 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
         errorLogin: false
     };
 
+    $scope.current.basket = {
+        info : {
+            itemsCount : 0,
+            fullCost: 0
+        },
+        goods : []
+    };
+
     $scope.current.logOut = function () {
 
         // Logout logic here
