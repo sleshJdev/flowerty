@@ -131,12 +131,5 @@ a:hover{
     right:0;
     left:auto;
     margin: 50px 0 0 20px;
-}
-
-.order-info{
-    position: fixed;
-    top: 0;
-    right:0;
-    left:auto;
-    margin: 50px 0 0 20px;
+    z-index: 1000;
 }

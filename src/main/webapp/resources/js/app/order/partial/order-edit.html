@@ -67,10 +67,10 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group form-group-lg">
             <label for="full-cost" class="col-sm-2 control-label">Full cost:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="full-cost" placeholder="full-cost" data-ng-model="order.cost"/>
+                <p id="full-cost" class="form-control-static">{{order.cost | currency}}</p>
             </div>
         </div>
         <div class="form-group">
