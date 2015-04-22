@@ -16,4 +16,4 @@ angular.module("flowertyApplication.contactModule").service("deleteService", fun
             }
         }while(!isBreak);
     }
-})
+});

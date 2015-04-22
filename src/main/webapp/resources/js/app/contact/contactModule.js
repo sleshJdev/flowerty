@@ -22,7 +22,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		SEARCH_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
 		EDIT_PHONE		: CONTACT_MODULE_PATH + "partial/phone-form.html",
 		PHONES			: CONTACT_MODULE_PATH + "partial/phone-list-form.html",
+		
+		DATA_PICKER_BOX : CONTACT_MODULE_PATH + "partial/date-picker-box.html",
 		DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
+		
 		SEND_EMAIL		: CONTACT_MODULE_PATH + "partial/send-email-form.html",
 
 		PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
@@ -56,21 +59,21 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 	}
 })())
 
-.config(["$routeProvider", "CONSTANTS", function($routeProvider, CONSTANTS) {
+.config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
 	$routeProvider
-	.when("/contacts", {
+	.when("/contact-list", {
 		templateUrl: CONSTANTS.CONTACTS,
 		controller: "ContactListController"
 	})
-	.when("/edit-contact/:id", {
+	.when("/contact-edit/:id", {
 		templateUrl: CONSTANTS.EDIT_CONTACT,
 		controller: "EditContactController"
 	})
-	.when("/add-contact", {
+	.when("/contact-add", {
 		templateUrl: CONSTANTS.ADD_CONTACT,
 		controller: "AddContactController"
 	})
-	.when("/search-contact", {
+	.when("/contact-search", {
 		templateUrl: CONSTANTS.SEARCH_CONTACT,
 		controller: "SearchContactController"
 	})

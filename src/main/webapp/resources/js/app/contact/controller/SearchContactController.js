@@ -7,6 +7,7 @@ angular.module("flowertyApplication.contactModule").controller("SearchContactCon
         $scope.bundle.contact = {};
         $scope.bundle.contact.phones = [];
         $scope.bundle.processType.action = function(contact){
+            processDate($scope.bundle.date)
             $http({
                 method: "post",
                 url: "contact/search",
@@ -36,7 +37,7 @@ angular.module("flowertyApplication.contactModule").controller("SearchContactCon
          * if part of the date is not used, we will replace it by a '?'.
          * this says that this part is unnecessary to search.
          */
-        $scope.bundle.dateListener = function(date){
+        function processDate(date){
             $scope.bundle.contact.birthday =
                 (!!date.year.isUse ? date.year.value : "?") + "-" +
                 (!!date.month.isUse ? date.month.value : "?") + "-" +

@@ -3,11 +3,6 @@
 angular.module("flowertyApplication.contactModule").controller("SendEmailController", ["$scope", "$http", "$location", "transportService",
     function($scope, $http, $location, transportService){
 
-        $scope.test = {
-            value: "hello!"
-        };
-
-
         $scope.bundle = {
             actions: [],
             email:{
@@ -68,7 +63,7 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
         };
 
         $scope.bundle.actions.addNewEmail = function(event){
-            if(event.which === 13) {
+            if(event.which === 13) {//code of enter button
                 $scope.bundle.email.to.push($scope.bundle.newEmail);
                 $scope.bundle.newEmail = "";
                 console.log("add new email: " + $scope.bundle.newEmail + ", current quantity: " + $scope.bundle.email.to.length);

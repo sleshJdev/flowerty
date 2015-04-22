@@ -11,7 +11,8 @@ goodsModule.constant("GOODS_MODULE_CONSTANTS", (function(){
     var GOODS_MODULE_PATH = "resources/js/app/goods/";
 
     return {
-        GOODS_LIST_FORM: GOODS_MODULE_PATH + "partial/goods-list.html"
+        GOODS_LIST_FORM: GOODS_MODULE_PATH + "partial/goods-list.html",
+        ADD_GOODS:	GOODS_MODULE_PATH + "partial/goods-form.html"
     }
 })());
 
@@ -20,5 +21,13 @@ goodsModule.config(["$routeProvider", 'GOODS_MODULE_CONSTANTS', function($routeP
         .when("/goods", {
             templateUrl: GOODS_MODULE_CONSTANTS.GOODS_LIST_FORM,
             controller: "GoodsListController"
+        })
+        .when("/goods-add",{
+        	templateUrl: GOODS_MODULE_CONSTANTS.ADD_GOODS,
+        	controller: "GoodsAddController"
         });
 }]);
+
+
+
+

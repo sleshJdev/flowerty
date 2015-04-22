@@ -30,7 +30,7 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
             }).error(function(data, status, headers, config) {
                 console.log("save contact error: " + JSON.stringify(data))//REMOVE_COMMENT
             });
-        };
+        }
 
         /*
          * delete phone. remove all phone at which id < 0
@@ -72,4 +72,3 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
             }
         };
     }]);
-

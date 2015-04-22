@@ -7,4 +7,4 @@ angular.module("flowertyApplication.contactModule").controller("AddContactContro
         $scope.bundle.processType.action = $scope.bundle.actions.saveContact;
         $scope.bundle.contact = {};
         $scope.bundle.contact.phones = [];
-    }]);
+    }])

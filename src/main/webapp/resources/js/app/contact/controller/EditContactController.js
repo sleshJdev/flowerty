@@ -12,6 +12,6 @@ angular.module("flowertyApplication.contactModule").controller("EditContactContr
         }).success(function(data, status, headers, config) {
             $scope.bundle.contact = data;
         }).error(function(data, status, headers, config) {
+            console.log("error contact details: " + JSON.stringify(data));
         });
     }]);
-

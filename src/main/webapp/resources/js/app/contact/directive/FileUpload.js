@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module("flowertyApplication.contactModule").directive('fileUpload', function () {
+angular.module("flowertyApplication.contactModule").directive('flowertyFileUpload', function () {
     return {
         scope: true,        //create a new scope
         link: function (scope, el, attrs) {
@@ -12,5 +12,4 @@ angular.module("flowertyApplication.contactModule").directive('fileUpload', func
             });
         }
     };
-})
-
+});

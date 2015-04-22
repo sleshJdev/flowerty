@@ -5,7 +5,7 @@
  * he will be pass emails of contacts.
  */
 angular.module("flowertyApplication.contactModule").service("transportService", function() {
-    var value = "empty";
+    var value = "";
     return {
         getValue: function(){
             return value;
@@ -14,4 +14,4 @@ angular.module("flowertyApplication.contactModule").service("transportService", 
             value = newValue;
         }
     };
-});
+})

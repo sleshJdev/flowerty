@@ -3,7 +3,6 @@
     <head>
         <title>Welcome!</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <base href="/">
         <!-- styles -->
         <link rel="shortcut icon" href="../../../resources/images/favicon.ico"/>
         <link href="../../../resources/css/bootstrap/bootstrap.min.css"  type="text/css" rel="stylesheet" media="all" />
@@ -26,13 +25,13 @@
         </div>
         <div data-ng-include="templates.footer.url"></div>
 
-        <!-- external -->
+            <!-- external -->
         <script src="../../../resources/js/external/jquery-2.1.3.min.js"></script>
         <script src="../../../resources/js/external/bootstrap.min.js"></script>
         <script src="../../../resources/js/external/bootstrap-datepicker.js"></script>
         <script src="../../../resources/js/external/angular.js"></script>
         <script src="../../../resources/js/external/angular-route.js"></script>
-        <!-- app -->
+            <!-- app modules -->
         <script src="../../../resources/js/app/flowertyApplication.js" ></script>
         <script src="../../../resources/js/app/authentication/authenticationModule.js" ></script>
         <script src="../../../resources/js/app/user/userModule.js" ></script>
@@ -41,7 +40,7 @@
         <script src="../../../resources/js/app/contact/contactModule.js"></script>
         <script src="../../../resources/js/app/goods/goodsModule.js"></script>
         <script src="../../../resources/js/app/order/orderModule.js"></script>
-        <!-- controllers -->
+            <!-- controllers -->
         <script src="../../../resources/js/app/main/controller/ViewController.js" ></script>
         <script src="../../../resources/js/app/main/controller/MainController.js" ></script>
             <!-- for user -->
@@ -51,6 +50,9 @@
         <script src="../../../resources/js/app/user/controller/UsersController.js" ></script>
             <!-- goods -->
         <script src="../../../resources/js/app/goods/controller/GoodsListController.js" ></script>
+        <script src="../../../resources/js/app/goods/controller/GoodsAddController.js" ></script>
+        <script src="../../../resources/js/app/goods/service/GoodsProcessService.js" ></script>
+        <script src="../../../resources/js/app/goods/directive/FlowertyPicturePick.js" ></script>
             <!-- error -->
         <script src="../../../resources/js/app/error/service/ErrorHandler.js" ></script>
         <script src="../../../resources/js/app/error/service/TransportShareErrorData.js" ></script>
