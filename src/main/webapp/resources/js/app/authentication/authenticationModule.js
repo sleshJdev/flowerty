@@ -34,33 +34,40 @@ authenticationModule.factory('sessionService', function ($http) {
         //    }, {
         //        headers: {'Content-Type': 'application/json'}
         //
+
         return $http.post(
             "login",
-            "username=" + $scope.user.login +
-            "&password=" + $scope.user.password +
+            "username=" + $scope.current.user.username +
+            "&password=" + $scope.current.user.password +
             "&_spring_security_remember_me=" + !!$scope.rememberMe, {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-
-            }).then(function (data) {
+            })
+            .then(function (data) {
+                $scope.current.user.password = undefined;
                 session.setLoggedUser($scope);
                 $location.path("/");
             }, function (data) {
                 $scope.current.isLogged = false;
-                $scope.current.user = {};
+                $scope.current.user.password = undefined;
                 $scope.current.errorLogin = true;
             });
     };
-    session.logout = function () {
-        //localStorage.removeItem("session");
+    session.logout = function ($scope, $location) {
+        $http.post('logout', {})
+            .success(function () {
+                $scope.current.isLogged = false;
+                $scope.current.user = {};
+                $location.path("/");
+            });
     };
     session.setLoggedUser = function ($scope) {
         $http({
             method: "get",
             url: "login"
-        }).success(function(data, status, headers, config) {
+        }).success(function (data, status, headers, config) {
             if (data) {
                 $scope.current.isLogged = true;
-                $scope.current.user.name = data.username;
+                $scope.current.user.username = data.username;
                 $scope.current.user.role = data.authorities[0].authority;
                 $scope.current.errorLogin = false;
             }
@@ -74,8 +81,17 @@ authenticationModule.factory('sessionService', function ($http) {
  */
 
 authenticationModule.controller('LogInController', function ($scope, $http, $location, sessionService) {
+    if ($scope.current.isLogged) {
+        $location.path("/");
+        return;
+    }
     $scope.logIn = function () {
-        sessionService.login($scope, $location);
+        if ($scope.current.user.username && $scope.current.user.password) {
+            sessionService.login($scope, $location);
+        } else {
+            $scope.current.user.password = undefined;
+            $scope.current.errorLogin = true;
+        }
     };
 });
 

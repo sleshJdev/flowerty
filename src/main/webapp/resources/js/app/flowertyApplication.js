@@ -65,22 +65,7 @@ app.controller('MainController', function ($scope, $http, $location, sessionServ
     };
 
     $scope.current.logOut = function () {
-
-        // Logout logic here
-
-        sessionService.logout();
-
-        $http.post('logout', {})
-            .success(function () {
-                $scope.current.isLogged = false;
-                $scope.user = {};
-                $location.path("/");
-            })
-            .error(function (data) {
-                $scope.current.isLogged = false;
-                $scope.user = {};
-                $location.path("/");
-            });
+        sessionService.logout($scope, $location);
     };
 
     $scope.pagination = {

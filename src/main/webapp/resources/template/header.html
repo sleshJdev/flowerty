@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href=""><img class="navbar-brand" src="resources/images/logo-default.png"/></a>
+        <a href="#/"><img class="navbar-brand" src="resources/images/logo-default.png"/></a>
     </div>
     <div class="navbar-collapse collapse">
         <div class="nav navbar-nav navbar-left">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="nav navbar-nav navbar-right navbar-text  navigation-group">
-            <a href="#" id="logged-user" class="active navigation-group-item" data-ng-show="current.isLogged">Hi, <strong>{{current.user.name}}!</strong> Your role is <strong>{{current.user.role | flowerSplit:'_':' '}}</strong></a>
+            <a href="#" id="logged-user" class="active navigation-group-item" data-ng-show="current.isLogged">Hi, <strong>{{current.user.username}}!</strong> Your role is <strong>{{current.user.role | flowerSplit:'_':' '}}</strong></a>
             <a href="#" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-cog"></span></a>
             <a href="#" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-user"></span></a>
             <a href="#/login" class="navbar-link navigation-group-item" data-ng-show="!current.isLogged"><span class="glyphicon glyphicon-log-in"> Login</span></a>
