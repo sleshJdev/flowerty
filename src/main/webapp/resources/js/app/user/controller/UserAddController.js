@@ -15,25 +15,16 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
         }
     };
 
-    $scope.dynamicSearch = {
-        enteredSurname : '',
-        offerContacts : function(entered) {
-            $scope.dynamicSearch.offeredContacts = $filter('bySurname')([], entered);
-            $scope.bundle.user.contact = $scope.dynamicSearch.offeredContacts[0];
-        },
-        showResults : function(){
-            return $scope.dynamicSearch.offeredContacts && $scope.dynamicSearch.offeredContacts.length > 0;
-        },
-        selectContact : function(){
-            //  Setting empty array hides select element
-            $scope.dynamicSearch.offeredContacts = [];
-            var contact = $scope.bundle.user.contact;
-            $scope.dynamicSearch.enteredSurname = contact.name + ' ' + contact.fathername + ' ' + contact.surname;
+    $scope.search = {
+        user : {
+            enteredSurname : '',
+            show : false,
+            selected : {}
         }
     };
 
-
     $scope.save = function() {
+        $scope.bundle.user.contact = $scope.search.selected;
         $http({
             method: "post",
             url: "user/add",

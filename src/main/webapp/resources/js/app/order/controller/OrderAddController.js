@@ -35,23 +35,6 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         deliveryManagers : []
     };
 
-    $scope.dynamicSearch = {
-        offerContacts : function(model) {
-            $scope.dynamicSearch.offeredContacts = $filter('bySurname')([], model.enteredSurname);
-            model.selected = $scope.dynamicSearch.offeredContacts[0];
-            model.show = $scope.dynamicSearch.showResults();
-        },
-        showResults : function(){
-            return $scope.dynamicSearch.offeredContacts && $scope.dynamicSearch.offeredContacts.length > 0;
-        },
-        selectContact : function(model){
-            //  Setting empty array hides select element
-            $scope.dynamicSearch.offeredContacts = [];
-            model.enteredSurname = model.selected.name + ' ' + model.selected.fathername + ' ' + model.selected.surname;
-            model.show = false;
-        }
-    };
-
     $scope.order.checkout = function(){
         //  TODO: checkout logic
         console.log('Checkout: ' + JSON.stringify($scope.order));
