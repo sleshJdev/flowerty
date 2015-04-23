@@ -54,7 +54,6 @@ public class Contact {
     }
 
     @Column(name = "NAME", length = 20, nullable = true)
-    @Field("NAME")
     @NotNull
     @Size(max = 20)
     public String getName() {
@@ -62,13 +61,12 @@ public class Contact {
     }
 
     @Column(name = "SURNAME", length = 20, nullable = true)
-    @Field("SURNAME")
     @NotNull
     @Size(max = 20)
     public String getSurname() {
 	return surname;
     }
-    @Field("FATHERNAME")
+
     @Column(name = "FATHERNAME", length = 20, nullable = true)
     @Size(max = 20)
     public String getFathername() {

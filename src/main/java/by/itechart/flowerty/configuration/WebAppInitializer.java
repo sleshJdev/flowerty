@@ -20,8 +20,8 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	
     @Override
     protected Class<?>[] getRootConfigClasses() {
-	return new Class<?>[] { MailConfiguration.class, ApplicationConfiguration.class, JpaConfiguration.class,
-		SpringSecurityConfiguration.class, SearchContext.class };
+	return new Class<?>[] { ApplicationConfiguration.class, MailConfiguration.class, JpaConfiguration.class,
+		SpringSecurityConfiguration.class, SearchContext.class, LocalConfiguration.class };
     }
 
     @Override
@@ -36,6 +36,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	characterEncodingFilter.setForceEncoding(true);
 
 	DelegatingFilterProxy securityFilterChain = new DelegatingFilterProxy("springSecurityFilterChain");
+	
 
 	return new Filter[] { characterEncodingFilter, securityFilterChain };
     }

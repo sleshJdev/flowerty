@@ -28,6 +28,7 @@ import by.itechart.flowerty.web.service.ContactService;
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
  *
+ *	handler of actions contact 	
  */
 @Controller
 public class ContactController {

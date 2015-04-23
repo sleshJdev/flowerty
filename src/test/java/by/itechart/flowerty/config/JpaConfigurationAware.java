@@ -14,7 +14,6 @@ import by.itechart.flowerty.configuration.JpaConfiguration;
  *         Configuration for testing Jpa repositories
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
 @ContextConfiguration(classes = { 
 	ApplicationConfiguration.class,
 	JpaConfiguration.class })

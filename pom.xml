@@ -32,6 +32,14 @@
 		</dependency>
 
 
+		<!-- StringTemplate -->
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>ST4</artifactId>
+			<version>4.0.7</version>
+		</dependency>
+
+
 		<!-- To map JodaTime with database type -->
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>

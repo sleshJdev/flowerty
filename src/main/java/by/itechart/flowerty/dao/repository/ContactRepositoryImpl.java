@@ -1,17 +1,13 @@
 package by.itechart.flowerty.dao.repository;
 
 import by.itechart.flowerty.model.Contact;
-//import by.itechart.flowerty.model.QContact;
-import by.itechart.flowerty.model.QContact;
 import com.mysema.query.jpa.impl.JPAQuery;
 import org.hibernate.jpa.criteria.CriteriaDeleteImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.NoRepositoryBean;
-//import com.mysema.query.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-//import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;

@@ -2,16 +2,18 @@
 	<div class="col-md-12">
 		<div class="well well-sm">
 			<fieldset class="form-horizontal" form="send-email-form">
-				<legend class="text-center header">Send email</legend>
+				<legend class="text-center">Send email</legend>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">To</label>
 					<div class="col-md-8">
-						<input id="fname" 
-									data-ng-model="bundle.newEmail" 
-									data-ng-keyup="bundle.actions.addNewEmail($event);" 
-									placeholder="Type new email to send here and press enter." class="form-control">
+						<!-- TODO: need think -->
+<!-- 						<input id="fname"  -->
+<!-- 									data-ng-model="bundle.newEmail"  -->
+<!-- 									data-ng-keyup="bundle.actions.addNewEmail($event);"  -->
+<!-- 									placeholder="Type new email to send here and press enter." class="form-control"> -->
+						
 						<ul class="list-inline">
-							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeEmail($index)"></span> </li>
+							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to.email}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeEmail($index)"></span> </li>
 						</ul>
 					</div>
 				</div>
@@ -32,7 +34,7 @@
 					<div class="col-md-8 row">
 				    	<div class="col-md-2">
 							<!-- TODO: add directive for this -->
-				    		<input id="selected-file" type="file" data-ng-hide="true" data-flowerty-file-upload multiple/><!-- file-upload is custom direction -->
+				    		<input id="selected-file" type="file" data-ng-hide="true" data-flowerty-file-upload multiple/><!-- file-upload is custom directive -->
 							<input class="btn" type="button" onclick="$('#selected-file').trigger('click');" value="Browse..." />
 				    	</div>
 			    		<ul class="list-inline list-group">

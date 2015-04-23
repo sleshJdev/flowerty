@@ -6,7 +6,6 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -28,8 +27,6 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class)
-@EnableSolrRepositories(basePackageClasses = Application.class)//, multicoreSupport = true)//(basePackageClasses = Application.class)
-@PropertySource(value = { "classpath:persistence.properties" })
 public class JpaConfiguration implements TransactionManagementConfigurer {
 	@Value("${dataSource.driverClassName}")
 	private String driver;

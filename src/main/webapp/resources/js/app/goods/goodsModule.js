@@ -6,11 +6,25 @@
 
 var goodsModule = angular.module("flowertyApplication.goodsModule", ['ngRoute']);
 
-goodsModule.config(["$routeProvider", function($routeProvider) {
+goodsModule.constant("GOODS_CONSTANTS", (function(){
+	var GOODS_MODULE_PATH = "resources/js/app/goods/";
+		
+	return {
+		GOODS: 		GOODS_MODULE_PATH + "partial/goods-list.html",
+		ADD_GOODS:	GOODS_MODULE_PATH + "partial/goods-form.html"
+	}
+})());
+
+goodsModule.config(["$routeProvider", "GOODS_CONSTANTS", 
+                    function($routeProvider, GOODS_CONSTANTS) {
     $routeProvider
         .when("/goods", {
-            templateUrl: GOODS_MODULE_PATH + "partial/goods-list.html",
+            templateUrl: GOODS_CONSTANTS.GOODS,
             controller: "GoodsListController"
+        })
+        .when("/goods-add",{
+        	templateUrl: GOODS_CONSTANTS.ADD_GOODS,
+        	controller: "GoodsAddController"
         });
 }]);
 
@@ -86,4 +100,70 @@ goodsModule.controller("GoodsListController", ['$scope', '$http', '$location', '
     };
 
 
+}]);
+
+goodsModule.directive("flowertyPicturePick", function() {
+	return {
+		scope: true,
+		restrict: "A",
+		link: function(scope, element, attributes){
+			element.bind("change", function(event){
+				var files = event.target.files;
+				for(var i = 0; i < files.length; ++i){
+					scope.$emit("picturePicked", { picture: files[i] });
+				};
+			});
+		}
+	};
+});
+
+goodsModule.service("goodsProcessService", ["$http", function($http) {
+	this.addGoods = function(notification, goods, picture){
+		console.log("add new goods: " + JSON.stringify(goods) + " picture: " + picture.name);//LOG
+		var formData = new FormData();
+		formData.append("goods", angular.toJson(goods));
+		formData.append("picture", picture);
+		
+		$http.post("goods/add", formData,{
+			headers: {'Content-Type': undefined },
+			transformRequest: angular.identity
+		}).success(function(data, status, headers, config) {
+			console.log("goods added success");//LOG
+			notification.message = "Goods added success!";
+			notification.type = "success";
+		}).error(function(data, status, headers, config) {
+			console.log("goods added error: " + JSON.stringify(data));//LOG
+			notification.message = "Error occured during  creating goods.";
+			notification.type = "danger";
+		});
+	}
+}]);
+
+goodsModule.controller("GoodsAddController", ["$scope", "$http", "$location", "goodsProcessService", 
+                                              function($scope, $http, $location, goodsProcessService) {
+	$scope.bundle = {
+			goods: {
+//				cost: 
+				flower: {},
+				company: {}
+//				remain:
+			},
+			actions: [],
+			picture: {}
+	};
+	
+	$scope.notification = {
+			status: "hide",
+			message: "",
+			type: ""
+	};
+	
+	$scope.bundle.actions.add = function(){
+		goodsProcessService.addGoods($scope.notification, $scope.bundle.goods, $scope.bundle.picture);
+		$scope.notification.status = "show"; 
+	};
+	$scope.$on("picturePicked", function(event, args){
+		console.log("picture picked event: " + args.picture.name);//LOG
+		$scope.bundle.picture = args.picture;
+	});
 }]);
