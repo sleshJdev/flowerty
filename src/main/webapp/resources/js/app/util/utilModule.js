@@ -31,7 +31,7 @@ angular.module("flowertyApplication.utilModule", [])
 
 
 /*
- * Create array of numbers as objects to iterate with 'in' operator
+ * create array of numbers as objects to iterate with 'in' operator
  */
 .filter('flowerRange', function() {
 	return function(range, total) {
