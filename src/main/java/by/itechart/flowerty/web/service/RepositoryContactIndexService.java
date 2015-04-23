@@ -1,16 +1,16 @@
 //package by.itechart.flowerty.web.service;
 //
-//import by.itechart.flowerty.dao.repository.ContactDocumentRepository;
+//import by.itechart.flowerty.solr.model.ContactDocument;
+//import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 //import by.itechart.flowerty.model.Contact;
-//import by.itechart.flowerty.model.ContactDocument;
 //import org.springframework.stereotype.Service;
 //
 //import javax.annotation.Resource;
 //
 ///**
-// * @author Maria
-// *         Date: 11.04.15
-// */
+//* @author Maria
+//*         Date: 11.04.15
+//*/
 //@Service
 //public class RepositoryContactIndexService  {
 //
@@ -18,9 +18,13 @@
 //    private ContactDocumentRepository repository;
 //
 //    public void addToIndex(Contact contactEntry) {
-//        ContactDocument document = ContactDocument.getBuilder(contactEntry.getId(), contactEntry.getName())
+//      /*  ContactDocument document = ContactDocument.getBuilder(contactEntry.getId(), contactEntry.getName())
 //                .surname(contactEntry.getSurname())
-//                .build();
+//                .country(contactEntry.getAddress().getCountry())
+//                .fathername(contactEntry.getFathername())
+//                .flat(contactEntry.getAddress().getFlat())
+//                .build();         */
+//        ContactDocument document = contactEntry.getContactDocument();
 //
 //        repository.save(document);
 //    }

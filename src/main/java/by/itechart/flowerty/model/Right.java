@@ -28,18 +28,14 @@ public class Right {
     }
 
     public static enum RIGHT_TYPE{
-        CREATE_ORDER,
-        CREATE_CONTACT,
-        EDIT_CONTACT,
-        SEARCH_CONTACT,
-        VIEW_ORDERS_READY,
-        VIEW_ORDERS_ACCEPTED,
-        VIEW_ORDERS_ALL,
-        COMMENT_ORDER,
-        SETTINGS,
-        CREATE_USER,
-        EDIT_USER,
-        DELETE_USER, 
-        ASSIGN_ROLE
+        create_order,
+                contact,
+                comment_order,
+                settings,
+                user,
+                assign_role,
+                orders_ready,
+        orders_accepted,
+                orders_all
     }
 }
