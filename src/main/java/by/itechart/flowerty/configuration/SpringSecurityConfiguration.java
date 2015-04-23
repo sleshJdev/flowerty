@@ -1,8 +1,6 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.dao.repository.RoleRepository;
-import by.itechart.flowerty.model.Right;
-import by.itechart.flowerty.model.Role;
+import by.itechart.flowerty.dao.repository.AccessRepository;
 import by.itechart.flowerty.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,10 +16,6 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Rostislav on 26-Mar-15
@@ -39,7 +33,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private EntryPointUnauthorizedHandler unauthorizedHandler;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private AccessRepository accessRepository;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -53,31 +47,44 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        List<Role> roles = roleRepository.findAll();
-        for (int i = 0; i < roles.size(); ++i) {
-            Set<Right> rights = roles.get(i).getRights();
-            for (Iterator<Right> it = rights.iterator(); it.hasNext(); ) {
-                Right right = it.next();
-                http
-                        .authorizeRequests()
-                        .antMatchers("/" + right.getName() + "/**")
-                        .access("hasRole('ROLE_" + roles.get(i).getName() + "')")
-                ;
-            }
-        }
+//        List<Right> rights = accessRepository.findAll();
+//        for (int i = 0; i < rights.size(); ++i) {
+//            Set<Role> roles = rights.get(i).getRoles();
+//            StringBuilder accessAttributeBuilder = new StringBuilder();
+//            for (Iterator<Role> it = roles.iterator(); it.hasNext(); ) {
+//                Role role = it.next();
+//                accessAttributeBuilder.append("hasRole('ROLE_").append(role.getName()).append("') or ");
+//            }
+//            String accessAttribute = String.valueOf(accessAttributeBuilder);
+//            accessAttribute = StringUtils.removeEnd(accessAttribute, " or ");
+//            if (StringUtils.isEmpty(accessAttribute)) {
+//                continue;
+//            }
+//            http
+//                    .authorizeRequests()
+//                    .antMatchers("/" + rights.get(i).getName() + "/**")
+//                    .access(accessAttribute)
+//            ;
+//        }
 
-//        http
-////                .addFilterBefore(new CustomUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .authorizeRequests()
-//                .antMatchers("/user/**")
-//                .access("hasRole('ROLE_ADMIN')")
-//                ;
-//
+
+        http
+                .authorizeRequests()
+                .antMatchers("/contact/**")
+                .access("hasRole('ROLE_SUPERVISOR') or hasRole('ROLE_ORDERS_MANAGER')")
+                ;
+
+        http
+                .authorizeRequests()
+                .antMatchers("/user/**")
+                .access("hasRole('ROLE_ADMIN')")
+        ;
+
 //        http
 //                .authorizeRequests()
 //                .antMatchers("/contact/**")
-//                .access("hasRole('ROLE_SUPERVISOR')")
-//                ;
+//                .access("hasRole('ROLE_ORDERS_MANAGER')")
+//        ;
 
         http
                 .rememberMe()
