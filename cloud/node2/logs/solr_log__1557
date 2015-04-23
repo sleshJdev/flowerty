@@ -1,0 +1,4 @@
+WARN  - 2015-04-20 12:54:58.929; org.eclipse.jetty.xml.XmlConfiguration$JettyXmlConfiguration; Config error at <Set name="port"><SystemProperty name="jetty.port" default="8983"/></Set>
+WARN  - 2015-04-20 12:54:58.945; org.eclipse.jetty.xml.XmlConfiguration$JettyXmlConfiguration; Config error at <Call name="addConnector"><Arg>
+          <New class="org.eclipse.jetty.server.bio.SocketConnector"><Set name="host"><SystemProperty name="jetty.host"/></Set><Set name="port"><SystemProperty name="jetty.port" default="8983"/></Set><Set name="maxIdleTime">50000</Set><Set name="lowResourceMaxIdleTime">1500</Set><Set name="statsOn">false</Set></New>
+      </Arg></Call>

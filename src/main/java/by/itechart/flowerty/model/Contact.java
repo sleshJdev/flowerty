@@ -1,5 +1,6 @@
 package by.itechart.flowerty.model;
 
+import by.itechart.flowerty.solr.model.ContactDocument;
 import org.apache.solr.client.solrj.beans.Field;
 
 import javax.persistence.*;
@@ -53,7 +54,6 @@ public class Contact {
     }
 
     @Column(name = "NAME", length = 20, nullable = true)
-    @Field("NAME")
     @NotNull
     @Size(max = 20)
     public String getName() {
@@ -61,13 +61,12 @@ public class Contact {
     }
 
     @Column(name = "SURNAME", length = 20, nullable = true)
-    @Field("SURNAME")
     @NotNull
     @Size(max = 20)
     public String getSurname() {
 	return surname;
     }
-    @Field("FATHERNAME")
+
     @Column(name = "FATHERNAME", length = 20, nullable = true)
     @Size(max = 20)
     public String getFathername() {
@@ -151,6 +150,13 @@ public class Contact {
         contactDocument.setSurname(surname);
         return contactDocument;
     }    */
+    @Transient
+    public ContactDocument getContactDocument() {
+        return id == null? new ContactDocument("", name, surname, birthday, email,
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat()) :
+        new ContactDocument(id.toString(), name, surname, birthday, email,
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat());
+    }
     @Override
 	public String toString() {
 		return new StringBuilder()

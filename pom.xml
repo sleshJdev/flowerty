@@ -21,8 +21,7 @@
 		<json-path.version>0.9.1</json-path.version>
 		<junit.version>4.11</junit.version>
 		<io.spring.platform-version>1.1.1.RELEASE</io.spring.platform-version>
-        <solr.solr.home/>
-        <solr.default.core.directory>flowerty</solr.default.core.directory>
+        <querydsl.version>3.4.2</querydsl.version>
 	</properties>
 	<dependencies>
 		<!-- Joda-Time -->
@@ -107,8 +106,6 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-
-
 		<!-- Avoid: javax.validation.ValidationException: HV000183: Unable to load 'javax.el.ExpressionFactory' -->
 		<dependency>
 			<groupId>javax.el</groupId>
@@ -304,6 +301,25 @@
         <artifactId>solr-test-framework</artifactId>
         <version>3.5.0</version>
     </dependency>
+        <!-- QueryDSL -->
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>${querydsl.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+            <version>${querydsl.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
 
     </dependencies>
 	<build>
@@ -375,19 +391,44 @@
                 <username>slesh</username>
                 <password>gtx260</password>
             </configuration>
-            <executions>
-                <execution>
-                    <phase>process-resources</phase>
-                </execution>
-                <!-- <execution> -->
-                <!-- <phase>process-resources</phase> -->
-                <!-- <goals> -->
-                <!-- <goal>update</goal> -->
-                <!-- </goals> -->
-                <!-- </execution> -->
-            </executions>
+            <!--<executions>-->
+                <!--<execution>-->
+                    <!--<phase>process-resources</phase>-->
+                <!--</execution>-->
+                 <!--<execution>-->
+                 <!--<phase>process-resources</phase>-->
+                 <!--<goals>-->
+                 <!--<goal>update</goal>-->
+                 <!--</goals>-->
+                 <!--</execution>-->
+            <!--</executions>-->
         </plugin>
-
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.2</version>
+                <configuration>
+                    <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mysema.querydsl</groupId>
+                        <artifactId>querydsl-apt</artifactId>
+                        <version>${querydsl.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources/annotations</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <resources>
             <resource>

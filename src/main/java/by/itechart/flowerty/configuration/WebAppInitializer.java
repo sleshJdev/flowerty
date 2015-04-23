@@ -1,11 +1,11 @@
 package by.itechart.flowerty.configuration;
 
-import javax.servlet.Filter;
-import javax.servlet.ServletRegistration;
-
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
+import javax.servlet.ServletRegistration;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015

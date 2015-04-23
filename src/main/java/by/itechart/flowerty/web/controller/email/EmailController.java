@@ -3,7 +3,6 @@
  *
  */
 package by.itechart.flowerty.web.controller.email;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,13 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import by.itechart.flowerty.local.settings.Settings;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
@@ -62,14 +56,12 @@ public class EmailController {
 
 	try {
 	    ObjectMapper objectMapper = new ObjectMapper();
-
 	    EmailInfo emailInfo = objectMapper.readValue(emailJson, EmailInfo.class);
 
 	    LOGGER.info("create email info object from json success! details: contact quantity: {}",
 		    emailInfo.getTo().length);
 
 	    LOGGER.info("create flowerty template object from json success!");
-
 	    FlowertUtil.processMultiparts(settings.getAttachmentsPath(), attachments);
 
 	    LOGGER.info("save attachments success!");
