@@ -41,7 +41,7 @@ public class Goods {
     public Company getCompany() {
         return company;
     }
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="FLOWER_ID")
     @Valid
     public Flower getFlower() {

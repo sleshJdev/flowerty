@@ -46,24 +46,24 @@ public class MailConfiguration {
 	return TLS;
     }
 
-    @Bean
-    public JavaMailSenderImpl mailSender() {
-	JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+    @Bean(name="jms")
+    public JavaMailSenderImpl javaMailSender() {
+        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
-	String security = environment.getProperty("mail.security.type");
-	javaMailSender.setJavaMailProperties("ssl".equalsIgnoreCase(security.trim()) ? getSsl() : getTls());
+        String security = environment.getProperty("mail.security.type");
+        javaMailSender.setJavaMailProperties("ssl".equalsIgnoreCase(security.trim()) ? getSsl() : getTls());
 
-	javaMailSender.setPassword(environment.getProperty("mail.password"));
-	javaMailSender.setUsername(environment.getProperty("mail.username"));
+        javaMailSender.setPassword(environment.getProperty("mail.password"));
+        javaMailSender.setUsername(environment.getProperty("mail.username"));
 
-	return javaMailSender;
+        return javaMailSender;
     }
 
-    @Bean
+    @Bean(name="smm")
     public SimpleMailMessage simpleMailMessage() {
-	SimpleMailMessage message = new SimpleMailMessage();
-	message.setFrom(environment.getProperty("mail.from"));
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(environment.getProperty("mail.from"));
 
-	return message;
+        return message;
     }
 }

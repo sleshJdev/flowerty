@@ -4,11 +4,16 @@ import by.itechart.flowerty.dao.repository.ContactRepository;
 import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
+import by.itechart.flowerty.solr.model.ContactDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -25,7 +30,21 @@ public class ContactService {
     public Page<Contact> getPage(int page, int size) {
 	return contactRepository.findAll(new PageRequest(page, size));
     }
-    
+
+    public Page<Contact> findContacts(Contact contact, int page, int size) {
+        List<Long> ids = contactDocumentRepository.findBySearch(contact.getContactDocument());
+        return contactRepository.findByIdIsIn(ids, new PageRequest(page, size));
+    }
+
+    public Page<Contact> findByName(String name, int page, int size) {
+        List<ContactDocument> contactDocuments = contactDocumentRepository.findByNameOrSurnameAllIgnoreCase(name, name);
+        ArrayList<Long> ids = new ArrayList<Long>();
+        for (ContactDocument cd: contactDocuments) {
+            ids.add(Long.valueOf(cd.getId()));
+        }
+        return contactRepository.findByIdIsIn(ids, new PageRequest(page, size));
+    }
+
     public Contact findOne(Long id) {
 	return contactRepository.findOne(id);
     }
@@ -38,6 +57,10 @@ public class ContactService {
 
     public Page<Contact> findByCompany(Company company, PageRequest pageRequest) {
 	return contactRepository.findByCompany(company, pageRequest);
+    }
+
+    public int deleteIdNotIn(List<Long> list) {
+        return contactRepository.deleteIdNotIn(list);
     }
 
     @Transactional

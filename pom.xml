@@ -21,7 +21,7 @@
 		<json-path.version>0.9.1</json-path.version>
 		<junit.version>4.11</junit.version>
 		<io.spring.platform-version>1.1.1.RELEASE</io.spring.platform-version>
-        <querydsl.version>3.6.2</querydsl.version>
+        <querydsl.version>3.4.2</querydsl.version>
 	</properties>
 	<dependencies>
 		<!-- Joda-Time -->
@@ -300,6 +300,12 @@
             <version>${querydsl.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+            <version>${querydsl.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.mysema.querydsl</groupId>
@@ -391,16 +397,26 @@
         </plugin>
             <plugin>
                 <groupId>com.mysema.maven</groupId>
-                <artifactId>maven-apt-plugin</artifactId>
-                <version>1.0</version>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.2</version>
+                <configuration>
+                    <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mysema.querydsl</groupId>
+                        <artifactId>querydsl-apt</artifactId>
+                        <version>${querydsl.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>process</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/generated-sources/java</outputDirectory>
-                            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                            <outputDirectory>target/generated-sources/annotations</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

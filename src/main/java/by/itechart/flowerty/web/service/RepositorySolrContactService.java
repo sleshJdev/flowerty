@@ -6,49 +6,45 @@ import by.itechart.flowerty.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
+import javax.annotation.Resource;
 /**
 * @author Maria
 *         Date: 11.04.15
 */
 @Service
 public class RepositorySolrContactService {//implements SolrContactService {
-//   @Resource
-    @Autowired
-    private RepositoryContactIndexService indexService;
+ //  @Resource
+    //@Autowired
+    //private RepositoryContactIndexService indexService;
 
-   // @Resource
+//    @Resource
     @Autowired
     private ContactDocumentRepository repository;
 
-//   @PreAuthorize("hasPermission('Contact', 'add')")
+    @PreAuthorize("hasPermission('Contact', 'add')")
     @Transactional
     public ContactDocument add(Contact added) {
-        ContactDocument model = ContactDocument.getBuilder(added.getId(), added.getName())
-                .surname(added.getSurname())
-                .build();
-
+        ContactDocument model = added.getContactDocument(); //ContactDocument.getBuilder(added.getId(), added.getName())
         ContactDocument persisted = repository.save(model);
-        indexService.addToIndex(added);
-      //  Contact contact = new Contact(); //create it by persisted
-       // indexService.addToIndex(contact);
         return persisted;
     }
 
-//   @PreAuthorize("hasPermission('Contact', 'delete')")
-//    @Transactional
-//    public Contact deleteById(Long id) {
-//        Contact deleted = findById(id);
-//
-//        repository.delete(deleted);
-//        indexService.deleteFromIndex(id);
-//
-//        return deleted;
-//    }
+ /*  @PreAuthorize("hasPermission('Contact', 'delete')")
+    @Transactional
+    public Contact deleteById(Long id) {
+        Contact deleted = findById(id);
+        repository.delete(deleted);
+        return deleted;
+    }     */
       public List<ContactDocument> findByNameContains(String name) {
           return repository.findByNameContains(name);
       }
+    public List<Long> findByBirthDate (String birthday) {
+         return repository.findByBirthDate(birthday);
+    }
+
    /* @PreAuthorize("hasPermission('Contact', 'update')")
     @Transactional
     @Override

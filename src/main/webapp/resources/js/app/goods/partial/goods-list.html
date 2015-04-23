@@ -1,0 +1,22 @@
+
+<!-- Goods list -->
+<div data-ng-app="flowertyApplication.goodsModule">
+    <h1>Make an order!</h1>
+    <div class="row" data-ng-repeat="goodsRow in goods.goodsArray">
+        <div class="goods-item col-md-4 thumbnail" data-ng-repeat="goodsItem in goodsRow">
+            <div class="goods-image">
+                <img alt="flowers" class="img-responsive" src="resources/images/flowers/{{goodsItem.imageName}}"/>
+            </div>
+            <div class="goods-item-info caption text-center">
+                <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
+                <h5 class="goods-item-description">{{goodsItem.cost}}</h5>
+                <p>Count: <span class="glyphicon glyphicon-minus" data-ng-click="goods.less(goodsItem)"></span>
+                    <span class="goods-item-count badge">{{goodsItem.count}}</span>
+                    <span class="glyphicon glyphicon-plus" data-ng-click="goods.more(goodsItem)"></span>
+                </p>
+                <div class="btn btn-default" data-ng-show="!goodsItem.ordered" data-ng-click="goods.makeOrder(goodsItem)">Add to basket</div>
+                <div class="btn btn-default" data-ng-show="goodsItem.ordered" data-ng-click="goods.makeOrder(goodsItem)">Remove from basket</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,59 +1,30 @@
 <!-- search controls for picked year, month and day -->
 <div class="col-sm-8">
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#year-picker").datepicker({
-				format : " yyyy",
-				viewMode : "years",
-				minViewMode : "years"
-			}).on('changeDate', function(e) {
-				$(this).trigger('input');
-				$(this).datepicker('hide');
-			});
-
-			$("#month-picker").datepicker({
-				format : " mm",
-				viewMode : "months",
-				minViewMode : "months"
-			}).on('changeDate', function(e) {
-				$(this).trigger('input');
-				$(this).datepicker('hide');
-			});
-
-			$("#day-picker").datepicker({
-				format : " dd",
-				viewMode : "days",
-				minViewMode : "days"
-			}).on('changeDate', function(e) {
-				$(this).trigger('input');
-				$(this).datepicker('hide');
-			});
-		});
-	</script>
-	
 	<div class="col-sm-3 form-inline">
 		<div class="checkbox"><label><input type="checkbox" data-ng-model="bundle.date.less" checked="checked">less</label></div>
 		<div class="checkbox"><label><input type="checkbox" data-ng-model="bundle.date.more">more</label> </div>
-	</div>
-	
+        <div class="checkbox"><label><input type="checkbox" data-ng-model="bundle.date.exact">exact</label> </div>
+
+    </div>
+
 	<div class="col-sm-3">
 		<label>Year</label> 
-		<input type="checkbox" data-ng-model="bundle.date.year.isUse"> 
-		<input id="year-picker" class="form-control glyphicon glyphicon-calendar" 
-				data-ng-show="bundle.date.year.isUse" data-ng-model="bundle.date.year.value" data-ng-change="bundle.dateListener(bundle.date)">
+		<!--<input type="checkbox" data-ng-model="bundle.date.year.isUse"> -->
+		<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" 
+				data-ng-model="bundle.date.year.value" data-ng-show="bundle.date.year.isUse" data-format="yyyy" data-view-mode="years" data-min-view-mode="years">
 	</div>
 	
 	<div class="col-sm-3">
 		<label>Month</label> 
-		<input type="checkbox" data-ng-model="bundle.date.month.isUse"> 
-		<input id="month-picker" class="form-control glyphicon glyphicon-calendar" 
-				data-ng-show="bundle.date.month.isUse" data-ng-model="bundle.date.month.value" data-ng-change="bundle.dateListener(bundle.date)">
+		<!--<input type="checkbox" data-ng-model="bundle.date.month.isUse"> -->
+		<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" 
+				data-ng-model="bundle.date.month.value" data-ng-show="bundle.date.month.isUse" data-format="mm" data-view-mode="months" data-min-view-mode="months">
 	</div>
 	
 	<div class="col-sm-3">
 		<label>Day</label> 
-		<input type="checkbox" data-ng-model="bundle.date.day.isUse"> 
-		<input id="day-picker" class="form-control glyphicon glyphicon-calendar" 
-				data-ng-show="bundle.date.day.isUse" data-ng-model="bundle.date.day.value" data-ng-change="bundle.dateListener(bundle.date)">
+		<!--<input type="checkbox" data-ng-model="bundle.date.day.isUse"> -->
+		<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" 
+				data-ng-model="bundle.date.day.value" data-ng-show="bundle.date.day.isUse" data-format="dd" data-view-mode="days" data-min-view-mode="days">
 	</div>
 </div>

@@ -22,9 +22,11 @@ import java.io.IOException;
 @Service
 public class MailService {
     @Autowired
-    private JavaMailSenderImpl mailSender;
+    //@Qualifier(value="jms")
+    private JavaMailSenderImpl sender;
 
     @Autowired
+    //@Qualifier(value="smm")
     private SimpleMailMessage simpleMailMessage;
 
     public void send(EmailInfo emailInfo) {
@@ -34,7 +36,7 @@ public class MailService {
 	simpleMailMessage.setTo(emailInfo.getTo());
 	simpleMailMessage.setSubject(emailInfo.getSubject());
 	simpleMailMessage.setText(emailInfo.getText());
-	mailSender.send(simpleMailMessage);
+	sender.send(simpleMailMessage);
     }
 
     public void send(EmailInfo emailInfo, MultipartFile[] attachments) throws MessagingException, IOException {
@@ -44,7 +46,7 @@ public class MailService {
 	if(emailInfo == null){
 	    throw new IllegalArgumentException("emailInfo is null");
 	}
-	MimeMessage mimeMessage = mailSender.createMimeMessage();
+	MimeMessage mimeMessage = sender.createMimeMessage();
 	MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
 	mimeMessageHelper.setFrom(simpleMailMessage.getFrom());
 	mimeMessageHelper.setTo(emailInfo.getTo());
@@ -54,6 +56,6 @@ public class MailService {
 	    InputStreamSource resource = new ByteArrayResource(IOUtils.toByteArray(attachment.getInputStream()));
 	    mimeMessageHelper.addAttachment(attachment.getOriginalFilename(), resource);
 	}
-	mailSender.send(mimeMessage);
+	sender.send(mimeMessage);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 * @author Maria
 *         Date: 11.04.15
 */
-@Repository
+//@Repository
 public interface ContactDocumentRepository extends SolrCrudRepository<ContactDocument, String>, ContactDocumentRepositoryCustom {
     public List<ContactDocument> findByNameContains(String name);
     public List<ContactDocument> findByNameOrSurnameAllIgnoreCase(String name, String surname); //pass the same string twice

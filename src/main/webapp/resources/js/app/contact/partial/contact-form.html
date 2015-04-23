@@ -28,22 +28,11 @@
 								<label class="col-sm-3 control-label">Birthday</label>
 								<div data-ng-if="bundle.processType.isShowPhones">
 									<div class="col-sm-8">
-										<input id="birthday-picker" data-ng-model="bundle.contact.birthday" class="form-control" placeholder="Select birthday" readonly>
+										<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" 
+												data-ng-model="bundle.contact.birthday" data-format="yyyy-mm-dd" 
+												placeholder="Select birthday" readonly>
 									</div>
-									
-									<!-- TODO: need improve, because mixing js and html it is not best idea -->
-									<script type="text/javascript">
-										$(document).ready(function() {
-											$("#birthday-picker").datepicker({
-												format : "yyyy-mm-dd",
-											}).on('changeDate', function(e) {
-												$(this).trigger('input');
-												$(this).datepicker('hide');
-											});
-										});
-									</script>
 								</div>
-								
 								<!-- if we don't display phones, then we search contact -->
 								<div data-ng-if="!bundle.processType.isShowPhones" data-ng-include="bundle.datePickerTemplate"> </div>
 							</div>

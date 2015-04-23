@@ -11,5 +11,5 @@ import java.util.List;
  */
 @NoRepositoryBean
 public interface ContactRepositoryCustom {
-    public List<Contact> findIdNotIn(List<Long> list);
+    public int deleteIdNotIn(List<Long> list);
 }

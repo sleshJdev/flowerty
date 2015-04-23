@@ -6,20 +6,23 @@ package by.itechart.flowerty.solr.model;
 */
 
 import org.apache.solr.client.solrj.beans.Field;
+//import org.apache.solr.client.solrj.impl.
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
 import java.util.Date;
 
 //@SolrDocument
+//@Entity
+//@Indexed
 public class ContactDocument {
-    public static Builder getBuilder(Long id, String title) {
-        return new Builder(id, title);
+    public static Builder getBuilder(Long id, String name) {
+        return new Builder(id, name);
     }
 
     private String id;
     private String name;
     private String surname;
+    private String fathername;
     private Date birthday;
     private BirthdaySearchType searchType;
     private String email;
@@ -29,6 +32,8 @@ public class ContactDocument {
     private String house;
     private String flat;
 
+    private Date birthdayBefore;
+    private Date birthdayAfter;
     public static enum BirthdaySearchType {
         BEFORE, BY_DATE, AFTER
     }
@@ -42,6 +47,9 @@ public class ContactDocument {
 
     public String getName() {
         return name;
+    }
+    public String getFathername() {
+        return fathername;
     }
 
     public Date getBirthday() {
@@ -76,12 +84,34 @@ public class ContactDocument {
         return flat;
     }
 
+    public Date getBirthdayBefore() {
+        return birthdayBefore;
+    }
+
+    public Date getBirthdayAfter() {
+        return birthdayAfter;
+    }
+
     @Id
     @Field
     public void setId(String id) {
         this.id = id;
     }
 
+
+    @Field
+   // @Temporal(TemporalType.)
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+ //   @Field
+    public void setSearchType(BirthdaySearchType searchType) {
+        this.searchType = searchType;
+    }
+    @Field
+    public void setEmail(String email) {
+        this.email = email;
+    }
     @Field
     public void setName(String name) {
         this.name = name;
@@ -91,16 +121,8 @@ public class ContactDocument {
         this.surname = surname;
     }
     @Field
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-    @Field
-    public void setSearchType(BirthdaySearchType searchType) {
-        this.searchType = searchType;
-    }
-    @Field
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFathername(String fathername) {
+        this.fathername = fathername;
     }
     @Field
     public void setCountry(String country) {
@@ -123,6 +145,14 @@ public class ContactDocument {
         this.flat = flat;
     }
 
+    public void setBirthdayBefore(Date birthdayBefore) {
+        this.birthdayBefore = birthdayBefore;
+    }
+
+    public void setBirthdayAfter(Date birthdayAfter) {
+        this.birthdayAfter = birthdayAfter;
+    }
+
     public static class Builder {
         private ContactDocument build;
 
@@ -136,12 +166,44 @@ public class ContactDocument {
             build.surname = surname;
             return this;
         }
+        public Builder country(String country) {
+            build.country = country;
+            return this;
+        }
+        public Builder street(String street) {
+            build.street = street;
+            return this;
+        }
+        public Builder birthday(Date birthday) {
+            build.birthday = birthday;
+            return this;
+        }
+        public Builder fathername(String fathername) {
+            build.fathername = fathername;
+            return this;
+        }
+        public Builder flat(String flat) {
+            build.flat = flat;
+            return this;
+        }
 
         public ContactDocument build() {
             return build;
         }
     }
 
+    public ContactDocument(String id, String name, String surname, Date birthday, String email, String country, String town, String street, String house, String flat) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.email = email;
+        this.country = country;
+        this.town = town;
+        this.street = street;
+        this.house = house;
+        this.flat = flat;
+    }
 
     public ContactDocument() {
     }

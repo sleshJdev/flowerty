@@ -5,7 +5,10 @@
 package by.itechart.flowerty.web.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.web.service.RepositorySolrContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,9 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
+    @Autowired
+    private RepositorySolrContactService solrContactService;
+
     // @Autowired
     // private UserService userService;
     @ResponseBody
@@ -41,7 +47,6 @@ public class ContactController {
 	LOGGER.info("get contact page with number {}", page);
 
 	page = (page == null || page < 1) ? 0 : --page;
-
 	return contactService.getPage(page, 10);
     }
 
@@ -63,14 +68,15 @@ public class ContactController {
     @RequestMapping(value = "contact/search", method = RequestMethod.POST)
     public Page<Contact> search(@RequestBody Contact contact) {
 	LOGGER.info("search contact");
-
-	return contactService.getPage(0, 10);
+    return contactService.findContacts(contact, 0, 10);
+	//return contactService.getPage(0, 10);
     }
 
     @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<Contact> contacts) {
 	LOGGER.info("remove contacts. obtained {} contacts, wicht not remove", contacts.size());
-
+   // now you can use:
+   // contactService.deleteIdNotIn(contacts);
 	// for (Contact contact : contacts) {
 	// contactService.delete(contact.getId());
 	// }
@@ -83,8 +89,8 @@ public class ContactController {
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
 	LOGGER.info("save contact: {}", contact.toString());
-
 	contactService.save(contact);
+    solrContactService.add(contact);
 	return contact;
     }
 
