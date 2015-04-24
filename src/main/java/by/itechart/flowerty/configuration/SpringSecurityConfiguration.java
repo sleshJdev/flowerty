@@ -1,6 +1,7 @@
 package by.itechart.flowerty.configuration;
 
 import by.itechart.flowerty.dao.repository.AccessRepository;
+import by.itechart.flowerty.dao.repository.RoleRepository;
 import by.itechart.flowerty.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +17,7 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Rostislav on 26-Mar-15
@@ -32,9 +34,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private EntryPointUnauthorizedHandler unauthorizedHandler;
 
-    @Autowired
-    private AccessRepository accessRepository;
-
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticator());
@@ -45,48 +44,16 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new CustomAuthenticationProvider();
     }
 
+    @Transactional
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        List<Right> rights = accessRepository.findAll();
-//        for (int i = 0; i < rights.size(); ++i) {
-//            Set<Role> roles = rights.get(i).getRoles();
-//            StringBuilder accessAttributeBuilder = new StringBuilder();
-//            for (Iterator<Role> it = roles.iterator(); it.hasNext(); ) {
-//                Role role = it.next();
-//                accessAttributeBuilder.append("hasRole('ROLE_").append(role.getName()).append("') or ");
-//            }
-//            String accessAttribute = String.valueOf(accessAttributeBuilder);
-//            accessAttribute = StringUtils.removeEnd(accessAttribute, " or ");
-//            if (StringUtils.isEmpty(accessAttribute)) {
-//                continue;
-//            }
-//            http
-//                    .authorizeRequests()
-//                    .antMatchers("/" + rights.get(i).getName() + "/**")
-//                    .access(accessAttribute)
-//            ;
-//        }
-
-
-        http
-                .authorizeRequests()
-                .antMatchers("/contact/**")
-                .access("hasRole('ROLE_SUPERVISOR') or hasRole('ROLE_ORDERS_MANAGER')")
-                ;
-
         http
                 .authorizeRequests()
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
-        ;
-
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/contact/**")
-//                .access("hasRole('ROLE_ORDERS_MANAGER')")
-//        ;
-
-        http
+                .antMatchers("/contact/**")
+                .access("hasRole('ROLE_SUPERVISOR') or hasRole('ROLE_ORDERS_MANAGER')")
+            .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())
                 .key(KEY)
