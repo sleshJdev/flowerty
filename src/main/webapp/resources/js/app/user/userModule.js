@@ -37,76 +37,30 @@ userModule.filter('bySurname', ['$http', function($http){
         }
 
         console.log('Searching by surname: ' + enteredSurname);
-
+/*
         //  Getting search by surname results from server
         $http({
             method: "get",
-            url: "user/search/" + enteredSurname,
+            url: "contact/search/" + enteredSurname,
             data: {}
         }).success(function(data, status, headers, config) {
             return data.content;
         }).error(function(data, status, headers, config) {
             console.log("Exception details in bySurname filter : " + JSON.stringify({data: data}));
-            //return [];
-
-            //  Just emulation
-            var offered = [
-                {
-                    name : 'Пётр',
-                    surname : 'Первый',
-                    fathername : 'Петрович'
-                },
-                {
-                    name : 'Николай',
-                    surname : 'Басков',
-                    fathername : 'Николаевич'
-                },
-                {
-                    name : 'Александр',
-                    surname : 'Пушкин',
-                    fathername : 'Сергеевич'
-                },
-                {
-                    name : 'Катерина',
-                    surname : 'Петрова',
-                    fathername : 'Ивановна'
-                },
-                {
-                    name : 'Наталья',
-                    surname : 'Иванова',
-                    fathername : 'Ивановна'
-                }
-            ];
-            return offered.slice(enteredSurname.length - 3);
+            return [];
         });
-        //  Just emulation
-        var offered = [
-            {
-                name : 'Пётр',
-                surname : 'Первый',
-                fathername : 'Петрович'
-            },
-            {
-                name : 'Николай',
-                surname : 'Басков',
-                fathername : 'Николаевич'
-            },
-            {
-                name : 'Александр',
-                surname : 'Пушкин',
-                fathername : 'Сергеевич'
-            },
-            {
-                name : 'Катерина',
-                surname : 'Петрова',
-                fathername : 'Ивановна'
-            },
-            {
-                name : 'Наталья',
-                surname : 'Иванова',
-                fathername : 'Ивановна'
-            }
-        ];
-        return offered.slice(enteredSurname.length - 3);
+*/
+
+        //  Simulation
+        $http({
+            method: "get",
+            url: "contact/list/1",
+            data: {}
+        }).success(function(data, status, headers, config) {
+            return data.content.slice(enteredSurname.length - 3);;
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details in bySurname filter : " + JSON.stringify({data: data}));
+            return [];
+        });
     }
 }]);
