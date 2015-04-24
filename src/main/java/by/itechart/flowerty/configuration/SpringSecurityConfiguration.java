@@ -1,8 +1,9 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.dao.repository.AccessRepository;
-import by.itechart.flowerty.dao.repository.RoleRepository;
 import by.itechart.flowerty.security.*;
+import by.itechart.flowerty.security.handler.AuthFailure;
+import by.itechart.flowerty.security.handler.AuthSuccess;
+import by.itechart.flowerty.security.handler.EntryPointUnauthorizedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -48,11 +49,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .authorizeRequests()
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/contact/**")
-                .access("hasRole('ROLE_SUPERVISOR') or hasRole('ROLE_ORDERS_MANAGER')")
+                .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())
@@ -63,7 +65,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .successHandler(authSuccess)
+                .defaultSuccessUrl("/login")
+//                .successHandler(authSuccess)
                 .failureHandler(authFailure)
             .and()
                 .logout()

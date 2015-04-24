@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * Created by Rostislav on 05-Apr-15
  */
@@ -26,7 +27,7 @@ authenticationModule.factory('sessionService', function ($http) {
             })
             .then(function (data) {
                 $scope.current.user.password = undefined;
-                session.setLoggedUser($scope);
+                fillLoggedUser(data.data, $scope);
                 $location.path("/");
             }, function (data) {
                 $scope.current.isLogged = false;
@@ -47,12 +48,16 @@ authenticationModule.factory('sessionService', function ($http) {
             url: "login"
         }).success(function (data, status, headers, config) {
             if (data) {
-                $scope.current.isLogged = true;
-                $scope.current.user.username = data.username;
-                $scope.current.user.role = data.authorities[0].authority;
-                $scope.current.errorLogin = false;
+                fillLoggedUser(data, $scope);
             }
         });
     };
     return session;
 });
+
+function fillLoggedUser(data, $scope) {
+    $scope.current.isLogged = true;
+    $scope.current.user.username = data.username;
+    $scope.current.user.role = data.authorities[0].authority;
+    $scope.current.errorLogin = false;
+}

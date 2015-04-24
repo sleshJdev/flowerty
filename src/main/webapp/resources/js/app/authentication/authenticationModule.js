@@ -8,7 +8,7 @@ var authenticationModule = angular.module('flowertyApplication.authenticationMod
 authenticationModule.constant("AUTHENTICATION_MODULE_CONSTANTS", (function(){
 
     var AUTHENTICATION_MODULE_PATH = "resources/js/app/authentication/";
-
+    ''.equals("");
     return {
         LOG_IN_FORM: AUTHENTICATION_MODULE_PATH + 'partial/log-in-form.html',
         SIGN_UP_FORM: AUTHENTICATION_MODULE_PATH + 'partial/sign-up-form.html'
