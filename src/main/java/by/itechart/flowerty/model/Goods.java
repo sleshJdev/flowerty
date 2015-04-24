@@ -2,6 +2,7 @@ package by.itechart.flowerty.model;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +19,7 @@ public class Goods {
     private Integer remain;
     private Company company;
     private Flower flower;
+    private String image;
     public Goods() {
     }
 
@@ -41,11 +43,20 @@ public class Goods {
     public Company getCompany() {
         return company;
     }
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="FLOWER_ID")
     @Valid
     public Flower getFlower() {
         return flower;
+    }
+    @Column(name = "IMAGE_NAME")
+    @Size(max = 255)
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setFlower(Flower flower) {

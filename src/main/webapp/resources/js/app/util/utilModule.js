@@ -6,7 +6,32 @@
 angular.module("flowertyApplication.utilModule", [])
 
 /*
- * Create array of numbers as objects to iterate with 'in' operator
+ * show notification message
+ */
+.directive('notification', ['$timeout', function ($timeout) {
+	return {
+		restrict: 'E',
+		template:"<div class='alert alert-{{alertData.type}}' ng-show='alertData.message' role='alert' data-notification='{{alertData.status}}'>{{alertData.message}}</div>",
+		scope:{
+		  alertData:"="
+		},
+		replace:true,
+		link: function(scope, elem, attrs) {
+			attrs.$observe('notification', function (value) {
+				if (value === 'show') {
+					$timeout(function () {
+						scope.alertData.status = 'hide';
+						scope.alertData.message = '';
+					}, 3000);
+				}
+			});
+		}
+	};
+}])
+
+
+/*
+ * create array of numbers as objects to iterate with 'in' operator
  */
 .filter('flowerRange', function() {
 	return function(range, total) {

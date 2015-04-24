@@ -16,21 +16,21 @@
         </delete>
         <modifyDataType catalogName="flowerty"
                         columnName="NAME"
-                        newDataType="ENUM('create_order', 'contact', 'comment_order', 'settings', 'user', 'assign_role',
-                         'orders_ready', 'orders_accepted', 'orders_all')"
+                        newDataType="ENUM('create-order', 'contact', 'comment-order', 'settings', 'user', 'assign-role',
+                         'orders-ready', 'orders-accepted', 'orders-all')"
                         schemaName="public"
                         tableName="access"/>
     </changeSet>
     <changeSet author="Maria" id="changelog-3.0-3">
 
         <insert tableName="access">
-            <column name="NAME" value="create_order"/>
+            <column name="NAME" value="create-order"/>
         </insert>
         <insert tableName="access">
             <column name="NAME" value="contact"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="comment_order"/>
+            <column name="NAME" value="comment-order"/>
         </insert>
         <insert tableName="access">
             <column name="NAME" value="settings"/>
@@ -39,16 +39,16 @@
             <column name="NAME" value="user"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="assign_role"/>
+            <column name="NAME" value="assign-role"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="orders_ready"/>
+            <column name="NAME" value="orders-ready"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="orders_accepted"/>
+            <column name="NAME" value="orders-accepted"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="orders_all"/>
+            <column name="NAME" value="orders-all"/>
         </insert>
         <rollback/>
     </changeSet>

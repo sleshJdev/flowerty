@@ -4,6 +4,7 @@
  */
 package by.itechart.flowerty.web.controller.email;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class TestMailService {
     @Autowired
     SimpleMailMessage message;
 
+    @Ignore
     @Test
     public void send_PassValidEmail_ShoudSendEmail() {
 	message.setTo("studentbntu@mail.ru");

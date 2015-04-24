@@ -4,6 +4,8 @@
  */
 package by.itechart.flowerty.web.controller.email;
 
+import by.itechart.flowerty.model.Contact;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -12,11 +14,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class EmailInfo {
-    private String[] to;
+    private Contact[] to;
     private String subject;
     private String text;
 
-    public EmailInfo(String[] to, String subject, String text) {
+    public EmailInfo(Contact[] to, String subject, String text) {
 	this.to = to;
 	this.subject = subject;
 	this.text = text;
@@ -25,11 +27,11 @@ public class EmailInfo {
     public EmailInfo() {
     }
 
-    public String[] getTo() {
+    public Contact[] getTo() {
 	return to;
     }
 
-    public void setTo(String[] to) {
+    public void setTo(Contact[] to) {
 	this.to = to;
     }
 

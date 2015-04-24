@@ -1,9 +1,9 @@
 //package by.itechart.flowerty.configuration;
 //
 ///**
-// * @author Maria
-// *         Date: 11.04.15
-// */
+//* @author Maria
+//*         Date: 11.04.15
+//*/
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@
 //@Configuration
 //@EnableSolrRepositories("by.itechart.flowerty.dao.repository")
 //@Profile("prod")
-//@PropertySource("classpath:persistence.properties")
+//@PropertySource("classpath:solr.properties")
 //public class HttpSolrContext {
 //
 //    @Resource
