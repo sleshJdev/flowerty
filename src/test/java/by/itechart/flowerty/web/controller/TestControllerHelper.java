@@ -5,10 +5,12 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.junit.Ignore;
 import org.springframework.http.MediaType;
 
-import by.itechart.flowerty.model.*;
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.model.Phone;
+import by.itechart.flowerty.model.Role;
+import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

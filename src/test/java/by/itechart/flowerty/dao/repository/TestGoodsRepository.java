@@ -31,7 +31,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
         Assert.assertNull(goods);
     }
 
-    
+    @Ignore
     @Test
     public void saveGoods_ValidGoods_ReturnsSameGoods() {
         Flower fl = new Flower();

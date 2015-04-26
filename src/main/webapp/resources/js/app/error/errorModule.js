@@ -14,22 +14,7 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
 	}
 })())
 
-//use for pass value between error handler and controllers.
-//TODO:maybe unnecessary...
-.service("transportShareErrorData", function() {
-	var errorBundle = {};
-	
-	return {
-		getErrorBundle: function(){
-			return errorBundle;
-		},
-		setErrorBundle: function(bundle){
-			errorBundle = bundle;
-		}
-	};
-})
-
-.config(["$routeProvider", "$provide", "$httpProvider", "ERROR_CONSTANTS", 
+.config(["$routeProvider", "$provide", "$httpProvider", "ERROR_CONSTANTS",
          function($routeProvider, $provide, $httpProvider, ERROR_CONSTANTS){
 	$routeProvider
 		.when("/error", {
@@ -47,15 +32,6 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
             }
         };
     });
-	
+
     $httpProvider.interceptors.push('ErrorInterceptor');
-}])
-
-//TODO:maybe unnecessary...
-.controller("ErrorHandler", ["$scope", "transportShareErrorData", 
-                           function($scope, transportShareErrorDataService){
-	$scope.bundle = {
-			error: transportShareErrorDataService.getErrorBundle()
-	} 
-}])
-
+}]);
