@@ -1,6 +1,6 @@
-<div class="form-messages errors" ng-show="vm.errorMessages.length > 0" data-ng-cloak>
-	<img class="error-icon" src="images/error-icon.png">
-	<div class="messages-group">
-		<div ng-repeat="error in vm.errorMessages">{{error | json}}</div>
-	</div>
+<!-- The error page -->
+<div ng-show="errorMessage">
+    <div class="alert alert-danger" data-ng-show="current.errorLogin">
+        You don't have the right to do this.
+    </div>
 </div>
