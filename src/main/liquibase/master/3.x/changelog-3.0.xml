@@ -16,8 +16,8 @@
         </delete>
         <modifyDataType catalogName="flowerty"
                         columnName="NAME"
-                        newDataType="ENUM('create-order', 'contact', 'comment-order', 'settings', 'user', 'assign-role',
-                         'orders-ready', 'orders-accepted', 'orders-all')"
+                        newDataType="ENUM('create_order', 'contact', 'comment_order', 'settings', 'user', 'assign_role',
+                         'orders_ready', 'orders_accepted', 'orders_all')"
                         schemaName="public"
                         tableName="access"/>
     </changeSet>

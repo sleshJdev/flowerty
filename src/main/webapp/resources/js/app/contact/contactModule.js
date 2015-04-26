@@ -160,6 +160,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
     /*
      * provides a method for crete/edit/remove contact and phones
      */
+
     .service("processContactService", ["$http", "$location", "deleteService", "CONSTANTS",
     function($http, $location, deleteService, CONSTANTS) {
         var me = this;
@@ -246,6 +247,25 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         };
     })
 
+    .service("listService", function() {
+        var list = [];
+        var searching = false;
+        return {
+            getList: function(){
+                return list;
+            },
+            setList: function(newList){
+                list = newList;
+            },
+            isSearching: function  () {
+                return searching;
+            },
+            setSearching: function(newSearching) {
+                searching = newSearching;
+            }
+        };
+    })
+
     .controller("AddContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "CONSTANTS",
     function($scope, $http, $location, $routeParams, processContactService, CONSTANTS){
         $scope.bundle = processContactService.bundle;
@@ -271,12 +291,13 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
             });
     }])
 
-    .controller("SearchContactController", ["$scope", "$http", "processContactService", "CONSTANTS",
-    function($scope, $http, processContactService, CONSTANTS){
+    .controller("SearchContactController", ["$scope", "$http", "$location", "processContactService", "listService", "CONSTANTS",
+    function($scope, $http, $location, processContactService, listService, CONSTANTS){
         $scope.bundle = processContactService.bundle;
         $scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
         $scope.bundle.contact = {};
         $scope.bundle.contact.phones = [];
+      //  $scope.bundle.contacts = [];
         $scope.bundle.processType.action = function(contact){
             processDate($scope.bundle.date)
             $http({
@@ -285,6 +306,15 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
                 data: $scope.bundle.contact
             }).success(function(data, status, headers, config) {
                     console.log("search contact success:" + JSON.stringify(contact));//REMOVE_COMMENT
+                   /* $scope.bundle.contacts  = {
+                        currentPage: 1,
+                        totalPages: [],
+                        list: data
+                    }; */
+                    listService.setSearching(true);
+                    listService.setList(data);
+                    $location.path("contact-list");
+
                 }).error(function(data, status, headers, config) {
                     console.log("error search contact. details: " + JSON.stringify(data))//REMOVE_COMMENT
                 });
@@ -390,14 +420,13 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         };
     }])
 
-    .controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService",
-    function($scope, $http, $location, transportService, deleteService) {
-        $scope.contacts = {
-            currentPage: 1,
-            totalPages: [],
-            list: []
-        };
-
+    .controller("ContactListController", ["$scope", "$http", "$location", "transportService", "processContactService", "deleteService", "listService",
+    function($scope, $http, $location, transportService, processContactService, deleteService, listService) {
+            $scope.contacts = {
+                currentPage: 1,
+                totalPages: [],
+                list: []
+            };
         /*
          * grab emails of selected contact and pass they to SendEmailController
          */
@@ -454,7 +483,14 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
         $scope.contacts.getPage = function(pageNumber){
             $scope.contacts.currentPage = pageNumber;
+            if (!listService.isSearching()) {
+                alert('getting from server');
             $scope.contacts.getPageFromServer();
+            }  else {
+                alert('list not null');
+                $scope.contacts.list = listService.getList().content;
+                $scope.contacts.totalPages = listService.getList().totalPages;
+            }
         };
 
         $scope.contacts.getPreviousPage = function(){
