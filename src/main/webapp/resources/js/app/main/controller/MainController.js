@@ -7,12 +7,11 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
 
     sessionService.setLoggedUser($scope);
 
-    $scope.errorMessage = "test";
-
     $scope.current = {
         isLogged: false,
         user: {},
-        errorLogin: false
+        errorLogin: false,
+        errorMessage : ""
     };
 
     $scope.current.basket = {

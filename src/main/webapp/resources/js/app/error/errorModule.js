@@ -22,16 +22,15 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
 			controller: "ErrorHandler"
 		});
 
-////	TODO: add redirect to error page
-//	$provide.factory('ErrorInterceptor', function ($q) {
-//        return {
-//            responseError: function(rejection) {
-////                alert(JSON.stringify(rejection));
-//                console.log(JSON.stringify(rejection));//TODO: remove comment
-//                return $q.reject(rejection);
-//            }
-//        };
-//    });
-//
-//    $httpProvider.interceptors.push('ErrorInterceptor');
+//	TODO: add redirect to error page
+	$provide.factory('ErrorInterceptor', function ($q) {
+        return {
+            responseError: function(rejection) {
+                console.log(JSON.stringify(rejection));//TODO: remove comment
+                return $q.reject(rejection);
+            }
+        };
+    });
+
+    $httpProvider.interceptors.push('ErrorInterceptor');
 }]);
