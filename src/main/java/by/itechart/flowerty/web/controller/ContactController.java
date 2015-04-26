@@ -43,7 +43,7 @@ public class ContactController {
     // @Autowired
     // private UserService userService;
     @ResponseBody
-    @RequestMapping(value = "contact/list/{page}")
+    @RequestMapping(value = {"contact/list/{page}", "tempsearch/contact/list/{page}"})
     public Page<Contact> page(@PathVariable("page") Integer page) {
 	LOGGER.info("get contact page with number {}", page);
 

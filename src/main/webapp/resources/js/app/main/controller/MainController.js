@@ -59,7 +59,10 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
          *                      }
          */
         offerContacts : function(model) {
-            $scope.dynamicSearch.offeredContacts = $filter('bySurname')([], model.enteredSurname);
+            $filter('bySurname')([], model, $scope.dynamicSearch.filterCallback);
+        },
+        filterCallback : function(model, data){
+            $scope.dynamicSearch.offeredContacts = data.content;
             model.selected = $scope.dynamicSearch.offeredContacts[0];
             model.show = $scope.dynamicSearch.showResults();
         },

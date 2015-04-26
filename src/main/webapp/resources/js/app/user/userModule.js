@@ -29,38 +29,3 @@ userModule.config(["$routeProvider", 'USER_MODULE_CONSTANTS', function($routePro
             controller: "UserDeleteController"
         });
 }]);
-
-userModule.filter('bySurname', ['$http', function($http){
-    return function(offeredContacts, enteredSurname){
-        if(enteredSurname.length < 3){
-            return [];
-        }
-
-        console.log('Searching by surname: ' + enteredSurname);
-/*
-        //  Getting search by surname results from server
-        $http({
-            method: "get",
-            url: "contact/search/" + enteredSurname,
-            data: {}
-        }).success(function(data, status, headers, config) {
-            return data.content;
-        }).error(function(data, status, headers, config) {
-            console.log("Exception details in bySurname filter : " + JSON.stringify({data: data}));
-            return [];
-        });
-*/
-
-        //  Simulation
-        $http({
-            method: "get",
-            url: "contact/list/1",
-            data: {}
-        }).success(function(data, status, headers, config) {
-            return data.content.slice(enteredSurname.length - 3);;
-        }).error(function(data, status, headers, config) {
-            console.log("Exception details in bySurname filter : " + JSON.stringify({data: data}));
-            return [];
-        });
-    }
-}]);

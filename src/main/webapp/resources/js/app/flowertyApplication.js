@@ -40,7 +40,7 @@ var app = angular.module('flowertyApplication', [
             controller: 'GoodsListController'
         });
 }]);
-
+/*
 app.controller('ViewController', ['$scope', function ($scope) {
     $scope.templates =
         [
@@ -99,3 +99,4 @@ app.controller('MainController', function ($scope, $http, $location, sessionServ
         getNextPage : function(){}
     }
 });
+*/
