@@ -10,7 +10,7 @@ import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
-
+import org.joda.time.*;
 //@SolrDocument
 //@Entity
 //@Indexed
@@ -24,7 +24,9 @@ public class ContactDocument {
     private String surname;
     private String fathername;
     private Date birthday;
-    private BirthdaySearchType searchType;
+    private Integer day;
+    private Integer month;
+    private Integer year;
     private String email;
     private String country;
     private String town;
@@ -34,9 +36,7 @@ public class ContactDocument {
 
     private Date birthdayBefore;
     private Date birthdayAfter;
-    public static enum BirthdaySearchType {
-        BEFORE, BY_DATE, AFTER
-    }
+
     public String getId() {
         return id;
     }
@@ -56,9 +56,6 @@ public class ContactDocument {
         return birthday;
     }
 
-    public BirthdaySearchType getSearchType() {
-        return searchType;
-    }
 
     public String getEmail() {
         return email;
@@ -92,6 +89,18 @@ public class ContactDocument {
         return birthdayAfter;
     }
 
+    public Integer getDay() {
+        return day;
+    }
+
+    public Integer getMonth() {
+        return month;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
     @Id
     @Field
     public void setId(String id) {
@@ -100,14 +109,10 @@ public class ContactDocument {
 
 
     @Field
-   // @Temporal(TemporalType.)
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
- //   @Field
-    public void setSearchType(BirthdaySearchType searchType) {
-        this.searchType = searchType;
-    }
+
     @Field
     public void setEmail(String email) {
         this.email = email;
@@ -143,6 +148,18 @@ public class ContactDocument {
     @Field
     public void setFlat(String flat) {
         this.flat = flat;
+    }
+    @Field
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+    @Field
+    public void setDay(Integer day) {
+        this.day = day;
+    }
+    @Field
+    public void setMonth(Integer month) {
+        this.month = month;
     }
 
     public void setBirthdayBefore(Date birthdayBefore) {
@@ -203,6 +220,11 @@ public class ContactDocument {
         this.street = street;
         this.house = house;
         this.flat = flat;
+        DateTime dateTime = new DateTime(birthday);
+
+        this.day = dateTime.getDayOfMonth();
+        this.month = dateTime.getMonthOfYear();
+        this.year = dateTime.getYearOfEra();
     }
 
     public ContactDocument() {

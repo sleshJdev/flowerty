@@ -36,10 +36,8 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
             return null;  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        Criteria criteria = new Criteria("birthday.DAY") .is(date.dayOfMonth())
-                .and(new Criteria("birthday.MONTH").is(date.monthOfYear()));
-        TrieDateField dateField = new TrieDateField();
-       // criteria.
+        Criteria criteria = new Criteria("month").is(date.getMonthOfYear());
+        criteria = criteria.and(new Criteria("day").is(date.getDayOfMonth()));// .is(date.dayOfMonth())
         SimpleQuery search = new SimpleQuery(criteria);
         Page results = solrTemplate.queryForPage(search, ContactDocument.class);
         return results.getContent();  //To change body of implemented methods use File | Settings | File Templates.
@@ -93,7 +91,9 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
                 criteria = criteria.and(new Criteria("flat").contains(contactDocument.getFlat()));
             }
         }
-
+        if (criteria == null) {
+            return null;
+        }
         SimpleQuery query = new SimpleQuery(criteria);
 
         Page results = solrTemplate.queryForPage(query, ContactDocument.class);

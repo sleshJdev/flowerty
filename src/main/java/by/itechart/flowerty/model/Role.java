@@ -33,7 +33,7 @@ public class Role {
 	}
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	@JoinTable(name = "role_right",
+	@JoinTable(name = "role_right", 
 				joinColumns = { @JoinColumn(name = "ROLE_ID") },
 				inverseJoinColumns = { @JoinColumn(name = "RIGHT_ID") })
 	public Set<Right> getRights() {

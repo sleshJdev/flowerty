@@ -4,6 +4,7 @@
     <!--<include relativeToChangelogFile="true" file="master/1.x.data/testdata-1.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/2.x/changelog-2.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/2.x.data/testdata-2.0.xml"/>-->
-    <include relativeToChangelogFile="true" file="master/3.x/changelog-3.0.xml"/>
-
+    <!--<include relativeToChangelogFile="true" file="master/3.x/changelog-3.0.xml"/>-->
+    <include relativeToChangelogFile="true" file="master/4.x/changelog-4.0.xml"/>
+    <include relativeToChangelogFile="true" file="master/4.x.data/testdata-4.0.xml"/>
 </databaseChangeLog>

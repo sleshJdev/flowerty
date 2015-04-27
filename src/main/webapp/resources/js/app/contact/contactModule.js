@@ -89,5 +89,4 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 		(!contact.surname ? "" : contact.surname) + " " + 
 		(!contact.fathername ? "" : contact.fathername);
 	}
-
 });
