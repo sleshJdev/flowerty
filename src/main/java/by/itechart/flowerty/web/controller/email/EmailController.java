@@ -49,7 +49,9 @@ public class EmailController {
 
     @ResponseBody
     @RequestMapping(value = "email/send", method = RequestMethod.POST)
-    public void sendEmail(@RequestParam("email") String emailJson, @RequestParam("template") String templateJson,
+    public void sendEmail(
+	    @RequestParam("email") String emailJson, 
+	    @RequestParam("template") String templateJson,
 	    @RequestPart(value = "file", required = false) MultipartFile[] attachments) throws IOException {
 	LOGGER.info("send email: {}. template: {}, number of attachments: {}", emailJson, templateJson,
 		attachments == null ? 0 : attachments.length);
@@ -62,7 +64,7 @@ public class EmailController {
 		    emailInfo.getTo().length);
 
 	    LOGGER.info("create flowerty template object from json success!");
-	    FlowertUtil.processMultiparts(settings.getAttachmentsPath(), attachments);
+	    FlowertUtil.saveMultiparts(settings.getAttachmentsPath(), attachments);
 
 	    LOGGER.info("save attachments success!");
 

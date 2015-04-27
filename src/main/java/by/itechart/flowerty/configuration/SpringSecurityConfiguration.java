@@ -1,6 +1,9 @@
 package by.itechart.flowerty.configuration;
 
 import by.itechart.flowerty.security.*;
+import by.itechart.flowerty.security.handler.AuthFailure;
+import by.itechart.flowerty.security.handler.AuthSuccess;
+import by.itechart.flowerty.security.handler.EntryPointUnauthorizedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +15,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Rostislav on 26-Mar-15
@@ -42,15 +45,16 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new CustomAuthenticationProvider();
     }
 
+    @Transactional
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(new CustomUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
                 .authorizeRequests()
-                .antMatchers("/user/list/**")
+                .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/contact/**")
-                .access("hasRole('ROLE_SUPERVISOR')")
+                .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())
@@ -61,11 +65,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .successHandler(authSuccess)
+                .defaultSuccessUrl("/login")
+//                .successHandler(authSuccess)
                 .failureHandler(authFailure)
             .and()
                 .logout()
-                .logoutSuccessUrl("/login?logout")
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())

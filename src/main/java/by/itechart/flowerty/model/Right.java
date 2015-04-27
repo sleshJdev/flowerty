@@ -8,8 +8,9 @@ public class Right {
 
     private Long id;
     private RIGHT_TYPE name;
+
     @Id
-    @Column(name="ID", length=10, nullable=false)
+    @Column(name = "ID", length = 10, nullable = false)
     public Long getId() {
         return id;
     }
@@ -23,19 +24,20 @@ public class Right {
     public void setId(Long id) {
         this.id = id;
     }
+
     public void setName(RIGHT_TYPE name) {
         this.name = name;
     }
 
-    public static enum RIGHT_TYPE{
+    public static enum RIGHT_TYPE {
         create_order,
-                contact,
-                comment_order,
-                settings,
-                user,
-                assign_role,
-                orders_ready,
+        contact,
+        comment_order,
+        settings,
+        user,
+        assign_role,
+        orders_ready,
         orders_accepted,
-                orders_all
+        orders_all
     }
 }

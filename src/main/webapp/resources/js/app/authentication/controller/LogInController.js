@@ -3,8 +3,17 @@
  * Created by Rostislav on 05-Apr-15
  */
 
-angular.module('flowertyApplication.authenticationModule').controller('LogInController', function ($scope, $http, $location, sessionService) {
+authenticationModule.controller('LogInController', function ($scope, $http, $location, sessionService) {
+    if ($scope.current.isLogged) {
+        $location.path("/");
+        return;
+    }
     $scope.logIn = function () {
-        sessionService.login($scope, $location);
+        if ($scope.current.user.username && $scope.current.user.password) {
+            sessionService.login($scope, $location);
+        } else {
+            $scope.current.user.password = undefined;
+            $scope.current.errorLogin = true;
+        }
     };
 });

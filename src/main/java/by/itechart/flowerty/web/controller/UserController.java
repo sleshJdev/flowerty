@@ -71,15 +71,15 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "user/list/{page}")
     public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
-	LOGGER.info("get page with number {}", page);
+		LOGGER.info("get page with number {}", page);
 
-	// TODO: *add testing for this method
+		// TODO: *add testing for this method
 
-	page = (page == null || page < 1) ? 0 : --page;
-	Page<User> pageUsers = userService.getPage(page, 1);
+		page = (page == null || page < 1) ? 0 : --page;
+		Page<User> pageUsers = userService.getPage(page, 1);
 
-	LOGGER.info("fetch {} users", pageUsers.getTotalElements());
+		LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 
-	return pageUsers;
-    }
+		return pageUsers;
+	}
 }
