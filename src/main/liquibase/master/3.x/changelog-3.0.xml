@@ -14,23 +14,23 @@
                 tableName="access">
             <where>1=1</where>
         </delete>
-        <modifyDataType catalogName="flowerty"
-                        columnName="NAME"
-                        newDataType="ENUM('create_order', 'contact', 'comment_order', 'settings', 'user', 'assign_role',
-                         'orders_ready', 'orders_accepted', 'orders_all')"
-                        schemaName="public"
-                        tableName="access"/>
+        <!--<modifyDataType catalogName="flowerty"-->
+                        <!--columnName="NAME"-->
+                        <!--newDataType="ENUM('create_order', 'contact', 'comment_order', 'settings', 'user', 'assign_role',-->
+                         <!--'orders_ready', 'orders_accepted', 'orders_all')"-->
+                        <!--schemaName="public"-->
+                        <!--tableName="access"/>-->
     </changeSet>
     <changeSet author="Maria" id="changelog-3.0-3">
 
         <insert tableName="access">
-            <column name="NAME" value="create-order"/>
+            <column name="NAME" value="create_order"/>
         </insert>
         <insert tableName="access">
             <column name="NAME" value="contact"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="comment-order"/>
+            <column name="NAME" value="comment_order"/>
         </insert>
         <insert tableName="access">
             <column name="NAME" value="settings"/>
@@ -39,16 +39,16 @@
             <column name="NAME" value="user"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="assign-role"/>
+            <column name="NAME" value="assign_role"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="orders-ready"/>
+            <column name="NAME" value="orders_ready"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="orders-accepted"/>
+            <column name="NAME" value="orders_accepted"/>
         </insert>
         <insert tableName="access">
-            <column name="NAME" value="orders-all"/>
+            <column name="NAME" value="orders_all"/>
         </insert>
         <rollback/>
     </changeSet>
@@ -60,45 +60,45 @@
     </delete>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="3"/>
-            <column name="RIGHT_ID" value="14"/>
+            <column name="RIGHT_ID" value="1"/>
         </insert>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="3"/>
-            <column name="RIGHT_ID" value="15"/>
+            <column name="RIGHT_ID" value="2"/>
         </insert>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="4"/>
-            <column name="RIGHT_ID" value="21"/>
+            <column name="RIGHT_ID" value="8"/>
         </insert>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="2"/>
-            <column name="RIGHT_ID" value="18"/>
+            <column name="RIGHT_ID" value="5"/>
         </insert>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="15"/>
+            <column name="RIGHT_ID" value="2"/>
         </insert>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="16"/>
+            <column name="RIGHT_ID" value="3"/>
         </insert>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="22"/>
+            <column name="RIGHT_ID" value="9"/>
         </insert>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="1"/>
-            <column name="RIGHT_ID" value="17"/>
+            <column name="RIGHT_ID" value="4"/>
         </insert>
 
         <insert tableName="role_right">
             <column name="ROLE_ID" value="1"/>
-            <column name="RIGHT_ID" value="18"/>
+            <column name="RIGHT_ID" value="5"/>
         </insert>
 
         <insert tableName="role_right">
             <column name="ROLE_ID" value="1"/>
-            <column name="RIGHT_ID" value="19"/>
+            <column name="RIGHT_ID" value="6"/>
         </insert>
     </changeSet>
     </databaseChangeLog>

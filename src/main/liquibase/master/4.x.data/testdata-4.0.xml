@@ -68,24 +68,24 @@
             <column name="DELIVERY_DATE" value="2015-03-02"/>
         </insert>
         <insert tableName="purchase">
-            <column name="CUSTOMER_ID" value="13"/>
+            <column name="CUSTOMER_ID" value="1"/>
             <column name="DESCRIPTION" value="9 tea roses"/>
             <column name="MANAGER_ID" value="5"/>
             <column name="COST" value="32"/>
             <column name="STAFF_ID" value="6"/>
             <column name="DELIVERY_MANAGER_ID" value="4"/>
-            <column name="RECEIVER_ID" value="14"/>
+            <column name="RECEIVER_ID" value="2"/>
             <column name="STATE_ID" value="7"/>
             <column name="DELIVERY_DATE" value="2015-05-01"/>
         </insert>
         <insert tableName="purchase">
-            <column name="CUSTOMER_ID" value="15"/>
+            <column name="CUSTOMER_ID" value="3"/>
             <column name="DESCRIPTION" value="1 white and 6 red roses"/>
             <column name="MANAGER_ID" value="5"/>
             <column name="COST" value="7"/>
             <column name="STAFF_ID" value="6"/>
             <column name="DELIVERY_MANAGER_ID" value="4"/>
-            <column name="RECEIVER_ID" value="16"/>
+            <column name="RECEIVER_ID" value="4"/>
             <column name="STATE_ID" value="8"/>
             <column name="DELIVERY_DATE" value="2015-05-02"/>
         </insert>
