@@ -32,9 +32,9 @@
     </changeSet>
     <changeSet author="Maria" id="changelog-2.0-7">
         <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="purchase" constraintName="order_customer_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="contact"/>
-    <rollback>
-        <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_customer_id"/>
-    </rollback>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_customer_id"/>
+        </rollback>
     </changeSet>
     <changeSet author="Maria" id="changelog-2.0-8">
         <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_delivery_manager_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
@@ -60,4 +60,4 @@
             <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_staff_id"/>
         </rollback>
     </changeSet>
-    </databaseChangeLog>
+</databaseChangeLog>
