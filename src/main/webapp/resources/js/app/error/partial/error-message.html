@@ -1,6 +1,7 @@
-<div class="form-messages errors" ng-show="vm.errorMessages.length > 0" data-ng-cloak>
-	<img class="error-icon" src="images/error-icon.png">
-	<div class="messages-group">
-		<div ng-repeat="error in vm.errorMessages">{{error | json}}</div>
-	</div>
+<!-- The error page -->
+<div data-ng-app="flowertyApplication.errorModule">
+    <div class="alert alert-danger" data-ng-show="current.errorMessage">
+        <img width="32" height="32" class="error-icon" src="resources/images/error-icon.png">
+        {{current.errorMessage}}
+    </div>
 </div>
