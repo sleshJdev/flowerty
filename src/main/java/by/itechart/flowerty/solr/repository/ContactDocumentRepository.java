@@ -13,5 +13,6 @@ import java.util.List;
 //@Repository
 public interface ContactDocumentRepository extends SolrCrudRepository<ContactDocument, String>, ContactDocumentRepositoryCustom {
     public List<ContactDocument> findByNameContains(String name);
+    public List<ContactDocument> findBySurnameContains(String surname);
     public List<ContactDocument> findByNameOrSurnameAllIgnoreCase(String name, String surname); //pass the same string twice
 }
