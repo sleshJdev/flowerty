@@ -10,7 +10,7 @@ import java.util.Set;
 public class Role {
 	private Long id;
 	private ROLE_TYPE name;
-	private Set<Right> rights = new HashSet<Right>();
+	private Set<Right> rights = new HashSet<>();
 
 	public static enum ROLE_TYPE {
 		ORDERS_MANAGER, ORDERS_PROCESSOR, DELIVERY_MANAGER, SUPERVISOR, ADMIN
@@ -33,9 +33,9 @@ public class Role {
 	}
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	@JoinTable(name = "role_right", 
-				joinColumns = { @JoinColumn(name = "RIGHT_ID") }, 
-				inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+	@JoinTable(name = "role_right",
+				joinColumns = { @JoinColumn(name = "ROLE_ID") },
+				inverseJoinColumns = { @JoinColumn(name = "RIGHT_ID") })
 	public Set<Right> getRights() {
 		return rights;
 	}

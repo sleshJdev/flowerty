@@ -1,4 +1,4 @@
-package by.itechart.flowerty.security;
+package by.itechart.flowerty.security.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;

@@ -22,7 +22,7 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
 
             transportService.setValue(emails);
             $location.path("send-email");//redirect to email form
-        }
+        };
 
         /*
          * remove spicific contact(s)
@@ -58,7 +58,8 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
                     $scope.contacts.totalPages = data.totalPages;
                 }
             }).error(function(data, status, headers, config) {
-                $location.path("/");
+                $scope.current.errorMessage = status;
+                $location.path("/error");
             });
         };
 
