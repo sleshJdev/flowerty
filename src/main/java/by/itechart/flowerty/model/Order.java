@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -28,6 +29,7 @@ public class Order {
     private User delivery;
     private String description;
     private Set<Item> items;
+    private Date deliveryDate;
 
     public Order() {
     }
@@ -87,6 +89,16 @@ public class Order {
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     public Set<Item> getItems() {
         return items;
+    }
+
+    @Column(name = "DELIVERY_DATE", nullable = true)
+    @Temporal(value = TemporalType.DATE)
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public void setItems(Set<Item> items) {

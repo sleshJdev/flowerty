@@ -37,8 +37,8 @@ angular.module("flowertyApplication.userModule").controller('UsersController', f
         });
 
         request.error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
-            $location.path("/");
+            $scope.current.errorMessage = status;
+            $location.path("/error");
         });
     };
 

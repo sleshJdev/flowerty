@@ -1,6 +1,8 @@
 /**
  * @author Eugene Putsykovich(slesh) Apr 13, 2015
- *
+ * 
+ * global error handler
+ * 
  */
 
 angular.module("flowertyApplication.errorModule", ["ngRoute"])
@@ -26,7 +28,6 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
 	$provide.factory('ErrorInterceptor', function ($q) {
         return {
             responseError: function(rejection) {
-//                alert(JSON.stringify(rejection));
                 console.log(JSON.stringify(rejection));//TODO: remove comment
                 return $q.reject(rejection);
             }
