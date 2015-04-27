@@ -121,7 +121,8 @@
             <column autoIncrement="true" name="ID" type="INT(10)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="NAME" type="ENUM('CREATE_ORDER', 'CREATE_CONTACT', 'EDIT_CONTACT', 'SEARCH_CONTACT', 'COMMENT_ORDER', 'SETTINGS', 'CREATE_USER', 'DELETE_USER', 'EDIT_USER', 'ASSIGN_ROLE', 'VIEW_ORDERS_READY', 'VIEW_ORDERS_ACCEPTED', 'VIEW_ORDERS_ALL')">
+            <column name="NAME" type="ENUM('create_order', 'contact', 'comment_order', 'settings', 'user', 'assign_role',
+            'orders_ready', 'orders_accepted', 'orders_all')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
