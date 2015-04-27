@@ -7,11 +7,8 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Мария
  * Date: 20.03.15
- * Time: 22:40
- * To change this template use File | Settings | File Templates.
  */
 
 @Entity
