@@ -26,7 +26,7 @@ public final class FlowertUtil {
 	buffereOutputStream.close();
     }
     
-    public static void processMultiparts(final String targetDirectory, MultipartFile[] multipartFiles) throws IOException {
+    public static void saveMultiparts(final String targetDirectory, MultipartFile[] multipartFiles) throws IOException {
 	for (MultipartFile multipartFile : multipartFiles) {
 	    processMultipart(targetDirectory, multipartFile);
 	}

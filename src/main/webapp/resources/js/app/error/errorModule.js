@@ -1,6 +1,8 @@
 /**
  * @author Eugene Putsykovich(slesh) Apr 13, 2015
- *
+ * 
+ * global error handler
+ * 
  */
 
 angular.module("flowertyApplication.errorModule", ["ngRoute"])
