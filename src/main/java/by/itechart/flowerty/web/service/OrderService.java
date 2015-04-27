@@ -41,6 +41,9 @@ public class OrderService {
 
     @Transactional
     public Order save(Order orderToCreate){
+        if(orderToCreate.getState().getDescription() == State.DESCRIPTION_TYPE.NEW){
+            List<State> states = (List<State>)stateRepository.findAll();
+        }
         return orderRepository.save(orderToCreate);
     }
 
