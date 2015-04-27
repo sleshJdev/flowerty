@@ -28,7 +28,6 @@ public class ContactService {
     private ContactDocumentRepository contactDocumentRepository;
 
     public Page<Contact> getPage(int page, int size) {
-       List<Long> ids = contactDocumentRepository.findByBirthDate("1990-02-02");
 	return contactRepository.findAll(new PageRequest(page, size));
     }
 

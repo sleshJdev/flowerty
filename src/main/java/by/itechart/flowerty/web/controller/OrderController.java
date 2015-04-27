@@ -50,7 +50,7 @@ public class OrderController {
             throw new Exception("contact id cannot be negative or null");
         }
 
-        OrderEditBundle order = orderService.getOrderEditBundleById(id, null);
+        OrderEditBundle order = orderService.getOrderEditBundleById(id);
         return order;
     }
 }
