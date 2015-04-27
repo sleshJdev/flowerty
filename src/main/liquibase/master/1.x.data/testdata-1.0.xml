@@ -82,48 +82,48 @@
         </insert>
         <rollback/>
     </changeSet>
-    <changeSet id="testdata-1.0-5" author="Maria">
-        <insert tableName="access">
-            <column name="NAME" value="ASSIGN_ROLE"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="COMMENT_ORDER"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="CREATE_CONTACT"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="CREATE_ORDER"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="CREATE_USER"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="DELETE_USER"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="EDIT_CONTACT"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="EDIT_USER"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="SEARCH_CONTACT"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="SETTINGS"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="VIEW_ORDERS_ACCEPTED"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="VIEW_ORDERS_READY"/>
-        </insert>
-        <insert tableName="access">
-            <column name="NAME" value="VIEW_ORDERS_ALL"/>
-        </insert>
-        <rollback/>
-    </changeSet>
+    <!--<changeSet id="testdata-1.0-5" author="Maria">-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="ASSIGN_ROLE"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="COMMENT_ORDER"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="CREATE_CONTACT"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="CREATE_ORDER"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="CREATE_USER"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="DELETE_USER"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="EDIT_CONTACT"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="EDIT_USER"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="SEARCH_CONTACT"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="SETTINGS"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="VIEW_ORDERS_ACCEPTED"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="VIEW_ORDERS_READY"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="access">-->
+            <!--<column name="NAME" value="VIEW_ORDERS_ALL"/>-->
+        <!--</insert>-->
+        <!--<rollback/>-->
+    <!--</changeSet>-->
     <changeSet id="testdata-1.0-6" author="Maria">
         <insert tableName="role">
             <column name="NAME" value="ADMIN"/>
@@ -143,73 +143,73 @@
         <rollback/>
     </changeSet>
     <changeSet id="testdata-1.0-7" author="Maria">
-    <insert tableName="role_right">
-        <column name="ROLE_ID" value="1"/>
-        <column name="RIGHT_ID" value="1"/>
-    </insert>
-    <insert tableName="role_right">
-            <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="2"/>
-    </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="3"/>
-            <column name="RIGHT_ID" value="3"/>
-        </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="3"/>
-        </insert>
+    <!--<insert tableName="role_right">-->
+        <!--<column name="ROLE_ID" value="1"/>-->
+        <!--<column name="RIGHT_ID" value="1"/>-->
+    <!--</insert>-->
+    <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="5"/>-->
+            <!--<column name="RIGHT_ID" value="2"/>-->
+    <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="3"/>-->
+            <!--<column name="RIGHT_ID" value="3"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="5"/>-->
+            <!--<column name="RIGHT_ID" value="3"/>-->
+        <!--</insert>-->
 
-    <insert tableName="role_right">
-        <column name="ROLE_ID" value="3"/>
-        <column name="RIGHT_ID" value="4"/>
-    </insert>
-    <insert tableName="role_right">
-        <column name="ROLE_ID" value="1"/>
-        <column name="RIGHT_ID" value="5"/>
-    </insert>
-    <insert tableName="role_right">
-        <column name="ROLE_ID" value="1"/>
-        <column name="RIGHT_ID" value="6"/>
-    </insert>
-    <insert tableName="role_right">
-        <column name="ROLE_ID" value="3"/>
-        <column name="RIGHT_ID" value="7"/>
-    </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="7"/>
-        </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="1"/>
-            <column name="RIGHT_ID" value="8"/>
-        </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="3"/>
-            <column name="RIGHT_ID" value="9"/>
-        </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="9"/>
-        </insert>
+    <!--<insert tableName="role_right">-->
+        <!--<column name="ROLE_ID" value="3"/>-->
+        <!--<column name="RIGHT_ID" value="4"/>-->
+    <!--</insert>-->
+    <!--<insert tableName="role_right">-->
+        <!--<column name="ROLE_ID" value="1"/>-->
+        <!--<column name="RIGHT_ID" value="5"/>-->
+    <!--</insert>-->
+    <!--<insert tableName="role_right">-->
+        <!--<column name="ROLE_ID" value="1"/>-->
+        <!--<column name="RIGHT_ID" value="6"/>-->
+    <!--</insert>-->
+    <!--<insert tableName="role_right">-->
+        <!--<column name="ROLE_ID" value="3"/>-->
+        <!--<column name="RIGHT_ID" value="7"/>-->
+    <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="5"/>-->
+            <!--<column name="RIGHT_ID" value="7"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="1"/>-->
+            <!--<column name="RIGHT_ID" value="8"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="3"/>-->
+            <!--<column name="RIGHT_ID" value="9"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="5"/>-->
+            <!--<column name="RIGHT_ID" value="9"/>-->
+        <!--</insert>-->
 
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="1"/>
-            <column name="RIGHT_ID" value="10"/>
-        </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="4"/>
-            <column name="RIGHT_ID" value="11"/>
-        </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="2"/>
-            <column name="RIGHT_ID" value="12"/>
-        </insert>
-        <insert tableName="role_right">
-            <column name="ROLE_ID" value="5"/>
-            <column name="RIGHT_ID" value="13"/>
-        </insert>
-        <rollback/>
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="1"/>-->
+            <!--<column name="RIGHT_ID" value="10"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="4"/>-->
+            <!--<column name="RIGHT_ID" value="11"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="2"/>-->
+            <!--<column name="RIGHT_ID" value="12"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="role_right">-->
+            <!--<column name="ROLE_ID" value="5"/>-->
+            <!--<column name="RIGHT_ID" value="13"/>-->
+        <!--</insert>-->
+        <!--<rollback/>-->
     </changeSet>
     <changeSet id="testdata-1.0-8" author="Maria">
         <insert tableName="state">
