@@ -1,14 +1,19 @@
 package by.itechart.flowerty.model;
 
-import java.util.Date;
-import java.util.Set;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import org.apache.solr.client.solrj.beans.Field;
 
 import javax.persistence.*;
-
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.Set;
 @Entity
 @Table(name = "contact")
 public class Contact {
-
     private Long id;
     private String name;
     private String surname;
@@ -16,14 +21,23 @@ public class Contact {
     private Date birthday;
     private String email;
     private Address address;
-    private User user;
     private Set<Phone> phones;
+<<<<<<< HEAD
     private Company company;
+=======
+    private Company company = getStub();
+
+    @Transient
+    private Company getStub(){
+	return new Company("itechart@mail.com,", "itechart", 1L);
+    }
+    
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public Contact() {
     }
 
-    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email, Address address, User user) {
-	super();
+    public Contact(Long id, String name, String surname, String fathername, Date birthday, String email,
+	    Address address, Company company) {
 	this.id = id;
 	this.name = name;
 	this.surname = surname;
@@ -31,85 +45,107 @@ public class Contact {
 	this.birthday = birthday;
 	this.email = email;
 	this.address = address;
-        this.user = user;
+	this.company = company;
+
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
+    @Field
     public Long getId() {
 	return id;
     }
 
-    public void setId(Long id) {
-	this.id = id;
-    }
-
     @Column(name = "NAME", length = 20, nullable = true)
+    @NotNull
+    @Size(max = 20)
     public String getName() {
 	return name;
     }
 
-    public void setName(String name) {
-	this.name = name;
-    }
-
     @Column(name = "SURNAME", length = 20, nullable = true)
+    @NotNull
+    @Size(max = 20)
     public String getSurname() {
 	return surname;
     }
 
-    public void setSurname(String surname) {
-	this.surname = surname;
-    }
     @Column(name = "FATHERNAME", length = 20, nullable = true)
+    @Size(max = 20)
     public String getFathername() {
 	return fathername;
     }
 
-    public void setFathername(String fathername) {
-	this.fathername = fathername;
-    }
-
     @Column(name = "BIRTHDAY", nullable = true)
     @Temporal(value = TemporalType.DATE)
+    @Past
     public Date getBirthday() {
 	return birthday;
     }
 
-    public void setBirthday(Date birthday) {
-	this.birthday = birthday;
-    }
-
     @Column(name = "EMAIL", length = 50, nullable = true)
+    @Size(max = 50)
+    @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
     public String getEmail() {
 	return email;
     }
 
-    public void setEmail(String email) {
-	this.email = email;
-    }
-
-    @OneToOne(mappedBy = "contact")
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ADDRESS_ID")
+    @Valid
     public Address getAddress() {
 	return address;
     }
-
-    public void setAddress(Address address) {
-	this.address = address;
+    @Valid
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CONTACT_ID", nullable=false)
+    public Set<Phone> getPhones() {
+	return phones;
     }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="COMPANY_ID")
+    @Valid
+    public Company getCompany() {
+	return company;
+    }
+<<<<<<< HEAD
     @OneToOne
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
+=======
+
+    public void setId(Long id) {
+        this.id = id;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
     }
+<<<<<<< HEAD
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
     public Set<Phone> getPhones() {
         return phones;
+=======
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setFathername(String fathername) {
+        this.fathername = fathername;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     }
 
     public void setPhones(Set<Phone> phones) {
@@ -122,6 +158,43 @@ public class Contact {
     }
 
     public void setCompany(Company company) {
+<<<<<<< HEAD
         this.company = company;
     }
+=======
+	this.company = company;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+/*    public ContactDocument buildContactDocument() {
+        ContactDocument contactDocument = new ContactDocument();
+        contactDocument.setId(String.valueOf(id));
+        contactDocument.setName(name);
+        contactDocument.setSurname(surname);
+        return contactDocument;
+    }    */
+    @Transient
+    public ContactDocument getContactDocument() {
+        return id == null? new ContactDocument("", name, surname, birthday, email,
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat()) :
+        new ContactDocument(id.toString(), name, surname, birthday, email,
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat());
+    }
+    @Override
+	public String toString() {
+		return new StringBuilder()
+			.append("[id:").append(id)
+			.append("\n name:").append(name)
+			.append("\n surname:").append(surname)
+			.append("\n fathername:").append(fathername)
+			.append("\n birthday:").append(birthday)
+			.append("\n email:").append(email)
+			.append("\n address:").append(address).append("]\n")
+//			.append("; phones:").append(phones)
+			.toString();
+	}
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 }

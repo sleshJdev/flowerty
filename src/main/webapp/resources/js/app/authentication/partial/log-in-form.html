@@ -1,0 +1,48 @@
+<!-- The form for logging in -->
+<div ng-app="flowertyApplication.authenticationModule">
+    <form id="log-in-form" class="form-narrow form-horisontal" ng-submit="logIn()">
+        <div class="alert alert-danger" data-ng-show="current.errorLogin">
+            There was a problem logging in. Please try again.
+        </div>
+        <fieldset>
+            <legend class="text-center">Log In</legend>
+            <br>
+
+            <div class="form-group form-horizontal">
+                <label for="login" class="col-lg-2 control-label ">Login</label>
+
+                <div class="col-lg-10">
+                    <input type="text" id="login" data-ng-model="current.user.username" class="form-control"/>
+                </div>
+            </div>
+            <br><br>
+
+            <div class="form-group form-horizontal">
+                <label for="password" class="col-lg-2 control-label">Password</label>
+
+                <div class="col-lg-10">
+                    <input type="password" id="password" data-ng-model="current.user.password" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="rememberMe"> remember me
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-success" type="submit">Log In</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <h5>Not registered yet? <a href="/signup">sign up</a></h5>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

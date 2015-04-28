@@ -1,2 +1,4 @@
-# flowerty
-Flowers store service with web ui on java
+# Flowerty
+Flowers store service with web ui on java: Spring,AngularJs,Hibernate
+
+

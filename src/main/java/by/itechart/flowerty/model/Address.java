@@ -1,87 +1,99 @@
 package by.itechart.flowerty.model;
 
-import java.util.List;
-
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "address")
 public class Address {
-
     private Long id;
     private String town;
     private String street;
     private String house;
     private String flat;
-    private Contact contact;
+    private String country;
 
     public Address() {
+
     }
 
-    public Address(Long id, String town, String street, String house, String flat, Contact contact) {
-	super();
+    public Address(Long id, String town, String street, String house, String flat, String country) {
 	this.id = id;
 	this.town = town;
 	this.street = street;
 	this.house = house;
 	this.flat = flat;
-	this.contact = contact;
+	this.country = country;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
+    // @NotNull
+    // @Min(value = 1)
     public Long getId() {
 	return id;
     }
 
-    @Column(name = "TOWN", length = 20, nullable = true)
+    @Column(name = "TOWN", length = 100, nullable = true)
+    @Size(max = 100)
     public String getTown() {
 	return town;
     }
 
-    @Column(name = "STREET", length = 20, nullable = true)
+    @Size(max = 100)
+    @Column(name = "STREET", length = 100, nullable = true)
     public String getStreet() {
 	return street;
     }
 
-
+    @Size(max = 20)
     @Column(name = "HOUSE", length = 20, nullable = true)
     public String getHouse() {
 	return house;
     }
 
-
+    @Size(max = 10)
     @Column(name = "FLAT", length = 10, nullable = true)
     public String getFlat() {
 	return flat;
     }
 
-
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "CONTACT_ID")
-    public Contact getContact() {
-	return contact;
+    @Size(max = 100)
+    @Column(name = "COUNTRY", length = 100, nullable = true)
+    public String getCountry() {
+	return country;
     }
 
-    public void setContact(Contact contact) {
-	this.contact = contact;
+    public void setCountry(String country) {
+	this.country = country;
     }
 
     public void setFlat(String flat) {
-        this.flat = flat;
+	this.flat = flat;
     }
 
     public void setHouse(String house) {
-        this.house = house;
+	this.house = house;
     }
+
     public void setStreet(String street) {
-        this.street = street;
+	this.street = street;
     }
+
     public void setTown(String town) {
-        this.town = town;
+	this.town = town;
     }
 
     public void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
+
+    @Override
+    public String toString() {
+	return new StringBuffer().append("[id:").append(id).append(", town:").append(town).append(", street:")
+		.append(street).append(", house:").append(house).append(", flat:").append(" country:").append(country)
+		.append("]").toString();
+    }
+
 }

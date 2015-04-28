@@ -1,17 +1,21 @@
 package by.itechart.flowerty.model;
 
+<<<<<<< HEAD
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.util.Calendar;
+=======
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Мария
+ * @author Maria
  * Date: 20.03.15
- * Time: 22:41
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @Table(name = "order_altering")
@@ -34,26 +38,46 @@ public class OrderAltering {
     }
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
+<<<<<<< HEAD
+=======
+    @Valid
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public Order getOrder() {
         return order;
     }
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
+<<<<<<< HEAD
+=======
+    @Valid
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public User getUser() {
         return user;
     }
     @ManyToOne
     @JoinColumn(name = "STATE_ID")
+<<<<<<< HEAD
+=======
+    @Valid
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public State getState() {
         return state;
     }
     @Column(name = "DATE")
     @Temporal(value = TemporalType.DATE)
+<<<<<<< HEAD
+=======
+    @Past
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public Date getDate() {
         return date;
     }
     @Column(name = "COMMENT")
+<<<<<<< HEAD
+=======
+    @Size(max=100)
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public String getComment() {
         return comment;
     }

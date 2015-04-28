@@ -1,16 +1,14 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name="RIGHT")
+@Table(name = "access")
 public class Right {
 
     private Long id;
     private RIGHT_TYPE name;
+<<<<<<< HEAD
     private Set<Right> rights = new HashSet<Right>();
 
     @Id
@@ -19,12 +17,21 @@ public class Right {
         return id;
     }
 
+=======
+
+    @Id
+    @Column(name = "ID", length = 10, nullable = false)
+    public Long getId() {
+        return id;
+    }
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "NAME", length = 20, nullable = false)
     public RIGHT_TYPE getName() {
         return name;
     }
+<<<<<<< HEAD
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name="role_right",
             joinColumns={@JoinColumn(name="ROLE_ID")},
@@ -63,8 +70,26 @@ public class Right {
         CREATE_USER,
         EDIT_USER,
         DELETE_USER, ASSIGN_ROLE
+=======
+
+    public void setId(Long id) {
+        this.id = id;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     }
 
-        @ManyToMany(mappedBy="rights")
-        private Set<Role> employees = new HashSet<Role>();
+    public void setName(RIGHT_TYPE name) {
+        this.name = name;
+    }
+
+    public static enum RIGHT_TYPE {
+        create_order,
+        contact,
+        comment_order,
+        settings,
+        user,
+        assign_role,
+        orders_ready,
+        orders_accepted,
+        orders_all
+    }
 }

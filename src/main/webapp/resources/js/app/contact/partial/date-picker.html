@@ -1,0 +1,30 @@
+<!-- search controls for picked year, month and day -->
+<div class="col-sm-8">
+	<div class="col-sm-3 form-inline">
+		<div class="checkbox"><label><input type="checkbox" data-ng-model="bundle.date.less" checked="checked">less</label></div>
+		<div class="checkbox"><label><input type="checkbox" data-ng-model="bundle.date.more">more</label> </div>
+        <div class="checkbox"><label><input type="checkbox" data-ng-model="bundle.date.exact">exact</label> </div>
+
+    </div>
+
+	<div class="col-sm-3">
+		<label>Year</label> 
+		<!--<input type="checkbox" data-ng-model="bundle.date.year.isUse"> -->
+		<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" 
+				data-ng-model="bundle.date.year.value" data-ng-show="bundle.date.year.isUse" data-format="yyyy" data-view-mode="years" data-min-view-mode="years">
+	</div>
+	
+	<div class="col-sm-3">
+		<label>Month</label> 
+		<!--<input type="checkbox" data-ng-model="bundle.date.month.isUse"> -->
+		<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" 
+				data-ng-model="bundle.date.month.value" data-ng-show="bundle.date.month.isUse" data-format="mm" data-view-mode="months" data-min-view-mode="months">
+	</div>
+	
+	<div class="col-sm-3">
+		<label>Day</label> 
+		<!--<input type="checkbox" data-ng-model="bundle.date.day.isUse"> -->
+		<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" 
+				data-ng-model="bundle.date.day.value" data-ng-show="bundle.date.day.isUse" data-format="dd" data-view-mode="days" data-min-view-mode="days">
+	</div>
+</div>

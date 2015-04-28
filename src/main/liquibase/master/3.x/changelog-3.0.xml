@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Maria" id="changelog-3.0-1">
+        <addColumn catalogName="flowerty"
+                   schemaName="public"
+                   tableName="goods">
+            <column name="IMAGE_NAME" type="varchar(255)"/>
+        </addColumn>
+
+    </changeSet>
+    <changeSet author="Maria" id="changelog-3.0-2">
+        <delete catalogName="flowerty"
+                schemaName="public"
+                tableName="access">
+            <where>1=1</where>
+        </delete>
+        <!--<modifyDataType catalogName="flowerty"-->
+                        <!--columnName="NAME"-->
+                        <!--newDataType="ENUM('create_order', 'contact', 'comment_order', 'settings', 'user', 'assign_role',-->
+                         <!--'orders_ready', 'orders_accepted', 'orders_all')"-->
+                        <!--schemaName="public"-->
+                        <!--tableName="access"/>-->
+    </changeSet>
+    <changeSet author="Maria" id="changelog-3.0-3">
+
+        <insert tableName="access">
+            <column name="NAME" value="create_order"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="contact"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="comment_order"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="settings"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="user"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="assign_role"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="orders_ready"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="orders_accepted"/>
+        </insert>
+        <insert tableName="access">
+            <column name="NAME" value="orders_all"/>
+        </insert>
+        <rollback/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-3.0-4">
+    <delete catalogName="flowerty"
+            schemaName="public"
+            tableName="role_right">
+        <where>1=1</where>
+    </delete>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="3"/>
+            <column name="RIGHT_ID" value="1"/>
+        </insert>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="3"/>
+            <column name="RIGHT_ID" value="2"/>
+        </insert>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="4"/>
+            <column name="RIGHT_ID" value="8"/>
+        </insert>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="2"/>
+            <column name="RIGHT_ID" value="5"/>
+        </insert>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="5"/>
+            <column name="RIGHT_ID" value="2"/>
+        </insert>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="5"/>
+            <column name="RIGHT_ID" value="3"/>
+        </insert>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="5"/>
+            <column name="RIGHT_ID" value="9"/>
+        </insert>
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="1"/>
+            <column name="RIGHT_ID" value="4"/>
+        </insert>
+
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="1"/>
+            <column name="RIGHT_ID" value="5"/>
+        </insert>
+
+        <insert tableName="role_right">
+            <column name="ROLE_ID" value="1"/>
+            <column name="RIGHT_ID" value="6"/>
+        </insert>
+    </changeSet>
+    </databaseChangeLog>
