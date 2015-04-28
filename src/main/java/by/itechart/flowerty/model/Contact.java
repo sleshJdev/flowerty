@@ -18,6 +18,7 @@ public class Contact {
     private Address address;
     private User user;
     private Set<Phone> phones;
+    private Company company;
     public Contact() {
     }
 
@@ -32,6 +33,7 @@ public class Contact {
 	this.address = address;
         this.user = user;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -97,7 +99,7 @@ public class Contact {
 	this.address = address;
     }
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
@@ -105,7 +107,7 @@ public class Contact {
     public void setUser(User user) {
         this.user = user;
     }
-    @OneToMany(mappedBy = "contact")
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
     public Set<Phone> getPhones() {
         return phones;
     }
@@ -113,5 +115,13 @@ public class Contact {
     public void setPhones(Set<Phone> phones) {
         this.phones = phones;
     }
+    @ManyToOne
+    @JoinColumn(name="COMPANY_ID")
+    public Company getCompany() {
+        return company;
+    }
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }

@@ -23,6 +23,7 @@ public class PhoneServiceImpl implements PhoneService{
     @Autowired
     private PhoneDao dao;
     @Override
+    @Transactional
     public void savePhone(Phone phone) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -33,6 +34,7 @@ public class PhoneServiceImpl implements PhoneService{
     }
 
     @Override
+    @Transactional
     public void deletePhoneById(Integer id) {
         //To change body of implemented methods use File | Settings | File Templates.
     }

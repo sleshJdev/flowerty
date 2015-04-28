@@ -21,6 +21,9 @@ public class Phone {
     private String operator;
     private PHONE_TYPE type;
 
+    public Phone() {
+    }
+
     @ManyToOne
     @JoinColumn(name = "CONTACT_ID")
     public Contact getContact() {

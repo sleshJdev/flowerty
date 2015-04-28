@@ -4,6 +4,7 @@ import by.itechart.flowerty.dao.AbstractDao;
 import by.itechart.flowerty.dao.PhoneDao;
 import by.itechart.flowerty.model.Phone;
 import org.hibernate.Query;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Time: 19:19
  * To change this template use File | Settings | File Templates.
  */
+@Component
 public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     @Override
     public void savePhone(Phone phone) {

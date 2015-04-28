@@ -12,21 +12,27 @@ import javax.persistence.*;
 @Entity
 @Table(name="user")
 public class User {
+    public User() {
+    }
+
+    public User(Long id, String login, String password, Role role, Contact contact) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.contact = contact;
+    }
+
+    private Long id;
+    private String login;
+    private String password;
+    private Role role;
+    private Contact contact;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "LOGIN", length = 20, nullable = false)
-    private String login;
-
-    @Column(name = "PASSWORD", length = 20, nullable = false)
-    private String password;
-
-    @ManyToOne
-    @JoinColumn(name = "ROLE_ID")
-    private Role role;
-
     public Long getId() {
         return id;
     }
@@ -34,7 +40,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @Column(name = "LOGIN", length = 20, nullable = false)
     public String getLogin() {
         return login;
     }
@@ -42,7 +48,7 @@ public class User {
     public void setLogin(String login) {
         this.login = login;
     }
-
+    @Column(name = "PASSWORD", length = 20, nullable = false)
     public String getPassword() {
         return password;
     }
@@ -51,6 +57,8 @@ public class User {
         this.password = password;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
     public Role getRole() {
         return role;
     }
@@ -58,7 +66,7 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-
+    @OneToOne(mappedBy = "user")
     public Contact getContact() {
         return contact;
     }
@@ -67,7 +75,7 @@ public class User {
         this.contact = contact;
     }
 
-    @OneToOne(mappedBy = "user")
-    private Contact contact;
+
+
 
 }

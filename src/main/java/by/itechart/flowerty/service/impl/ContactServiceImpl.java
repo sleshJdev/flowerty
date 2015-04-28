@@ -4,6 +4,8 @@ import by.itechart.flowerty.dao.ContactDao;
 import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,11 +16,14 @@ import java.util.List;
  * Time: 20:30
  * To change this template use File | Settings | File Templates.
  */
+@Service("contactService")
+@Transactional
 public class ContactServiceImpl implements ContactService {
     @Autowired
-    private ContactDao dao;
+    ContactDao dao;
 
     @Override
+    @Transactional
     public void saveContact(Contact contact) {
         dao.saveContact(contact);
     }
@@ -29,6 +34,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    @Transactional
     public void deleteContactById(Integer id) {
         dao.deleteContactById(id);
     }
@@ -39,6 +45,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    @Transactional
     public void updateContact(Contact contact) {
         dao.updateContact(contact);
     }

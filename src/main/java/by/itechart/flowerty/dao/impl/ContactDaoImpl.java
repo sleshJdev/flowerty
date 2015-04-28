@@ -4,9 +4,10 @@ import by.itechart.flowerty.dao.AbstractDao;
 import by.itechart.flowerty.dao.ContactDao;
 import by.itechart.flowerty.model.Contact;
 import org.hibernate.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
     @Override
