@@ -1,26 +1,17 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
-<<<<<<< HEAD
-=======
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
 /**
  * User: Мария
  * Date: 20.03.15
  */
-<<<<<<< HEAD
-@Entity
-@Table(name = "order")
-=======
-
 @Entity
 @Table(name = "purchase")
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 public class Order {
     private Long id;
     private State state;
@@ -30,23 +21,11 @@ public class Order {
     private User staff;
     private User manager;
     private User delivery;
-<<<<<<< HEAD
-
-    public Order() {
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", length = 10, nullable = false)
-    public Long getId() {
-        return id;
-=======
     private String description;
     private Set<Item> items;
     private Date deliveryDate;
 
     public Order() {
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     }
 
     @Id
@@ -68,47 +47,29 @@ public class Order {
     }
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
-<<<<<<< HEAD
-=======
     @Valid
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public Contact getCustomer() {
         return customer;
     }
     @ManyToOne
     @JoinColumn(name = "RECEIVER_ID")
-<<<<<<< HEAD
-=======
     @Valid
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public Contact getReceiver() {
         return receiver;
     }
     @ManyToOne
     @JoinColumn(name = "STAFF_ID")
-<<<<<<< HEAD
-=======
     @Valid
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public User getStaff() {
         return staff;
     }
     @ManyToOne
     @JoinColumn(name = "MANAGER_ID")
-<<<<<<< HEAD
-=======
     @Valid
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public User getManager() {
         return manager;
     }
     @ManyToOne
-<<<<<<< HEAD
-    @JoinColumn(name = "DELIVERY_ID")
-    public User getDelivery() {
-        return delivery;
-    }
-=======
     @JoinColumn(name = "DELIVERY_MANAGER_ID")
     @Valid
     public User getDelivery() {
@@ -141,7 +102,6 @@ public class Order {
     public void setDescription(String description) {
         this.description = description;
     }
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
     public void setCost(Double cost) {
         this.cost = cost;
@@ -175,6 +135,4 @@ public class Order {
     public void setState(State state) {
         this.state = state;
     }
-
-
 }

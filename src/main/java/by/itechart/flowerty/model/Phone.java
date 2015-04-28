@@ -18,32 +18,8 @@ public class Phone {
 	private String operator;
 	private PHONE_TYPE type;
 
-<<<<<<< HEAD
-    private Long id;
-    private Contact contact;
-    private String comment;
-    private String country;
-    private String number;
-    private String operator;
-    private PHONE_TYPE type;
-
-    public Phone() {
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "CONTACT_ID")
-    public Contact getContact() {
-        return contact;
-    }
-
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
-
-=======
 	public Phone() {
 	}
->>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

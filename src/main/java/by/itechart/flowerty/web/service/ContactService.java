@@ -1,19 +1,19 @@
 package by.itechart.flowerty.web.service;
 
-import by.itechart.flowerty.dao.repository.ContactRepository;
-import by.itechart.flowerty.model.Company;
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
-import by.itechart.flowerty.solr.model.ContactDocument;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import by.itechart.flowerty.dao.repository.ContactRepository;
+import by.itechart.flowerty.model.Company;
+import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -28,7 +28,6 @@ public class ContactService {
     private ContactDocumentRepository contactDocumentRepository;
 
     public Page<Contact> getPage(int page, int size) {
-       List<Long> ids = contactDocumentRepository.findByBirthDate("1990-02-02");
 	return contactRepository.findAll(new PageRequest(page, size));
     }
 

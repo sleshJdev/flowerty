@@ -48,7 +48,7 @@ public class ContactController {
 	LOGGER.info("get contact page with number {}", page);
 
 	page = (page == null || page < 1) ? 0 : --page;
-        List<Contact> list = contactService.findByBirthDate("2015-10-01");
+	
 	return contactService.getPage(page, 10);
     }
 
