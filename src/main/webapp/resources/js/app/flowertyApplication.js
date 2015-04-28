@@ -27,10 +27,6 @@ var app = angular.module('flowertyApplication', [
             templateUrl: MAIN_MODULE_CONSTANTS.APP_PATH + "user/partial/user-edit.html",
             controller: "UserAddController"
         })
-        .when('/login', {
-            templateUrl: MAIN_MODULE_CONSTANTS.APP_PATH + 'authentication/partial/log-in-form.html',
-            controller: 'LogInController'
-        })
         .when('/add-order', {
             templateUrl: MAIN_MODULE_CONSTANTS.APP_PATH + 'order/partial/order-edit.html',
             controller: 'OrderAddController'

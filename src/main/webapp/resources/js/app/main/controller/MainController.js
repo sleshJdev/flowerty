@@ -11,7 +11,7 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
         isLogged: false,
         user: {},
         errorLogin: false,
-        errorMessage : ""
+        errorMessage : "success"
     };
 
     $scope.current.basket = {

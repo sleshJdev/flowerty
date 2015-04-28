@@ -59,7 +59,7 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
                 }
             }).error(function(data, status, headers, config) {
                 $scope.current.errorMessage = status;
-                $location.path("/error");
+                //$location.path("error");
             });
         };
 

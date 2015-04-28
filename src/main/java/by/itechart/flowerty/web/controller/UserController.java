@@ -76,7 +76,7 @@ public class UserController {
 		// TODO: *add testing for this method
 
 		page = (page == null || page < 1) ? 0 : --page;
-		Page<User> pageUsers = userService.getPage(page, 1);
+		Page<User> pageUsers = userService.getPage(page, 3);
 
 		LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 

@@ -15,7 +15,11 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
 		ERROR_PAGE: ERROR_MODULE_PATH + "partial/error-message.html"
 	}
 })())
-
+	.service('transport', function() {
+		this.f = function(){
+			alert("1");
+		}
+	})
 .config(["$routeProvider", "$provide", "$httpProvider", "ERROR_CONSTANTS",
          function($routeProvider, $provide, $httpProvider, ERROR_CONSTANTS){
 	$routeProvider
@@ -25,9 +29,12 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
 		});
 
 //	TODO: add redirect to error page
-	$provide.factory('ErrorInterceptor', function ($q) {
+	$provide.factory('ErrorInterceptor', function ($q, transport, $location) {
         return {
             responseError: function(rejection) {
+				//transport.f();
+				//$location.path("error");
+				$routeProvider.
                 console.log(JSON.stringify(rejection));//TODO: remove comment
                 return $q.reject(rejection);
             }

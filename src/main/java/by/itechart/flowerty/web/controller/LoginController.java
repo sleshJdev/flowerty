@@ -27,6 +27,7 @@ public class LoginController {
 			return (UserDetails) auth.getPrincipal();
 		}
 
+
 		return null;
 	}
 }

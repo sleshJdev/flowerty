@@ -49,7 +49,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
                 .authorizeRequests()
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
@@ -74,7 +73,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
 //            .and()
-//                .addFilter(customUsernamePasswordAuthenticationFilter())
+//                .exceptionHandling()
+//                .accessDeniedPage("/error")
+//            .and()
+//                .addFilter(customUsernamePasswordAuthenticationFilter()
 
         ;
     }
