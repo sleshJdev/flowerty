@@ -1,5 +1,7 @@
 package by.itechart.flowerty.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -80,7 +82,7 @@ public class Order {
     public String getDescription() {
         return description;
     }
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     public Set<Item> getItems() {
         return items;
     }
