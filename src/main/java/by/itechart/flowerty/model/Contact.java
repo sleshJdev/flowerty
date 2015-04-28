@@ -22,6 +22,9 @@ public class Contact {
     private String email;
     private Address address;
     private Set<Phone> phones;
+<<<<<<< HEAD
+    private Company company;
+=======
     private Company company = getStub();
 
     @Transient
@@ -29,6 +32,7 @@ public class Contact {
 	return new Company("itechart@mail.com,", "itechart", 1L);
     }
     
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public Contact() {
     }
 
@@ -106,14 +110,26 @@ public class Contact {
     public Company getCompany() {
 	return company;
     }
+<<<<<<< HEAD
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    public User getUser() {
+        return user;
+=======
 
     public void setId(Long id) {
         this.id = id;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     }
 
     public void setName(String name) {
         this.name = name;
     }
+<<<<<<< HEAD
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    public Set<Phone> getPhones() {
+        return phones;
+=======
 
     public void setSurname(String surname) {
         this.surname = surname;
@@ -129,13 +145,23 @@ public class Contact {
 
     public void setAddress(Address address) {
         this.address = address;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     }
 
     public void setPhones(Set<Phone> phones) {
         this.phones = phones;
     }
+    @ManyToOne
+    @JoinColumn(name="COMPANY_ID")
+    public Company getCompany() {
+        return company;
+    }
 
     public void setCompany(Company company) {
+<<<<<<< HEAD
+        this.company = company;
+    }
+=======
 	this.company = company;
     }
 
@@ -170,4 +196,5 @@ public class Contact {
 //			.append("; phones:").append(phones)
 			.toString();
 	}
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 }

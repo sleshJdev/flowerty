@@ -12,6 +12,32 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "user")
 public class User {
+<<<<<<< HEAD
+    public User() {
+    }
+
+    public User(Long id, String login, String password, Role role, Contact contact) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.contact = contact;
+    }
+
+    private Long id;
+    private String login;
+    private String password;
+    private Role role;
+    private Contact contact;
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    public Long getId() {
+        return id;
+    }
+=======
 	public User() {
 	}
 
@@ -67,25 +93,62 @@ public class User {
 	public Contact getContact() {
 		return contact;
 	}
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
     public void setId(Long id) {
         this.id = id;
     }
+<<<<<<< HEAD
+    @Column(name = "LOGIN", length = 20, nullable = false)
+    public String getLogin() {
+        return login;
+    }
+=======
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
     public void setLogin(String login) {
         this.login = login;
     }
+<<<<<<< HEAD
+    @Column(name = "PASSWORD", length = 20, nullable = false)
+    public String getPassword() {
+        return password;
+    }
+=======
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+<<<<<<< HEAD
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
+    public Role getRole() {
+        return role;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }
+    @OneToOne(mappedBy = "user")
+    public Contact getContact() {
+        return contact;
+    }
+=======
+    public void setRole(Role role) {
+        this.role = role;
+    }
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
     public void setContact(Contact contact) {
         this.contact = contact;
     }
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 }
