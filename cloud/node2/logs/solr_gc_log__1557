@@ -1,0 +1,9 @@
+2015-04-20T15:54:55.099+0300: 2.578: Total time for which application threads were stopped: 0.0002969 seconds
+2015-04-20T15:54:57.289+0300: 4.768: Total time for which application threads were stopped: 0.0003321 seconds
+Heap
+ par new generation   total 109248K, used 15747K [0x00000000dae00000, 0x00000000e2e00000, 0x00000000e2e00000)
+  eden space 87424K,  18% used [0x00000000dae00000, 0x00000000dbd60fa0, 0x00000000e0360000)
+  from space 21824K,   0% used [0x00000000e0360000, 0x00000000e0360000, 0x00000000e18b0000)
+  to   space 21824K,   0% used [0x00000000e18b0000, 0x00000000e18b0000, 0x00000000e2e00000)
+ concurrent mark-sweep generation total 393216K, used 0K [0x00000000e2e00000, 0x00000000fae00000, 0x00000000fae00000)
+ concurrent-mark-sweep perm gen total 21248K, used 7970K [0x00000000fae00000, 0x00000000fc2c0000, 0x0000000100000000)
