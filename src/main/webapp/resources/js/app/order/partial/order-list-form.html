@@ -9,12 +9,12 @@
             <th>description</th>
             <th>full cost</th>
         </tr>
-        <tr data-ng-repeat="orders in orders.ordersList" >
+        <tr data-ng-repeat="order in orders.ordersList" >
             <td><input
                     type="checkbox"
                     data-ng-model="order.checked"/>
             </td>
-            <td><a href="#edit-order/{{order.id}}"><span class="glyphicon glyphicon-edit"></span></a> {{order.date}}</td>
+            <td><a href="#edit-order/{{order.id}}"><span class="glyphicon glyphicon-edit"></span></a> {{order.deliveryDate}}</td>
             <td>{{order.description}}</td>
             <td>{{order.cost | currency}}</td>
         </tr>

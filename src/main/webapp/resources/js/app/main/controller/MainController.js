@@ -19,7 +19,7 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
             itemsCount : 0,
             fullCost: 0
         },
-        goods : []
+        items : []
     };
 
     $scope.current.logOut = function () {

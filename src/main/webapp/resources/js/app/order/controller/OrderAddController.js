@@ -21,7 +21,8 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         {
             description : 'NEW'
         },
-        items: $scope.current.basket.goods
+        items: [],
+        deliveryDate: ''
     };
     
     $scope.search = {
@@ -58,7 +59,21 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         });
     };
 
+    $scope.initItems = function(){
+        var i;
+        for(i = 0; i < $scope.current.basket.items.length; i++){
+            var basketItem = $scope.current.basket.items[i];
+            var orderItem = {};
+            orderItem.flower = basketItem;
+            orderItem.quantity = basketItem.count;
+            $scope.order.items.push(orderItem);
+        }
+    };
+
     $scope.init = function(){
+
+        $scope.initItems();
+
         //  TODO: get it from factory
 /*
 

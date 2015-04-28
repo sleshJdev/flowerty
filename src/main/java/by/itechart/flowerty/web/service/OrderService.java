@@ -8,6 +8,7 @@ import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.State;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.model.OrderEditBundle;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +43,15 @@ public class OrderService {
     @Transactional
     public Order save(Order orderToCreate){
         if(orderToCreate.getState().getDescription() == State.DESCRIPTION_TYPE.NEW){
+
+            //  NEED SEARCH BY DESCRIPTION_TYPE!!!!
             List<State> states = (List<State>)stateRepository.findAll();
+            State newState = null;
+            for(State state : states){
+                if(state.getDescription() == State.DESCRIPTION_TYPE.NEW){
+                    orderToCreate.setState(state);
+                }
+            }
         }
         return orderRepository.save(orderToCreate);
     }
@@ -66,11 +75,12 @@ public class OrderService {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userPrincipal = (UserDetails)auth.getPrincipal();
             if(userPrincipal != null){
-                Role editingUserRole = (Role)userPrincipal.getAuthorities().toArray()[0];
-                //  Filter logic for this order and this user
+                String editingUserRoleDescription = StringUtils.removeStart(userPrincipal.getAuthorities().toArray()[0].toString(), "ROLE_");
+
+                //  Filter logic for this order and this user role
                 List<State> allStates = (List<State>)stateRepository.findAll();
                 for(State state : allStates){
-                    if(canChangeThisState(editingUserRole, state)){
+                    if(canChangeToThisState(editingUserRoleDescription, state, orderEditBundle.getOrder().getState())){
                         availableStates.add(state);
                     }
                 }
@@ -80,21 +90,29 @@ public class OrderService {
         return orderEditBundle;
     }
 
-    private boolean canChangeThisState(Role role, State state){
-        switch (state.getDescription()){
+    private boolean canChangeToThisState(String roleDescription, State newState, State currentState){
+        switch (newState.getDescription()){
             case CANCELED:{
                 return true;
             }
             case IMPOSSIBLE:{
                 return true;
             }
-            case ACCEPTED:
-            case PROCESSING:{
-                return role.getName() == Role.ROLE_TYPE.ORDERS_PROCESSOR;
+            case ACCEPTED:{
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.ORDERS_PROCESSOR.toString())
+                        && currentState.getDescription() == State.DESCRIPTION_TYPE.NEW;
             }
-            case READY:
+            case PROCESSING:{
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.ORDERS_PROCESSOR.toString())
+                        && currentState.getDescription() == State.DESCRIPTION_TYPE.ACCEPTED;
+            }
+            case READY:{
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.DELIVERY_MANAGER.toString())
+                        && currentState.getDescription() == State.DESCRIPTION_TYPE.PROCESSING;
+            }
             case DELIVERY:{
-                return role.getName() == Role.ROLE_TYPE.DELIVERY_MANAGER;
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.DELIVERY_MANAGER.toString())
+                        && currentState.getDescription() == State.DESCRIPTION_TYPE.READY;
             }
             default:{
                 return false;
