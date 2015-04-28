@@ -1,8 +1,11 @@
 package by.itechart.flowerty.model;
 
 import javax.persistence.*;
+<<<<<<< HEAD
+=======
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
 /**
  * User: Мария Date: 21.03.15
@@ -14,7 +17,11 @@ public class Item {
     private Long id;
     private int quantity;
     private Order order;
+<<<<<<< HEAD
+    private Flower flower;
+=======
     private Goods flower;
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
 
     public Item() {
     }
@@ -26,20 +33,30 @@ public class Item {
         return id;
     }
     @Column(name = "QUANTITY", nullable=false)
+<<<<<<< HEAD
+=======
     @NotNull
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public int getQuantity() {
         return quantity;
     }
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
+<<<<<<< HEAD
+=======
     @Valid
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
     public Order getOrder() {
         return order;
     }
     @ManyToOne
     @JoinColumn(name = "FLOWER_ID")
+<<<<<<< HEAD
+    public Flower getFlower() {
+=======
     @Valid
     public Goods getFlower() {
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
         return flower;
     }
 
@@ -55,7 +72,11 @@ public class Item {
         this.order = order;
     }
 
+<<<<<<< HEAD
+    public void setFlower(Flower flower) {
+=======
     public void setFlower(Goods flower) {
+>>>>>>> c1a9d88e855a73a46f665e7b6d057e3973267285
         this.flower = flower;
     }
 }
