@@ -2,7 +2,6 @@ package by.itechart.flowerty.web.controller;
 
 import java.io.IOException;
 
-import by.itechart.flowerty.web.service.GoodsService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,15 +12,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import by.itechart.flowerty.dao.repository.GoodsRepository;
 import by.itechart.flowerty.dao.repository.UserRepository;
 import by.itechart.flowerty.local.settings.Settings;
 import by.itechart.flowerty.model.Company;
 import by.itechart.flowerty.model.Goods;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
+import by.itechart.flowerty.web.service.GoodsService;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 21, 2015
@@ -37,9 +41,6 @@ public class GoodsController {
 
     @Autowired
     private Settings settings;
-
-    @Autowired
-    private GoodsRepository goodsRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -66,7 +67,7 @@ public class GoodsController {
 	    goods.setCompany(company);
 	    goods.setImage(name);
 	    
-	    goodsRepository.save(goods);
+	    goodsService.save(goods);
 	}else{
 	    LOGGER.info("anonymous user can't add goods");
 	}

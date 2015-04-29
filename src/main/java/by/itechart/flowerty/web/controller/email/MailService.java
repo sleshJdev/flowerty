@@ -1,7 +1,13 @@
 package by.itechart.flowerty.web.controller.email;
 
+import java.io.IOException;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.mail.SimpleMailMessage;
@@ -9,10 +15,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
@@ -22,11 +24,11 @@ import java.io.IOException;
 @Service
 public class MailService {
     @Autowired
-    //@Qualifier(value="jms")
+    @Qualifier(value="jms")
     private JavaMailSenderImpl sender;
 
     @Autowired
-    //@Qualifier(value="smm")
+    @Qualifier(value="smm")
     private SimpleMailMessage simpleMailMessage;
 
     public void send(String to, String subject, String text) {
