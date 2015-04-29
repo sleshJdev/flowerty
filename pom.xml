@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>by.itechart.flowerty</groupId>
 	<artifactId>flowerty</artifactId>
@@ -21,7 +21,7 @@
 		<json-path.version>0.9.1</json-path.version>
 		<junit.version>4.11</junit.version>
 		<io.spring.platform-version>1.1.1.RELEASE</io.spring.platform-version>
-        <querydsl.version>3.4.2</querydsl.version>
+		<querydsl.version>3.4.2</querydsl.version>
 	</properties>
 	<dependencies>
 		<!-- Joda-Time -->
@@ -70,9 +70,9 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-		
-		
-        <!-- Security -->
+
+
+		<!-- Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -106,7 +106,8 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		<!-- Avoid: javax.validation.ValidationException: HV000183: Unable to load 'javax.el.ExpressionFactory' -->
+		<!-- Avoid: javax.validation.ValidationException: HV000183: Unable to load 
+			'javax.el.ExpressionFactory' -->
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
@@ -235,10 +236,10 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
-	        <groupId>org.codehaus.jackson</groupId>
-	        <artifactId>jackson-mapper-asl</artifactId>
-	        <version>1.9.13</version>
-	    </dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
 
 		<!-- Utilities -->
 		<dependency>
@@ -291,37 +292,37 @@
 			<version>${json-path.version}</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-solr</artifactId>
-            <version>1.3.2.RELEASE</version>
-        </dependency>
-        <dependency>
-        <groupId>org.apache.solr</groupId>
-        <artifactId>solr-test-framework</artifactId>
-        <version>3.5.0</version>
-    </dependency>
-        <!-- QueryDSL -->
-        <dependency>
-            <groupId>com.mysema.querydsl</groupId>
-            <artifactId>querydsl-apt</artifactId>
-            <version>${querydsl.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mysema.querydsl</groupId>
-            <artifactId>querydsl-core</artifactId>
-            <version>${querydsl.version}</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-solr</artifactId>
+			<version>1.3.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-test-framework</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+		<!-- QueryDSL -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.mysema.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
-            <version>${querydsl.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
 	<build>
 		<plugins>
 
@@ -380,68 +381,65 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-        <plugin>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-maven-plugin</artifactId>
-            <version>3.3.2</version>
-            <configuration>
-                <changeLogFile>${basedir}/src/main/liquibase/master.changelog.xml</changeLogFile>
-                <driver>com.mysql.jdbc.Driver</driver>
-                <url>jdbc:mysql://localhost:3306/flowerty</url>
-                <username>slesh</username>
-                <password>gtx260</password>
-            </configuration>
-            <!--<executions>-->
-                <!--<execution>-->
-                    <!--<phase>process-resources</phase>-->
-                <!--</execution>-->
-                 <!--<execution>-->
-                 <!--<phase>process-resources</phase>-->
-                 <!--<goals>-->
-                 <!--<goal>update</goal>-->
-                 <!--</goals>-->
-                 <!--</execution>-->
-            <!--</executions>-->
-        </plugin>
-            <plugin>
-                <groupId>com.mysema.maven</groupId>
-                <artifactId>apt-maven-plugin</artifactId>
-                <version>1.1.2</version>
-                <configuration>
-                    <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.mysema.querydsl</groupId>
-                        <artifactId>querydsl-apt</artifactId>
-                        <version>${querydsl.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>target/generated-sources/annotations</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.3.2</version>
+				<configuration>
+					<changeLogFile>${basedir}/src/main/liquibase/master.changelog.xml</changeLogFile>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<url>jdbc:mysql://localhost:3306/flowerty</url>
+					<username>slesh</username>
+					<password>gtx260</password>
+				</configuration>
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>process-resources</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>update</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.1.2</version>
+				<configuration>
+					<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.mysema.querydsl</groupId>
+						<artifactId>querydsl-apt</artifactId>
+						<version>${querydsl.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/annotations</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 	</build>
-    <repositories>
-        <repository>
-            <id>spring-milestone</id>
-            <name>Spring Milestone Maven Repository</name>
-            <url>http://repo.springsource.org/libs-milestone</url>
-        </repository>
-    </repositories>
+	<repositories>
+		<repository>
+			<id>spring-milestone</id>
+			<name>Spring Milestone Maven Repository</name>
+			<url>http://repo.springsource.org/libs-milestone</url>
+		</repository>
+	</repositories>
 </project>

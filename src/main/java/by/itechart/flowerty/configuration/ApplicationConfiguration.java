@@ -19,20 +19,20 @@ import by.itechart.flowerty.local.listener.StartContextApplicationListener;
  */
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, excludeFilters = @ComponentScan.Filter({ Controller.class,
-	Configuration.class }))
+ Configuration.class }))
 public class ApplicationConfiguration {
 
     @Bean
     public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-	PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-	ppc.setLocations(new ClassPathResource("/persistence.properties"), new ClassPathResource("/local.properties"));
+ PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+ ppc.setLocations(new ClassPathResource("/persistence.properties"), new ClassPathResource("/local.properties"));
 
-	return ppc;
+ return ppc;
     }
 
     @Bean
     public ApplicationListener<ContextStartedEvent> eventListenerBean() {
-	// TODO: current version of listener not work. need improve..,
-	return new StartContextApplicationListener();
+ // TODO: current version of listener not work. need improve..,
+ return new StartContextApplicationListener();
     }
 }

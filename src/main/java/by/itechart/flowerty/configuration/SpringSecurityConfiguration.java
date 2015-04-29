@@ -1,6 +1,9 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.security.*;
+import by.itechart.flowerty.security.CsrfHeaderFilter;
+import by.itechart.flowerty.security.CustomAuthenticationProvider;
+import by.itechart.flowerty.security.TokenBasedRememberMeServices;
+import by.itechart.flowerty.security.handler.AccessDeniedHandler;
 import by.itechart.flowerty.security.handler.AuthFailure;
 import by.itechart.flowerty.security.handler.AuthSuccess;
 import by.itechart.flowerty.security.handler.EntryPointUnauthorizedHandler;
@@ -34,6 +37,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private EntryPointUnauthorizedHandler unauthorizedHandler;
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -72,25 +78,33 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
-//            .and()
-//                .exceptionHandling()
-//                .accessDeniedPage("/error")
-//            .and()
-//                .addFilter(customUsernamePasswordAuthenticationFilter()
-
+            .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+//                .accessDeniedPage("/403")
         ;
     }
 
-    @Bean
-    public CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter()
-            throws Exception {
-        CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter = new CustomUsernamePasswordAuthenticationFilter();
-        customUsernamePasswordAuthenticationFilter
-                .setAuthenticationManager(authenticationManagerBean());
-//        customUsernamePasswordAuthenticationFilter
-//                .setAuthenticationSuccessHandler(customSuccessHandler());
-        return customUsernamePasswordAuthenticationFilter;
-    }
+
+//    @Bean(name="simpleMappingExceptionResolver")
+//    public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
+//        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
+//
+//        Properties mappings = new Properties();
+//        mappings.setProperty(".DataAccessException", "dataAccessFailure");
+//        mappings.setProperty(".NoSuchRequestHandlingMethodException", "resourceNotFound");
+//        mappings.setProperty(".TypeMismatchException", "resourceNotFound");
+//        mappings.setProperty(".MissingServletRequestParameterException", "resourceNotFound");
+//
+//        r.setDefaultErrorView("error");    // No default
+////        r.setExceptionAttribute("ex");     // Default is "exception"
+//        r.setExcludedExceptions(AccessDeniedException.class);
+////        r.setWarnLogCategory("example.MvcLogger");     // No default
+//        r.setExceptionMappings(mappings);  // None by default
+//
+//        return r;
+//    }
+
 
     @Autowired
     @Qualifier("userDetailsService")

@@ -9,6 +9,9 @@
         
    <field name="name" type="text_general" indexed="true" stored="true" multiValued="false"/>
    <field name="surname" type="text_general" indexed="true" stored="true" multiValued="false"/>
+    <field name="day" type="int" indexed="true" stored="true" multiValued="false"/>
+   <field name="month" type="int" indexed="true" stored="true" multiValued="false"/>
+   <field name="year" type="int" indexed="true" stored="true" multiValued="false"/>
    <field name="birthday" type="date" indexed="true" stored="true" multiValued="false"/>
    <field name="email" type="text_general" indexed="true" stored="true" multiValued="false"/>
    <field name="country" type="text_general" indexed="true" stored="true" multiValued="false"/>

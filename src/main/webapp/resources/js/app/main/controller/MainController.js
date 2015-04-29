@@ -10,8 +10,7 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
     $scope.current = {
         isLogged: false,
         user: {},
-        errorLogin: false,
-        errorMessage : "success"
+        errorLogin: false
     };
 
     $scope.current.basket = {
