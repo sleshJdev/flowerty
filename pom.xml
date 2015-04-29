@@ -24,6 +24,7 @@
 		<querydsl.version>3.4.2</querydsl.version>
 	</properties>
 	<dependencies>
+		<!-- ActiveMQ -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
@@ -34,7 +35,6 @@
 			<artifactId>spring-jms</artifactId>
 			<version>${springframework.version}</version>
 		</dependency> 
-	
 		<!-- Joda-Time -->
 		<dependency>
 			<groupId>joda-time</groupId>

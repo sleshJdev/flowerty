@@ -6,7 +6,8 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsAddController
             goods: {
 //				cost:
                 flower: {},
-                company: {}
+                company: {},
+                image: ""
 //				remain:
             },
             actions: [],
@@ -20,6 +21,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsAddController
         };
 
         $scope.bundle.actions.add = function(){
+        	$scope.bundle.goods.image = $scope.bundle.picture.name;
             goodsProcessService.addGoods($scope.notification, $scope.bundle.goods, $scope.bundle.picture, $scope.$parent.current.user.name);
             $scope.notification.status = "show";
         }

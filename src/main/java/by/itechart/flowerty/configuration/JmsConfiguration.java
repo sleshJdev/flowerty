@@ -1,0 +1,75 @@
+package by.itechart.flowerty.configuration;
+
+import javax.jms.ConnectionFactory;
+import javax.jms.MessageListener;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.command.ActiveMQDestination;
+import org.apache.activemq.command.ActiveMQQueue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.jms.connection.CachingConnectionFactory;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.SimpleMessageListenerContainer;
+
+import by.itechart.flowerty.jms.MessageProducer;
+import by.itechart.flowerty.jms.MessageReceiver;
+
+/**
+ * @author Eugene Putsykovich(slesh) Apr 29, 2015
+ *
+ */
+@Configuration
+@PropertySource("classpath:/jms.properties")
+public class JmsConfiguration {
+    @Autowired
+    private Environment environment;
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+	final String username = environment.getProperty("jms.username");
+	final String password = environment.getProperty("jms.password");
+	final String url = environment.getProperty("jms.broker.url");
+	ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(username, password, url);
+	ConnectionFactory connectionFactory = new CachingConnectionFactory(activeMQConnectionFactory);
+
+	return connectionFactory;
+    }
+
+    @Bean
+    public ActiveMQDestination destination() {
+	final String queueName = environment.getProperty("jms.queue.name");
+	ActiveMQQueue queue = new ActiveMQQueue(queueName);
+
+	return queue;
+    }
+    
+    @Bean 
+    public MessageListener messageReceiver(){
+	return new MessageReceiver();
+    }
+    
+    @Bean
+    public SimpleMessageListenerContainer simpleMessageListenerContainer(){
+	SimpleMessageListenerContainer listenerContainer = new SimpleMessageListenerContainer();
+	listenerContainer.setConnectionFactory(connectionFactory());
+	listenerContainer.setDestination(destination());
+	listenerContainer.setMessageListener(messageReceiver());
+	
+	return listenerContainer;
+    }
+    
+    @Bean
+    public MessageProducer messageProducer() {
+	JmsTemplate jmsTemplate = new JmsTemplate();
+	jmsTemplate.setConnectionFactory(connectionFactory());
+	jmsTemplate.setDefaultDestination(destination());
+
+	MessageProducer messageProducer = new MessageProducer(jmsTemplate);
+
+	return messageProducer;
+    }
+}

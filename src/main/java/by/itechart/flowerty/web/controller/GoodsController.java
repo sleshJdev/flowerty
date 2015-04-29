@@ -1,7 +1,6 @@
 package by.itechart.flowerty.web.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import by.itechart.flowerty.web.service.GoodsService;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -49,7 +48,7 @@ public class GoodsController {
     @RequestMapping(value = "goods/add", method = RequestMethod.POST)
     public void add(@RequestParam("goods") String goodsJson, @RequestPart(value = "picture") MultipartFile goodsPicture)
 	    throws IOException {
-
+	
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	if (!(authentication instanceof AnonymousAuthenticationToken)) {
 	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -57,16 +56,18 @@ public class GoodsController {
 
 	    LOGGER.info("add new goods. json: {}, picture name: {}, login: {}", goodsJson,
 		    goodsPicture.getOriginalFilename(), login);
-
+	    
 	    // TODO: need field in db
 	    FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
-
+	    
 	    ObjectMapper mapper = new ObjectMapper();
 	    Goods goods = mapper.readValue(goodsJson, Goods.class);
 	    Company company = userRepository.findUserByLogin(login).getContact().getCompany();
 	    goods.setCompany(company);
-
+	    
 	    goodsRepository.save(goods);
+	}else{
+	    LOGGER.info("anonymous user can't add goods");
 	}
     }
 
