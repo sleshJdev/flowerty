@@ -1,7 +1,7 @@
 package by.itechart.flowerty.security.service;
 
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.persistence.repository.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

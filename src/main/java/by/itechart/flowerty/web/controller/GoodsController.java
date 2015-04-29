@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import by.itechart.flowerty.dao.repository.GoodsRepository;
-import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.persistence.repository.GoodsRepository;
+import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.local.settings.Settings;
-import by.itechart.flowerty.model.Company;
-import by.itechart.flowerty.model.Goods;
+import by.itechart.flowerty.persistence.repository.model.Company;
+import by.itechart.flowerty.persistence.repository.model.Goods;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
 /**

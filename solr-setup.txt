@@ -1,0 +1,12 @@
+download Solr from
+http://www.apache.org/dyn/closer.cgi/lucene/solr/5.1.0
+extract it to any folder you prefer
+visit http://localhost:8983/solr/ to see it's going ok
+put "solr" folder to solr-5.1.0/server
+put "cloud" folder to solr-5.1.0/example
+(you don't need them in the project folder anymore)
+go to solr-5.1.0/bin and execute: solr start -e cloud -nopromt
+when it asks about replacing log files, choose all
+it opens two windows. don't close them until you don't need solr anymore!
+if somesing doesn't work try running "solr restart -all" from the same bin folder
+to stop it run solr stop -all or close those two windows

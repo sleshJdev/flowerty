@@ -5,7 +5,6 @@
 package by.itechart.flowerty.web.controller;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.RepositorySolrContactService;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.persistence.repository.model.Contact;
 //import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 
@@ -48,8 +47,7 @@ public class ContactController {
 	LOGGER.info("get contact page with number {}", page);
 
 	page = (page == null || page < 1) ? 0 : --page;
-        List<Contact> list = contactService.findByBirthDate("2015-10-01");
-	return contactService.getPage(page, 10);
+ 	return contactService.getPage(page, 10);
     }
 
     @ResponseBody
@@ -68,7 +66,7 @@ public class ContactController {
 
     @ResponseBody
     @RequestMapping(value = "contact/search", method = RequestMethod.POST)
-    public Page<Contact> search(@RequestBody Contact contact) {
+    public Page<Contact> search(@RequestBody ContactDocument contact) {
 	LOGGER.info("search contact");
     return contactService.findContacts(contact, 0, 10);
 	//return contactService.getPage(0, 10);
