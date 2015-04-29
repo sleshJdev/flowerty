@@ -16,9 +16,6 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
         }).success(function (data, status, headers, config) {
             $scope.bundle = data;
             $scope.order = $scope.bundle.order;
-            $scope.order.changeState = function (state) {
-                $scope.order.state = state;
-            }
         }).error(function (data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
         });

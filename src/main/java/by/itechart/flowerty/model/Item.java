@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 public class Item {
     private Long id;
     private int quantity;
-    private Order order;
     private Goods flower;
 
     public Item() {
@@ -31,12 +30,6 @@ public class Item {
         return quantity;
     }
     @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
-    @Valid
-    public Order getOrder() {
-        return order;
-    }
-    @ManyToOne
     @JoinColumn(name = "FLOWER_ID")
     @Valid
     public Goods getFlower() {
@@ -49,10 +42,6 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public void setFlower(Goods flower) {

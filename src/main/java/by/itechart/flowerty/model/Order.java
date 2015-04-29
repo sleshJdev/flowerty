@@ -82,7 +82,9 @@ public class Order {
     public String getDescription() {
         return description;
     }
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     public Set<Item> getItems() {
         return items;
     }

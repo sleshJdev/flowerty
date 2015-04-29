@@ -44,7 +44,6 @@ public class TestItemRepository extends JpaConfigurationAware {
         item.setQuantity(10);
         Order order = new Order();
         order.setId(1l);
-        item.setOrder(order);
         item = itemRepository.save(item);
         Assert.assertEquals(10, item.getQuantity());
         Assert.assertEquals(goods, item.getFlower());

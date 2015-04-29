@@ -3,10 +3,10 @@ package by.itechart.flowerty.web.service;
 import by.itechart.flowerty.dao.repository.OrderRepository;
 import by.itechart.flowerty.dao.repository.StateRepository;
 import by.itechart.flowerty.dao.repository.UserRepository;
+import by.itechart.flowerty.model.Item;
 import by.itechart.flowerty.model.Order;
 import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.State;
-import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
