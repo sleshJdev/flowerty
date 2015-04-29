@@ -1,10 +1,6 @@
 package by.itechart.flowerty.solr.repository;
 
-import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.solr.model.ContactDocument;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 /**

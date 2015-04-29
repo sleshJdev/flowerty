@@ -1,8 +1,8 @@
 package by.itechart.flowerty.local.listener;
 
-import by.itechart.flowerty.dao.repository.RoleRepository;
+import by.itechart.flowerty.persistence.repository.RoleRepository;
 import by.itechart.flowerty.local.database.LocalDatabase;
-import by.itechart.flowerty.model.Role;
+import by.itechart.flowerty.persistence.repository.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

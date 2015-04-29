@@ -1,7 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.Order;
+import by.itechart.flowerty.persistence.repository.model.Contact;
+import by.itechart.flowerty.persistence.repository.model.Order;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import by.itechart.flowerty.web.service.OrderService;
 import org.slf4j.Logger;
