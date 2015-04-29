@@ -5,8 +5,8 @@
          <tr>
              <th> <span data-ng-click="contacts.deleteContact()" class="btn glyphicon glyphicon-remove"></span> </th>
              <th>Full Name</th>
-             <th>Address</th>
              <th>Birthday</th>
+             <th>Address</th>
          </tr>
          <tr data-ng-repeat="contact in contacts.list" >
              <td><input type="checkbox" data-ng-model="fake.isDeleteContact" data-ng-change="contact.id = -contact.id"/></td>

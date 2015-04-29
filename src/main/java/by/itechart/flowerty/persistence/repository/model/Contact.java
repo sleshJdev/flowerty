@@ -1,7 +1,9 @@
 package by.itechart.flowerty.persistence.repository.model;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
+
 import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -9,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import java.util.Date;
 import java.util.Set;
 @Entity
@@ -22,7 +25,7 @@ public class Contact {
     private String email;
     private Address address;
     private Set<Phone> phones;
-    private Company company = getStub();
+    private Company company;
 
     @Transient
     private Company getStub(){
@@ -114,7 +117,6 @@ public class Contact {
     public void setName(String name) {
         this.name = name;
     }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -151,6 +153,7 @@ public class Contact {
         return contactDocument;
     }    */
     @Transient
+    @JsonIgnore
     public ContactDocument getContactDocument() {
         return id == null ? (address == null? new ContactDocument(name, surname, fathername, birthday, email) : new ContactDocument("", name, surname, birthday, email,
                 address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat()) ):

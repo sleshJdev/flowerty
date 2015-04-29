@@ -1,6 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="well well-sm">
+			<data-notification alert-data="notification"></data-notification>
 			<fieldset class="form-horizontal" form="send-email-form">
 				<legend class="text-center">Send email</legend>
 				<div class="form-group">
@@ -11,7 +12,6 @@
 <!-- 									data-ng-model="bundle.newEmail"  -->
 <!-- 									data-ng-keyup="bundle.actions.addNewEmail($event);"  -->
 <!-- 									placeholder="Type new email to send here and press enter." class="form-control"> -->
-						<data-notification alertData="bundle.notification"></data-notification>
 						<ul class="list-inline">
 							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to.email}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeEmail($index)"></span> </li>
 						</ul>

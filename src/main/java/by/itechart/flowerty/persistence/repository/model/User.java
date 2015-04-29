@@ -87,5 +87,4 @@ public class User {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
-
 }

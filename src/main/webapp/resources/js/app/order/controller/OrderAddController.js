@@ -3,18 +3,26 @@
  * Created by Катерина on 22.04.2015.
  */
 
-orderModule.controller('OrderAddController', ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
+angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
+
+    $scope.option = {
+        edit : false
+    };
 
     $scope.order = {
         customer : {},
         description : '',
         manager : $scope.current.user,
         cost : $scope.current.basket.info.fullCost,
-        processor : {},
-        deliveryManager : {},
+        staff : {},
+        delivery : {},
         receiver : {},
-        state : 'New',
-        basket : $scope.current.basket
+        state :
+        {
+            description : 'NEW'
+        },
+        items: [],
+        deliveryDate: ''
     };
     
     $scope.search = {
@@ -36,14 +44,39 @@ orderModule.controller('OrderAddController', ['$scope', '$http', '$location', '$
     };
 
     $scope.order.checkout = function(){
-        //  TODO: checkout logic
         console.log('Checkout: ' + JSON.stringify($scope.order));
         $scope.order.customer = $scope.search.customer.selected;
         $scope.order.receiver = $scope.search.receiver.selected;
+        //  TODO: create a service
+        $http({
+            method: 'post',
+            url: 'order/save',
+            data: $scope.order
+        }).success(function(data, status, headers, config){
+            $location.path('');
+        }).error(function(data, status, headers, config){
+            console.log("Exception details in OrderAddController.save() : " + JSON.stringify({data: data}));
+        });
+    };
+
+    $scope.initItems = function(){
+        var i;
+        for(i = 0; i < $scope.current.basket.items.length; i++){
+            var basketItem = $scope.current.basket.items[i];
+            var orderItem = {};
+            orderItem.flower = basketItem;
+            orderItem.quantity = basketItem.count;
+            $scope.order.items.push(orderItem);
+        }
     };
 
     $scope.init = function(){
+
+        $scope.initItems();
+
         //  TODO: get it from factory
+/*
+
         $scope.staff.processors = [
             {
                 login : 'Nick Manchkin'
@@ -55,7 +88,7 @@ orderModule.controller('OrderAddController', ['$scope', '$http', '$location', '$
                 login : 'Nikole Clark'
             }
         ];
-        $scope.order.processor = $scope.staff.processors[0];
+        $scope.order.staff = $scope.staff.processors[0];
         $scope.staff.deliveryManagers = [
             {
                 login : 'Luk Kolm'
@@ -67,7 +100,40 @@ orderModule.controller('OrderAddController', ['$scope', '$http', '$location', '$
                 login : 'Dan Poltrat'
             }
         ];
-        $scope.order.deliveryManager = $scope.staff.deliveryManagers[0];
+
+*/
+
+        $http({
+            method: "get",
+            url: "tempsearch/user/list/3"
+        }).success(function(data, status, headers, config) {
+            $scope.order.manager = data.content[0];
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
+
+        $http({
+            method: "get",
+            url: "tempsearch/user/list/1"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.processors = data.content;
+            $scope.order.staff = $scope.staff.processors[0];
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
+
+        $http({
+            method: "get",
+            url: "tempsearch/user/list/2"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.deliveryManagers = data.content;
+            $scope.order.delivery = $scope.staff.deliveryManagers[0];
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
 
     };
 

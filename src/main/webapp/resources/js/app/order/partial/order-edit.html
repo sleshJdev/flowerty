@@ -1,12 +1,16 @@
 
 <!-- Form for editing or creating an order -->
 <div data-ng-app="flowertyApplication.orderModule">
-    <h1>Checkout!</h1>
+    <h1 data-ng-show="!option.edit">Checkout!</h1>
+    <h1 data-ng-show="option.edit">Edit order</h1>
     <form class="form-horizontal col-md-offset-1 col-md-10">
         <div class="form-group form-group-lg">
             <label for="state" class="col-sm-2 control-label">State</label>
             <div class="col-sm-10">
-                <p id="state" class="form-control-static">{{order.state}}</p>
+                <p id="state" class="form-control-static">{{order.state.description}}</p>
+                <div class="btn-group btn-group-lg">
+                    <div class="btn btn-default" data-ng-repeat="state in bundle.availableStates" data-ng-click="orderAction.changeState(state)">{{state.description}}</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -26,20 +30,20 @@
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Description</label>
             <div class="col-sm-10">
-                <textarea rows="5" class="form-control" id="description" placeholder="description">{{order.description}}</textarea>
+                <textarea rows="5" class="form-control" id="description" placeholder="description" data-ng-model="order.description"></textarea>
             </div>
         </div>
         <div class="form-group form-group-lg">
             <label for="orders-manager" class="col-sm-2 control-label">Orders manager</label>
             <div class="col-sm-10">
-                <p id="orders-manager" class="form-control-static">{{order.manager.name}}</p>
+                <p id="orders-manager" class="form-control-static">{{order.manager.login}}</p>
             </div>
         </div>
         <div class="form-group">
             <label for="orders-processor" class="col-sm-2 control-label">Orders processor</label>
             <div class="col-sm-10">
                 <select class="form-control" id="orders-processor"
-                        data-ng-model="order.processor"
+                        data-ng-model="order.staff"
                         data-ng-options="processor as processor.login for processor in staff.processors">
                 </select>
             </div>
@@ -48,7 +52,7 @@
             <label for="delivery-manager" class="col-sm-2 control-label">Delivery manager</label>
             <div class="col-sm-10">
                 <select class="form-control" id="delivery-manager"
-                        data-ng-model="order.deliveryManager"
+                        data-ng-model="order.delivery"
                         data-ng-options="deliveryManager as deliveryManager.login for deliveryManager in staff.deliveryManagers">
                 </select>
             </div>
@@ -75,22 +79,23 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default btn-lg" data-ng-click="order.checkout()">Checkout</button>
+                <button type="submit" class="btn btn-default btn-lg" data-ng-show="!option.edit" data-ng-click="order.checkout()">Checkout</button>
+                <button type="submit" class="btn btn-default btn-lg" data-ng-show="option.edit" data-ng-click="orderAction.save()">Save</button>
             </div>
         </div>
     </form>
 
     <div class="col-md-offset-1 col-md-10">
         <h1 class="col-md-12">Your order:</h1>
-        <div class="row" data-ng-repeat="goodsItem in order.basket.goods">
+        <div class="row" data-ng-repeat="goodsItem in order.items">
             <div class="goods-item col-md-12 thumbnail">
                 <div class="goods-image col-md-3">
-                    <img alt="flowers" class="img-responsive" src="resources/images/flowers/{{goodsItem.imageName}}"/>
+                    <img alt="flowers" class="img-responsive" src="resources/images/flowers/{{goodsItem.flower.image}}"/>
                 </div>
                 <div class="goods-list-item-info caption col-md-offset-1 col-md-7">
-                    <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
-                    <h3 class="goods-item-description">{{goodsItem.cost | currency}} x {{goodsItem.count}} = {{(goodsItem.cost * goodsItem.count) | currency}}</h3>
-                    <h3>Count: <strong>{{goodsItem.count}}</strong></h3>
+                    <h3 class="goods-item-description">{{goodsItem.flower.flower.name}}</h3>
+                    <h3 class="goods-item-description">{{goodsItem.flower.cost | currency}} x {{goodsItem.quantity}} = {{(goodsItem.flower.cost * goodsItem.quantity) | currency}}</h3>
+                    <h3>Count: <strong>{{goodsItem.quantity}}</strong></h3>
                 </div>
             </div>
         </div>

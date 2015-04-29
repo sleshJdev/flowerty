@@ -83,6 +83,4 @@ public class OrderAltering {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-
 }

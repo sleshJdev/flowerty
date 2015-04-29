@@ -21,7 +21,7 @@ orderModule.config(["$routeProvider", 'ORDER_MODULE_CONSTANTS', function($routeP
             templateUrl: ORDER_MODULE_CONSTANTS.ORDER_LIST_FORM,
             controller: "OrdersController"
         })
-        .when("/edit-order", {
+        .when("/edit-order/:id", {
             templateUrl: ORDER_MODULE_CONSTANTS.ORDER_EDIT_FORM,
             controller: "OrderEditController"
         });

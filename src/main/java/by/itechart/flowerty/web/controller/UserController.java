@@ -69,7 +69,7 @@ public class UserController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "user/list/{page}")
+    @RequestMapping(value = {"user/list/{page}", "tempsearch/user/list/{page}"})
     public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
 		LOGGER.info("get page with number {}", page);
 

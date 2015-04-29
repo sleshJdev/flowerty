@@ -39,7 +39,7 @@ public class EmailController {
 
     @Autowired
     private MailService mailService;
-
+    
     @ResponseBody
     @RequestMapping(value = "email/templates", method = RequestMethod.GET)
     public FlowertTemplate[] emailTemplate() throws JsonGenerationException, JsonMappingException,
@@ -59,7 +59,7 @@ public class EmailController {
 	try {
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    EmailInfo emailInfo = objectMapper.readValue(emailJson, EmailInfo.class);
-
+	    
 	    LOGGER.info("create email info object from json success! details: contact quantity: {}",
 		    emailInfo.getTo().length);
 

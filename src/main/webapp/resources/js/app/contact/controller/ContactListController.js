@@ -12,15 +12,14 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
          * grab emails of selected contact and pass they to SendEmailController
          */
         $scope.contacts.goToEmailSend = function(){
-            var emails = [];
+            var receivers = [];
             for(var i = 0; i < $scope.contacts.list.length; ++i){
                 var contact = $scope.contacts.list[i];
                 if(contact.id < 0){
-                    emails.push(contact.email);
+                	receivers.push(contact);
                 }
             }
-
-            transportService.setValue(emails);
+            transportService.setValue(receivers);
             $location.path("send-email");//redirect to email form
         };
 

@@ -4,8 +4,9 @@ import by.itechart.flowerty.persistence.repository.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface OrderRepository extends CrudRepository<Order, Long> {
+public interface OrderRepository extends PagingAndSortingRepository<Order, Long> {
     public Order findOne(Long id);
     public Order save(Order order);
     public void delete (Order order);

@@ -5,11 +5,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Мария
  * Date: 24.03.15
- * Time: 21:03
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @Table(name = "goods")

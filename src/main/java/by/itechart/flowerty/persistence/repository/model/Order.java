@@ -1,19 +1,28 @@
 package by.itechart.flowerty.persistence.repository.model;
 
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 /**
- * Created with IntelliJ IDEA.
  * User: Мария
  * Date: 20.03.15
- * Time: 22:40
- * To change this template use File | Settings | File Templates.
  */
-
 @Entity
 @Table(name = "purchase")
 public class Order {
@@ -84,7 +93,7 @@ public class Order {
     public String getDescription() {
         return description;
     }
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
     public Set<Item> getItems() {
         return items;
     }
@@ -139,6 +148,4 @@ public class Order {
     public void setState(State state) {
         this.state = state;
     }
-
-
 }
