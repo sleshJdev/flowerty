@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  *         helper class for execute helpful work
  */
 public final class FlowertUtil {
-    public static void processMultipart(final String targetDirectory, MultipartFile multipartFile) throws IOException {
+    public static String processMultipart(final String targetDirectory, MultipartFile multipartFile) throws IOException {
 	String name = String.format("%s_%s", UUID.randomUUID().toString(), multipartFile.getOriginalFilename());
 	File file = Paths.get(targetDirectory, name).toFile();
 	OutputStream outputStream = new FileOutputStream(file);
@@ -24,6 +24,8 @@ public final class FlowertUtil {
 	byte[] bytes = multipartFile.getBytes();
 	buffereOutputStream.write(bytes);
 	buffereOutputStream.close();
+	
+	return name;
     }
     
     public static void saveMultiparts(final String targetDirectory, MultipartFile[] multipartFiles) throws IOException {

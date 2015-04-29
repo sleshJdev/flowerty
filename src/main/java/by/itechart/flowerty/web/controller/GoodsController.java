@@ -58,12 +58,13 @@ public class GoodsController {
 		    goodsPicture.getOriginalFilename(), login);
 	    
 	    // TODO: need field in db
-	    FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
+	    String name = FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
 	    
 	    ObjectMapper mapper = new ObjectMapper();
 	    Goods goods = mapper.readValue(goodsJson, Goods.class);
 	    Company company = userRepository.findUserByLogin(login).getContact().getCompany();
 	    goods.setCompany(company);
+	    goods.setImage(name);
 	    
 	    goodsRepository.save(goods);
 	}else{
