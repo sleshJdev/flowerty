@@ -1,6 +1,6 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.persistence.repository.model.User;
 import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

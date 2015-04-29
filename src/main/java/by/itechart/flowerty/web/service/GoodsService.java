@@ -1,7 +1,6 @@
 package by.itechart.flowerty.web.service;
-
-import by.itechart.flowerty.dao.repository.GoodsRepository;
-import by.itechart.flowerty.model.Goods;
+ import by.itechart.flowerty.persistence.repository.GoodsRepository;
+import by.itechart.flowerty.persistence.repository.model.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

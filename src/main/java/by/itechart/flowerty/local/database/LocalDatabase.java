@@ -2,7 +2,7 @@ package by.itechart.flowerty.local.database;
 
 import java.util.List;
 
-import by.itechart.flowerty.model.Role;
+import by.itechart.flowerty.persistence.repository.model.Role;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015 

@@ -1,11 +1,11 @@
 package by.itechart.flowerty.web.service;
 
-import by.itechart.flowerty.dao.repository.ContactRepository;
-import by.itechart.flowerty.dao.repository.RoleRepository;
-import by.itechart.flowerty.dao.repository.UserRepository;
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.Role;
-import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.persistence.repository.ContactRepository;
+import by.itechart.flowerty.persistence.repository.RoleRepository;
+import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.persistence.repository.model.Contact;
+import by.itechart.flowerty.persistence.repository.model.Role;
+import by.itechart.flowerty.persistence.repository.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

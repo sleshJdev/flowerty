@@ -22,7 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import by.itechart.flowerty.local.settings.Settings;
-import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.persistence.repository.model.Contact;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
 /**

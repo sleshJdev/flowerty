@@ -2,13 +2,13 @@ package by.itechart.flowerty.web.service;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
-import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.persistence.repository.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
-import javax.annotation.Resource;
+
 /**
 * @author Maria
 *         Date: 11.04.15

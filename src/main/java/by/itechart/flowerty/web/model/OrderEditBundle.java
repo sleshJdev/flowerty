@@ -1,7 +1,7 @@
 package by.itechart.flowerty.web.model;
 
-import by.itechart.flowerty.model.Order;
-import by.itechart.flowerty.model.State;
+import by.itechart.flowerty.persistence.repository.model.Order;
+import by.itechart.flowerty.persistence.repository.model.State;
 
 import java.util.List;
 

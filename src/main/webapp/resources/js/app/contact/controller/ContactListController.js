@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module("flowertyApplication.contactModule").controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService",
-    function($scope, $http, $location, transportService, deleteService) {
+angular.module("flowertyApplication.contactModule").controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", "contactListService",
+    function($scope, $http, $location, transportService, deleteService, contactListService) {
         $scope.contacts = {
             currentPage: 1,
             totalPages: [],
@@ -64,7 +64,13 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
 
         $scope.contacts.getPage = function(pageNumber){
             $scope.contacts.currentPage = pageNumber;
-            $scope.contacts.getPageFromServer();
+            var list = contactListService.getList();
+            if (list) {
+                $scope.contacts.list = list.content;
+                $scope.contacts.totalPages = list.totalPages;
+            }  else {
+                $scope.contacts.getPageFromServer();
+            }
         };
 
         $scope.contacts.getPreviousPage = function(){

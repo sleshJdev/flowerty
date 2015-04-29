@@ -227,6 +227,17 @@ public class ContactDocument {
         this.year = dateTime.getYearOfEra();
     }
 
+    public ContactDocument(String name, String surname, String fathername, Date birthday, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.fathername = fathername;
+        this.birthday = birthday;
+        this.email = email;
+    }
+
     public ContactDocument() {
     }
+   /* public Contact getContact() {
+
+    } */
 }
