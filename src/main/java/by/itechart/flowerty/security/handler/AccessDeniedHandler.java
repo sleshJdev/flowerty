@@ -21,6 +21,5 @@ public class AccessDeniedHandler extends AccessDeniedHandlerImpl {
             throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 //        response.sendRedirect("/#/error");
-//        super.handle(request, response, accessDeniedException);
     }
 }

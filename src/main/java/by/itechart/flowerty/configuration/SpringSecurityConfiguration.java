@@ -78,10 +78,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository())
-            .and()
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler)
-//                .accessDeniedPage("/403")
+//            .and()
+//                .exceptionHandling()
+//                .accessDeniedHandler(accessDeniedHandler)
         ;
     }
 

@@ -41,7 +41,7 @@ class CustomErrorController {
 //            throw new IllegalArgumentException();
 //        }
 //        return new AccessDeniedException("balbalba");
-        return "redirect:error";
+        return "redirect:/#/error";
     }
 
 //    private String getExceptionMessage(Throwable throwable, Integer statusCode) {

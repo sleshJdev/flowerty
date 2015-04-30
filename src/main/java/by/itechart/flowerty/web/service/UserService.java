@@ -36,7 +36,10 @@ public class UserService {
 	
 	public UserEditBundle getUserEditBundleFor(Long id){
 		UserEditBundle bundle = new UserEditBundle();
-		bundle.setUser(userRepository.findOne(id));
+
+		User user = userRepository.findOne(id);
+		user.setPassword(null);
+		bundle.setUser(user);
 		bundle.setContacts((List<Contact>) contactRepository.findAll());
 		bundle.setRoles((List<Role>)roleRepository.findAll());
 	
@@ -49,6 +52,15 @@ public class UserService {
 
 	@Transactional
 	public User save(User newUser) {
+		return userRepository.save(newUser);
+	}
+
+	@Transactional
+	public User update(User newUser) {
+		User oldUser = userRepository.findOne(newUser.getId());
+
+		newUser.setPassword(oldUser.getPassword());
+
 		return userRepository.save(newUser);
 	}
 

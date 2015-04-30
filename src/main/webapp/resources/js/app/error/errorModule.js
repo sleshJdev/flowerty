@@ -28,7 +28,6 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
         return {
             responseError: function(rejection) {
 
-				//errorDataTransportService.f();
 				errorDataTransportService.setErrorBundle(rejection);
 				$location.path("error");
 				$routeProvider.

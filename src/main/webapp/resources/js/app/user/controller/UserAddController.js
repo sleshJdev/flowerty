@@ -3,10 +3,13 @@
  * Created by Катерина on 20.04.2015.
  */
 
-userModule.controller("UserAddController", ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
+userModule.controller("UserAddController", ['$scope', '$http', '$location', '$filter', 'USER_MODULE_CONSTANTS',
+    function($scope, $http, $location, $filter, USER_MODULE_CONSTANTS) {
 
     $scope.option = {
-        edit : false
+        title: USER_MODULE_CONSTANTS.PROCESS_TYPES.ADD.title,
+        actionButton: USER_MODULE_CONSTANTS.PROCESS_TYPES.ADD.actionButton,
+        edit: false
     };
 
     $scope.bundle = {
