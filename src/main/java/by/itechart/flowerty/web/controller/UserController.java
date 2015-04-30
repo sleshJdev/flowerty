@@ -1,5 +1,6 @@
 package by.itechart.flowerty.web.controller;
 
+import by.itechart.flowerty.model.Role;
 import by.itechart.flowerty.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -88,5 +91,13 @@ public class UserController {
         LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 
         return pageUsers;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "user/roles")
+    public List<Role> getRoles() throws Exception {
+        LOGGER.info("get roles");
+
+        return userService.getRoles();
     }
 }

@@ -75,4 +75,8 @@ public class UserService {
 	public void delete(Long id) {
 		userRepository.delete(id);
 	}
+
+	public List<Role> getRoles() {
+		return roleRepository.findAll();
+	}
 }
