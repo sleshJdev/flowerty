@@ -4,5 +4,6 @@
 4. in terminal: move to 'extract-activemq-foder'/bin
 5. execute command: java -jar activemq.jar start 
    activemq must start without errors
-
+   
+   
   note: to shutdown activemq need press Ctrl+C
