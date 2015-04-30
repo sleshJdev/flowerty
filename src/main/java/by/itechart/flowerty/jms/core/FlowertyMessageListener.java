@@ -36,6 +36,7 @@ public class FlowertyMessageListener implements MessageListener {
     @Override
     public void onMessage(final Message message) {
 	LOGGER.info("recive message: {}", message.getClass());
+	
 	if (message instanceof ActiveMQTextMessage) {
 	    try {
 		final ActiveMQTextMessage textMessage = (ActiveMQTextMessage) message;
@@ -69,7 +70,7 @@ public class FlowertyMessageListener implements MessageListener {
 
 		mailService.send(to, subject, text, attachments);
 	    } catch (IOException | JMSException | MessagingException e) {
-		e.printStackTrace();
+		LOGGER.error(e.getMessage());
 	    }
 	}
     }
