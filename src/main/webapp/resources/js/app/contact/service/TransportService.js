@@ -14,4 +14,4 @@ angular.module("flowertyApplication.contactModule").service("transportService", 
             value = newValue;
         }
     };
-})
+});

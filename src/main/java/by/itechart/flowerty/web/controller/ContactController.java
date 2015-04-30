@@ -44,7 +44,8 @@ public class ContactController {
 	LOGGER.info("get contact page with number {}", page);
 
 	page = (page == null || page < 1) ? 0 : --page;
- 	return contactService.getPage(page, 10);
+
+	return contactService.getPage(page, 10);
     }
 
     @ResponseBody
