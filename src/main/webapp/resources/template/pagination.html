@@ -3,9 +3,9 @@
 <ul class="pagination container">
     <li><a href="" data-ng-click="pagination.getPreviousPage()">&lt;</a></li>
     <li data-ng-repeat="page in [] | flowerRange:pagination.getPagesCount()" 
-	data-ng-init="page = $index + 1" 	
-	data-ng-class="[pagination.pageClass(page)]">
-        <a href="" data-ng-click="pagination.getPage(page)">{{page}}</a>
+		data-ng-init="pageNumber = $index + 1" 	
+		data-ng-class="pagination.pageClass(pageNumber)">
+        <a href="" data-ng-click="pagination.getPage(pageNumber)">{{pageNumber}}</a>
     </li>
     <li><a href="" data-ng-click="pagination.getNextPage()">&gt;</a></li>
 </ul>

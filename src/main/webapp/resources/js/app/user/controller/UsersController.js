@@ -29,50 +29,8 @@ angular.module("flowertyApplication.userModule").controller('UsersController', f
         $scope.users.getPageFromServer();
     };
 
-    $scope.users.getPageFromServer = function () {
-        var request = $http({
-            method: "get",
-            url: "user/list/" + $scope.users.currentPage + '&' + $scope.users.limit
-        });
-
-        request.success(function (data, status, headers, config) {
-            if (!data.content) {
-                $location.path("login");
-            } else {
-                $scope.users.usersList = data.content;
-                $scope.users.pagesCount = data.totalPages;
-            }
-        });
-
-        request.error(function (data, status, headers, config) {
-        });
-    };
-
-    $scope.users.getPreviousPage = function () {
-        if ($scope.users.currentPage !== 1) {
-            $scope.users.currentPage--;
-        } else {
-            return;
-        }
-        $scope.users.getPage($scope.users.currentPage);
-    };
-
-    $scope.users.getNextPage = function () {
-        if ($scope.users.currentPage !== $scope.users.pagesCount) {
-            $scope.users.currentPage++;
-        } else {
-            return;
-        }
-        $scope.users.getPage($scope.users.currentPage);
-    };
-
-    $scope.users.getPagesCount = function () {
-        return $scope.users.pagesCount;
-    };
-
     $scope.users.deleteUsers = function () {
         var toDeleteIds = [];
-        console.log("users to del : " + JSON.stringify({users: $scope.users.usersList}));
         var user;
         for (var i = 0; i < $scope.users.usersList.length; i++) {
             user = $scope.users.usersList[i];
@@ -92,6 +50,48 @@ angular.module("flowertyApplication.userModule").controller('UsersController', f
         }).error(function (data, status, headers, config) {
             console.log("Exception details in UsersController.delete() : " + JSON.stringify({data: data}));
         });
+    };
+    
+    $scope.users.getPageFromServer = function () {
+        var request = $http({
+            method: "get",
+            url: "user/list/" + $scope.users.currentPage + '&' + $scope.users.limit
+        });
+
+        request.success(function (data, status, headers, config) {
+            if (!data.content) {
+                $location.path("login");
+            } else {
+                $scope.users.usersList = data.content;
+                $scope.users.pagesCount = data.totalPages;
+            }
+        });
+
+        request.error(function (data, status, headers, config) {
+        	console.log("get user list error");
+        });
+    };
+
+    $scope.users.getPreviousPage = function () {
+        if ($scope.users.currentPage > 1) {
+            $scope.users.currentPage--;
+        } else {
+            return;
+        }
+        $scope.users.getPage($scope.users.currentPage);
+    };
+
+    $scope.users.getNextPage = function () {
+        if ($scope.users.currentPage < $scope.users.pagesCount) {
+            $scope.users.currentPage++;
+        } else {
+            return;
+        }
+        $scope.users.getPage($scope.users.currentPage);
+    };
+
+    $scope.users.getPagesCount = function () {
+        return $scope.users.pagesCount;
     };
 
     $scope.init = function () {
