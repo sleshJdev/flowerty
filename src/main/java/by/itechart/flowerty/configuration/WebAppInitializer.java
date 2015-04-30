@@ -1,11 +1,11 @@
 package by.itechart.flowerty.configuration;
 
+import javax.servlet.Filter;
+import javax.servlet.ServletRegistration;
+
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-import javax.servlet.Filter;
-import javax.servlet.ServletRegistration;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -17,11 +17,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected String[] getServletMappings() {
 	return new String[] { "/" };
     }
-	
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-	return new Class<?>[] { ApplicationConfiguration.class, MailConfiguration.class, JpaConfiguration.class,
-		SpringSecurityConfiguration.class, SearchContext.class, LocalConfiguration.class };
+	return new Class<?>[] { ApplicationConfiguration.class, LocalConfiguration.class, MailConfiguration.class,
+		JmsConfiguration.class, JpaConfiguration.class, SpringSecurityConfiguration.class, SearchContext.class };
     }
 
     @Override
@@ -36,7 +36,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	characterEncodingFilter.setForceEncoding(true);
 
 	DelegatingFilterProxy securityFilterChain = new DelegatingFilterProxy("springSecurityFilterChain");
-	
 
 	return new Filter[] { characterEncodingFilter, securityFilterChain };
     }

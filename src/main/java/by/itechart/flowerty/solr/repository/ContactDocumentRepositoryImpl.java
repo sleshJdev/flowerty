@@ -1,13 +1,9 @@
 package by.itechart.flowerty.solr.repository;
 
-import by.itechart.flowerty.model.Contact;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import com.mysql.jdbc.StringUtils;
-import org.apache.solr.schema.TrieDateField;
 import org.joda.time.LocalDate;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.SimpleQuery;
@@ -54,6 +50,48 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
                 criteria = new Criteria("surname").contains(contactDocument.getSurname());
             } else {
             criteria = criteria.and(new Criteria("surname").contains(contactDocument.getSurname()));
+            }
+        }
+        if (!StringUtils.isNullOrEmpty(contactDocument.getFathername())) {
+            if (criteria == null) {
+                criteria = new Criteria("fathername").contains(contactDocument.getSurname());
+            } else {
+                criteria = criteria.and(new Criteria("fathername").contains(contactDocument.getSurname()));
+            }
+        }
+        if (contactDocument.getDay() != null) {
+            if (criteria == null) {
+                criteria = new Criteria("day").is(contactDocument.getDay());
+            } else {
+                criteria = criteria.and(new Criteria("day").is(contactDocument.getDay()));
+            }
+        }
+        if (contactDocument.getMonth() != null) {
+            if (criteria == null) {
+                criteria = new Criteria("month").is(contactDocument.getMonth());
+            } else {
+                criteria = criteria.and(new Criteria("month").is(contactDocument.getMonth()));
+            }
+        }
+        if (contactDocument.getYear() != null) {
+            if (criteria == null) {
+                criteria = new Criteria("year").is(contactDocument.getYear());
+            } else {
+                criteria = criteria.and(new Criteria("year").is(contactDocument.getYear()));
+            }
+        }
+        if (contactDocument.getBirthdayAfter() != null) {
+            if (criteria == null) {
+                criteria = new Criteria("birthday").greaterThan(contactDocument.getBirthdayAfter());
+            } else {
+                criteria = criteria.and(new Criteria("birthday").greaterThan(contactDocument.getBirthdayAfter()));
+            }
+        }
+        if (contactDocument.getBirthdayBefore() != null) {
+            if (criteria == null) {
+                criteria = new Criteria("birthday").lessThan(contactDocument.getBirthdayBefore());
+            } else {
+                criteria = criteria.and(new Criteria("birthday").lessThan(contactDocument.getBirthdayBefore()));
             }
         }
         if (!StringUtils.isNullOrEmpty(contactDocument.getCountry())) {

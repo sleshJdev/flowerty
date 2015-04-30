@@ -1,18 +1,21 @@
 package by.itechart.flowerty.web.service;
 
-import by.itechart.flowerty.dao.repository.ContactRepository;
-import by.itechart.flowerty.model.Company;
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.persistence.repository.ContactRepository;
+import by.itechart.flowerty.persistence.repository.model.Company;
+import by.itechart.flowerty.persistence.repository.model.Contact;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -27,13 +30,15 @@ public class ContactService {
     private ContactDocumentRepository contactDocumentRepository;
 
     public Page<Contact> getPage(int page, int size) {
-	return contactRepository.findAll(new PageRequest(page, size));
+    return contactRepository.findAll(new PageRequest(page, size));
     }
 
-    public Page<Contact> findContacts(Contact contact, int page, int size) {
-        List<Long> ids = contactDocumentRepository.findBySearch(contact.getContactDocument());
+    public Page<Contact> findContacts(ContactDocument contact, int page, int size) {
+        List<Long> ids = contactDocumentRepository.findBySearch(contact);
         if (ids == null) {
             return contactRepository.findAll(new PageRequest(page, size)); //replace by findByCompany when we know company
+        } else if (ids.size() == 0) {
+            return new PageImpl<Contact>(new ArrayList<Contact>());
         }
         return contactRepository.findByIdIsIn(ids, new PageRequest(page, size));
     }

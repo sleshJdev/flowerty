@@ -22,6 +22,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         SEARCH_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
         EDIT_PHONE		: CONTACT_MODULE_PATH + "partial/phone-form.html",
         PHONES			: CONTACT_MODULE_PATH + "partial/phone-list-form.html",
+        SHOW_CONTACTS   : CONTACT_MODULE_PATH + "partial/contact-list-form.html",
 
         DATA_PICKER_BOX : CONTACT_MODULE_PATH + "partial/date-picker-box.html",
         DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
@@ -76,6 +77,10 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         .when("/contact-search", {
             templateUrl: CONSTANTS.SEARCH_CONTACT,
             controller: "SearchContactController"
+        })
+        .when("/show-contacts", {
+            templateUrl: CONSTANTS.SHOW_CONTACTS,
+            controller: "ShowContactsController"
         })
         .when("/send-email", {
             templateUrl: CONSTANTS.SEND_EMAIL,

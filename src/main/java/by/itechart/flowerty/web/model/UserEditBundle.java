@@ -1,8 +1,8 @@
 package by.itechart.flowerty.web.model;
 
-import by.itechart.flowerty.model.Contact;
-import by.itechart.flowerty.model.Role;
-import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.persistence.repository.model.Contact;
+import by.itechart.flowerty.persistence.repository.model.Role;
+import by.itechart.flowerty.persistence.repository.model.User;
 
 import java.util.List;
 

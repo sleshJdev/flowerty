@@ -1,7 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.model.Role;
-import by.itechart.flowerty.model.User;
+import by.itechart.flowerty.persistence.repository.model.Role;
+import by.itechart.flowerty.persistence.repository.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
@@ -78,14 +78,19 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "user/list/{page}&{limit}")
+    @RequestMapping(value = {"user/list/{page}&{limit}", "tempsearch/user/list/{page}"})
     public Page<User> getPage(@PathVariable("page") Integer page,
-                              @PathVariable("limit") Integer limit) throws Exception {
-        LOGGER.info("get page with number {}", page);
+                @PathVariable("limit") Integer limit) throws Exception {
+		LOGGER.info("get page with number {}", page);
 
         // TODO: *add testing for this method
 
         page = (page == null || page < 1) ? 0 : --page;
+
+        if (limit == null) {
+            limit = 3;
+        }
+
         Page<User> pageUsers = userService.getPage(page, limit);
 
         LOGGER.info("fetch {} users", pageUsers.getTotalElements());

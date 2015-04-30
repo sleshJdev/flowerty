@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module("flowertyApplication.contactModule").controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService",
-    function($scope, $http, $location, transportService, deleteService) {
+angular.module("flowertyApplication.contactModule").controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", "contactListService",
+    function($scope, $http, $location, transportService, deleteService, contactListService) {
         $scope.contacts = {
             currentPage: 1,
             totalPages: [],
@@ -12,15 +12,14 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
          * grab emails of selected contact and pass they to SendEmailController
          */
         $scope.contacts.goToEmailSend = function(){
-            var emails = [];
+            var receivers = [];
             for(var i = 0; i < $scope.contacts.list.length; ++i){
                 var contact = $scope.contacts.list[i];
                 if(contact.id < 0){
-                    emails.push(contact.email);
+                	receivers.push(contact);
                 }
             }
-
-            transportService.setValue(emails);
+            transportService.setValue(receivers);
             $location.path("send-email");//redirect to email form
         };
 
@@ -63,7 +62,13 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
 
         $scope.contacts.getPage = function(pageNumber){
             $scope.contacts.currentPage = pageNumber;
-            $scope.contacts.getPageFromServer();
+            var list = contactListService.getList();
+            if (list) {
+                $scope.contacts.list = list.content;
+                $scope.contacts.totalPages = list.totalPages;
+            }  else {
+                $scope.contacts.getPageFromServer();
+            }
         };
 
         $scope.contacts.getPreviousPage = function(){

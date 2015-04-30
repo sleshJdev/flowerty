@@ -1,0 +1,45 @@
+package by.itechart.flowerty.persistence.repository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+import java.util.*;
+import org.springframework.transaction.annotation.Transactional;
+
+
+/**
+ * @author Maria
+ *         Date: 17.04.15
+ */
+//@NoRepositoryBean
+ //@Repository
+public class ContactRepositoryImpl implements ContactRepositoryCustom {   //extends QueryDslRepositorySupport
+   @Autowired
+   private EntityManager em;
+   // private static final QContact Q_ID = QContact.contact.id;// .contact;
+
+  /*  public ContactRepositoryImpl() {
+        super(Contact.class);
+    }       */
+    @Override
+    @Transactional
+    public int deleteIdNotIn(List<Long> list) {
+
+       // CriteriaBuilder builder = em.getCriteriaBuilder();
+       // CriteriaDelete delete = builder.createCriteriaDelete(Contact.class);
+       // Root contact = delete.from(Contact.class);
+        // delete.from(Contact.class);
+        // delete.from(QContact.class);// .from(Employee.class);
+ //       delete.where(builder.not(contact.get("id").in(builder.parameter(List.class, "list"))) );
+        int rowCount = em.createQuery("DELETE FROM Contact c WHERE c.id NOT IN :list").setParameter("list",list).executeUpdate();
+      //  Query query = em.createQuery(delete);
+        //int rowCount = query.executeUpdate();
+       // Query query = em.createQuery()
+        //JPAQuery query = new JPAQuery(em);
+      //  query.from(Q_CONTACT).where(Q_CONTACT.id.notIn(list));
+
+     //  List<Long> ids = query.list(Q_ID);
+
+        return rowCount;//contacts;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+}

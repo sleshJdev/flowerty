@@ -10,7 +10,6 @@ var app = angular.module('flowertyApplication', [
     'flowertyApplication.contactModule',
     'flowertyApplication.goodsModule',
     'flowertyApplication.orderModule',
-    //TODO: maybe remove this dependencies, because other dependent from it
     'flowertyApplication.utilModule',
     'flowertyApplication.errorModule'])
 

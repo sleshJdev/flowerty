@@ -4,7 +4,7 @@
  */
 package by.itechart.flowerty.web.controller.email;
 
-import by.itechart.flowerty.model.Contact;
+import by.itechart.flowerty.persistence.repository.model.Contact;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

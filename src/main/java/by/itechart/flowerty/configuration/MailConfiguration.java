@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -20,6 +21,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  *         mailing configuration
  */
 @Configuration
+@ComponentScan(basePackages = { "by.itechart.flowerty.jms" })
 @PropertySource("classpath:/web.properties")
 public class MailConfiguration {
     @Autowired
@@ -46,24 +48,24 @@ public class MailConfiguration {
 	return TLS;
     }
 
-    @Bean(name="jms")
+    @Bean(name = "jms")
     public JavaMailSenderImpl javaMailSender() {
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+	JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
-        String security = environment.getProperty("mail.security.type");
-        javaMailSender.setJavaMailProperties("ssl".equalsIgnoreCase(security.trim()) ? getSsl() : getTls());
+	String security = environment.getProperty("mail.security.type");
+	javaMailSender.setJavaMailProperties("ssl".equalsIgnoreCase(security.trim()) ? getSsl() : getTls());
 
-        javaMailSender.setPassword(environment.getProperty("mail.password"));
-        javaMailSender.setUsername(environment.getProperty("mail.username"));
+	javaMailSender.setPassword(environment.getProperty("mail.password"));
+	javaMailSender.setUsername(environment.getProperty("mail.username"));
 
-        return javaMailSender;
+	return javaMailSender;
     }
 
-    @Bean(name="smm")
+    @Bean(name = "smm")
     public SimpleMailMessage simpleMailMessage() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(environment.getProperty("mail.from"));
+	SimpleMailMessage message = new SimpleMailMessage();
+	message.setFrom(environment.getProperty("mail.from"));
 
-        return message;
+	return message;
     }
 }
