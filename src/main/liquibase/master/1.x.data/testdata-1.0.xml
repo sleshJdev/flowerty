@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
-<changeSet id="testdata-1.0-1" author="Maria">
+    <changeSet id="testdata-1.0-1" author="Maria">
         <insert tableName="company">
             <column name="NAME" value="FandJ"/>
             <column name="WEBSITE" value="www.FandJ.com"/>
@@ -192,7 +192,6 @@
             <!--<column name="ROLE_ID" value="5"/>-->
             <!--<column name="RIGHT_ID" value="9"/>-->
         <!--</insert>-->
-
         <!--<insert tableName="role_right">-->
             <!--<column name="ROLE_ID" value="1"/>-->
             <!--<column name="RIGHT_ID" value="10"/>-->
@@ -259,21 +258,21 @@
             <column name="COMPANY_ID" value="1"/>
         </insert>
     </changeSet>
-        <changeSet id="testdata-1.0-10" author="Maria">
-            <insert tableName="user">
-                <column name="LOGIN" value="test"/>
-                <column name="PASSWORD" value="test"/>
-                <column name="CONTACT_ID" value="2"/>
-                <column name="ROLE_ID" value="2"/>
-            </insert>
+    <changeSet id="testdata-1.0-10" author="Maria">
+        <insert tableName="user">
+            <column name="LOGIN" value="test"/>
+            <column name="PASSWORD" value="test"/>
+            <column name="CONTACT_ID" value="2"/>
+            <column name="ROLE_ID" value="2"/>
+        </insert>
 
-            <insert tableName="user">
-                <column name="LOGIN" value="sergeM"/>
-                <column name="PASSWORD" value="sergeM"/>
-                <column name="CONTACT_ID" value="1"/>
-                <column name="ROLE_ID" value="3"/>
-            </insert>
-        </changeSet>
+        <insert tableName="user">
+            <column name="LOGIN" value="sergeM"/>
+            <column name="PASSWORD" value="sergeM"/>
+            <column name="CONTACT_ID" value="1"/>
+            <column name="ROLE_ID" value="3"/>
+        </insert>
+    </changeSet>
 
 
 </databaseChangeLog>
