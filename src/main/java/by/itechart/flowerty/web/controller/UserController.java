@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +39,19 @@ public class UserController {
         }
 
         return userService.getUserEditBundleFor(id);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "user/profile", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getByLogin() throws Exception {
+        LOGGER.info("get user details");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return  userService.getUserByLogin(auth.getName());
+        }
+
+        return null;
     }
 
     /*@ResponseBody

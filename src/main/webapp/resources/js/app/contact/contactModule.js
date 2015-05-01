@@ -16,7 +16,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
     var CONTACT_MODULE_PATH = "resources/js/app/contact/";
 
     return {
-        CONTACTS 		: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
+        PROFILE 		: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
         EDIT_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
         ADD_CONTACT		: CONTACT_MODULE_PATH + "partial/contact-form.html",
         SEARCH_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
@@ -63,7 +63,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
     $routeProvider
         .when("/contact-list", {
-        templateUrl: CONSTANTS.CONTACTS,
+        templateUrl: CONSTANTS.PROFILE,
         controller: "ContactListController"
     })
         .when("/contact-edit/:id", {
@@ -90,7 +90,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .filter("flowerFullContactName", function() {
 	return function(contact){
-		return (!contact.name ? "" : contact.name) + " " + 
+		return !contact ? "" : (!contact.name ? "" : contact.name) + " " +
 		(!contact.surname ? "" : contact.surname) + " " + 
 		(!contact.fathername ? "" : contact.fathername);
 	}
