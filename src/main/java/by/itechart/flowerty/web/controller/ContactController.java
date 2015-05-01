@@ -5,9 +5,11 @@
 package by.itechart.flowerty.web.controller;
 
 import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.repository.PhoneRepository;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 import by.itechart.flowerty.web.service.RepositorySolrContactService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,7 @@ public class ContactController {
 	LOGGER.info("get contact page with number {}", page);
 
 	page = (page == null || page < 1) ? 0 : --page;
-
+	
 	return contactService.getPage(page, 10);
     }
 

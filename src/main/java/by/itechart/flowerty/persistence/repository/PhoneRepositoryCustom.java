@@ -2,7 +2,10 @@ package by.itechart.flowerty.persistence.repository;
 
 import java.util.List;
 
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
+
+import by.itechart.flowerty.persistence.model.Phone;
 
 
 /**
@@ -12,5 +15,5 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface PhoneRepositoryCustom {
-    public int deleteIdNotIn(List<Long> list);
+    public void deleteIdNotIn(Long contactId, List<Long> list);
 }

@@ -61,7 +61,7 @@ public class ContactService {
 
 	return contactRepository.findByIdIsIn(ids, new PageRequest(page, size));
     }
-
+    
     public Page<Contact> findBySurname(String name, int page, int size) {
 	List<ContactDocument> contactDocuments = contactDocumentRepository.findByNameContains(name);
 	ArrayList<Long> ids = new ArrayList<Long>();
@@ -80,8 +80,15 @@ public class ContactService {
     @Transactional
     public Contact save(Contact contact) {
 	Set<Phone> phones = contact.getPhones();
-	List<Long> phonesId = new ArrayList<Long>(phones.size());
-	phoneRepository.deleteIdNotIn(phonesId);
+	if (phones != null) {
+	    List<Long> phonesId = new ArrayList<Long>(phones.size());
+	    phonesId.add(-1L);//to avoid empty collection: case, if we remove all phones;
+	    for (Phone phone : phones) {
+		phonesId.add(phone.getId());
+		System.out.println("id: " + phone.getId());
+	    }
+	    phoneRepository.deleteIdNotIn(contact.getId(), phonesId);
+	}
 
 	return contactRepository.save(contact);
     }

@@ -54,7 +54,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
     public void findGoods_ValidCompany_ReturnsPageOfGoods() {
         Company company = new Company();
         company.setId(1l);
-        Page page = goodsRepository.findByCompany(company, new PageRequest(0, 10));
+        Page<Goods> page = goodsRepository.findByCompany(company, new PageRequest(0, 10));
         Assert.assertNotNull(page);
         Assert.assertNotEquals(0, page.getContent().size());
     }
@@ -63,7 +63,7 @@ public class TestGoodsRepository extends JpaConfigurationAware {
     public void findGoods_InvalidCompany_ReturnsEmptyPage() {
         Company company = new Company();
         company.setId(1000l);
-        Page page = goodsRepository.findByCompany(company, new PageRequest(1, 10));
+        Page<Goods> page = goodsRepository.findByCompany(company, new PageRequest(1, 10));
         Assert.assertNotNull(page);
         Assert.assertEquals(0, page.getNumberOfElements());
     }

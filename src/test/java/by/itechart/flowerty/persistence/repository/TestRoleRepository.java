@@ -24,4 +24,6 @@ public class TestRoleRepository extends JpaConfigurationAware {
         List<Role> list = roleRepository.findAll();
         Assert.assertEquals(list.size(), 5);
     }
+    
+    
 }

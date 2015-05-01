@@ -90,9 +90,9 @@ public class Contact {
     public Address getAddress() {
 	return address;
     }
+    
     @Valid
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CONTACT_ID", nullable=false)
+    @OneToMany(mappedBy="contact", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     public Set<Phone> getPhones() {
 	return phones;
     }
