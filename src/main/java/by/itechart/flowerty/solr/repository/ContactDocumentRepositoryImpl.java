@@ -2,16 +2,17 @@ package by.itechart.flowerty.solr.repository;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
 import com.mysql.jdbc.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.LocalDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.SimpleQuery;
-import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.util.*;
-import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * @author Maria
  *         Date: 16.04.15
@@ -33,10 +34,10 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
         }
 
         Criteria criteria = new Criteria("month").is(date.getMonthOfYear());
-        criteria = criteria.and(new Criteria("day").is(date.getDayOfMonth()));// .is(date.dayOfMonth())
+        criteria = criteria.and(new Criteria("day").is(date.getDayOfMonth()));
         SimpleQuery search = new SimpleQuery(criteria);
         Page results = solrTemplate.queryForPage(search, ContactDocument.class);
-        return results.getContent();  //To change body of implemented methods use File | Settings | File Templates.
+        return results.getContent();
     }
 
     @Override
@@ -140,5 +141,14 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
             list.add(Long.valueOf(cd.getId()));
         }
         return list;
+    }
+
+    @Override
+    public List<Long> findBySurnameStartsWithAndCompany(String surname, Long company) {
+        Criteria criteria = new Criteria("surname").startsWith(surname);
+        criteria = criteria.and(new Criteria("company").is(company));// .is(date.dayOfMonth())
+        SimpleQuery search = new SimpleQuery(criteria);
+        Page results = solrTemplate.queryForPage(search, ContactDocument.class);
+        return results.getContent();  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

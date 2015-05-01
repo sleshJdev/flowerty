@@ -19,8 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.local.settings.Settings;
-import by.itechart.flowerty.persistence.repository.model.Company;
-import by.itechart.flowerty.persistence.repository.model.Goods;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Goods;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
 /**

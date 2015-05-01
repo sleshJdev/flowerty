@@ -11,4 +11,5 @@ import java.util.List;
 public interface ContactDocumentRepositoryCustom {
     public List<Long> findByBirthDate(String birthday);
     public List<Long> findBySearch (ContactDocument contactDocument);
+    public List<Long> findBySurnameStartsWithAndCompany(String surname, Long company);
 }

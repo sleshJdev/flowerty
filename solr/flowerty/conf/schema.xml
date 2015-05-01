@@ -9,6 +9,7 @@
         
    <field name="name" type="text_general" indexed="true" stored="true" multiValued="false"/>
    <field name="surname" type="text_general" indexed="true" stored="true" multiValued="false"/>
+    <field name="fathername" type="text_general" indexed="true" stored="true" multiValued="false"/>
    <field name="birthday" type="date" indexed="true" stored="true" multiValued="false"/>
    <field name="day" type="int" indexed="true" stored="true" multiValued="false"/>
    <field name="month" type="int" indexed="true" stored="true" multiValued="false"/>
@@ -19,6 +20,7 @@
    <field name="street" type="text_general" indexed="true" stored="true" multiValued="false"/>
    <field name="house" type="text_general" indexed="true" stored="true" multiValued="false"/>
    <field name="flat" type="text_general" indexed="true" stored="true" multiValued="false"/>
+   <field name="company" type="int" indexed="true" stored="true" multiValued="false"/>
  <uniqueKey>id</uniqueKey>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
 

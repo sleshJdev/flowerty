@@ -8,8 +8,8 @@ package by.itechart.flowerty.persistence.repository;
  * To change this template use File | Settings | File Templates.
  */
 
-import by.itechart.flowerty.persistence.repository.model.Order;
-import by.itechart.flowerty.persistence.repository.model.OrderAltering;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.OrderAltering;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

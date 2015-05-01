@@ -1,6 +1,6 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.repository.model.Right;
+import by.itechart.flowerty.persistence.model.Right;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 

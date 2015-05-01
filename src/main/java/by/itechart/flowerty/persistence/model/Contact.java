@@ -1,4 +1,4 @@
-package by.itechart.flowerty.persistence.repository.model;
+package by.itechart.flowerty.persistence.model;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
 
@@ -155,11 +155,12 @@ public class Contact {
     @Transient
     @JsonIgnore
     public ContactDocument getContactDocument() {
-        return id == null ? (address == null? new ContactDocument(name, surname, fathername, birthday, email) : new ContactDocument("", name, surname, birthday, email,
-                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat()) ):
+        return id == null ? (address == null? new ContactDocument(name, surname, fathername, birthday, email, company.getId()) : new ContactDocument("", name, surname, birthday, email,
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat(), company.getId()) ):
         new ContactDocument(id.toString(), name, surname, birthday, email,
-                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat());
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat(), company.getId());
     }
+
     @Override
 	public String toString() {
 		return new StringBuilder()
