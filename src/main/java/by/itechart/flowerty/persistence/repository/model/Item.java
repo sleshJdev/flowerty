@@ -30,7 +30,7 @@ public class Item {
     public int getQuantity() {
         return quantity;
     }
-    @ManyToOne
+    @ManyToOne(optional=true)
     @JoinColumn(name = "ORDER_ID")
     @Valid
     public Order getOrder() {

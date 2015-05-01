@@ -1,8 +1,9 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.config.JpaConfigurationAware;
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
 import by.itechart.flowerty.persistence.repository.model.Contact;
 import by.itechart.flowerty.persistence.repository.model.User;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -74,22 +74,21 @@ public class ContactController {
     public void remove(@RequestBody List<Contact> contacts) {
 	LOGGER.info("remove contacts. obtained {} contacts, wicht not remove", contacts.size());
 	
-	contactService.deleteIdNotIn(fetchId(contacts));
-	for (Contact contact : contacts) {
-	    contactService.delete(contact.getId());
-	}
+	contactService.deleteIdNotIn(fetchIdOfContact(contacts));
     }
 
     @ResponseBody
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
 	LOGGER.info("save contact: {}", contact.toString());
+	
 	contactService.save(contact);
 	solrContactService.add(contact);
+	
 	return contact;
     }
     
-    private static final List<Long> fetchId(List<Contact> contacts){
+    private static final List<Long> fetchIdOfContact(List<Contact> contacts){
 	List<Long> ids = new ArrayList<Long>(contacts.size());
 	for(Contact contact : contacts){
 	    ids.add(contact.getId());

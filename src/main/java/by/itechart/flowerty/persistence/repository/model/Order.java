@@ -76,13 +76,13 @@ public class Order {
     public User getStaff() {
         return staff;
     }
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "MANAGER_ID")
     @Valid
     public User getManager() {
         return manager;
     }
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_MANAGER_ID")
     @Valid
     public User getDelivery() {
@@ -93,7 +93,8 @@ public class Order {
     public String getDescription() {
         return description;
     }
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+    @Valid
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval=true)
     public Set<Item> getItems() {
         return items;
     }

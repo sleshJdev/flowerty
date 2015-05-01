@@ -9,7 +9,7 @@
              <th>Address</th>
          </tr>
          <tr data-ng-repeat="contact in contacts.list" >
-             <td><input type="checkbox" data-ng-model="fake.isDeleteContact" data-ng-change="contact.id = -contact.id"/></td>
+             <td><input type="checkbox" data-ng-init="fake.isDeleteContact = (contact.id < 0)" data-ng-model="fake.isDeleteContact" data-ng-change="contact.id = -contact.id"/></td>
              <td> 
              	<a href="#/contact-edit/{{contact.id}}"> <span class="glyphicon glyphicon-edit"></span>
            			{{contact | flowerFullContactName}} 

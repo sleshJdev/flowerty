@@ -27,11 +27,6 @@ public class Contact {
     private Set<Phone> phones;
     private Company company;
 
-    @Transient
-    private Company getStub(){
-	return new Company("itechart@mail.com,", "itechart", 1L);
-    }
-    
     public Contact() {
     }
 
@@ -45,7 +40,6 @@ public class Contact {
 	this.email = email;
 	this.address = address;
 	this.company = company;
-
     }
 
     @Id

@@ -1,13 +1,16 @@
 package by.itechart.flowerty.persistence.repository;
 
-import org.springframework.data.repository.NoRepositoryBean;
-
 import java.util.List;
 
+import org.springframework.data.repository.NoRepositoryBean;
+
+
 /**
- * @author Maria Date: 17.04.15
+ * @author Eugene Putsykovich(slesh) May 1, 2015
+ * 
+ *         custom phone repository to delete phones
  */
 @NoRepositoryBean
-public interface ContactRepositoryCustom {
+public interface PhoneRepositoryCustom {
     public int deleteIdNotIn(List<Long> list);
 }

@@ -4,7 +4,7 @@
  */
 
 angular.module("flowertyApplication.userModule").controller('UsersController', function ($scope, $http, $location, USER_MODULE_CONSTANTS) {
-
+	
     $scope.users = {
         //pages: [],
         pagesCount: 1,

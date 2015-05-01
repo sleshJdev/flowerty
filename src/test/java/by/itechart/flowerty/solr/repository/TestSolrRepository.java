@@ -1,7 +1,8 @@
 package by.itechart.flowerty.solr.repository;
 
-import by.itechart.flowerty.config.JpaConfigurationAware;
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
 import by.itechart.flowerty.solr.model.ContactDocument;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

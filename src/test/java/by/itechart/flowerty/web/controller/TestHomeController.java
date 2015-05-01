@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import by.itechart.flowerty.config.MockTestConfigigurationAware;
+import by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
