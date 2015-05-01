@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * Created by Rostislav on 05-Apr-15
  */

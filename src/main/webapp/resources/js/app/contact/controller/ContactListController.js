@@ -57,8 +57,6 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
                     $scope.contacts.totalPages = data.totalPages;
                 }
             }).error(function(data, status, headers, config) {
-                $scope.current.errorMessage = status;
-                $location.path("/error");
             });
         };
 

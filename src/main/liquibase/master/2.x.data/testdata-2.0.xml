@@ -73,142 +73,142 @@
         </insert>
         <rollback/>
     </changeSet>
-<changeSet id="testdata-2.0-2" author="Maria">
-    <insert tableName="contact">
-        <column name="NAME" value="Sergey"/>
-        <column name="SURNAME" value="Sergeew"/>
-        <column name="FATHERNAME" value="Sergeewitch"/>
-        <column name="ADDRESS_ID" value="3"/>
-        <column name="COMPANY_ID" value="1"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="Helen"/>
-        <column name="SURNAME" value="Ivanova"/>
-        <column name="FATHERNAME" value="Ivanovna"/>
-        <column name="BIRTHDAY" value="1990-12-03"/>
-        <column name="ADDRESS_ID" value="4"/>
-        <column name="COMPANY_ID" value="2"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="John"/>
-        <column name="SURNAME" value="Brown"/>
-        <column name="BIRTHDAY" value="1990-12-03"/>
-        <column name="EMAIL" value="john@mail.com"/>
-        <column name="ADDRESS_ID" value="5"/>
-        <column name="COMPANY_ID" value="3"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="Chuck"/>
-        <column name="SURNAME" value="Brown"/>
-        <column name="BIRTHDAY" value="1990-12-03"/>
-        <column name="EMAIL" value="chuck@mail.com"/>
-        <column name="ADDRESS_ID" value="6"/>
-        <column name="COMPANY_ID" value="1"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="Alex"/>
-        <column name="SURNAME" value="Sidorov"/>
-        <column name="FATHERNAME" value="Alexandrovich"/>
-        <column name="BIRTHDAY" value="1990-12-03"/>
-        <column name="EMAIL" value="alex@mail.com"/>
-        <column name="ADDRESS_ID" value="7"/>
-        <column name="COMPANY_ID" value="2"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="Boris"/>
-        <column name="SURNAME" value="Borisov"/>
-        <column name="FATHERNAME" value="Borisovich"/>
-        <column name="ADDRESS_ID" value="8"/>
-        <column name="COMPANY_ID" value="3"/>
-    </insert>
-    <insert tableName="contact">
-    <column name="NAME" value="Jack"/>
-    <column name="SURNAME" value="Black"/>
-    <column name="BIRTHDAY" value="1989-01-03"/>
-    <column name="EMAIL" value="black@mail.com"/>
-    <column name="ADDRESS_ID" value="9"/>
-    <column name="COMPANY_ID" value="1"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="Sarah"/>
-        <column name="SURNAME" value="Brown"/>
-        <column name="BIRTHDAY" value="1990-12-03"/>
-        <column name="EMAIL" value="sarahn@mail.com"/>
-        <column name="ADDRESS_ID" value="10"/>
-        <column name="COMPANY_ID" value="2"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="Olga"/>
-        <column name="SURNAME" value="Sergeeva"/>
-        <column name="FATHERNAME" value="Sergeevna"/>
-        <column name="BIRTHDAY" value="1980-10-06"/>
-        <column name="EMAIL" value="sergeeva80@mail.com"/>
-        <column name="ADDRESS_ID" value="11"/>
-        <column name="COMPANY_ID" value="3"/>
-    </insert>
-    <insert tableName="contact">
-        <column name="NAME" value="Olga"/>
-        <column name="SURNAME" value="Antonova"/>
-        <column name="FATHERNAME" value="Antonovna"/>
-        <column name="BIRTHDAY" value="1992-11-04"/>
-        <column name="EMAIL" value="olga@mail.com"/>
-        <column name="ADDRESS_ID" value="1"/>
-        <column name="COMPANY_ID" value="1"/>
-    </insert>
+    <changeSet id="testdata-2.0-2" author="Maria">
+        <insert tableName="contact">
+            <column name="NAME" value="Sergey"/>
+            <column name="SURNAME" value="Sergeew"/>
+            <column name="FATHERNAME" value="Sergeewitch"/>
+            <column name="ADDRESS_ID" value="3"/>
+            <column name="COMPANY_ID" value="1"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Helen"/>
+            <column name="SURNAME" value="Ivanova"/>
+            <column name="FATHERNAME" value="Ivanovna"/>
+            <column name="BIRTHDAY" value="1990-12-03"/>
+            <column name="ADDRESS_ID" value="4"/>
+            <column name="COMPANY_ID" value="2"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="John"/>
+            <column name="SURNAME" value="Brown"/>
+            <column name="BIRTHDAY" value="1990-12-03"/>
+            <column name="EMAIL" value="john@mail.com"/>
+            <column name="ADDRESS_ID" value="5"/>
+            <column name="COMPANY_ID" value="3"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Chuck"/>
+            <column name="SURNAME" value="Brown"/>
+            <column name="BIRTHDAY" value="1990-12-03"/>
+            <column name="EMAIL" value="chuck@mail.com"/>
+            <column name="ADDRESS_ID" value="6"/>
+            <column name="COMPANY_ID" value="1"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Alex"/>
+            <column name="SURNAME" value="Sidorov"/>
+            <column name="FATHERNAME" value="Alexandrovich"/>
+            <column name="BIRTHDAY" value="1990-12-03"/>
+            <column name="EMAIL" value="alex@mail.com"/>
+            <column name="ADDRESS_ID" value="7"/>
+            <column name="COMPANY_ID" value="2"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Boris"/>
+            <column name="SURNAME" value="Borisov"/>
+            <column name="FATHERNAME" value="Borisovich"/>
+            <column name="ADDRESS_ID" value="8"/>
+            <column name="COMPANY_ID" value="3"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Jack"/>
+            <column name="SURNAME" value="Black"/>
+            <column name="BIRTHDAY" value="1989-01-03"/>
+            <column name="EMAIL" value="black@mail.com"/>
+            <column name="ADDRESS_ID" value="9"/>
+            <column name="COMPANY_ID" value="1"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Sarah"/>
+            <column name="SURNAME" value="Brown"/>
+            <column name="BIRTHDAY" value="1990-12-03"/>
+            <column name="EMAIL" value="sarahn@mail.com"/>
+            <column name="ADDRESS_ID" value="10"/>
+            <column name="COMPANY_ID" value="2"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Olga"/>
+            <column name="SURNAME" value="Sergeeva"/>
+            <column name="FATHERNAME" value="Sergeevna"/>
+            <column name="BIRTHDAY" value="1980-10-06"/>
+            <column name="EMAIL" value="sergeeva80@mail.com"/>
+            <column name="ADDRESS_ID" value="11"/>
+            <column name="COMPANY_ID" value="3"/>
+        </insert>
+        <insert tableName="contact">
+            <column name="NAME" value="Olga"/>
+            <column name="SURNAME" value="Antonova"/>
+            <column name="FATHERNAME" value="Antonovna"/>
+            <column name="BIRTHDAY" value="1992-11-04"/>
+            <column name="EMAIL" value="olga@mail.com"/>
+            <column name="ADDRESS_ID" value="1"/>
+            <column name="COMPANY_ID" value="1"/>
+        </insert>
 
-</changeSet>
+    </changeSet>
 
-<changeSet id="testdata-2.0-3" author="Maria">
-    <insert tableName="phone">
-         <column name = "COUNTRY" value = "12"/>
-        <column name = "OPERATOR" value = "34"/>
-        <column name="NUMBER" value = "56789"/>
-        <column name="TYPE" value="CELL"/>
-        <column name="COMMENT" value="Comment1"/>
-        <column name="CONTACT_ID" value="1"/>
-    </insert>
-    <insert tableName="phone">
-        <column name = "COUNTRY" value = "67"/>
-        <column name = "OPERATOR" value = "89"/>
-        <column name="NUMBER" value = "01234"/>
-        <column name="TYPE" value="HOME"/>
-        <column name="COMMENT" value="Comment2"/>
-        <column name="CONTACT_ID" value="1"/>
-    </insert>
-    <insert tableName="phone">
-        <column name = "COUNTRY" value = "56"/>
-        <column name = "OPERATOR" value = "78"/>
-        <column name="NUMBER" value = "90123"/>
-        <column name="TYPE" value="CELL"/>
-        <column name="COMMENT" value="Comment3"/>
-        <column name="CONTACT_ID" value="2"/>
-    </insert>
-    <insert tableName="phone">
-        <column name = "COUNTRY" value = "34"/>
-        <column name = "OPERATOR" value = "56"/>
-        <column name="NUMBER" value = "78901"/>
-        <column name="TYPE" value="HOME"/>
-        <column name="COMMENT" value="Comment4"/>
-        <column name="CONTACT_ID" value="2"/>
-    </insert>
-    <insert tableName="phone">
-        <column name = "COUNTRY" value = "56"/>
-        <column name = "OPERATOR" value = "78"/>
-        <column name="NUMBER" value = "90123"/>
-        <column name="TYPE" value="CELL"/>
-        <column name="COMMENT" value="Comment5"/>
-        <column name="CONTACT_ID" value="1"/>
-    </insert>
-    <insert tableName="phone">
-        <column name = "COUNTRY" value = "34"/>
-        <column name = "OPERATOR" value = "56"/>
-        <column name="NUMBER" value = "78901"/>
-        <column name="TYPE" value="HOME"/>
-        <column name="COMMENT" value="Comment6"/>
-        <column name="CONTACT_ID" value="2"/>
-    </insert>
-    <rollback/>
-</changeSet>
+    <changeSet id="testdata-2.0-3" author="Maria">
+        <insert tableName="phone">
+            <column name = "COUNTRY" value = "12"/>
+            <column name = "OPERATOR" value = "34"/>
+            <column name="NUMBER" value = "56789"/>
+            <column name="TYPE" value="CELL"/>
+            <column name="COMMENT" value="Comment1"/>
+            <column name="CONTACT_ID" value="1"/>
+        </insert>
+        <insert tableName="phone">
+            <column name = "COUNTRY" value = "67"/>
+            <column name = "OPERATOR" value = "89"/>
+            <column name="NUMBER" value = "01234"/>
+            <column name="TYPE" value="HOME"/>
+            <column name="COMMENT" value="Comment2"/>
+            <column name="CONTACT_ID" value="1"/>
+        </insert>
+        <insert tableName="phone">
+            <column name = "COUNTRY" value = "56"/>
+            <column name = "OPERATOR" value = "78"/>
+            <column name="NUMBER" value = "90123"/>
+            <column name="TYPE" value="CELL"/>
+            <column name="COMMENT" value="Comment3"/>
+            <column name="CONTACT_ID" value="2"/>
+        </insert>
+        <insert tableName="phone">
+            <column name = "COUNTRY" value = "34"/>
+            <column name = "OPERATOR" value = "56"/>
+            <column name="NUMBER" value = "78901"/>
+            <column name="TYPE" value="HOME"/>
+            <column name="COMMENT" value="Comment4"/>
+            <column name="CONTACT_ID" value="2"/>
+        </insert>
+        <insert tableName="phone">
+            <column name = "COUNTRY" value = "56"/>
+            <column name = "OPERATOR" value = "78"/>
+            <column name="NUMBER" value = "90123"/>
+            <column name="TYPE" value="CELL"/>
+            <column name="COMMENT" value="Comment5"/>
+            <column name="CONTACT_ID" value="1"/>
+        </insert>
+        <insert tableName="phone">
+            <column name = "COUNTRY" value = "34"/>
+            <column name = "OPERATOR" value = "56"/>
+            <column name="NUMBER" value = "78901"/>
+            <column name="TYPE" value="HOME"/>
+            <column name="COMMENT" value="Comment6"/>
+            <column name="CONTACT_ID" value="2"/>
+        </insert>
+        <rollback/>
+    </changeSet>
     <changeSet id="testdata-2.0-4" author="Maria">
         <insert tableName="user">
             <column name="LOGIN" value="testAdmin"/>
@@ -242,6 +242,6 @@
             <column name="CONTACT_ID" value="8"/>
             <column name="ROLE_ID" value="5"/>
         </insert>
-      <rollback/>
+        <rollback/>
     </changeSet>
 </databaseChangeLog>

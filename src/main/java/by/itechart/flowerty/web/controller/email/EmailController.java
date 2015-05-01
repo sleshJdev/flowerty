@@ -3,10 +3,13 @@
  *
  */
 package by.itechart.flowerty.web.controller.email;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 
@@ -19,8 +22,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
+import by.itechart.flowerty.jms.mail.MailService;
 import by.itechart.flowerty.local.settings.Settings;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
@@ -39,48 +49,60 @@ public class EmailController {
 
     @Autowired
     private MailService mailService;
-    
+
+    @Autowired
+    private FlowertyMessagePublisher publisher;
+
     @ResponseBody
     @RequestMapping(value = "email/templates", method = RequestMethod.GET)
     public FlowertTemplate[] emailTemplate() throws JsonGenerationException, JsonMappingException,
 	    FileNotFoundException, IOException {
+
 	return getTemplates();
     }
 
     @ResponseBody
     @RequestMapping(value = "email/send", method = RequestMethod.POST)
-    public void sendEmail(
-	    @RequestParam("email") String emailJson, 
-	    @RequestParam("template") String templateJson,
+    public void sendEmail(@RequestParam("email") String emailJson, @RequestParam("template") String templateJson,
 	    @RequestPart(value = "file", required = false) MultipartFile[] attachments) throws IOException {
 	LOGGER.info("send email: {}. template: {}, number of attachments: {}", emailJson, templateJson,
 		attachments == null ? 0 : attachments.length);
-
 	try {
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    EmailInfo emailInfo = objectMapper.readValue(emailJson, EmailInfo.class);
-	    
+
 	    LOGGER.info("create email info object from json success! details: contact quantity: {}",
 		    emailInfo.getTo().length);
-
-	    LOGGER.info("create flowerty template object from json success!");
-	    FlowertUtil.saveMultiparts(settings.getAttachmentsPath(), attachments);
-
-	    LOGGER.info("save attachments success!");
 
 	    FlowertTemplate template = objectMapper.readValue(templateJson, FlowertTemplate.class);
 	    for (Contact to : emailInfo.getTo()) {
 		emailInfo.setText(getText(template, to.getName()));
 		if (attachments == null || attachments.length == 0) {
-		    mailService.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText());
+		    publisher.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText());
 		} else {
-		    mailService.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText(), attachments);
+		    publisher.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText(), convert(attachments));
 		}
 	    }
+
+	    LOGGER.info("create flowerty template object from json success!");
+	    FlowertUtil.saveMultiparts(settings.getAttachmentsPath(), attachments);
+
+	    LOGGER.info("save attachments success!");
 	} catch (IOException | MessagingException e) {
 	    LOGGER.error(e.getMessage());
 	    throw new IOException(e);
 	}
+    }
+
+    private Map<String, byte[]> convert(MultipartFile[] attachments) throws IOException {
+	Map<String, byte[]> resources = new HashMap<String, byte[]>(attachments.length);
+	for (MultipartFile attachment : attachments) {
+	    String name = attachment.getOriginalFilename();
+	    byte[] value = IOUtils.toByteArray(attachment.getInputStream());
+	    resources.put(name, value);
+	}
+
+	return resources;
     }
 
     private FlowertTemplate[] getTemplates() throws FileNotFoundException, IOException {
@@ -99,9 +121,12 @@ public class EmailController {
     private String getText(FlowertTemplate template, String toName) {
 	StringTemplate st = new StringTemplate(template.getValue());
 	st.setAttribute("NAME", toName);
-	st.setAttribute("US_FULL_NAME", "flowerty-full-name");// TODO:replace to actual data
-	st.setAttribute("US_PHONE", "flowerty-phone");// TODO:replace to actual data
-	st.setAttribute("US_EMAIL", "flowerty-email");// TODO:replace to actual data
+	st.setAttribute("US_FULL_NAME", "flowerty-full-name");// TODO:replace to
+							      // actual data
+	st.setAttribute("US_PHONE", "flowerty-phone");// TODO:replace to actual
+						      // data
+	st.setAttribute("US_EMAIL", "flowerty-email");// TODO:replace to actual
+						      // data
 
 	return st.toString();
     }

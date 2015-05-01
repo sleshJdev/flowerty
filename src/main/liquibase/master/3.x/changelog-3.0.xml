@@ -53,11 +53,11 @@
         <rollback/>
     </changeSet>
     <changeSet author="Maria" id="changelog-3.0-4">
-    <delete catalogName="flowerty"
-            schemaName="public"
-            tableName="role_right">
-        <where>1=1</where>
-    </delete>
+        <delete catalogName="flowerty"
+                schemaName="public"
+                tableName="role_right">
+            <where>1=1</where>
+        </delete>
         <insert tableName="role_right">
             <column name="ROLE_ID" value="3"/>
             <column name="RIGHT_ID" value="1"/>
@@ -101,4 +101,4 @@
             <column name="RIGHT_ID" value="6"/>
         </insert>
     </changeSet>
-    </databaseChangeLog>
+</databaseChangeLog>
