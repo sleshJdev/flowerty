@@ -1,4 +1,4 @@
-package by.itechart.flowerty.persistence.repository.model;
+package by.itechart.flowerty.persistence.model;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -13,8 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Item {
     private Long id;
     private int quantity;
-    private Order order;
-    private Goods flower;
+    private Goods goods;
 
     public Item() {
     }
@@ -30,17 +29,12 @@ public class Item {
     public int getQuantity() {
         return quantity;
     }
+
     @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
+    @JoinColumn(name = "GOODS_ID")
     @Valid
-    public Order getOrder() {
-        return order;
-    }
-    @ManyToOne
-    @JoinColumn(name = "FLOWER_ID")
-    @Valid
-    public Goods getFlower() {
-        return flower;
+    public Goods getGoods() {
+        return goods;
     }
 
     public void setId(Long id) {
@@ -51,11 +45,8 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
-    public void setFlower(Goods flower) {
-        this.flower = flower;
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

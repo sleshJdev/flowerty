@@ -95,7 +95,7 @@ angular.module("flowertyApplication.utilModule", [])
 
             //  Simulation
             $http({
-                url: 'tempsearch/contact/list/1',
+                url: 'contact/search/' + enteredSurname,
                 method: 'GET'
             }).success(function(data, status, headers, config) {
                 filterCallback(model,data);

@@ -1,7 +1,7 @@
 package by.itechart.flowerty.persistence.repository;
 
 import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.repository.model.Phone;
+import by.itechart.flowerty.persistence.model.Phone;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

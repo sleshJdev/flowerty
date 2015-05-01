@@ -1,8 +1,8 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.repository.model.Address;
-import by.itechart.flowerty.persistence.repository.model.Company;
-import by.itechart.flowerty.persistence.repository.model.Contact;
+import by.itechart.flowerty.persistence.model.Address;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.web.service.ContactService;
 import org.junit.Assert;
 import org.junit.Ignore;

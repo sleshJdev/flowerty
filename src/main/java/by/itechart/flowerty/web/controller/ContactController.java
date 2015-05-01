@@ -4,24 +4,19 @@
  */
 package by.itechart.flowerty.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.web.service.ContactService;
+import by.itechart.flowerty.web.service.RepositorySolrContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.web.service.ContactService;
-import by.itechart.flowerty.web.service.RepositorySolrContactService;
-import by.itechart.flowerty.solr.model.ContactDocument;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -46,6 +41,14 @@ public class ContactController {
 	page = (page == null || page < 1) ? 0 : --page;
 
 	return contactService.getPage(page, 10);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "contact/search/{surname}")
+    public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
+       // LOGGER.info("search contact");
+        Long company = 1L;
+        return contactService.findBySurnameStartsWithAndCompany(surname, company); //get company normally
     }
 
     @ResponseBody

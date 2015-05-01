@@ -1,6 +1,6 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.repository.model.User;
+import by.itechart.flowerty.persistence.model.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 public interface UserRepository extends PagingAndSortingRepository <User, Long> {
 	public User findUserByLoginAndPassword(String login, String password);

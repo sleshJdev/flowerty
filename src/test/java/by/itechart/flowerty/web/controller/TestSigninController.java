@@ -1,7 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
 import by.itechart.flowerty.config.MockTestConfigigurationAware;
-import by.itechart.flowerty.persistence.repository.model.User;
+import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.web.model.SigninForm;
 import by.itechart.flowerty.web.service.UserService;
 

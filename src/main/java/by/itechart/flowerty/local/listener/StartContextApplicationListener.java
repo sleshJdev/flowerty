@@ -1,7 +1,13 @@
 package by.itechart.flowerty.local.listener;
 
+<<<<<<< HEAD
+import by.itechart.flowerty.persistence.repository.RoleRepository;
+import by.itechart.flowerty.local.database.LocalDatabase;
+import by.itechart.flowerty.persistence.model.Role;
+=======
 import java.util.List;
 
+>>>>>>> 3309bdb9718ea8c9c8e946478fc6c564cc990f2d
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

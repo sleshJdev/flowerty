@@ -7,4 +7,8 @@
     <!--<include relativeToChangelogFile="true" file="master/3.x/changelog-3.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/4.x/changelog-4.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/4.x.data/testdata-4.0.xml"/>-->
+<<<<<<< HEAD
+    <include relativeToChangelogFile="true" file="master/5.x/changelog-5.0.xml"/>
+=======
+>>>>>>> 3309bdb9718ea8c9c8e946478fc6c564cc990f2d
 </databaseChangeLog>

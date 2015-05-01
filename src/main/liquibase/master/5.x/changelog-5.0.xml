@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Maria" id="changelog-5.0-3">
+        <dropForeignKeyConstraint baseTableName="item" constraintName="item_flower_id"/>
+            <renameColumn catalogName="flowerty"
+                          columnDataType="INT(10)"
+                          newColumnName="GOODS_ID"
+                          oldColumnName="FLOWER_ID"
+                          schemaName="public"
+                          tableName="item"/>
+        <addForeignKeyConstraint baseColumnNames="GOODS_ID" baseTableName="item" constraintName="item_goods_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="goods"/>
+        <dropForeignKeyConstraint baseTableName="item" constraintName="item_order_id"/>
+        <addForeignKeyConstraint baseColumnNames="ORDER_ID" baseTableName="item" constraintName="item_order_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="ID" referencedTableName="purchase"/>
+        <rollback/>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-5.0-4">
+        <addColumn catalogName="flowerty"
+                   schemaName="public"
+                   tableName="purchase">
+            <column name="ADDRESS_ID" type="INT(10)"/>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="ADDRESS_ID" baseTableName="purchase" constraintName="purchase_address_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="address"/>
+    </changeSet>
+</databaseChangeLog>

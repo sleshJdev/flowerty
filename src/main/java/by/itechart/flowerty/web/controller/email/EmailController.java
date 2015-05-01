@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 import by.itechart.flowerty.jms.mail.MailService;
 import by.itechart.flowerty.local.settings.Settings;
-import by.itechart.flowerty.persistence.repository.model.Contact;
+import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
 /**
