@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -23,7 +24,7 @@ public class TestSolrRepository extends JpaConfigurationAware {
 
 
     @Test
-   // @Transactional
+    @Transactional
     public void findAll() {
         ContactDocument cd = new ContactDocument();
         cd.setId("4");
@@ -42,6 +43,6 @@ public class TestSolrRepository extends JpaConfigurationAware {
    //     repository.findOne("123");
        // repository.findAll();
         pg = repository.findAll(new PageRequest(0, 10));
-        Assert.assertEquals(pg.getContent().size(), 3);
+        Assert.assertEquals(pg.getContent().size(), 10);
     }
 }

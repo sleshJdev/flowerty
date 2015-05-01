@@ -1,10 +1,5 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.persistence.repository.model.Order;
-import by.itechart.flowerty.persistence.repository.model.State;
-import by.itechart.flowerty.persistence.repository.model.User;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -12,6 +7,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.State;
+import by.itechart.flowerty.persistence.model.User;
 
 /**
     @author Мария 27.03.15

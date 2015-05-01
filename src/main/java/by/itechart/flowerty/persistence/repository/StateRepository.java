@@ -1,7 +1,7 @@
 package by.itechart.flowerty.persistence.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import by.itechart.flowerty.persistence.repository.model.State;
+import by.itechart.flowerty.persistence.model.State;
 /**
  * Created by Катерина on 26.04.2015.
  */

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -11,11 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.Phone;
 import by.itechart.flowerty.persistence.repository.ContactRepository;
 import by.itechart.flowerty.persistence.repository.PhoneRepository;
-import by.itechart.flowerty.persistence.repository.model.Company;
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.persistence.repository.model.Phone;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 
@@ -102,9 +103,27 @@ public class ContactService {
 	return contactRepository.findByIdIn(ids);
     }
 
+    public Page<Contact> findBySurnameStartsWith(String surname, Company company) {
+	if (StringUtils.endsWith(surname, " ")) {
+	    List<Long> ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, company.getId());
+	    return new PageImpl<Contact>(contactRepository.findByIdIn(ids));
+	}
+	return contactRepository.findBySurnameStartingWithAndCompany(surname, company, new PageRequest(0, 10));
+    }
+
     @Transactional
     public void delete(Long id) {
 
 	contactRepository.delete(id);
+	contactDocumentRepository.delete(String.valueOf(id));
+    }
+
+    public Page<Contact> findBySurnameStartsWithAndCompany(String surname, Long company) {
+	if (!StringUtils.endsWith(surname, " ")) {
+	    return contactRepository.findByIdIsIn(contactDocumentRepository.findBySurnameStartsWithAndCompany(surname,
+		    company), new PageRequest(0, 10));
+	}
+	return new PageImpl<Contact>(contactRepository.findByIdIn(contactDocumentRepository
+		.findBySurnameStartsWithAndCompany(surname, company)));
     }
 }

@@ -1,6 +1,5 @@
 package by.itechart.flowerty.web.controller;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
@@ -26,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
-import by.itechart.flowerty.persistence.repository.model.User;
+import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
 

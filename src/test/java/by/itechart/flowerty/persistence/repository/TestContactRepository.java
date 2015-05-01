@@ -1,12 +1,8 @@
 package by.itechart.flowerty.persistence.repository;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
-import by.itechart.flowerty.persistence.repository.model.Address;
-import by.itechart.flowerty.persistence.repository.model.Company;
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.web.service.ContactService;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -16,6 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Address;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.web.service.ContactService;
 
 /**
  *@author Мария Date: 26.03.15

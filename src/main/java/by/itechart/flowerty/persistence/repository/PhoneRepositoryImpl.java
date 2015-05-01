@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import by.itechart.flowerty.persistence.repository.model.Phone;
-import by.itechart.flowerty.persistence.repository.model.QPhone;
+import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.persistence.model.QPhone;
 
 /**
  * @author Eugene Putsykovich(slesh) May 1, 2015

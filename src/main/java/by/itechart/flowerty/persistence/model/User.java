@@ -1,4 +1,4 @@
-package by.itechart.flowerty.persistence.repository.model;
+package by.itechart.flowerty.persistence.model;
 
 import org.apache.solr.client.solrj.beans.Field;
 

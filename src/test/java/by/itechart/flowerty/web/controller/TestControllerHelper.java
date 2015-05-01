@@ -7,10 +7,10 @@ import java.util.HashSet;
 
 import org.springframework.http.MediaType;
 
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.persistence.repository.model.Phone;
-import by.itechart.flowerty.persistence.repository.model.Role;
-import by.itechart.flowerty.persistence.repository.model.User;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.persistence.model.Role;
+import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,7 +1,9 @@
 package by.itechart.flowerty.web.service;
 
-import by.itechart.flowerty.persistence.repository.*;
-import by.itechart.flowerty.persistence.repository.model.*;
+import by.itechart.flowerty.persistence.model.*;
+import by.itechart.flowerty.persistence.repository.OrderRepository;
+import by.itechart.flowerty.persistence.repository.StateRepository;
+import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

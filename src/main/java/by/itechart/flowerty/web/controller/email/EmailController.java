@@ -37,9 +37,9 @@ import org.springframework.web.multipart.MultipartFile;
 import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 import by.itechart.flowerty.jms.mail.MailService;
 import by.itechart.flowerty.local.settings.Settings;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.Phone;
 import by.itechart.flowerty.persistence.repository.UserRepository;
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.persistence.repository.model.Phone;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
 /**
@@ -80,16 +80,16 @@ public class EmailController {
 	try {
 	    ObjectMapper objectMapper = new ObjectMapper();
 
-	    EmailInfo emailInfo = objectMapper.readValue(emailJson, EmailInfo.class);
+	    EmailInfo email = objectMapper.readValue(emailJson, EmailInfo.class);
 	    FlowertTemplate template = objectMapper.readValue(templateJson, FlowertTemplate.class);
 	    Contact sender = getSender();
 
-	    for (Contact to : emailInfo.getTo()) {
-		emailInfo.setText(buildMessageBody(template, to.getName(), sender));
+	    for (Contact to : email.getTo()) {
+		email.setText(buildMessageBody(template, to.getName(), sender));
 		if (attachments == null || attachments.length == 0) {
-		    publisher.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText());
+		    publisher.send(to.getEmail(), email.getSubject(), email.getText());
 		} else {
-		    publisher.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText(), convert(attachments));
+		    publisher.send(to.getEmail(), email.getSubject(), email.getText(), convert(attachments));
 		    FlowertUtil.saveMultiparts(settings.getAttachmentsPath(), attachments);
 		}
 	    }
@@ -143,19 +143,14 @@ public class EmailController {
 	String fullname = String.format("%s %s %s", sender.getName(), sender.getSurname(), sender.getFathername());
 	st.setAttribute("US_FULL_NAME", fullname);
 
-	String usPhone = "";
 	if (sender.getPhones() != null && sender.getPhones().size() > 0) {
 	    Phone phone = sender.getPhones().iterator().next();
 
-	    usPhone = String.format("+%d %d, %d", phone.getCountry(), phone.getOperator(), phone.getNumber());
+	    String usPhone = String.format("+%d %d, %d", phone.getCountry(), phone.getOperator(), phone.getNumber());
 	    st.setAttribute("US_PHONE", usPhone);
-
-	    LOGGER.info("us fullname: {}", usPhone);
 	}
 
 	st.setAttribute("US_EMAIL", sender.getEmail());
-
-	LOGGER.info("us fullname : {}, us phone: {}, us email: {}", fullname, usPhone, sender.getEmail());
 
 	return st.toString();
     }
