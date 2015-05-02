@@ -2,7 +2,7 @@ package by.itechart.flowerty.web.service;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
-import by.itechart.flowerty.persistence.repository.model.Contact;
+import by.itechart.flowerty.persistence.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,34 +31,13 @@ public class RepositorySolrContactService {//implements SolrContactService {
         return persisted;
     }
 
- /*  @PreAuthorize("hasPermission('Contact', 'delete')")
-    @Transactional
-    public Contact deleteById(Long id) {
-        Contact deleted = findById(id);
-        repository.delete(deleted);
-        return deleted;
-    }     */
       public List<ContactDocument> findByNameContains(String name) {
           return repository.findByNameContains(name);
       }
     public List<Long> findByBirthDate (String birthday) {
          return repository.findByBirthDate(birthday);
     }
-
-   /* @PreAuthorize("hasPermission('Contact', 'update')")
-    @Transactional
-    @Override
-    public Contact update(Contact updated) {
-        //Todo model = findById(updated.getId());
-      //  repository.save(updated.buildContactDocument());
-        //model.update(updated.getDescription(), updated.getTitle());
-     //   Contact contact = new Contact(); //createByUpdated
-     //   indexService.addToIndex(updated);
-
-        return updated;
-    }    */
-  //  @PreAuthorize("hasPermission('Contact', 'search')")
-    //@Override
-   // public List<ContactDocument> search(String searchTerm) {
-     //   return indexService.search}
+    public List<Long> findBySurnameStartsWithAndCompany(String surname, Long company) {
+        return repository.findBySurnameStartsWithAndCompany(surname, company);
+    }
 }

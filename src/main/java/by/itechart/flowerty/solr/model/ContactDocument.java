@@ -6,11 +6,12 @@ package by.itechart.flowerty.solr.model;
 */
 
 import org.apache.solr.client.solrj.beans.Field;
-//import org.apache.solr.client.solrj.impl.
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
-import org.joda.time.*;
+
+//import org.apache.solr.client.solrj.impl.
 //@SolrDocument
 //@Entity
 //@Indexed
@@ -33,6 +34,7 @@ public class ContactDocument {
     private String street;
     private String house;
     private String flat;
+    private Long company;
 
     private Date birthdayBefore;
     private Date birthdayAfter;
@@ -101,6 +103,10 @@ public class ContactDocument {
         return year;
     }
 
+    public Long getCompany() {
+        return company;
+    }
+
     @Id
     @Field
     public void setId(String id) {
@@ -162,6 +168,11 @@ public class ContactDocument {
         this.month = month;
     }
 
+    @Field
+    public void setCompany(Long company) {
+        this.company = company;
+    }
+
     public void setBirthdayBefore(Date birthdayBefore) {
         this.birthdayBefore = birthdayBefore;
     }
@@ -209,7 +220,7 @@ public class ContactDocument {
         }
     }
 
-    public ContactDocument(String id, String name, String surname, Date birthday, String email, String country, String town, String street, String house, String flat) {
+    public ContactDocument(String id, String name, String surname, Date birthday, String email, String country, String town, String street, String house, String flat, Long company) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -225,14 +236,16 @@ public class ContactDocument {
         this.day = dateTime.getDayOfMonth();
         this.month = dateTime.getMonthOfYear();
         this.year = dateTime.getYearOfEra();
+        this.company = company;
     }
 
-    public ContactDocument(String name, String surname, String fathername, Date birthday, String email) {
+    public ContactDocument(String name, String surname, String fathername, Date birthday, String email, Long company) {
         this.name = name;
         this.surname = surname;
         this.fathername = fathername;
         this.birthday = birthday;
         this.email = email;
+        this.company = company;
     }
 
     public ContactDocument() {

@@ -13,7 +13,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 
-import by.itechart.flowerty.jms.core.FlowertyMessageListener;
 import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 
 /**
@@ -33,7 +32,7 @@ public class JmsConfiguration {
 	final String url = environment.getProperty("jms.broker.url");
 	ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(username, password, url);
 	ConnectionFactory connectionFactory = new CachingConnectionFactory(activeMQConnectionFactory);
-
+	
 	return connectionFactory;
     }
 
@@ -43,22 +42,6 @@ public class JmsConfiguration {
 	ActiveMQQueue queue = new ActiveMQQueue(queueName);
 
 	return queue;
-    }
-
-    // @Bean
-    // public SimpleMessageListenerContainer simpleMessageListenerContainer() {
-    // SimpleMessageListenerContainer listenerContainer = new
-    // SimpleMessageListenerContainer();
-    // listenerContainer.setConnectionFactory(connectionFactory());
-    // listenerContainer.setDestination(destination());
-    // listenerContainer.setMessageListener(messageListener());
-    //
-    // return listenerContainer;
-    // }
-
-    @Bean
-    public FlowertyMessageListener messageListener() {
-	return new FlowertyMessageListener();
     }
 
     @Bean

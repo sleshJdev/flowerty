@@ -1,15 +1,16 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.persistence.repository.model.User;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collection;
-import java.util.Iterator;
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.User;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015

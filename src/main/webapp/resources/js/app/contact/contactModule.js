@@ -12,11 +12,11 @@
 
 angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
-    .constant("CONSTANTS", (function(){
+.constant("CONSTANTS", (function(){
     var CONTACT_MODULE_PATH = "resources/js/app/contact/";
 
     return {
-        PROFILE 		: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
+        CONTACTS 		: CONTACT_MODULE_PATH + "partial/contact-list-form.html",
         EDIT_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
         ADD_CONTACT		: CONTACT_MODULE_PATH + "partial/contact-form.html",
         SEARCH_CONTACT	: CONTACT_MODULE_PATH + "partial/contact-form.html",
@@ -60,10 +60,47 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
     }
 })())
 
+.service("stateSaverService", function(){
+	var me = this;
+	me.state = {
+			checkeds: [],
+			reset: function(){
+				me.state.checkeds = [];
+			},
+			checked: function(entityWithId) {
+				me.state.checkeds.push(entityWithId);
+			},
+			unchecked: function(entityWithId) {
+				me.state.checkeds.splice(findById(entityWithId.id).index, 1);
+			},
+			ischecked: function(entityWithId) {
+				return findById(entityWithId.id).index !== -1 ? true : false; 
+			},
+			isempty: function(){
+				return me.state.checkeds.length === 0;
+			}
+	};
+	function findById(id){
+		for(var i = 0; i < me.state.checkeds.length; ++i){
+			if(me.state.checkeds[i].id === id){
+				return {
+					index: i,
+					value: me.state.checkeds[i]
+				};
+			}
+		}
+		
+		return {
+			index: -1,
+			value: {}			
+		}
+	}
+})
+
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
     $routeProvider
         .when("/contact-list", {
-        templateUrl: CONSTANTS.PROFILE,
+        templateUrl: CONSTANTS.CONTACTS,
         controller: "ContactListController"
     })
         .when("/contact-edit/:id", {

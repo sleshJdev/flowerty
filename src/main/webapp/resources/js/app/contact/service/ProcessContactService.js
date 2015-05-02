@@ -1,10 +1,11 @@
 'use strict';
 
 /*
- * provides a method for crete/edit/remove contact and phones
+ * provides a method for create/edit/remove contact and phones
  */
-angular.module("flowertyApplication.contactModule").service("processContactService", ["$http", "$location", "deleteService", "CONSTANTS",
-    function($http, $location, deleteService, CONSTANTS) {
+angular.module("flowertyApplication.contactModule").service("processContactService", 
+		["$http", "$location", "deleteService", "stateSaverService", "CONSTANTS",
+		 function($http, $location, deleteService, stateSaverService, CONSTANTS) {
         var me = this;
 
         me.bundle = {
@@ -15,29 +16,40 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
             contact: {},
             actions: []
         };
-
+        
         /*
          * save/update contact after editing/creating
          */
         me.bundle.actions.saveContact = function(contact){
-            $http({
+        	for(var i = 0; i < contact.phones.length; ++i) {
+        		if(!!contact.phones[i].id) {
+        			delete contact.phones[i].id;
+        		}
+        	}
+        	
+        	$http({
                 method: "post",
                 url: "contact/save",
                 data: contact
             }).success(function(data, status, headers, config) {
-                console.log("save contact success!")
-                $location.path("contacts");
+                console.log("save contact success!");
+                $location.path("show-contacts");
             }).error(function(data, status, headers, config) {
-                console.log("save contact error: " + JSON.stringify(data))//REMOVE_COMMENT
+                console.log("save contact error: " + JSON.stringify(data));//REMOVE_COMMENT
             });
         };
-
+        
         /*
          * delete phone. remove all phone at which id < 0
          */
         me.bundle.actions.deletePhone = function(){
             console.log("delete phone");
-            deleteService.deleteById(me.bundle.contact.phones);
+            if(stateSaverService.state.isempty()){
+            	alert("Please, select phones to deleted!");
+            }else{
+            	deleteService.deleteIsChecked(stateSaverService.state.ischecked, me.bundle.contact.phones);
+            	stateSaverService.state.reset();
+            }
         };
 
         /*
@@ -64,7 +76,8 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
          */
         me.bundle.actions.savePhone = function(newPhone){
             if(!newPhone.id){
-                me.bundle.contact.phones.push(newPhone)
+            	newPhone.id = -(me.bundle.contact.phones.length + 1);//unique in contact scope
+                me.bundle.contact.phones.push(newPhone);
                 console.log("add new phone");
             }else{
                 angular.copy(newPhone, me.bundle.originPhone);

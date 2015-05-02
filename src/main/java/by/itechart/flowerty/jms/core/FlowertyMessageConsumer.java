@@ -10,6 +10,7 @@ import javax.jms.*;
 /**
  * @author Eugene Putsykovich(slesh) Apr 30, 2015
  *
+ *         listening to the message queue
  */
 @Component
 public class FlowertyMessageConsumer {
@@ -20,31 +21,39 @@ public class FlowertyMessageConsumer {
     private MessageListener messageListener;
     private Connection connection;
 
+    private boolean isStart = false;
+
     @Autowired
     public FlowertyMessageConsumer(ConnectionFactory connectionFactory, Destination destination,
 	    MessageListener messageListener) throws JMSException {
 	this.connectionFactory = connectionFactory;
 	this.destination = destination;
 	this.messageListener = messageListener;
-	start();
     }
 
     public void start() throws JMSException {
-	LOGGER.info("start messaging...");
+	if (!isStart) {
+	    LOGGER.info("start messaging...");
 
-	connection = connectionFactory.createConnection();
-	Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-	MessageConsumer consumer = session.createConsumer(destination);
-	consumer.setMessageListener(messageListener);
-	connection.start();
+	    connection = connectionFactory.createConnection();
+	    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+	    MessageConsumer consumer = session.createConsumer(destination);
+	    consumer.setMessageListener(messageListener);
+	    connection.start();
+	    isStart = true;
+	}
     }
 
     public void stop() throws JMSException {
-	if (connection != null) {
-	    LOGGER.info("closing connection");
+	if (isStart) {
+	    if (connection != null) {
+		LOGGER.info("stop messagin");
 
-	    connection.close();
-	    connection = null;
+		connection.close();
+		connection = null;
+
+		isStart = false;
+	    }
 	}
     }
 }

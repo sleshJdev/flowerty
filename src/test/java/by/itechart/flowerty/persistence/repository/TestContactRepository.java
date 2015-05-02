@@ -1,16 +1,19 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.repository.model.Address;
-import by.itechart.flowerty.persistence.repository.model.Company;
-import by.itechart.flowerty.persistence.repository.model.Contact;
-import by.itechart.flowerty.web.service.ContactService;
+
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Address;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Contact;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import by.itechart.flowerty.config.JpaConfigurationAware;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *@author Мария Date: 26.03.15
@@ -18,7 +21,7 @@ import by.itechart.flowerty.config.JpaConfigurationAware;
 @Ignore
 public class TestContactRepository extends JpaConfigurationAware {
 	@Autowired
-	private ContactService contactRepository;
+	private ContactRepository contactRepository;
 
 	@Test
 	public void findContact_ValidId_ContactReturned() {
@@ -76,6 +79,15 @@ public class TestContactRepository extends JpaConfigurationAware {
 		Assert.assertEquals("Petr", contact.getName());
 	}
 
+	@Test
+	public void delete(){
+	    List<Long> ids = new ArrayList<Long>();
+	    for(Long i = 1L; i <= 10; ++i){
+		ids.add(i);
+	    }
+	    contactRepository.deleteIdNotIn(ids);
+	}
+	
 	@Ignore
 	@Test
 	public void deleteContactValidId() {

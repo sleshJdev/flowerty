@@ -1,4 +1,4 @@
-package by.itechart.flowerty.persistence.repository.model;
+package by.itechart.flowerty.persistence.model;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
 
@@ -27,11 +27,6 @@ public class Contact {
     private Set<Phone> phones;
     private Company company;
 
-    @Transient
-    private Company getStub(){
-	return new Company("itechart@mail.com,", "itechart", 1L);
-    }
-    
     public Contact() {
     }
 
@@ -45,7 +40,6 @@ public class Contact {
 	this.email = email;
 	this.address = address;
 	this.company = company;
-
     }
 
     @Id
@@ -96,9 +90,9 @@ public class Contact {
     public Address getAddress() {
 	return address;
     }
+    
     @Valid
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CONTACT_ID", nullable=false)
+    @OneToMany(mappedBy="contact", cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
     public Set<Phone> getPhones() {
 	return phones;
     }
@@ -155,22 +149,29 @@ public class Contact {
     @Transient
     @JsonIgnore
     public ContactDocument getContactDocument() {
-        return id == null ? (address == null? new ContactDocument(name, surname, fathername, birthday, email) : new ContactDocument("", name, surname, birthday, email,
-                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat()) ):
+        return id == null ? (address == null? new ContactDocument(name, surname, fathername, birthday, email, company.getId()) : new ContactDocument("", name, surname, birthday, email,
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat(), company.getId()) ):
         new ContactDocument(id.toString(), name, surname, birthday, email,
-                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat());
+                address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat(), company.getId());
     }
+
     @Override
-	public String toString() {
-		return new StringBuilder()
-			.append("[id:").append(id)
-			.append("\n name:").append(name)
-			.append("\n surname:").append(surname)
-			.append("\n fathername:").append(fathername)
-			.append("\n birthday:").append(birthday)
-			.append("\n email:").append(email)
-			.append("\n address:").append(address).append("]\n")
-//			.append("; phones:").append(phones)
-			.toString();
+    public String toString() {
+	StringBuilder sb = new StringBuilder();
+	sb
+		.append("[id:").append(id)
+		.append("\n name:").append(name)
+		.append("\n surname:").append(surname)
+		.append("\n fathername:").append(fathername)
+		.append("\n birthday:").append(birthday)
+		.append("\n email:").append(email)
+		.append("\n address:").append(address);
+	if (phones != null) {
+	    sb.append("; phones:");
+	    for (Phone phone : phones) {
+		sb.append(phone);
+	    }
 	}
+	return sb.append("]\n").toString();
+    }
 }

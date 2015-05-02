@@ -2,6 +2,8 @@ package by.itechart.flowerty.web.controller;
 
 import java.io.IOException;
 
+import javassist.tools.web.BadHttpRequest;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.local.settings.Settings;
-import by.itechart.flowerty.persistence.repository.model.Company;
-import by.itechart.flowerty.persistence.repository.model.Goods;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Goods;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 import by.itechart.flowerty.web.service.GoodsService;
 
@@ -48,7 +50,7 @@ public class GoodsController {
     @ResponseBody
     @RequestMapping(value = "goods/add", method = RequestMethod.POST)
     public void add(@RequestParam("goods") String goodsJson, @RequestPart(value = "picture") MultipartFile goodsPicture)
-	    throws IOException {
+	    throws IOException, BadHttpRequest {
 	
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -69,6 +71,8 @@ public class GoodsController {
 	    goodsService.save(goods);
 	}else{
 	    LOGGER.info("anonymous user can't add goods");
+	    
+	    throw new BadHttpRequest();
 	}
     }
 
