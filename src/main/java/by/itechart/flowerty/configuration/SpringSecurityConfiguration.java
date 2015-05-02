@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Configuration
 @EnableWebMvcSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private AuthFailure authFailure;
 
@@ -56,6 +57,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/user/profile")
+                .authenticated()
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/contact/**")
@@ -73,7 +76,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/login")
 //                .successHandler(authSuccess)
                 .failureHandler(authFailure)
-            .and()
+                .and()
                 .logout()
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)

@@ -1,0 +1,62 @@
+<!-- Form for showing profile -->
+<div data-ng-app="flowertyApplication.profileModule">
+    <div class="row">
+        <div class="col-md-9">
+            <h3>{{profile.user.contact | flowerFullContactName}}</h3>
+            <h4>{{profile.user.login}}</h4>
+        </div>
+        <div class="col-md-3">
+            <h3 class="text-right">{{profile.user.role.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':'
+                '}}</h3>
+        </div>
+    </div>
+    <br><br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <legend class="small" style="color: grey">CONTACT AND BASIC INFORMATION</legend>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">Birthday</label>
+
+                <p class="col-md-9">{{profile.user.contact.birthday}}</p>
+            </div>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">Email</label>
+
+                <p class="col-md-9">{{profile.user.contact.email}}</p>
+            </div>
+            <br>
+
+            <legend class="small" style="color: grey">HOMETOWN</legend>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">Town</label>
+
+                <p class="col-md-9">{{profile.user.contact.address.town}}</p>
+            </div>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">Street</label>
+
+                <p class="col-md-9">{{profile.user.contact.address.street}}</p>
+            </div>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">House</label>
+
+                <p class="col-md-9">{{profile.user.contact.address.house}}</p>
+            </div>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">Flat</label>
+
+                <p class="col-md-9">{{profile.user.contact.address.flat}}</p>
+            </div>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">Country</label>
+
+                <p class="col-md-9">{{profile.user.contact.address.country}}</p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div data-ng-include="profile.phoneListTemplate"></div>
+        </div>
+    </div>
+</div>

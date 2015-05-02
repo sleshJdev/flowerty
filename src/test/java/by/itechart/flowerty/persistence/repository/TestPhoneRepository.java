@@ -1,23 +1,21 @@
 package by.itechart.flowerty.persistence.repository;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.solr.client.solrj.request.CollectionAdminRequest.Create;
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.persistence.model.QPhone;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.model.Phone;
-import by.itechart.flowerty.persistence.model.QPhone;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Мария 31.03.15
  */
-//@Ignore
+@Ignore
 public class TestPhoneRepository extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
