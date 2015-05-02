@@ -85,4 +85,9 @@ public class UserService {
         User currentUser = userRepository.findUserByLogin(login);
         return currentUser == null ? null : currentUser.getContact() == null ? null : currentUser.getContact().getCompany();
     }
+
+    public List<User> getUsersByRoleName(String roleString){
+        Role role = roleRepository.findByName(roleString);
+        return userRepository.findByRole(role);
+    }
 }

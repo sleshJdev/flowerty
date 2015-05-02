@@ -73,7 +73,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             getOrderProcessors();
 
             //TODO: When added address field to a table, remove
-            order.address = {};
+            $scope.order.address = {};
 
             //  Makes the basket empty
             $scope.current.basket.reset();
