@@ -9,22 +9,6 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         edit : false
     };
 
-    $scope.order = {
-        customer : {},
-        description : '',
-        manager : $scope.current.user,
-        cost : $scope.current.basket.info.fullCost,
-        staff : {},
-        delivery : {},
-        receiver : {},
-        state :
-        {
-            description : 'NEW'
-        },
-        items: [],
-        deliveryDate: ''
-    };
-    
     $scope.search = {
         customer : {
             enteredSurname : '',
@@ -43,7 +27,21 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         deliveryManagers : []
     };
 
-    $scope.order.checkout = function(){
+    $scope.initItems = function(){
+        var i;
+        $scope.order.items = [];
+        for(i = 0; i < $scope.current.basket.items.length; i++){
+            var basketItem = $scope.current.basket.items[i];
+            var orderItem = {};
+            orderItem.flower = basketItem;
+            orderItem.quantity = basketItem.count;
+            $scope.order.items.push(orderItem);
+        }
+    };
+
+    $scope.orderAction = {};
+
+    $scope.orderAction.checkout = function(){
         console.log('Checkout: ' + JSON.stringify($scope.order));
         $scope.order.customer = $scope.search.customer.selected;
         $scope.order.receiver = $scope.search.receiver.selected;
@@ -59,66 +57,29 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         });
     };
 
-    $scope.initItems = function(){
-        var i;
-        for(i = 0; i < $scope.current.basket.items.length; i++){
-            var basketItem = $scope.current.basket.items[i];
-            var orderItem = {};
-            orderItem.flower = basketItem;
-            orderItem.quantity = basketItem.count;
-            $scope.order.items.push(orderItem);
-        }
-    };
-
     $scope.init = function(){
 
-        $scope.initItems();
-
         //  TODO: get it from factory
-/*
 
-        $scope.staff.processors = [
-            {
-                login : 'Nick Manchkin'
-            },
-            {
-                login : 'Adam Lambert'
-            },
-            {
-                login : 'Nikole Clark'
-            }
-        ];
-        $scope.order.staff = $scope.staff.processors[0];
-        $scope.staff.deliveryManagers = [
-            {
-                login : 'Luk Kolm'
-            },
-            {
-                login : 'Mark Sherzinger'
-            },
-            {
-                login : 'Dan Poltrat'
-            }
-        ];
 
-*/
-
-        $http({
-            method: "get",
-            url: "tempsearch/user/list/3"
-        }).success(function(data, status, headers, config) {
-            $scope.order.manager = data.content[0];
-        }).error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));
-            $location.path("add-order");
-        });
-
+        //TODO: search in users by role "ORDERS_PROCESSOR"
         $http({
             method: "get",
             url: "tempsearch/user/list/1"
         }).success(function(data, status, headers, config) {
             $scope.staff.processors = data.content;
-            $scope.order.staff = $scope.staff.processors[0];
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
+
+
+        //TODO: search in users by role "DELIVERY_MANAGER"
+        $http({
+            method: "get",
+            url: "tempsearch/user/list/1"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.deliveryManagers = data.content;
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");
@@ -126,15 +87,20 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
         $http({
             method: "get",
-            url: "tempsearch/user/list/2"
+            url: "order/create/bundle"
         }).success(function(data, status, headers, config) {
-            $scope.staff.deliveryManagers = data.content;
+            $scope.order = data;
+            $scope.initItems();
+            $scope.order.cost = $scope.current.basket.info.fullCost;
+            $scope.order.staff = $scope.staff.processors[0];
             $scope.order.delivery = $scope.staff.deliveryManagers[0];
+
+            //  Makes the basket empty
+            $scope.current.basket.reset();
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");
         });
-
     };
 
     $scope.init();

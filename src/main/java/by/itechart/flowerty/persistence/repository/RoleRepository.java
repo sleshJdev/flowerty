@@ -2,6 +2,7 @@ package by.itechart.flowerty.persistence.repository;
 
 import by.itechart.flowerty.persistence.model.Role;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Time: 20:46
  * To change this template use File | Settings | File Templates.
  */
-public interface RoleRepository extends CrudRepository<Role, Long> {
+public interface RoleRepository extends PagingAndSortingRepository<Role, Long> {
     public List<Role> findAll();
     public Role findByName(String name);
 }

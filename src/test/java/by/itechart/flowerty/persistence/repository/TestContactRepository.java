@@ -23,8 +23,9 @@ import by.itechart.flowerty.web.service.ContactService;
 //@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
 	@Autowired
-	private ContactService contactRepository;
+	private ContactRepository contactRepository;
 
+    @Ignore
 	@Test
 	public void findContact_ValidId_ContactReturned() {
 		Contact contact = contactRepository.findOne(2l);
@@ -81,6 +82,7 @@ public class TestContactRepository extends JpaConfigurationAware {
 		Assert.assertEquals("Petr", contact.getName());
 	}
 
+    @Ignore
 	@Test
 	public void delete(){
 	    List<Long> ids = new ArrayList<Long>();

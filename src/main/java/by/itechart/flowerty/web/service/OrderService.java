@@ -4,6 +4,7 @@ import by.itechart.flowerty.persistence.model.*;
 import by.itechart.flowerty.persistence.repository.OrderRepository;
 import by.itechart.flowerty.persistence.repository.StateRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.web.model.OrderCreateBundle;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,5 +116,31 @@ public class OrderService {
                 return false;
             }
         }
+    }
+
+    public OrderCreateBundle getOrderCreateBundle(){
+
+        OrderCreateBundle orderCreateBundle = new OrderCreateBundle();
+        //  Setting the state "NEW"
+        //TODO: add searching by state with description NEW
+        List<State> states = (List<State>) stateRepository.findAll();
+        for (State state : states) {
+            if (state.getDescription() == State.DESCRIPTION_TYPE.NEW) {
+                orderCreateBundle.setState(state);
+            }
+        }
+        //
+
+        //  Setting manager
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = null;
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            userPrincipal = (UserDetails) auth.getPrincipal();
+            if (userPrincipal != null) {
+                String login = userPrincipal.getUsername();
+                orderCreateBundle.setManager(userRepository.findUserByLogin(login));
+            }
+        }
+        return orderCreateBundle;
     }
 }

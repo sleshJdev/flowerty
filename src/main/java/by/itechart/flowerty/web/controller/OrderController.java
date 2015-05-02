@@ -1,6 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
  
+import by.itechart.flowerty.web.model.OrderCreateBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,12 @@ public class OrderController {
 
         OrderEditBundle order = orderService.getOrderEditBundleById(id);
         return order;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "order/create/bundle", method = RequestMethod.GET)
+    public OrderCreateBundle createBundle() throws Exception{
+        LOGGER.info("getting prepared order bundle for creating a new one");
+        return orderService.getOrderCreateBundle();
     }
 }

@@ -22,11 +22,13 @@ public class TestPhoneRepository extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
 
+    @Ignore
     @Test
     public void delete(){
 	phoneRepository.delete(2L);
     }
-    
+
+    @Ignore
     @Test
     public void test(){
 	QPhone PHONE = QPhone.phone;
@@ -50,12 +52,14 @@ public class TestPhoneRepository extends JpaConfigurationAware {
 	phoneRepository.save(phone);
     }
 
+    @Ignore
     @Test
     public void findPhone_ValidId_ReturnsPhone() {
 	Phone phone = phoneRepository.findOne(1l);
 	Assert.assertEquals(phone.getNumber(), "1232121");
     }
 
+    @Ignore
     @Test
     public void findPhone_InvalidId_ReturnsNull() {
 	Phone phone = phoneRepository.findOne(1000l);
