@@ -60,21 +60,21 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
     }
 })())
 
-.service("stateSaver", function(){
+.service("stateSaverService", function(){
 	var me = this;
 	me.state = {
 			checkeds: [],
 			reset: function(){
 				me.state.checkeds = [];
 			},
-			checked: function(contact) {
-				me.state.checkeds.push(contact);
+			checked: function(entityWithId) {
+				me.state.checkeds.push(entityWithId);
 			},
-			unchecked: function(contact) {
-				me.state.checkeds.splice(findById(contact.id).index, 1);
+			unchecked: function(entityWithId) {
+				me.state.checkeds.splice(findById(entityWithId.id).index, 1);
 			},
-			ischecked: function(contact) {
-				return findById(contact.id).index !== -1 ? true : false; 
+			ischecked: function(entityWithId) {
+				return findById(entityWithId.id).index !== -1 ? true : false; 
 			},
 			isempty: function(){
 				return !me.state.checkeds;

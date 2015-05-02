@@ -11,7 +11,7 @@
          <tr data-ng-repeat="contact in contacts.list" >
              <td><input type="checkbox" data-ng-model="fake.ischecked"
              							data-ng-checked="contacts.state.ischecked(contact)"
-             							data-ng-change="fake.ischecked ? contacts.state.checked(contact) : contacts.state.unchecked(contact)"/></td><!-- contact.id = -contact.id;  -->
+             							data-ng-change="fake.ischecked ? contacts.state.checked(contact) : contacts.state.unchecked(contact)"/></td>
              <td> 
              	<a href="#/contact-edit/{{contact.id}}"> <span class="glyphicon glyphicon-edit"></span>
            			{{contact | flowerFullContactName}} 

@@ -2,7 +2,6 @@ package by.itechart.flowerty.web.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,32 +80,39 @@ public class ContactService {
 	return contactRepository.findOne(id);
     }
 
+    private List<Long> processPhonesAndGetId(Contact contact){
+	List<Long> phonesId = new ArrayList<Long>(contact.getPhones().size());
+	phonesId.add(-1L);// to avoid empty collection: case, if we remove all phones;
+	for (Phone phone : contact.getPhones()) {
+	    phone.setContact(contact);
+	    phonesId.add(phone.getId());
+	}
+	
+	return phonesId;
+    }
+    
     @Transactional
     public Contact save(Contact contact) {
-	if (contact.getId() != null) {// we update exists contact
-	    Set<Phone> phones = contact.getPhones();
-	    if (phones != null) {
-		List<Long> phonesId = new ArrayList<Long>(phones.size());
-		// to avoid empty collection: case, if we remove all phones;
-		phonesId.add(-1L);
-		for (Phone phone : phones) {
-		    phonesId.add(phone.getId());
-		}
-		phoneRepository.deleteIdNotIn(contact.getId(), phonesId);
-	    }
-	} else {// we created new contact
-	    Company company = userDetailsService.getCurrentContact().getCompany();
-	    contact.setCompany(company);
-	    Set<Phone> phones = contact.getPhones();
-	    if (phones != null) {
-		for (Phone phone : phones) {
-		    phone.setContact(contact);
-		}
-		phoneRepository.save(phones);
-	    }
+	if(contact.getId() == null){
+	    contact.setCompany(userDetailsService.getCurrentContact().getCompany());
+	    contactRepository.save(contact);
 	}
+	
+	if(contact.getPhones() != null){
+	    System.out.println("before saving");
+	    for(Phone phone : contact.getPhones()){
+		System.out.println(phone.toString());
+	    }
+	    phoneRepository.save(contact.getPhones());
+	    System.out.println("after saving");
+	    for(Phone phone : contact.getPhones()){
+		System.out.println(phone.toString());
+	    }
+	    phoneRepository.deleteIdNotIn(contact.getId(), processPhonesAndGetId(contact));
+	}
+	
 
-	return contactRepository.save(contact);
+	return contact;
     }
 
     public Page<Contact> findByCompany(Company company, PageRequest pageRequest) {

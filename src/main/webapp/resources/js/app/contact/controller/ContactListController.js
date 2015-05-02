@@ -1,16 +1,15 @@
 'use strict';
 
 angular.module("flowertyApplication.contactModule").controller("ContactListController", 
-		["$scope", "$http", "$location", "transportService", "deleteService", "contactListService", "stateSaver",
-		 function($scope, $http, $location, transportService, deleteService, contactListService, stateSaver) {
+		["$scope", "$http", "$location", "transportService", "deleteService", "contactListService", "stateSaverService",
+		 function($scope, $http, $location, transportService, deleteService, contactListService, stateSaverService) {
         
 		$scope.contacts = {
             currentPage: 1,
             totalPages: [],
-            list: []
+            list: [],
+            state: stateSaverService.state
         };
-
-        $scope.contacts.state = stateSaver.state;
         $scope.contacts.state.reset();
         
         /*
@@ -30,7 +29,7 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
          */
         $scope.contacts.deleteContact = function(){
             console.log("delete contact");
-            deleteService.deleteIsChecked(stateSaver.state.ischecked, $scope.contacts.list);
+            deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
             
             $http({
                 method: "post",
