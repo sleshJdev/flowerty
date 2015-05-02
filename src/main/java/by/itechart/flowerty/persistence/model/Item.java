@@ -48,7 +48,6 @@ public class Item {
         this.quantity = quantity;
     }
 
-
     public void setGoods(Goods goods) {
         this.goods = goods;
     }
