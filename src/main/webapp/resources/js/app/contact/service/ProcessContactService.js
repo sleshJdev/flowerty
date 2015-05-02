@@ -44,8 +44,12 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
          */
         me.bundle.actions.deletePhone = function(){
             console.log("delete phone");
-            deleteService.deleteIsChecked(stateSaverService.state.ischecked, me.bundle.contact.phones);
-            stateSaverService.state.reset();
+            if(stateSaverService.state.isempty()){
+            	alert("Please, select phones to deleted!");
+            }else{
+            	deleteService.deleteIsChecked(stateSaverService.state.ischecked, me.bundle.contact.phones);
+            	stateSaverService.state.reset();
+            }
         };
 
         /*
