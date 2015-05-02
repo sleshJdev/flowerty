@@ -1,19 +1,20 @@
 'use strict';
 
 /*
- * remove item from collection, if his id < 0
+ * remove item from collection
  */
-angular.module("flowertyApplication.contactModule").service("deleteService", function(){
-    this.deleteById = function(collection){
-        var isBreak = true;
-        do{
-            isBreak = true;
-            for(var i = 0; i < collection.length; ++i){
-                if(collection[i].id < 0){
-                    collection.splice(i, 1);
-                    isBreak = false;
-                }
-            }
-        }while(!isBreak);
-    }
-});
+angular.module("flowertyApplication.contactModule").service("deleteService",
+		function() {
+			this.deleteIsChecked = function(checker, collection) {
+				var isBreak = true;
+				do {
+					isBreak = true;
+					for (var i = 0; i < collection.length; ++i) {
+						if (checker(collection[i])) {
+							collection.splice(i, 1);
+							isBreak = false;
+						}
+					}
+				} while (!isBreak);
+			}
+		});

@@ -23,9 +23,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,7 +36,7 @@ import by.itechart.flowerty.jms.mail.MailService;
 import by.itechart.flowerty.local.settings.Settings;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Phone;
-import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
 /**
@@ -61,7 +58,7 @@ public class EmailController {
     private FlowertyMessagePublisher publisher;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDetailsServiceImpl userDetailsService;
 
     @ResponseBody
     @RequestMapping(value = "email/templates", method = RequestMethod.GET)
@@ -82,7 +79,7 @@ public class EmailController {
 
 	    EmailInfo email = objectMapper.readValue(emailJson, EmailInfo.class);
 	    FlowertTemplate template = objectMapper.readValue(templateJson, FlowertTemplate.class);
-	    Contact sender = getSender();
+	    Contact sender = userDetailsService.getCurrentContact();
 
 	    for (Contact to : email.getTo()) {
 		email.setText(buildMessageBody(template, to.getName(), sender));
@@ -98,17 +95,6 @@ public class EmailController {
 
 	    throw new BadHttpRequest(e);
 	}
-    }
-
-    private Contact getSender() {
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	String login = userDetails.getUsername();
-
-	Contact sender = userRepository.findUserByLogin(login).getContact();
-
-	return sender;
-
     }
 
     private Map<String, byte[]> convert(MultipartFile[] attachments) throws IOException {

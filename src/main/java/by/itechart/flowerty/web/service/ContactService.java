@@ -17,6 +17,7 @@ import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Phone;
 import by.itechart.flowerty.persistence.repository.ContactRepository;
 import by.itechart.flowerty.persistence.repository.PhoneRepository;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 
@@ -31,6 +32,9 @@ public class ContactService {
 
     @Autowired
     private PhoneRepository phoneRepository;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired(required = true)
     private ContactDocumentRepository contactDocumentRepository;
@@ -61,7 +65,7 @@ public class ContactService {
 
 	return contactRepository.findByIdIsIn(ids, new PageRequest(page, size));
     }
-    
+
     public Page<Contact> findBySurname(String name, int page, int size) {
 	List<ContactDocument> contactDocuments = contactDocumentRepository.findByNameContains(name);
 	ArrayList<Long> ids = new ArrayList<Long>();
@@ -79,15 +83,27 @@ public class ContactService {
 
     @Transactional
     public Contact save(Contact contact) {
-	Set<Phone> phones = contact.getPhones();
-	if (phones != null) {
-	    List<Long> phonesId = new ArrayList<Long>(phones.size());
-	    phonesId.add(-1L);//to avoid empty collection: case, if we remove all phones;
-	    for (Phone phone : phones) {
-		phonesId.add(phone.getId());
-		System.out.println("id: " + phone.getId());
+	if (contact.getId() != null) {// we update exists contact
+	    Set<Phone> phones = contact.getPhones();
+	    if (phones != null) {
+		List<Long> phonesId = new ArrayList<Long>(phones.size());
+		// to avoid empty collection: case, if we remove all phones;
+		phonesId.add(-1L);
+		for (Phone phone : phones) {
+		    phonesId.add(phone.getId());
+		}
+		phoneRepository.deleteIdNotIn(contact.getId(), phonesId);
 	    }
-	    phoneRepository.deleteIdNotIn(contact.getId(), phonesId);
+	} else {// we created new contact
+	    Company company = userDetailsService.getCurrentContact().getCompany();
+	    contact.setCompany(company);
+	    Set<Phone> phones = contact.getPhones();
+	    if (phones != null) {
+		for (Phone phone : phones) {
+		    phone.setContact(contact);
+		}
+		phoneRepository.save(phones);
+	    }
 	}
 
 	return contactRepository.save(contact);

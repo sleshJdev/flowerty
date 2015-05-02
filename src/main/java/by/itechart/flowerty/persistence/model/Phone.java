@@ -1,6 +1,5 @@
 package by.itechart.flowerty.persistence.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,7 +26,7 @@ public class Phone {
     private String operator;
     private Contact contact;
     private PHONE_TYPE type;
-    
+
     public Phone() {
     }
 
@@ -43,7 +42,7 @@ public class Phone {
     public String getComment() {
 	return comment;
     }
-    
+
     @Column(name = "COUNTRY", length = 5, nullable = true)
     @Size(max = 5)
     public String getCountry() {
@@ -67,11 +66,11 @@ public class Phone {
     public PHONE_TYPE getType() {
 	return type;
     }
-    
+
     @ManyToOne
     @JsonIgnore
     public Contact getContact() {
-        return contact;
+	return contact;
     }
 
     public void setId(Long id) {
@@ -97,12 +96,22 @@ public class Phone {
     public void setType(PHONE_TYPE type) {
 	this.type = type;
     }
-    
+
     public void setContact(Contact contact) {
-        this.contact = contact;
+	this.contact = contact;
     }
 
     public static enum PHONE_TYPE {
 	HOME, CELL
+    }
+
+    @Override
+    public String toString() {
+	return new StringBuilder("[id: ").append(id)
+		.append(", full number: ").append(country)
+		.append(operator).append(number)
+		.append(", type: ").append(type)
+		.append(", comment: ").append(comment)
+		.append("]").toString();
     }
 }

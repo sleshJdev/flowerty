@@ -92,7 +92,7 @@ public class Contact {
     }
     
     @Valid
-    @OneToMany(mappedBy="contact", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="contact", cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
     public Set<Phone> getPhones() {
 	return phones;
     }
@@ -156,16 +156,22 @@ public class Contact {
     }
 
     @Override
-	public String toString() {
-		return new StringBuilder()
-			.append("[id:").append(id)
-			.append("\n name:").append(name)
-			.append("\n surname:").append(surname)
-			.append("\n fathername:").append(fathername)
-			.append("\n birthday:").append(birthday)
-			.append("\n email:").append(email)
-			.append("\n address:").append(address).append("]\n")
-//			.append("; phones:").append(phones)
-			.toString();
+    public String toString() {
+	StringBuilder sb = new StringBuilder();
+	sb
+		.append("[id:").append(id)
+		.append("\n name:").append(name)
+		.append("\n surname:").append(surname)
+		.append("\n fathername:").append(fathername)
+		.append("\n birthday:").append(birthday)
+		.append("\n email:").append(email)
+		.append("\n address:").append(address);
+	if (phones != null) {
+	    sb.append("; phones:");
+	    for (Phone phone : phones) {
+		sb.append(phone);
+	    }
 	}
+	return sb.append("]\n").toString();
+    }
 }
