@@ -15,6 +15,7 @@ import org.apache.activemq.command.ActiveMQTextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import by.itechart.flowerty.jms.mail.MailService;
 import by.itechart.flowerty.local.settings.Settings;
@@ -24,6 +25,7 @@ import by.itechart.flowerty.local.settings.Settings;
  *
  *         jms message listener
  */
+@Component
 public class FlowertyMessageListener implements MessageListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(FlowertyMessageListener.class);
 
@@ -36,6 +38,7 @@ public class FlowertyMessageListener implements MessageListener {
     @Override
     public void onMessage(final Message message) {
 	LOGGER.info("recive message: {}", message.getClass());
+
 	if (message instanceof ActiveMQTextMessage) {
 	    try {
 		final ActiveMQTextMessage textMessage = (ActiveMQTextMessage) message;
@@ -43,7 +46,7 @@ public class FlowertyMessageListener implements MessageListener {
 		String subject = textMessage.getStringProperty("subject");
 		String text = textMessage.getStringProperty("text");
 
-		LOGGER.info("text message. to: {}, subject: {}, text: {}", to, subject, text);
+		LOGGER.info("text message. to: {}, subject: {}", to, subject);
 
 		mailService.send(to, subject, text);
 	    } catch (JMSException e) {
@@ -63,13 +66,13 @@ public class FlowertyMessageListener implements MessageListener {
 		    byte[] bytes = readBytes(byteMessage);
 		    attachments.put(name, bytes);
 		}
-
-		LOGGER.info("byte message. to: {}, subject: {}, text: {}, attachments quantity: {}", to, subject, text,
+		
+		LOGGER.info("byte message. to: {}, subject: {}, attachments quantity: {}", to, subject,
 			quantityAttachments);
 
 		mailService.send(to, subject, text, attachments);
 	    } catch (IOException | JMSException | MessagingException e) {
-		e.printStackTrace();
+		LOGGER.error(e.getMessage());
 	    }
 	}
     }

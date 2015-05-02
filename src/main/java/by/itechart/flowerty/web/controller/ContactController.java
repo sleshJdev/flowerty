@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import by.itechart.flowerty.persistence.repository.model.Contact;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 import by.itechart.flowerty.web.service.RepositorySolrContactService;
-import by.itechart.flowerty.solr.model.ContactDocument;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -44,8 +44,16 @@ public class ContactController {
 	LOGGER.info("get contact page with number {}", page);
 
 	page = (page == null || page < 1) ? 0 : --page;
-
+	
 	return contactService.getPage(page, 10);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "contact/search/{surname}")
+    public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
+       // LOGGER.info("search contact");
+        Long company = 1L;
+        return contactService.findBySurnameStartsWithAndCompany(surname, company); //get company normally
     }
 
     @ResponseBody
@@ -74,22 +82,21 @@ public class ContactController {
     public void remove(@RequestBody List<Contact> contacts) {
 	LOGGER.info("remove contacts. obtained {} contacts, wicht not remove", contacts.size());
 	
-	contactService.deleteIdNotIn(fetchId(contacts));
-	for (Contact contact : contacts) {
-	    contactService.delete(contact.getId());
-	}
+	contactService.deleteIdNotIn(fetchIdOfContact(contacts));
     }
 
     @ResponseBody
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
 	LOGGER.info("save contact: {}", contact.toString());
+	
 	contactService.save(contact);
 	solrContactService.add(contact);
+	
 	return contact;
     }
     
-    private static final List<Long> fetchId(List<Contact> contacts){
+    private static final List<Long> fetchIdOfContact(List<Contact> contacts){
 	List<Long> ids = new ArrayList<Long>(contacts.size());
 	for(Contact contact : contacts){
 	    ids.add(contact.getId());

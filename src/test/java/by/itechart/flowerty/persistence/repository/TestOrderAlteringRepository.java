@@ -1,17 +1,21 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.repository.model.Order;
-import by.itechart.flowerty.persistence.repository.model.OrderAltering;
-import by.itechart.flowerty.persistence.repository.model.State;
-import by.itechart.flowerty.persistence.repository.model.User;
 
-import org.junit.*;
+
+import java.util.Date;
+
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.Date;
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.OrderAltering;
+import by.itechart.flowerty.persistence.model.State;
+import by.itechart.flowerty.persistence.model.User;
 
 /**
  @author  Мария 30.03.15

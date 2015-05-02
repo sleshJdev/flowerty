@@ -25,12 +25,12 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 		url: "email/templates",
 	}).success(function(data, status, headers, config) {
 		$scope.bundle.templates = data;
+		$scope.bundle.template = $scope.bundle.templates[0];
 	}).error(function(data, status, headers, config) {
 		console.log("error occured during fetch email templates: " + JSON.stringify(data));//LOG
 	});
 	
 	$scope.bundle.email.to = transportService.getValue();//for test: studentbntu@mail.ru is valid
-	$scope.bundle.template = $scope.bundle.templates[0];
 	
 	$scope.$on("fileSelected", function (event, args) {
 		$scope.$apply(function () {            
@@ -58,13 +58,14 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 			$scope.notification.type = "success";
 			$scope.notification.message = "Send email success!";
 			$scope.notification.status = "show";
-//			$location.path("send-email");
 		}).error(function (data, status, headers, config) {
 			alert("send email failed!");
 			$scope.notification.type = "danger";
 			$scope.notification.message = "Send email failed!";
 			$scope.notification.status = "show";
 		});
+		
+		reset();
 	};
 	
 	$scope.bundle.actions.removeAttachment = function(number){
@@ -84,4 +85,10 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 			console.log("add new email: " + $scope.bundle.newEmail + ", current quantity: " + $scope.bundle.email.to.length);
 		}
 	};
+	
+	function reset(){
+		$scope.bundle.email.subject = "";
+		$scope.bundle.template = {};
+		$scope.bundle.files = [];
+	}
 }])

@@ -31,7 +31,6 @@ import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 @ContextConfiguration(classes = {MailConfiguration.class, JmsConfiguration.class,
 	LocalConfiguration.class })
 
-//@Ignore
 public class TestFlowertyMessagePublisher {
     private final String to = "studentbntu@mail.ru";
     private final String subject = "flowerty-promotion";

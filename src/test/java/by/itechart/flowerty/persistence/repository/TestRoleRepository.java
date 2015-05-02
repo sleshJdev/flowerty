@@ -1,12 +1,15 @@
 package by.itechart.flowerty.persistence.repository;
-
-import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.repository.model.Role;
-
-import org.junit.*;
-import org.springframework.beans.factory.annotation.Autowired;
+ 
 
 import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Role;
 
 /**
  * @author  Мария 02.04.15
@@ -21,4 +24,6 @@ public class TestRoleRepository extends JpaConfigurationAware {
         List<Role> list = roleRepository.findAll();
         Assert.assertEquals(list.size(), 5);
     }
+    
+    
 }

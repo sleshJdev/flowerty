@@ -1,10 +1,12 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.repository.model.Right;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import by.itechart.flowerty.persistence.model.Right;
+
 
 /**
  * Created by Rostislav on 23-Apr-15
