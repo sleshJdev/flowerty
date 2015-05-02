@@ -5,10 +5,6 @@
 
 angular.module("flowertyApplication.orderModule").controller('OrderEditController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 
-    $scope.option = {
-        edit: true
-    };
-
     $scope.init = function(){
         $http({
             method: "get",

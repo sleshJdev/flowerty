@@ -112,6 +112,10 @@ public class OrderService {
                 return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.DELIVERY_MANAGER.toString())
                         && currentState.getDescription() == State.DESCRIPTION_TYPE.READY;
             }
+            case CLOSED:{
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.SUPERVISOR.toString())
+                        && currentState.getDescription() == State.DESCRIPTION_TYPE.DELIVERY;
+            }
             default:{
                 return false;
             }
@@ -121,6 +125,7 @@ public class OrderService {
     public OrderCreateBundle getOrderCreateBundle(){
 
         OrderCreateBundle orderCreateBundle = new OrderCreateBundle();
+
         //  Setting the state "NEW"
         //TODO: add searching by state with description NEW
         List<State> states = (List<State>) stateRepository.findAll();

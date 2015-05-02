@@ -45,6 +45,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         console.log('Checkout: ' + JSON.stringify($scope.order));
         $scope.order.customer = $scope.search.customer.selected;
         $scope.order.receiver = $scope.search.receiver.selected;
+
         //  TODO: create a service
         $http({
             method: 'post',
@@ -61,30 +62,6 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
         //  TODO: get it from factory
 
-
-        //TODO: search in users by role "ORDERS_PROCESSOR"
-        $http({
-            method: "get",
-            url: "tempsearch/user/list/1"
-        }).success(function(data, status, headers, config) {
-            $scope.staff.processors = data.content;
-        }).error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));
-            $location.path("add-order");
-        });
-
-
-        //TODO: search in users by role "DELIVERY_MANAGER"
-        $http({
-            method: "get",
-            url: "tempsearch/user/list/1"
-        }).success(function(data, status, headers, config) {
-            $scope.staff.deliveryManagers = data.content;
-        }).error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));
-            $location.path("add-order");
-        });
-
         $http({
             method: "get",
             url: "order/create/bundle"
@@ -92,11 +69,44 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             $scope.order = data;
             $scope.initItems();
             $scope.order.cost = $scope.current.basket.info.fullCost;
-            $scope.order.staff = $scope.staff.processors[0];
-            $scope.order.delivery = $scope.staff.deliveryManagers[0];
+            getDeliveryManagers();
+            getOrderProcessors();
+
+            //TODO: When added address field to a table, remove
+            order.address = {};
 
             //  Makes the basket empty
             $scope.current.basket.reset();
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
+    };
+
+    var getDeliveryManagers = function(){
+
+        //TODO: search in users by role "DELIVERY_MANAGER"
+        $http({
+            method: "get",
+            url: "tempsearch/user/list/1"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.deliveryManagers = data.content;
+            $scope.order.delivery = $scope.staff.deliveryManagers[0];
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
+    };
+
+    var getOrderProcessors = function(){
+
+        //TODO: search in users by role "ORDERS_PROCESSOR"
+        $http({
+            method: "get",
+            url: "tempsearch/user/list/1"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.processors = data.content;
+            $scope.order.staff = $scope.staff.processors[0];
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");
