@@ -24,9 +24,6 @@ public class StartContextApplicationListener implements ApplicationListener<Cont
 
     @Autowired
     private FlowertyMessageConsumer consumer;
-
-    @Autowired
-    private RoleRepository roleRepository;
     
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
