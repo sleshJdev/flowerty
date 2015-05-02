@@ -33,7 +33,7 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
                 data: contact
             }).success(function(data, status, headers, config) {
                 console.log("save contact success!");
-                $location.path("contacts");
+                $location.path("show-contacts");
             }).error(function(data, status, headers, config) {
                 console.log("save contact error: " + JSON.stringify(data))//REMOVE_COMMENT
             });

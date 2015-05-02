@@ -95,8 +95,9 @@ public class ContactService {
     public Contact save(Contact contact) {
 	if(contact.getId() == null){
 	    contact.setCompany(userDetailsService.getCurrentContact().getCompany());
-	    contactRepository.save(contact);
 	}
+
+	contactRepository.save(contact);
 	
 	if(contact.getPhones() != null){
 	    System.out.println("before saving");
