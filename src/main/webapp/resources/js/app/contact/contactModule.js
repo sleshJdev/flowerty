@@ -77,7 +77,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 				return findById(entityWithId.id).index !== -1 ? true : false; 
 			},
 			isempty: function(){
-				return !me.state.checkeds;
+				return me.state.checkeds.length === 0;
 			}
 	};
 	function findById(id){

@@ -21,17 +21,18 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
          * save/update contact after editing/creating
          */
         me.bundle.actions.saveContact = function(contact){
-        	for(var i = 0; i < contact.phones.length; ++i){
-        		if(!!contact.phones[i].id){
+        	for(var i = 0; i < contact.phones.length; ++i) {
+        		if(!!contact.phones[i].id) {
         			delete contact.phones[i].id;
-        		}
-        	}
+        		};
+        	};
+        	
         	$http({
                 method: "post",
                 url: "contact/save",
                 data: contact
             }).success(function(data, status, headers, config) {
-                console.log("save contact success!")
+                console.log("save contact success!");
                 $location.path("contacts");
             }).error(function(data, status, headers, config) {
                 console.log("save contact error: " + JSON.stringify(data))//REMOVE_COMMENT
