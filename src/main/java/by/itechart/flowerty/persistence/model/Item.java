@@ -27,6 +27,7 @@ public class Item {
     public Long getId() {
         return id;
     }
+
     @Column(name = "QUANTITY", nullable=false)
     @NotNull
     public int getQuantity() {
@@ -40,6 +41,12 @@ public class Item {
         return goods;
     }
 
+    @JsonIgnore
+    @ManyToOne
+    public Order getOrder() {
+        return order;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -50,12 +57,6 @@ public class Item {
 
     public void setGoods(Goods goods) {
         this.goods = goods;
-    }
-
-    @ManyToOne
-    @JsonIgnore
-    public Order getOrder() {
-        return order;
     }
 
     public void setOrder(Order order) {

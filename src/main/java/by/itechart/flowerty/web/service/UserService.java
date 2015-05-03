@@ -87,7 +87,11 @@ public class UserService {
     }
 
     public List<User> getUsersByRoleName(String roleString){
-        Role role = roleRepository.findByName(roleString);
+        Role.ROLE_TYPE roleType = Role.ROLE_TYPE.valueOf(roleString);
+        if(roleType == null){
+            return null;
+        }
+        Role role = roleRepository.findByName(roleType);
         return userRepository.findByRole(role);
     }
 }

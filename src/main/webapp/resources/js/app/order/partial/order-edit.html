@@ -132,11 +132,11 @@
         <div class="row" data-ng-repeat="goodsItem in order.items">
             <div class="goods-item col-md-12 thumbnail">
                 <div class="goods-image col-md-3">
-                    <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.flower.image}}"/>
+                    <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.goods.image}}"/>
                 </div>
                 <div class="goods-list-item-info caption col-md-offset-1 col-md-7">
-                    <h3 class="goods-item-description">{{goodsItem.flower.flower.name}}</h3>
-                    <h3 class="goods-item-description">{{goodsItem.flower.cost | currency}} x {{goodsItem.quantity}} = {{(goodsItem.flower.cost * goodsItem.quantity) | currency}}</h3>
+                    <h3 class="goods-item-description">{{goodsItem.goods.flower.name}}</h3>
+                    <h3 class="goods-item-description">{{goodsItem.goods.cost | currency}} x {{goodsItem.quantity}} = {{(goodsItem.goods.cost * goodsItem.quantity) | currency}}</h3>
                     <h3>Count: <strong>{{goodsItem.quantity}}</strong></h3>
                 </div>
             </div>

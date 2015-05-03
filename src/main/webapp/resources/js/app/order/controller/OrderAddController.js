@@ -5,10 +5,6 @@
 
 angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
 
-    $scope.option = {
-        edit : false
-    };
-
     $scope.search = {
         customer : {
             enteredSurname : '',
@@ -33,7 +29,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         for(i = 0; i < $scope.current.basket.items.length; i++){
             var basketItem = $scope.current.basket.items[i];
             var orderItem = {};
-            orderItem.flower = basketItem;
+            orderItem.goods = basketItem;
             orderItem.quantity = basketItem.count;
             $scope.order.items.push(orderItem);
         }
@@ -52,7 +48,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             url: 'order/save',
             data: $scope.order
         }).success(function(data, status, headers, config){
-            $location.path('');
+            $location.path('/');
         }).error(function(data, status, headers, config){
             console.log("Exception details in OrderAddController.save() : " + JSON.stringify({data: data}));
         });
@@ -85,12 +81,11 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
     var getDeliveryManagers = function(){
 
-        //TODO: search in users by role "DELIVERY_MANAGER"
         $http({
             method: "get",
-            url: "tempsearch/user/list/1"
+            url: "users/role/delivery_manager"
         }).success(function(data, status, headers, config) {
-            $scope.staff.deliveryManagers = data.content;
+            $scope.staff.deliveryManagers = data;
             $scope.order.delivery = $scope.staff.deliveryManagers[0];
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
@@ -100,12 +95,11 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
     var getOrderProcessors = function(){
 
-        //TODO: search in users by role "ORDERS_PROCESSOR"
         $http({
             method: "get",
-            url: "tempsearch/user/list/1"
+            url: "users/role/orders_processor"
         }).success(function(data, status, headers, config) {
-            $scope.staff.processors = data.content;
+            $scope.staff.processors = data;
             $scope.order.staff = $scope.staff.processors[0];
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));

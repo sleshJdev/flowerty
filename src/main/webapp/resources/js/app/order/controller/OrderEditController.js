@@ -12,8 +12,41 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
         }).success(function (data, status, headers, config) {
             $scope.bundle = data;
             $scope.order = $scope.bundle.order;
+            getDeliveryManagers();
+            getOrderProcessors();
         }).error(function (data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
+        });
+    };
+
+    $scope.staff = {
+        processors : [],
+        deliveryManagers : []
+    };
+
+    var getDeliveryManagers = function(){
+
+        $http({
+            method: "get",
+            url: "users/role/delivery_manager"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.deliveryManagers = data;
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
+    };
+
+    var getOrderProcessors = function(){
+
+        $http({
+            method: "get",
+            url: "users/role/orders_processor"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.processors = data;
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
         });
     };
 

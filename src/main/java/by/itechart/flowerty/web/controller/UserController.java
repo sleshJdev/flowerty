@@ -126,9 +126,9 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "user/list/role/{role}", method = RequestMethod.GET)
+    @RequestMapping(value = "users/role/{role}", method = RequestMethod.GET)
     public List<User> getUserListByRole(@PathVariable("role") String roleString){
-
-        return userService.getUsersByRoleName(roleString);
+        LOGGER.info("geting list of users by their role: {}", roleString);
+        return userService.getUsersByRoleName(roleString.toUpperCase());
     }
 }

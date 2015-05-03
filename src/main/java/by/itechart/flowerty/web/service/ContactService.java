@@ -102,12 +102,12 @@ public class ContactService {
 	if(contact.getPhones() != null){
 	    System.out.println("before saving");
 	    for(Phone phone : contact.getPhones()){
-		System.out.println(phone.toString());
+		    System.out.println(phone.toString());
 	    }
 	    phoneRepository.save(contact.getPhones());
 	    System.out.println("after saving");
 	    for(Phone phone : contact.getPhones()){
-		System.out.println(phone.toString());
+		    System.out.println(phone.toString());
 	    }
 	    phoneRepository.deleteIdNotIn(contact.getId(), processPhonesAndGetId(contact));
 	}
