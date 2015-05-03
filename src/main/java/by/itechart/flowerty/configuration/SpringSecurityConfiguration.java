@@ -3,10 +3,7 @@ package by.itechart.flowerty.configuration;
 import by.itechart.flowerty.security.CsrfHeaderFilter;
 import by.itechart.flowerty.security.CustomAuthenticationProvider;
 import by.itechart.flowerty.security.TokenBasedRememberMeServices;
-import by.itechart.flowerty.security.handler.AccessDeniedHandler;
-import by.itechart.flowerty.security.handler.AuthFailure;
-import by.itechart.flowerty.security.handler.AuthSuccess;
-import by.itechart.flowerty.security.handler.EntryPointUnauthorizedHandler;
+import by.itechart.flowerty.security.handler.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +32,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthSuccess authSuccess;
+
+    @Autowired
+    private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Autowired
     private EntryPointUnauthorizedHandler unauthorizedHandler;
@@ -76,14 +76,18 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/login")
 //                .successHandler(authSuccess)
                 .failureHandler(authFailure)
-                .and()
-                .logout()
             .and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .logout()
+                .logoutSuccessHandler(logoutSuccessHandler)
+            .and()
+                .csrf()
+                .csrfTokenRepository(csrfTokenRepository())
 //            .and()
 //                .exceptionHandling()
 //                .accessDeniedHandler(accessDeniedHandler)
+//                .authenticationEntryPoint(unauthorizedHandler)
+            .and()
+                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
         ;
     }
 

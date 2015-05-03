@@ -3,9 +3,9 @@
  * Created by Катерина on 20.04.2015.
  */
 
-angular.module('flowertyApplication').controller('MainController', function ($scope, $http, $location, $filter, sessionService) {
+angular.module('flowertyApplication').controller('MainController', function ($scope, $http, $location, $filter, AuthServerProvider) {
 
-    sessionService.setLoggedUser($scope);
+    AuthServerProvider.setLoggedUser($scope);
 
     $scope.current = {
         isLogged: false,
@@ -22,7 +22,7 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
     };
 
     $scope.current.logOut = function () {
-        sessionService.logout($scope, $location);
+        AuthServerProvider.logout($scope, $location);
     };
 
     $scope.pagination = {
