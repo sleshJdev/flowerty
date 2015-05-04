@@ -25,28 +25,28 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
     $scope.initItems = function(){
         var i;
-        $scope.order.items = [];
+        $scope.bundle.order.items = [];
         for(i = 0; i < $scope.current.basket.items.length; i++){
             var basketItem = $scope.current.basket.items[i];
             var orderItem = {};
             orderItem.goods = basketItem;
             orderItem.quantity = basketItem.count;
-            $scope.order.items.push(orderItem);
+            $scope.bundle.order.items.push(orderItem);
         }
     };
 
     $scope.orderAction = {};
 
     $scope.orderAction.checkout = function(){
-        console.log('Checkout: ' + JSON.stringify($scope.order));
-        $scope.order.customer = $scope.search.customer.selected;
-        $scope.order.receiver = $scope.search.receiver.selected;
+        console.log('Checkout: ' + JSON.stringify($scope.bundle.order));
+        $scope.bundle.order.customer = $scope.search.customer.selected;
+        $scope.bundle.order.receiver = $scope.search.receiver.selected;
 
         //  TODO: create a service
         $http({
             method: 'post',
             url: 'order/save',
-            data: $scope.order
+            data: $scope.bundle.order
         }).success(function(data, status, headers, config){
             $location.path('/');
         }).error(function(data, status, headers, config){
@@ -62,14 +62,13 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             method: "get",
             url: "order/create/bundle"
         }).success(function(data, status, headers, config) {
-            $scope.order = data;
+            $scope.bundle = {
+                order : data
+            };
             $scope.initItems();
-            $scope.order.cost = $scope.current.basket.info.fullCost;
+            $scope.bundle.order.cost = $scope.current.basket.info.fullCost;
             getDeliveryManagers();
             getOrderProcessors();
-
-            //TODO: When added address field to a table, remove
-            $scope.order.address = {};
 
             //  Makes the basket empty
             $scope.current.basket.reset();
@@ -86,7 +85,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             url: "users/role/delivery_manager"
         }).success(function(data, status, headers, config) {
             $scope.staff.deliveryManagers = data;
-            $scope.order.delivery = $scope.staff.deliveryManagers[0];
+            $scope.bundle.order.delivery = $scope.staff.deliveryManagers[0];
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");
@@ -100,7 +99,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             url: "users/role/orders_processor"
         }).success(function(data, status, headers, config) {
             $scope.staff.processors = data;
-            $scope.order.staff = $scope.staff.processors[0];
+            $scope.bundle.order.staff = $scope.staff.processors[0];
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");

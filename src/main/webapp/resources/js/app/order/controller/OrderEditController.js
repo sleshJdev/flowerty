@@ -5,6 +5,10 @@
 
 angular.module("flowertyApplication.orderModule").controller('OrderEditController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 
+    $scope.access = {
+        canChangeStaff : $scope.current.user.role === 'ROLE_SUPERVISOR'
+    };
+
     $scope.init = function(){
         $http({
             method: "get",
@@ -55,21 +59,33 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
     $scope.orderAction = {};
 
     $scope.orderAction.changeState = function (state) {
-        $scope.order.state = state;
+        $scope.temp.state = state;
     };
 
     $scope.orderAction.save = function () {
         $http({
             method: "post",
-            url: "order/save",
-            data: $scope.order
+            url: "order/change/save",
+            data: {
+                order : $scope.order,
+                orderAltering : $scope.orderAltering
+            }
         }).success(function (data, status, headers, config) {
             $location.path("users");
         }).error(function (data, status, headers, config) {
         });
     };
 
-    $scope.access = {
-        canChangeStaff : $scope.current.role === 'ROLE_SUPERVISOR'
+    $scope.orderAction.saveStateChanges = function () {
+        $scope.orderAltering = {
+            state : $scope.temp.state,
+            comment : $scope.temp.comment
+        };
+        $scope.state = $scope.orderAltering.state;
+    };
+
+    $scope.temp = {
+        state : {},
+        comment : ''
     };
 }]);
