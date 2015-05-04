@@ -1,6 +1,7 @@
 package by.itechart.flowerty.persistence.repository;
 
 
+ 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import by.itechart.flowerty.persistence.model.Phone;
 /**
  * @author Мария 31.03.15
  */
-//@Ignore
+@Ignore
 public class TestPhoneRepository extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;

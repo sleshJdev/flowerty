@@ -28,10 +28,9 @@
                 <a href="#orders-history" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-time"></span></a>
             </div>
         </div>
-        <div class="nav navbar-nav navbar-right navbar-text  navigation-group">
-            <a href="#" id="logged-user" class="active navigation-group-item" data-ng-show="current.isLogged"><strong>{{current.user.username}}</strong> Your role is <strong>{{current.user.role | lowercase | flowerSplit:'_':' '}}</strong></a>
+        <div class="nav navbar-nav navbar-right navbar-text navigation-group">
+            <a href="#/profile" id="logged-user" class="active navigation-group-item" data-ng-show="current.isLogged"><strong>{{current.user.username}}</strong> Your role is <strong>{{current.user.role | lowercase | flowerSplit:'_':' '}}</strong> <span class="glyphicon glyphicon-user"></span></a>
             <a href="#" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-cog"></span></a>
-            <a href="#" class="navbar-link navigation-group-item" data-ng-show="current.isLogged"> <span class="glyphicon glyphicon-user"></span></a>
             <a href="#/login" class="navbar-link navigation-group-item" data-ng-show="!current.isLogged"><span class="glyphicon glyphicon-log-in"> Login</span></a>
             <a href="#/" class="navbar-link navigation-group-item" data-ng-click="current.logOut()" data-ng-show="current.isLogged"><span class="glyphicon glyphicon-log-out"> Logout</span></a>
         </div>

@@ -73,17 +73,17 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
         };
 
         $scope.contacts.getPreviousPage = function(){
-            if($scope.contacts.currentPage > 1){
+            if($scope.contacts.currentPage > 1) {
                 $scope.contacts.currentPage--;
+                $scope.contacts.getPageFromServer();
             }
-            $scope.contacts.getPageFromServer();
         };
 
         $scope.contacts.getNextPage = function(){
             if($scope.contacts.currentPage < $scope.contacts.totalPages){
                 $scope.contacts.currentPage++;
+                $scope.contacts.getPageFromServer();
             }
-            $scope.contacts.getPageFromServer();
         };
 
         $scope.contacts.getPagesCount = function(){
