@@ -19,6 +19,7 @@ public class EmbeddedDataSourceConfig {
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.HSQL)
+                .addScript("classpath:flowerty-dump.sql")
                 .build();
     }
 }

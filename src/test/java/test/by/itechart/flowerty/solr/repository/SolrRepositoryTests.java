@@ -20,7 +20,7 @@ import java.util.Date;
 *         Date: 12.04.15
 */
 @Ignore
-public class TestSolrRepository extends JpaConfigurationAware {
+public class SolrRepositoryTests extends JpaConfigurationAware {
     @Autowired
     private ContactDocumentRepository repository;
 
