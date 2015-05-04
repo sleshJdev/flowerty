@@ -149,6 +149,11 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
         criteria = criteria.and(new Criteria("company").is(company));// .is(date.dayOfMonth())
         SimpleQuery search = new SimpleQuery(criteria);
         Page results = solrTemplate.queryForPage(search, ContactDocument.class);
-        return results.getContent();  //To change body of implemented methods use File | Settings | File Templates.
+        List<Long> list = new ArrayList<Long>();
+        list.add(0L);
+        for (ContactDocument cd: (List<ContactDocument>)results.getContent()) {
+            list.add(Long.valueOf(cd.getId()));
+        }
+        return list;
     }
 }

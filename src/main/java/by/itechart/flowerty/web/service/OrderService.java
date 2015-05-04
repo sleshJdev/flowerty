@@ -1,11 +1,11 @@
 package by.itechart.flowerty.web.service;
 
 import by.itechart.flowerty.persistence.model.*;
-import by.itechart.flowerty.persistence.repository.OrderRepository;
-import by.itechart.flowerty.persistence.repository.StateRepository;
-import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.persistence.repository.*;
+import by.itechart.flowerty.web.model.OrderCreateBundle;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,9 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Катерина on 24.04.2015.
@@ -32,25 +33,46 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
+    private OrderAlteringRepository orderAlteringRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private StateRepository stateRepository;
 
+    @Autowired
+    private ItemRepository itemRepository;
+
     @Transactional
     public Order save(Order orderToCreate){
-        if(orderToCreate.getState().getDescription() == State.DESCRIPTION_TYPE.NEW){
-
-            //  NEED SEARCH BY DESCRIPTION_TYPE!!!!
-            List<State> states = (List<State>)stateRepository.findAll();
-            State newState = null;
-            for(State state : states){
-                if(state.getDescription() == State.DESCRIPTION_TYPE.NEW){
-                    orderToCreate.setState(state);
-                }
+        if(orderToCreate.getItems() != null){
+            for(Item item : orderToCreate.getItems()){
+                item.setOrder(orderToCreate);
             }
         }
         return orderRepository.save(orderToCreate);
+    }
+
+    @Transactional
+    public Order saveChanges(OrderEditBundle orderEditBundle){
+
+        Order savedOrder = orderRepository.save(orderEditBundle.getOrder());
+
+        //  Gettin info about user, that changed the state
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = null;
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            userPrincipal = (UserDetails) auth.getPrincipal();
+            if (userPrincipal != null) {
+                User editingUser = userRepository.findUserByLogin(userPrincipal.getUsername());
+                orderEditBundle.getOrderAltering().setOrder(savedOrder);
+                orderEditBundle.getOrderAltering().setUser(editingUser);
+                orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
+                OrderAltering orderAltering = orderAlteringRepository.save(orderEditBundle.getOrderAltering());
+            }
+        }
+        return savedOrder;
     }
 
     public Page<Order> getPage(int page, int size){
@@ -111,9 +133,40 @@ public class OrderService {
                 return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.DELIVERY_MANAGER.toString())
                         && currentState.getDescription() == State.DESCRIPTION_TYPE.READY;
             }
+            case CLOSED:{
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.SUPERVISOR.toString())
+                        && currentState.getDescription() == State.DESCRIPTION_TYPE.DELIVERY;
+            }
             default:{
                 return false;
             }
         }
+    }
+
+    public OrderCreateBundle getOrderCreateBundle(){
+
+        OrderCreateBundle orderCreateBundle = new OrderCreateBundle();
+
+        //  Setting the state "NEW"
+        //TODO: add searching by state with description NEW
+        List<State> states = (List<State>) stateRepository.findAll();
+        for (State state : states) {
+            if (state.getDescription() == State.DESCRIPTION_TYPE.NEW) {
+                orderCreateBundle.setState(state);
+            }
+        }
+        //
+
+        //  Setting manager
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = null;
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            userPrincipal = (UserDetails) auth.getPrincipal();
+            if (userPrincipal != null) {
+                String login = userPrincipal.getUsername();
+                orderCreateBundle.setManager(userRepository.findUserByLogin(login));
+            }
+        }
+        return orderCreateBundle;
     }
 }

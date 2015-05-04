@@ -1,5 +1,6 @@
 package by.itechart.flowerty.web.service;
 
+import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.repository.ContactRepository;
 import by.itechart.flowerty.persistence.repository.RoleRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
@@ -87,4 +88,18 @@ public class UserService {
 	public List<Role> getRoles() {
 		return roleRepository.findAll();
 	}
+
+    public Company getCompanyFor(String login){
+        User currentUser = userRepository.findUserByLogin(login);
+        return currentUser == null ? null : currentUser.getContact() == null ? null : currentUser.getContact().getCompany();
+    }
+
+    public List<User> getUsersByRoleName(String roleString){
+        Role.ROLE_TYPE roleType = Role.ROLE_TYPE.valueOf(roleString);
+        if(roleType == null){
+            return null;
+        }
+        Role role = roleRepository.findByName(roleType);
+        return userRepository.findByRole(role);
+    }
 }
