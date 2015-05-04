@@ -1,6 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
  
+import by.itechart.flowerty.persistence.model.OrderAltering;
 import by.itechart.flowerty.web.model.OrderCreateBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,11 @@ public class OrderController {
         LOGGER.info("Saving order: {}", orderToSave);
         Order savedOrder = orderService.save(orderToSave);
         return savedOrder;
+    }
+
+    @RequestMapping(value = "order/change/save", method = RequestMethod.POST)
+    public Order saveChanges(@RequestBody OrderEditBundle orderEditBundle){
+        return orderService.saveChanges(orderEditBundle);
     }
 
     @ResponseBody

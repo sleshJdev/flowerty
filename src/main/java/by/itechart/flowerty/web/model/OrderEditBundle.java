@@ -40,4 +40,12 @@ public class OrderEditBundle {
 
     public OrderEditBundle() {
     }
+
+    public OrderAltering getOrderAltering() {
+        return orderAltering;
+    }
+
+    public void setOrderAltering(OrderAltering orderAltering) {
+        this.orderAltering = orderAltering;
+    }
 }

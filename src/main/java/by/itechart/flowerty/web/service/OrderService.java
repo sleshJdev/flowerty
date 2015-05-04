@@ -1,13 +1,11 @@
 package by.itechart.flowerty.web.service;
 
 import by.itechart.flowerty.persistence.model.*;
-import by.itechart.flowerty.persistence.repository.ItemRepository;
-import by.itechart.flowerty.persistence.repository.OrderRepository;
-import by.itechart.flowerty.persistence.repository.StateRepository;
-import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.persistence.repository.*;
 import by.itechart.flowerty.web.model.OrderCreateBundle;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +31,9 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderAlteringRepository orderAlteringRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -50,6 +52,27 @@ public class OrderService {
             }
         }
         return orderRepository.save(orderToCreate);
+    }
+
+    @Transactional
+    public Order saveChanges(OrderEditBundle orderEditBundle){
+
+        Order savedOrder = orderRepository.save(orderEditBundle.getOrder());
+
+        //  Gettin info about user, that changed the state
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = null;
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            userPrincipal = (UserDetails) auth.getPrincipal();
+            if (userPrincipal != null) {
+                User editingUser = userRepository.findUserByLogin(userPrincipal.getUsername());
+                orderEditBundle.getOrderAltering().setOrder(savedOrder);
+                orderEditBundle.getOrderAltering().setUser(editingUser);
+                orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
+                OrderAltering orderAltering = orderAlteringRepository.save(orderEditBundle.getOrderAltering());
+            }
+        }
+        return savedOrder;
     }
 
     public Page<Order> getPage(int page, int size){
