@@ -5,6 +5,9 @@
 package by.itechart.flowerty.web.controller;
 
 import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.Role;
+import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 import by.itechart.flowerty.web.service.RepositorySolrContactService;
@@ -32,21 +35,27 @@ public class ContactController {
 
     @Autowired
     private RepositorySolrContactService solrContactService;
+    @Autowired
+    private UserRepository userRepository;
 
     @ResponseBody
     @RequestMapping(value = {"contact/list/{page}", "tempsearch/contact/list/{page}"})
     public Page<Contact> page(@PathVariable("page") Integer page) {
 	LOGGER.info("get contact page with number {}", page);
 
-	page = (page == null || page < 1) ? 0 : --page;
+        Role role = new Role();
+        role.setId(1L);
+        List<User> list =  userRepository.findByRole(role);
 
+	page = (page == null || page < 1) ? 0 : --page;
+//    phoneRepository.delete(2L);
 	return contactService.getPage(page, 10);
     }
 
     @ResponseBody
-    @RequestMapping(value = "contact/search/{surname}")
+    @RequestMapping(value = "contact/search/{surname}", method = RequestMethod.GET)
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
-       // LOGGER.info("search contact");
+       // LOGGER.info("findBySearch contact");
         Long company = 1L;
         return contactService.findBySurnameStartsWithAndCompany(surname, company); //get company normally
     }
@@ -68,7 +77,7 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/search", method = RequestMethod.POST)
     public Page<Contact> search(@RequestBody ContactDocument contact) {
-	LOGGER.info("search contact");
+	LOGGER.info("findBySearch contact");
 
 	return contactService.findContacts(contact, 0, 10);
     }

@@ -1,11 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
-<<<<<<< HEAD
+import by.itechart.flowerty.persistence.model.Role;
 import by.itechart.flowerty.persistence.model.User;
-=======
-import by.itechart.flowerty.persistence.repository.model.Role;
-import by.itechart.flowerty.persistence.repository.model.User;
->>>>>>> 3309bdb9718ea8c9c8e946478fc6c564cc990f2d
 import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;

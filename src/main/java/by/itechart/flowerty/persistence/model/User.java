@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 /**
- * User: Мария Date: 19.03.15
+ * @author: Мария Date: 19.03.15
  */
 @Entity
 @Table(name = "user")

@@ -34,6 +34,11 @@ public class Phone {
 //		return contact;
 //	}
 
+    @Column(name = "COMMENT", length = 50, nullable = true)
+    @Size(max=50)
+    public String getComment() {
+        return comment;
+    }
 
 	@Column(name = "COUNTRY", length = 5, nullable = true)
 	@Size(max=5)

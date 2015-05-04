@@ -7,7 +7,6 @@ import java.util.List;
  * @author Maria
  *         Date: 16.04.15
  */
-//@NoRepositoryBean
 public interface ContactDocumentRepositoryCustom {
     public List<Long> findByBirthDate(String birthday);
     public List<Long> findBySearch (ContactDocument contactDocument);

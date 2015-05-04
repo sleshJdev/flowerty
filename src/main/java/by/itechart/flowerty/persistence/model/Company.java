@@ -5,7 +5,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * User: Мария Date: 23.03.15
+ * @author Maria
+ *         Date:  23.03.15
  */
 @Entity
 @Table(name = "company")

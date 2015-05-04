@@ -1,6 +1,7 @@
 package by.itechart.flowerty.web.controller;
 
 import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.solr.model.OrderDocument;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import by.itechart.flowerty.web.service.OrderService;
 import org.slf4j.Logger;
@@ -51,5 +52,12 @@ public class OrderController {
 
         OrderEditBundle order = orderService.getOrderEditBundleById(id);
         return order;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "order/search", method = RequestMethod.POST)
+    public Page<Order> search(@RequestBody OrderDocument order) {
+        LOGGER.info("findBySearch order");
+        return  orderService.findBySearch(order, 0, 10);
     }
 }

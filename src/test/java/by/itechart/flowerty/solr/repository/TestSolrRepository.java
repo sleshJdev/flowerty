@@ -38,9 +38,6 @@ public class TestSolrRepository extends JpaConfigurationAware {
         Page<ContactDocument> pg;
         cd = repository.save(cd);
         long a = repository.count();
-    //    boolean exists123 = repository.exists("123");
-   //     repository.findOne("123");
-       // repository.findAll();
         pg = repository.findAll(new PageRequest(0, 10));
         Assert.assertEquals(pg.getContent().size(), 10);
     }

@@ -35,6 +35,11 @@ public class TestPhoneRepository extends JpaConfigurationAware {
         Phone phone = phoneRepository.findOne(1000l);
         Assert.assertNull(phone);
     }
+    @Ignore
+    @Test
+    public void delete(){
+        phoneRepository.delete(1L);
+    }
 //    @Test
 //    public void findPhones_ValidContact_ReturnsPageOfPhones() {
 //        Contact contact = new Contact();

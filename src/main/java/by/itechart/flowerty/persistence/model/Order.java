@@ -1,5 +1,7 @@
 package by.itechart.flowerty.persistence.model;
 
+import by.itechart.flowerty.solr.model.OrderDocument;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -135,5 +137,10 @@ public class Order {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    @Transient
+    public OrderDocument getOrderDocument() {
+        return new OrderDocument(id.toString(), customer.getFathername(), receiver.getFathername(), deliveryDate, customer.getCompany());
     }
 }

@@ -3,7 +3,7 @@
  * Created by Катерина on 26.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrdersController', ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
+angular.module("flowertyApplication.orderModule").controller('OrdersController', ['$scope', '$http', '$location', '$filter', 'orderListService', function($scope, $http, $location, $filter, orderListService) {
 
     $scope.orders = {
         pages : [],
@@ -18,7 +18,13 @@ angular.module("flowertyApplication.orderModule").controller('OrdersController',
 
     $scope.orders.getPage = function(pageNumber){
         $scope.orders.currentPage = pageNumber;
-        $scope.orders.getPageFromServer();
+        var list = orderListService.getList();
+        if (list) {
+            $scope.orders.list = list.content;
+            $scope.orders.totalPages = list.totalPages;
+        }  else {
+            $scope.orders.getPageFromServer();
+        }
     };
 
     $scope.orders.getPageFromServer = function(){

@@ -1,23 +1,11 @@
 package by.itechart.flowerty.local.listener;
 
-<<<<<<< HEAD
-import by.itechart.flowerty.persistence.repository.RoleRepository;
-import by.itechart.flowerty.local.database.LocalDatabase;
-import by.itechart.flowerty.persistence.model.Role;
-=======
-import java.util.List;
-
->>>>>>> 3309bdb9718ea8c9c8e946478fc6c564cc990f2d
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
-import by.itechart.flowerty.local.database.LocalDatabase;
-import by.itechart.flowerty.persistence.repository.RoleRepository;
-import by.itechart.flowerty.persistence.repository.model.Role;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015 
@@ -35,8 +23,8 @@ public class StartContextApplicationListener implements ApplicationListener<Cont
 		LOGGER.info("context application initilizing...");
 
 		ApplicationContext context = e.getApplicationContext();
-		RoleRepository roleRepository = context.getBean(RoleRepository.class);
-		LocalDatabase.roles = (List<Role>) roleRepository.findAll();
+	//	RoleRepository roleRepository = context.getBean(RoleRepository.class);
+		//LocalDatabase.roles = (List<Role>) roleRepository.findAll();
 		
 		LOGGER.info("done.");
 	}
