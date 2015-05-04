@@ -69,4 +69,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
         });
     };
 
+    $scope.access = {
+        canChangeStaff : $scope.current.role === 'ROLE_SUPERVISOR'
+    };
 }]);

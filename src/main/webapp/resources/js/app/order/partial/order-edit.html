@@ -15,7 +15,10 @@
         </div>
         <div class="form-group">
             <label for="customer" class="col-sm-2 control-label">Customer</label>
-            <div class="col-sm-10">
+            <div class="col-sm-10" data-ng-show="order.id">
+                <p class="form-control-static input-lg">{{order.customer.name}} {{order.customer.fathername}} {{order.customer.surname}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!order.id">
                 <input type="text" class="form-control input-lg" id="customer" placeholder="start typing.."
                        data-ng-model="search.customer.enteredSurname"
                        data-ng-change="dynamicSearch.offerContacts(search.customer)"/>
@@ -28,38 +31,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">Description</label>
-            <div class="col-sm-10">
-                <textarea rows="5" class="form-control" id="description" placeholder="description" data-ng-model="order.description"></textarea>
-            </div>
-        </div>
-        <div class="form-group form-group-lg">
-            <label for="orders-manager" class="col-sm-2 control-label">Orders manager</label>
-            <div class="col-sm-10">
-                <p id="orders-manager" class="form-control-static">{{order.manager.login}}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="orders-processor" class="col-sm-2 control-label">Orders processor</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="orders-processor"
-                        data-ng-model="order.staff"
-                        data-ng-options="processor as processor.login for processor in staff.processors">
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="delivery-manager" class="col-sm-2 control-label">Delivery manager</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="delivery-manager"
-                        data-ng-model="order.delivery"
-                        data-ng-options="deliveryManager as deliveryManager.login for deliveryManager in staff.deliveryManagers">
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
             <label for="receiver" class="col-sm-2 control-label">Receiver</label>
-            <div class="col-sm-10">
+            <div class="col-sm-10" data-ng-show="order.id">
+                <p class="form-control-static input-lg">{{order.receiver.name}} {{order.receiver.fathername}} {{order.receiver.surname}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!order.id">
                 <input type="text" class="form-control input-lg" id="receiver" placeholder="start typing.."
                        data-ng-model="search.receiver.enteredSurname"
                        data-ng-change="dynamicSearch.offerContacts(search.receiver)"/>
@@ -69,6 +45,12 @@
                         data-ng-model="search.receiver.selected"
                         data-ng-click="dynamicSearch.selectContact(search.receiver)">
                 </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea rows="5" class="form-control" id="description" placeholder="description" data-ng-model="order.description"></textarea>
             </div>
         </div>
         <div class="form-group form-group-lg">
@@ -117,6 +99,38 @@
                 <input data-flowerty-date class="form-control glyphicon glyphicon-calendar"
                        data-ng-model="order.deliveryDate" data-format="yyyy-mm-dd"
                        placeholder="select date.." readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="orders-manager" class="col-sm-2 control-label">Orders manager</label>
+            <div class="col-sm-10">
+                <p id="orders-manager" class="form-control-static">{{order.manager.login}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="orders-processor" class="col-sm-2 control-label">Orders processor</label>
+            <div class="col-sm-10" data-ng-show="order.id">
+                <p class="form-control-static">{{order.staff.login}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!order.id && access.canChangeStaff">
+                <select class="form-control" id="orders-processor"
+                        data-ng-model="order.staff"
+                        data-ng-options="processor as processor.login for processor in staff.processors">
+                    <option value="" disabled selected >click to change</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="delivery-manager" class="col-sm-2 control-label">Delivery manager</label>
+            <div class="col-sm-10" data-ng-show="order.id">
+                <p class="form-control-static">{{order.delivery.login}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!order.id && access.canChangeStaff">
+                <select class="form-control" id="delivery-manager"
+                        data-ng-model="order.delivery"
+                        data-ng-options="deliveryManager as deliveryManager.login for deliveryManager in staff.deliveryManagers">
+                    <option value="" disabled selected >click to change</option>
+                </select>
             </div>
         </div>
         <div class="form-group">
