@@ -26,72 +26,72 @@ import by.itechart.flowerty.Application;
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
 @PropertySource("classpath:/local.properties")
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
-    	@Autowired
-    	private Environment environment;
-    
-	private static final String VIEWS = "/WEB-INF/views/";
+    @Autowired
+    private Environment environment;
 
-	private static final String RESOURCES_LOCATION = "/resources/";
-	private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
+    private static final String VIEWS = "/WEB-INF/views/";
 
-	private static final String PICTURE_HANDLER = "/picture/**";
-	
-	@Bean
-	public CommonsMultipartResolver multipartResolver(){
-	    CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-	    resolver.setMaxUploadSize(100_000_000);//10mb
-	    
-	    return resolver;
-	}
-	
-	@Override
-	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-		RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
-		requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
-		requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
-		
-		return requestMappingHandlerMapping;
-	}
-	
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix(VIEWS);
-		resolver.setSuffix(".html");
-		resolver.setCache(false);
-		
-		return resolver;
-	}
+    private static final String RESOURCES_LOCATION = "/resources/";
+    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
-	@Override
-	public Validator getValidator() {
-		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-		
-		return validator;
-	}
+    private static final String PICTURE_HANDLER = "/picture/**";
 
-	private static String pathResolveHelper(String s){
-	    String base = "file:///";
-	    if(s.charAt(0) == File.separatorChar){
-		base = base.concat(s.substring(1));
-	    }else{
-		base = base.concat(s);
-	    }
-	    if(s.charAt(s.length() - 1) != File.separatorChar){
-		base = base.concat("/");
-	    }
-	    return base;
-	}
-	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
-		registry.addResourceHandler(PICTURE_HANDLER).addResourceLocations(pathResolveHelper(environment.getProperty("path.picture")));
-        System.out.println(environment.getProperty("path.picture"));
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+	CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+	resolver.setMaxUploadSize(100_000_000);// 10mb
+
+	return resolver;
     }
-	
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
+
+    @Override
+    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+	RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
+	requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
+	requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
+
+	return requestMappingHandlerMapping;
+    }
+
+    @Bean
+    public ViewResolver viewResolver() {
+	InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+	resolver.setPrefix(VIEWS);
+	resolver.setSuffix(".html");
+	resolver.setCache(false);
+
+	return resolver;
+    }
+
+    @Override
+    public Validator getValidator() {
+	LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+
+	return validator;
+    }
+
+    private static String pathResolveHelper(String s) {
+	String base = "file:///";
+	if (s.charAt(0) == File.separatorChar) {
+	    base = base.concat(s.substring(1));
+	} else {
+	    base = base.concat(s);
 	}
+	if (s.charAt(s.length() - 1) != File.separatorChar) {
+	    base = base.concat("/");
+	}
+	return base;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
+	registry.addResourceHandler(PICTURE_HANDLER).addResourceLocations(
+		pathResolveHelper(environment.getProperty("path.picture")));
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	configurer.enable();
+    }
 }
