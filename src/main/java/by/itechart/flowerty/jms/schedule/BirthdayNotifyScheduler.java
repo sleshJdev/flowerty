@@ -3,6 +3,8 @@ package by.itechart.flowerty.jms.schedule;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
@@ -33,20 +35,28 @@ public class BirthdayNotifyScheduler {
     @Autowired
     private FlowertyMessagePublisher publisher;
     
-    @Autowired
+    @Autowired(required = true)
     private Settings settings;
     
     private StringTemplate stringTemplate;
     
-    public BirthdayNotifyScheduler() throws IOException {
-	String birthdayTemplate = IOUtils.toString(getClass().getResourceAsStream(settings.getBirthdayTemplatePath()));
+    @PostConstruct
+    public void init() {
+	String birthdayTemplate;
+	try {
+	    birthdayTemplate = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(settings.getBirthdayTemplatePath()));
+	    stringTemplate = new StringTemplate(birthdayTemplate);
+	} catch (IOException e) {
+	    LOGGER.info("birthday template file not found: {}. will be use default template.", e.getMessage());
+	    
+	    stringTemplate = new StringTemplate(getDefaulTemplate());
+	}
 	
-	stringTemplate = new StringTemplate(birthdayTemplate);
 	stringTemplate.setAttribute("US_FULL_NAME", settings.getUsFullName());
     }
     
     @Async
-    @Scheduled(fixedRate=1 * 60 * 1_000)//1 minute
+    @Scheduled(fixedRate=5 * 60 * 1_000)//5 minute
     public void start(){
 	List<Contact> contacts = contactRepository.findByBirthday(new DateTime().toDate());
 	if(contacts != null){
@@ -57,5 +67,14 @@ public class BirthdayNotifyScheduler {
 		LOGGER.info("birthday notify {}", contact.getName());
 	    }
 	}
+    }
+    
+    private static final String getDefaulTemplate(){
+	return new StringBuilder()
+	    .append("Dear $NAME$,\n")
+	    .append("Congratulations!")
+	    .append("All of us wish you a very happy birthday and another year filled with  joy, wonder, all good things, success.\n")
+	    .append("$US_FULL_NAME$")
+	    .toString();
     }
 }
