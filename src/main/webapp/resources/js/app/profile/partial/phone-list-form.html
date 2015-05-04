@@ -13,7 +13,7 @@
             <th>Comment</th>
         </tr>
         <tr data-ng-repeat="phone in profile.user.contact.phones">
-            <td>{{phone.country + phone.operator + phone.number}}</td>
+            <td>{{phone.country + '(' +  phone.operator + ') ' + phone.number}}</td>
             <td>{{phone.type | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
             <td>{{phone.comment}}</td>
         </tr>

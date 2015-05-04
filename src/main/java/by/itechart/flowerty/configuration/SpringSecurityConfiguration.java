@@ -57,10 +57,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/user/profile")
-                .authenticated()
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/profile")
+                .authenticated()
                 .antMatchers("/contact/**")
                 .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
             .and()
@@ -76,6 +76,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/login")
 //                .successHandler(authSuccess)
                 .failureHandler(authFailure)
+                .permitAll()
             .and()
                 .logout()
                 .logoutSuccessHandler(logoutSuccessHandler)
