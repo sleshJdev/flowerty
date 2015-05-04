@@ -1,4 +1,4 @@
-package test.by.itechart.flowerty.config;
+package test.by.itechart.flowerty.config.aware;
 
 import org.junit.Before;
 import org.springframework.security.web.FilterChainProxy;
