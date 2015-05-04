@@ -32,6 +32,7 @@ public final class Settings {
     public void setPicturesPath(String picturesPath) {
 	this.picturesPath = picturesPath;
 	makeDirectory(picturesPath);
+        System.out.println("pic path is : " + picturesPath);
     }
 
     public String getAttachmentsPath() {

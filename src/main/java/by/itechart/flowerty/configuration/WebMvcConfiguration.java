@@ -87,7 +87,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
 		registry.addResourceHandler(PICTURE_HANDLER).addResourceLocations(pathResolveHelper(environment.getProperty("path.picture")));
-	}
+        System.out.println(environment.getProperty("path.picture"));
+    }
 	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

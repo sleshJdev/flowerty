@@ -140,4 +140,11 @@ public class UserController {
 
         return userService.getRoles();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "users/role/{role}", method = RequestMethod.GET)
+    public List<User> getUserListByRole(@PathVariable("role") String roleString){
+        LOGGER.info("geting list of users by their role: {}", roleString);
+        return userService.getUsersByRoleName(roleString.toUpperCase());
+    }
 }

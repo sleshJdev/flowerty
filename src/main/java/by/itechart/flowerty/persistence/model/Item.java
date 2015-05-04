@@ -1,5 +1,7 @@
 package by.itechart.flowerty.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,7 @@ public class Item {
     private Long id;
     private int quantity;
     private Goods goods;
+    private Order order;
 
     public Item() {
     }
@@ -24,6 +27,7 @@ public class Item {
     public Long getId() {
         return id;
     }
+
     @Column(name = "QUANTITY", nullable=false)
     @NotNull
     public int getQuantity() {
@@ -37,6 +41,12 @@ public class Item {
         return goods;
     }
 
+    @JsonIgnore
+    @ManyToOne
+    public Order getOrder() {
+        return order;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -45,8 +55,11 @@ public class Item {
         this.quantity = quantity;
     }
 
-
     public void setGoods(Goods goods) {
         this.goods = goods;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

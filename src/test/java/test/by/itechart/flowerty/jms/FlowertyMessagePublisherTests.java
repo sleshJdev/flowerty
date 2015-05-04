@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,13 @@ public class FlowertyMessagePublisherTests {
     @Autowired
     private FlowertyMessagePublisher messagePublisher;
 
+    @Ignore
     @Test
     public void send_PassPlainMessageInfo_ShouldSendIt() {
 	messagePublisher.send(to, subject, text);
     }
 
+    @Ignore
     @Test
     public void send_PassMessageWithAttachment_ShoudSendIt() throws IOException, MessagingException {
 	Map<String, byte[]> attachments = new HashMap<String, byte[]>();

@@ -7,10 +7,17 @@ package by.itechart.flowerty.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +45,9 @@ public class ContactController {
     @Autowired
     private RepositorySolrContactService solrContactService;
 
+    @Autowired
+    private UserService userService;
+
     @ResponseBody
     @RequestMapping(value = {"contact/list/{page}", "tempsearch/contact/list/{page}"})
     public Page<Contact> page(@PathVariable("page") Integer page) {
@@ -52,8 +62,22 @@ public class ContactController {
     @RequestMapping(value = "contact/search/{surname}")
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
        // LOGGER.info("search contact");
-        Long company = 1L;
-        return contactService.findBySurnameStartsWithAndCompany(surname, company); //get company normally
+
+        //  Getting company
+        //  Kat changes
+        Company company = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = null;
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            userPrincipal = (UserDetails) auth.getPrincipal();
+            if (userPrincipal != null) {
+                String login = userPrincipal.getUsername();
+                company = userService.getCompanyFor(login);
+            }
+        }
+        //
+
+        return contactService.findBySurnameStartsWithAndCompany(surname, company.getId()); //get company normally
     }
 
     @ResponseBody
