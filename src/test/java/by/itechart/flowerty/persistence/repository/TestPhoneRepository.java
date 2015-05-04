@@ -1,10 +1,6 @@
 package by.itechart.flowerty.persistence.repository;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.solr.client.solrj.request.CollectionAdminRequest.Create;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import by.itechart.flowerty.config.aware.JpaConfigurationAware;
 import by.itechart.flowerty.persistence.model.Phone;
-import by.itechart.flowerty.persistence.model.QPhone;
 
 /**
  * @author Мария 31.03.15
@@ -25,19 +20,6 @@ public class TestPhoneRepository extends JpaConfigurationAware {
     @Test
     public void delete(){
 	phoneRepository.delete(2L);
-    }
-    
-    @Test
-    public void test(){
-	QPhone PHONE = QPhone.phone;
-	
-	List<Long> ids = new ArrayList<Long>();
-	ids.add(1L);
-	ids.add(2L);
-	ids.add(3L);
-	ids.add(4L);
-	
-	delete(PHONE).where(PHONE.id.eq(1L)).execute();
     }
     
     @Test

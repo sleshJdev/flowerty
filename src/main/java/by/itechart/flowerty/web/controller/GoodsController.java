@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.local.settings.Settings;
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Goods;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 import by.itechart.flowerty.web.service.GoodsService;
 
@@ -45,8 +44,8 @@ public class GoodsController {
     private Settings settings;
 
     @Autowired
-    private UserRepository userRepository;
-
+    private UserDetailsServiceImpl userDetails;
+    
     @ResponseBody
     @RequestMapping(value = "goods/add", method = RequestMethod.POST)
     public void add(@RequestParam("goods") String goodsJson, @RequestPart(value = "picture") MultipartFile goodsPicture)
@@ -54,19 +53,15 @@ public class GoodsController {
 	
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	if (!(authentication instanceof AnonymousAuthenticationToken)) {
-	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	    String login = userDetails.getUsername();
-
-	    LOGGER.info("add new goods. json: {}, picture name: {}, login: {}", goodsJson,
-		    goodsPicture.getOriginalFilename(), login);
+	    LOGGER.info("add new goods. json: {}, picture name: {}", goodsJson, goodsPicture.getOriginalFilename());
 	    
-	    String name = FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
+	    String imageName = FlowertUtil.processMultipart(settings.getPicturesPath(), goodsPicture);
 	    
 	    ObjectMapper mapper = new ObjectMapper();
 	    Goods goods = mapper.readValue(goodsJson, Goods.class);
-	    Company company = userRepository.findUserByLogin(login).getContact().getCompany();
+	    Company company = userDetails.getCurrentContact().getCompany();
 	    goods.setCompany(company);
-	    goods.setImage(name);
+	    goods.setImage(imageName);
 	    
 	    goodsService.save(goods);
 	}else{

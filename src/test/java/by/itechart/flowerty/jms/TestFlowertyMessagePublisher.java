@@ -30,7 +30,6 @@ import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {MailConfiguration.class, JmsConfiguration.class,
 	LocalConfiguration.class })
-
 public class TestFlowertyMessagePublisher {
     private final String to = "studentbntu@mail.ru";
     private final String subject = "flowerty-promotion";
@@ -43,7 +42,7 @@ public class TestFlowertyMessagePublisher {
     public void send_PassPlainMessageInfo_ShouldSendIt() {
 	messagePublisher.send(to, subject, text);
     }
-
+    
     @Test
     public void send_PassMessageWithAttachment_ShoudSendIt() throws IOException, MessagingException {
 	Map<String, byte[]> attachments = new HashMap<String, byte[]>();

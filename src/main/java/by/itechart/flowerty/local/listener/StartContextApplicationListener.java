@@ -11,7 +11,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import by.itechart.flowerty.jms.core.FlowertyMessageConsumer;
-import by.itechart.flowerty.persistence.repository.RoleRepository;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -25,9 +24,6 @@ public class StartContextApplicationListener implements ApplicationListener<Cont
     @Autowired
     private FlowertyMessageConsumer consumer;
 
-    @Autowired
-    private RoleRepository roleRepository;
-    
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 	LOGGER.info("context refreshed");

@@ -1,4 +1,4 @@
-package by.itechart.flowerty.jms.model;
+package by.itechart.flowerty.jms.core;
 
 import java.io.IOException;
 import java.util.Map;

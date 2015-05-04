@@ -73,11 +73,13 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 		console.log("remove attachment with number: " + number + ", current quantity: " + $scope.bundle.files.length);
 	};
 	
+	//TODO: remove in future
 	$scope.bundle.actions.removeEmail = function(number){
 		$scope.bundle.email.to.splice(number, 1);
 		console.log("remove email to send with number: " + number + ", current quantity: " + $scope.bundle.email.to.length);
 	};
 	
+	//TODO: remove in future
 	$scope.bundle.actions.addNewEmail = function(event){
 		if(event.which === 13) {//code of enter button
 			$scope.bundle.email.to.push($scope.bundle.newEmail);

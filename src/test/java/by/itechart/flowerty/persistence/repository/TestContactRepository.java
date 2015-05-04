@@ -20,7 +20,7 @@ import by.itechart.flowerty.web.service.ContactService;
 /**
  *@author Мария Date: 26.03.15
  */
-//@Ignore
+@Ignore
 public class TestContactRepository extends JpaConfigurationAware {
 	@Autowired
 	private ContactService contactRepository;

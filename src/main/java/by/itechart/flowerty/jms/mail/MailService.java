@@ -15,7 +15,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import by.itechart.flowerty.jms.model.Sender;
+import by.itechart.flowerty.jms.core.Sender;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
