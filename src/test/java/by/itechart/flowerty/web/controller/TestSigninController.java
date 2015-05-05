@@ -1,9 +1,14 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.config.MockTestConfigigurationAware;
-import by.itechart.flowerty.persistence.model.User;
-import by.itechart.flowerty.web.model.SigninForm;
-import by.itechart.flowerty.web.service.UserService;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -13,11 +18,10 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
+import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.web.model.SigninForm;
+import by.itechart.flowerty.web.service.UserService;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015

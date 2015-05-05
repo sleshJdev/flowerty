@@ -1,12 +1,11 @@
 package by.itechart.flowerty.web.service;
  import by.itechart.flowerty.persistence.model.Goods;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 /**
  * Created by Катерина on 28.04.2015.

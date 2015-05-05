@@ -1,26 +1,27 @@
 'use strict';
 
-angular.module("flowertyApplication.contactModule").controller("ContactListController", ["$scope", "$http", "$location", "transportService", "deleteService", "contactListService",
-    function($scope, $http, $location, transportService, deleteService, contactListService) {
-        $scope.contacts = {
+angular.module("flowertyApplication.contactModule").controller("ContactListController", 
+		["$scope", "$http", "$location", "transportService", "deleteService", "contactListService", "stateSaverService",
+		 function($scope, $http, $location, transportService, deleteService, contactListService, stateSaverService) {
+        
+		$scope.contacts = {
             currentPage: 1,
             totalPages: [],
-            list: []
+            list: [],
+            state: stateSaverService.state
         };
-
+        $scope.contacts.state.reset();
+        
         /*
          * grab emails of selected contact and pass they to SendEmailController
          */
         $scope.contacts.goToEmailSend = function(){
-            var receivers = [];
-            for(var i = 0; i < $scope.contacts.list.length; ++i){
-                var contact = $scope.contacts.list[i];
-                if(contact.id < 0){
-                	receivers.push(contact);
-                }
+            if($scope.contacts.state.isempty()){
+            	alert("Please select contacts to send email.");
+            }else{
+            	transportService.setValue($scope.contacts.state.checkeds);
+            	$location.path("send-email");//redirect to email form
             }
-            transportService.setValue(receivers);
-            $location.path("send-email");//redirect to email form
         };
 
         /*
@@ -28,8 +29,8 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
          */
         $scope.contacts.deleteContact = function(){
             console.log("delete contact");
-            deleteService.deleteById($scope.contacts.list);
-
+            deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
+            
             $http({
                 method: "post",
                 url: "contact/remove",
@@ -72,17 +73,17 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
         };
 
         $scope.contacts.getPreviousPage = function(){
-            if($scope.contacts.currentPage > 1){
+            if($scope.contacts.currentPage > 1) {
                 $scope.contacts.currentPage--;
+                $scope.contacts.getPageFromServer();
             }
-            $scope.contacts.getPageFromServer();
         };
 
         $scope.contacts.getNextPage = function(){
             if($scope.contacts.currentPage < $scope.contacts.totalPages){
                 $scope.contacts.currentPage++;
+                $scope.contacts.getPageFromServer();
             }
-            $scope.contacts.getPageFromServer();
         };
 
         $scope.contacts.getPagesCount = function(){

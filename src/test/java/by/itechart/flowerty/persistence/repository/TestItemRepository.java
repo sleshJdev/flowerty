@@ -1,12 +1,15 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.model.Goods;
-import by.itechart.flowerty.persistence.model.Item;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Goods;
+import by.itechart.flowerty.persistence.model.Item;
+
+
 
 /**
 @author Мария 30.03.15
@@ -41,30 +44,4 @@ public class TestItemRepository extends JpaConfigurationAware {
         Assert.assertEquals(10, item.getQuantity());
         Assert.assertEquals(goods, item.getGoods());
     }
-   /* @Ignore
-    @Test
-    public void findItemsByOrder_ValidOrder_ReturnsPageOfItems() {
-        Order order = new Order();
-        order.setId(1l);
-        Page page = itemRepository.findByOrder(order, new PageRequest(0, 10));
-        Assert.assertNotEquals(page.getContent().size(), 0);
-        Assert.assertEquals(((Item)(page.getContent().get(0))).getQuantity() , 10);
-    }
-
-    @Ignore
-    @Test
-    public void findItemsByOrder_NullOrder_ReturnsEmptyPage() {
-        Order order = null;
-        Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
-        Assert.assertEquals(page.getContent().size(), 0);
-    }
-
-    @Ignore
-	@Test
-	public void findByBadOrder() {
-		Order order = new Order();
-		order.setId(1000l);
-		Page page = itemRepository.findByOrder(order, new PageRequest(1, 10));
-		Assert.assertEquals(page.getContent().size(), 0);
-	}            */
 }

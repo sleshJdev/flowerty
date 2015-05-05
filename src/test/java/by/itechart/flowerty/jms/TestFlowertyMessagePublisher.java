@@ -1,36 +1,33 @@
 package by.itechart.flowerty.jms;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.imageio.ImageIO;
-import javax.mail.MessagingException;
-
+import by.itechart.flowerty.configuration.JmsConfiguration;
+import by.itechart.flowerty.configuration.LocalConfiguration;
+import by.itechart.flowerty.configuration.MailConfiguration;
+import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import by.itechart.flowerty.configuration.JmsConfiguration;
-import by.itechart.flowerty.configuration.LocalConfiguration;
-import by.itechart.flowerty.configuration.MailConfiguration;
-import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
+import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 29, 2015
  *
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {MailConfiguration.class, JmsConfiguration.class,
 	LocalConfiguration.class })
-
 public class TestFlowertyMessagePublisher {
     private final String to = "studentbntu@mail.ru";
     private final String subject = "flowerty-promotion";
@@ -43,7 +40,7 @@ public class TestFlowertyMessagePublisher {
     public void send_PassPlainMessageInfo_ShouldSendIt() {
 	messagePublisher.send(to, subject, text);
     }
-
+    
     @Test
     public void send_PassMessageWithAttachment_ShoudSendIt() throws IOException, MessagingException {
 	Map<String, byte[]> attachments = new HashMap<String, byte[]>();

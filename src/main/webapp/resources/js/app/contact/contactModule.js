@@ -12,7 +12,7 @@
 
 angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
-    .constant("CONSTANTS", (function(){
+.constant("CONSTANTS", (function(){
     var CONTACT_MODULE_PATH = "resources/js/app/contact/";
 
     return {
@@ -60,6 +60,43 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
     }
 })())
 
+.service("stateSaverService", function(){
+	var me = this;
+	me.state = {
+			checkeds: [],
+			reset: function(){
+				me.state.checkeds = [];
+			},
+			checked: function(entityWithId) {
+				me.state.checkeds.push(entityWithId);
+			},
+			unchecked: function(entityWithId) {
+				me.state.checkeds.splice(findById(entityWithId.id).index, 1);
+			},
+			ischecked: function(entityWithId) {
+				return findById(entityWithId.id).index !== -1 ? true : false; 
+			},
+			isempty: function(){
+				return me.state.checkeds.length === 0;
+			}
+	};
+	function findById(id){
+		for(var i = 0; i < me.state.checkeds.length; ++i){
+			if(me.state.checkeds[i].id === id){
+				return {
+					index: i,
+					value: me.state.checkeds[i]
+				};
+			}
+		}
+		
+		return {
+			index: -1,
+			value: {}			
+		}
+	}
+})
+
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
     $routeProvider
         .when("/contact-list", {
@@ -90,7 +127,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .filter("flowerFullContactName", function() {
 	return function(contact){
-		return (!contact.name ? "" : contact.name) + " " + 
+		return !contact ? "" : (!contact.name ? "" : contact.name) + " " +
 		(!contact.surname ? "" : contact.surname) + " " + 
 		(!contact.fathername ? "" : contact.fathername);
 	}

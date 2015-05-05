@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javassist.tools.web.BadHttpRequest;
+
 import javax.mail.MessagingException;
 
 import org.antlr.stringtemplate.StringTemplate;
@@ -33,6 +35,8 @@ import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 import by.itechart.flowerty.jms.mail.MailService;
 import by.itechart.flowerty.local.settings.Settings;
 import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.web.controller.util.FlowertUtil;
 
 /**
@@ -53,6 +57,9 @@ public class EmailController {
     @Autowired
     private FlowertyMessagePublisher publisher;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
     @ResponseBody
     @RequestMapping(value = "email/templates", method = RequestMethod.GET)
     public FlowertTemplate[] emailTemplate() throws JsonGenerationException, JsonMappingException,
@@ -64,33 +71,29 @@ public class EmailController {
     @ResponseBody
     @RequestMapping(value = "email/send", method = RequestMethod.POST)
     public void sendEmail(@RequestParam("email") String emailJson, @RequestParam("template") String templateJson,
-	    @RequestPart(value = "file", required = false) MultipartFile[] attachments) throws IOException {
-	LOGGER.info("send email: {}. template: {}, number of attachments: {}", emailJson, templateJson,
-		attachments == null ? 0 : attachments.length);
+	    @RequestPart(value = "file", required = false) MultipartFile[] attachments) throws BadHttpRequest {
+	LOGGER.info("send email: {}. number of attachments: {}", emailJson, attachments == null ? 0
+		: attachments.length);
 	try {
 	    ObjectMapper objectMapper = new ObjectMapper();
-	    EmailInfo emailInfo = objectMapper.readValue(emailJson, EmailInfo.class);
 
-	    LOGGER.info("create email info object from json success! details: contact quantity: {}",
-		    emailInfo.getTo().length);
-
+	    EmailInfo email = objectMapper.readValue(emailJson, EmailInfo.class);
 	    FlowertTemplate template = objectMapper.readValue(templateJson, FlowertTemplate.class);
-	    for (Contact to : emailInfo.getTo()) {
-		emailInfo.setText(getText(template, to.getName()));
+	    Contact sender = userDetailsService.getCurrentContact();
+
+	    for (Contact to : email.getTo()) {
+		email.setText(buildMessageBody(template, to.getName(), sender));
 		if (attachments == null || attachments.length == 0) {
-		    publisher.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText());
+		    publisher.send(to.getEmail(), email.getSubject(), email.getText());
 		} else {
-		    publisher.send(to.getEmail(), emailInfo.getSubject(), emailInfo.getText(), convert(attachments));
+		    publisher.send(to.getEmail(), email.getSubject(), email.getText(), convert(attachments));
+		    FlowertUtil.saveMultiparts(settings.getAttachmentsPath(), attachments);
 		}
 	    }
-
-	    LOGGER.info("create flowerty template object from json success!");
-	    FlowertUtil.saveMultiparts(settings.getAttachmentsPath(), attachments);
-
-	    LOGGER.info("save attachments success!");
 	} catch (IOException | MessagingException e) {
 	    LOGGER.error(e.getMessage());
-	    throw new IOException(e);
+
+	    throw new BadHttpRequest(e);
 	}
     }
 
@@ -106,11 +109,11 @@ public class EmailController {
     }
 
     private FlowertTemplate[] getTemplates() throws FileNotFoundException, IOException {
-	File folder = new File(getClass().getClassLoader().getResource("templates").getPath());
-	File[] files = folder.listFiles();
+	File[] files = new File(getClass().getClassLoader().getResource("templates").getPath()).listFiles();
 	FlowertTemplate[] templates = new FlowertTemplate[files.length];
 	for (int i = 0; i < files.length; ++i) {
 	    String name = files[i].getName();
+	    name = name.substring(0, name.indexOf(".st"));
 	    String value = IOUtils.toString(new FileInputStream(files[i]));
 	    templates[i] = new FlowertTemplate(name, value);
 	}
@@ -118,15 +121,22 @@ public class EmailController {
 	return templates;
     }
 
-    private String getText(FlowertTemplate template, String toName) {
+    private String buildMessageBody(FlowertTemplate template, String toName, Contact sender) {
 	StringTemplate st = new StringTemplate(template.getValue());
+
 	st.setAttribute("NAME", toName);
-	st.setAttribute("US_FULL_NAME", "flowerty-full-name");// TODO:replace to
-							      // actual data
-	st.setAttribute("US_PHONE", "flowerty-phone");// TODO:replace to actual
-						      // data
-	st.setAttribute("US_EMAIL", "flowerty-email");// TODO:replace to actual
-						      // data
+
+	String fullname = String.format("%s %s %s", sender.getName(), sender.getSurname(), sender.getFathername());
+	st.setAttribute("US_FULL_NAME", fullname);
+
+	if (sender.getPhones() != null && sender.getPhones().size() > 0) {
+	    Phone phone = sender.getPhones().iterator().next();
+
+	    String usPhone = String.format("+%d %d, %d", phone.getCountry(), phone.getOperator(), phone.getNumber());
+	    st.setAttribute("US_PHONE", usPhone);
+	}
+
+	st.setAttribute("US_EMAIL", sender.getEmail());
 
 	return st.toString();
     }

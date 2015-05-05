@@ -1,8 +1,9 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.model.Phone;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface PhoneRepository extends PagingAndSortingRepository<Phone, Long> {
+import by.itechart.flowerty.persistence.model.Phone;
+
+public interface PhoneRepository extends PagingAndSortingRepository<Phone, Long>, PhoneRepositoryCustom{
     public Phone findOne(Long id);
-  }
+}

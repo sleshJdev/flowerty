@@ -1,56 +1,47 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.config.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.model.Phone;
+
+ 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Phone;
+
 /**
- @author Мария 31.03.15
+ * @author Мария 31.03.15
  */
+@Ignore
 public class TestPhoneRepository extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
-    @Ignore
+
     @Test
-    public void savePhone_ValidPhones_ReturnsPageOfPhones() {
-        Phone phone = new Phone();
-        phone.setNumber("1232121");
-        phone.setCountry("375");
-        //phone.setContact(contact);
-        phone.setComment("PhoneComment");
-        phoneRepository.save(phone);
-    }
     @Ignore
+    public void savePhone_ValidPhones_ReturnsPageOfPhones() {
+	Phone phone = new Phone();
+	phone.setNumber("1232121");
+	phone.setCountry("375");
+	phone.setComment("PhoneComment");
+	phoneRepository.save(phone);
+    }
+
     @Test
     public void findPhone_ValidId_ReturnsPhone() {
-        Phone phone = phoneRepository.findOne(1l);
-        Assert.assertEquals(phone.getNumber(), "1232121");
+	Phone phone = phoneRepository.findOne(1l);
+	Assert.assertEquals(phone.getNumber(), "1232121");
     }
-    @Ignore
+
     @Test
     public void findPhone_InvalidId_ReturnsNull() {
-        Phone phone = phoneRepository.findOne(1000l);
-        Assert.assertNull(phone);
+	Phone phone = phoneRepository.findOne(1000l);
+	Assert.assertNull(phone);
     }
     @Ignore
     @Test
     public void delete(){
         phoneRepository.delete(1L);
     }
-//    @Test
-//    public void findPhones_ValidContact_ReturnsPageOfPhones() {
-//        Contact contact = new Contact();
-//        contact.setId(1l);
-//       // Page<Phone> phones = phoneRepository.findByContact(contact, new PageRequest(0, 10));
-//        Assert.assertEquals(phones.getContent().get(0).getNumber(), "1232121");
-//    }
-//    @Test
-//    public void findPhones_InvalidContact_ReturnsEmptyPage() {
-//        Contact contact = null;
-//        Page<Phone> phones = phoneRepository.findByContact(contact, new PageRequest(0, 10));
-//        Assert.assertEquals(phones.getContent().size(), 0);
-//    }
 }
