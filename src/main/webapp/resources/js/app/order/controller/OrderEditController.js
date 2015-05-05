@@ -27,6 +27,21 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
         deliveryManagers : []
     };
 
+    var findInArrayById = function(object, array){
+        if(!object || !array){
+
+            //  Because we don't want to loose our object
+            return object;
+        }
+        var i;
+        for(i = 0; i < array.length; i++){
+            if(array[i].id === object.id){
+                return array[i];
+            }
+        }
+        return object;
+    };
+
     var getDeliveryManagers = function(){
 
         $http({
@@ -34,6 +49,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
             url: "users/role/delivery_manager"
         }).success(function(data, status, headers, config) {
             $scope.staff.deliveryManagers = data;
+            $scope.bundle.order.delivery = findInArrayById($scope.bundle.order.delivery, $scope.staff.deliveryManagers);
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");
@@ -47,6 +63,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
             url: "users/role/orders_processor"
         }).success(function(data, status, headers, config) {
             $scope.staff.processors = data;
+            $scope.bundle.order.staff = findInArrayById($scope.bundle.order.staff, $scope.staff.processors);
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");
