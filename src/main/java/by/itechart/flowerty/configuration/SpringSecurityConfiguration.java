@@ -19,12 +19,14 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Created by Rostislav on 26-Mar-15
  */
 @Configuration
 @EnableWebMvcSecurity
+@EnableWebMvc
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -35,9 +37,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LogoutSuccessHandlerImpl logoutSuccessHandler;
-
-    @Autowired
-    private EntryPointUnauthorizedHandler unauthorizedHandler;
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
@@ -86,7 +85,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .and()
 //                .exceptionHandling()
 //                .accessDeniedHandler(accessDeniedHandler)
-//                .authenticationEntryPoint(unauthorizedHandler)
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
         ;
@@ -126,7 +124,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return services;
     }
 
-    private CsrfTokenRepository csrfTokenRepository() {
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName("X-XSRF-TOKEN");
         return repository;
