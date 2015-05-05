@@ -5,8 +5,8 @@
 
 angular.module("flowertyApplication.orderModule").controller('OrderEditController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 
-    $scope.option = {
-        edit: true
+    $scope.access = {
+        canChangeStaff : $scope.current.user.role === 'ROLE_SUPERVISOR'
     };
 
     $scope.init = function(){
@@ -16,11 +16,41 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
         }).success(function (data, status, headers, config) {
             $scope.bundle = data;
             $scope.order = $scope.bundle.order;
-            $scope.order.changeState = function (state) {
-                $scope.order.state = state;
-            }
+            getDeliveryManagers();
+            getOrderProcessors();
         }).error(function (data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
+        });
+    };
+
+    $scope.staff = {
+        processors : [],
+        deliveryManagers : []
+    };
+
+    var getDeliveryManagers = function(){
+
+        $http({
+            method: "get",
+            url: "users/role/delivery_manager"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.deliveryManagers = data;
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
+        });
+    };
+
+    var getOrderProcessors = function(){
+
+        $http({
+            method: "get",
+            url: "users/role/orders_processor"
+        }).success(function(data, status, headers, config) {
+            $scope.staff.processors = data;
+        }).error(function(data, status, headers, config) {
+            console.log("Exception details: " + JSON.stringify({data: data}));
+            $location.path("add-order");
         });
     };
 
@@ -29,19 +59,33 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
     $scope.orderAction = {};
 
     $scope.orderAction.changeState = function (state) {
-        $scope.order.state = state;
+        $scope.temp.state = state;
     };
 
     $scope.orderAction.save = function () {
         $http({
             method: "post",
-            url: "order/save",
-            data: $scope.order
+            url: "order/change/save",
+            data: {
+                order : $scope.order,
+                orderAltering : $scope.orderAltering
+            }
         }).success(function (data, status, headers, config) {
             $location.path("users");
         }).error(function (data, status, headers, config) {
         });
     };
 
-}]);
+    $scope.orderAction.saveStateChanges = function () {
+        $scope.orderAltering = {
+            state : $scope.temp.state,
+            comment : $scope.temp.comment
+        };
+        $scope.state = $scope.orderAltering.state;
+    };
 
+    $scope.temp = {
+        state : {},
+        comment : ''
+    };
+}]);

@@ -14,6 +14,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
@@ -21,6 +23,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  *         mailing configuration
  */
 @Configuration
+@EnableAsync
+@EnableScheduling
 @ComponentScan(basePackages = { "by.itechart.flowerty.jms" })
 @PropertySource("classpath:/web.properties")
 public class MailConfiguration {

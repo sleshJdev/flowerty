@@ -15,8 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-import by.itechart.flowerty.jms.model.Sender;
-
 /**
  * @author Eugene Putsykovich(slesh) Apr 28, 2015
  * 

@@ -10,6 +10,10 @@
  * etc, because over-head code obtained
  */
 
+/*
+    TODO: DONE!!! :)
+ */
+
 angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .constant("CONSTANTS", (function(){
