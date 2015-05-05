@@ -1,4 +1,4 @@
-package by.itechart.flowerty.web.controller;
+package test.by.itechart.flowerty.web.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -10,14 +10,15 @@ import org.mockito.InjectMocks;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
+import by.itechart.flowerty.web.controller.HomeController;
+import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *
  *         Test for HomeController
  */
-public class TestHomeController extends MockTestConfigigurationAware {
+public class HomeControllerTests extends MockTestConfigigurationAware {
 	@InjectMocks
 	private HomeController homeControllerMock;
 

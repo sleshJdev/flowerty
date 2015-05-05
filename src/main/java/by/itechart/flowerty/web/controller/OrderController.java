@@ -4,6 +4,7 @@ import by.itechart.flowerty.persistence.model.Order;
 import by.itechart.flowerty.solr.model.OrderDocument;
 import by.itechart.flowerty.web.model.OrderEditBundle;
 import by.itechart.flowerty.web.service.OrderService;
+import by.itechart.flowerty.web.model.OrderCreateBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class OrderController {
         return savedOrder;
     }
 
+    @RequestMapping(value = "order/change/save", method = RequestMethod.POST)
+    public Order saveChanges(@RequestBody OrderEditBundle orderEditBundle){
+        return orderService.saveChanges(orderEditBundle);
+    }
+
     @ResponseBody
     @RequestMapping(value = "order/list/{page}", method = RequestMethod.GET)
     public Page<Order> page(@PathVariable("page") Integer page){
@@ -63,5 +69,11 @@ public class OrderController {
     public Page<Order> search(@RequestBody OrderDocument order) {
         LOGGER.info("findBySearch order");
         return  orderService.findBySearch(order, 0, 10);
+    }
+        @ResponseBody
+        @RequestMapping(value = "order/create/bundle", method = RequestMethod.GET)
+    public OrderCreateBundle createBundle() throws Exception{
+        LOGGER.info("getting prepared order bundle for creating a new one");
+        return orderService.getOrderCreateBundle();
     }
 }

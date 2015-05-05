@@ -1,6 +1,4 @@
-package by.itechart.flowerty.web.controller;
-
-import by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
+package test.by.itechart.flowerty.web.controller;
 import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
@@ -13,22 +11,22 @@ import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.io.IOException;
-
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
+import by.itechart.flowerty.web.controller.UserController;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
  *
  *         Test for UserController
  */
-public class TestUserController extends MockTestConfigigurationAware {
+public class UserControllerTests extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
 
@@ -64,7 +62,7 @@ public class TestUserController extends MockTestConfigigurationAware {
     @Ignore
 	@Test
 	public void getById_PassValidUserId_ShouldReturnUserEditBundle() throws Exception {
-		UserEditBundle bundle = TestControllerHelper.buildUserEditBundleForTest();
+		UserEditBundle bundle = ControllerHelperTests.buildUserEditBundleForTest();
 		User returnedUser = bundle.getUser();
 		
 		when(userServiceMock.getUserEditBundleFor(returnedUser.getId())).thenReturn(bundle);
@@ -84,18 +82,18 @@ public class TestUserController extends MockTestConfigigurationAware {
     @Ignore
 	@Test
 	public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
-		User returnedUser = TestControllerHelper.buildUserAdminForTest();
+		User returnedUser = ControllerHelperTests.buildUserAdminForTest();
 
 		when(userServiceMock.save(any(User.class)))
 			.thenReturn(returnedUser);
 		
 		mock
 			.perform(post("/user/save")
-					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-					.content(TestControllerHelper.convertObjectToJsonBytes(returnedUser))
+					.contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
+					.content(ControllerHelperTests.convertObjectToJsonBytes(returnedUser))
 					)
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(TestControllerHelper.APPLICATION_JSON_UTF8))
+			.andExpect(content().contentType(ControllerHelperTests.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.login", is(returnedUser.getLogin())))
 			.andExpect(jsonPath("$.password", is(returnedUser.getPassword())));
 		

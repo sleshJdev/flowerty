@@ -1,8 +1,6 @@
 package by.itechart.flowerty.solr.repository;
 
-import by.itechart.flowerty.config.aware.JpaConfigurationAware;
 import by.itechart.flowerty.solr.model.ContactDocument;
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 
 import java.util.Date;
 

@@ -1,14 +1,12 @@
 package by.itechart.flowerty.persistence.repository;
 
 
- 
+import by.itechart.flowerty.persistence.model.Phone;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.model.Phone;
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 
 /**
  * @author Мария 31.03.15

@@ -65,13 +65,13 @@ public class Order {
     public User getStaff() {
         return staff;
     }
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "MANAGER_ID")
     @Valid
     public User getManager() {
         return manager;
     }
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "DELIVERY_MANAGER_ID")
     @Valid
     public User getDelivery() {
@@ -82,8 +82,8 @@ public class Order {
     public String getDescription() {
         return description;
     }
-    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "ORDER_ID", nullable = false)
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
     public Set<Item> getItems() {
         return items;
     }

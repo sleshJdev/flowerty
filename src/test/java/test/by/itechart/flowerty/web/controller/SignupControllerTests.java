@@ -1,4 +1,4 @@
-package by.itechart.flowerty.web.controller;
+package test.by.itechart.flowerty.web.controller;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
@@ -19,8 +19,9 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
+import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
 import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.web.controller.SignupController;
 import by.itechart.flowerty.web.service.UserService;
 
 /**
@@ -28,7 +29,7 @@ import by.itechart.flowerty.web.service.UserService;
  * 
  *         Test for SignupController
  */
-public class TestSignupController extends MockTestConfigigurationAware {
+public class SignupControllerTests extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
 
@@ -56,15 +57,15 @@ public class TestSignupController extends MockTestConfigigurationAware {
     @Ignore
 	@Test
 	public void signup_PassSiginFormFromClient_ShouldSaveNewUserAndReturnNameIndexPage() throws Exception{
-		User newUser = TestControllerHelper.buildValidShortUserForTest();
+		User newUser = ControllerHelperTests.buildValidShortUserForTest();
 		
 		when(userServiceMock.save(any(User.class)))
 			.thenReturn(newUser);
 		
 		mock
 			.perform(post("/signup")
-						.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-						.content(TestControllerHelper.convertObjectToJsonBytes(newUser))
+						.contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
+						.content(ControllerHelperTests.convertObjectToJsonBytes(newUser))
 					)
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("home/index"));

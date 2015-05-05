@@ -1,4 +1,4 @@
-package by.itechart.flowerty.web.controller;
+package test.by.itechart.flowerty.web.controller;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *         Helper for test
  */
 @SuppressWarnings("serial")
-public final class TestControllerHelper {
+public final class ControllerHelperTests {
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 

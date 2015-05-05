@@ -1,8 +1,6 @@
 package by.itechart.flowerty.persistence.repository;
 
 
-
-import by.itechart.flowerty.config.aware.JpaConfigurationAware;
 import by.itechart.flowerty.persistence.model.Order;
 import by.itechart.flowerty.persistence.model.OrderAltering;
 import by.itechart.flowerty.persistence.model.State;
@@ -13,6 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 
 import java.util.Date;
 

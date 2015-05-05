@@ -67,29 +67,29 @@ angular.module("flowertyApplication.orderModule").controller('OrdersController',
     };
 
     $scope.orders.deleteOrders = function(){
-/*
-        var toDeleteIds = [];
-        console.log("users to del : " + JSON.stringify({users: $scope.users.usersList}));
-        var user;
-        for(var i = 0; i < $scope.users.usersList.length; i++){
-            user = $scope.users.usersList[i];
-            if(user.checked){
-                toDeleteIds.push(user.id);
-            }
-        }
-        if(toDeleteIds.length <= 0){
-            return true;
-        }
-        $http({
-            method: "post",
-            url: "user/delete",
-            data: toDeleteIds
-        }).success(function(data, status, headers, config) {
-            $location.path("users");
-        }).error(function(data, status, headers, config) {
-            console.log("Exception details in UsersController.delete() : " + JSON.stringify({data: data}));
-        });
-*/
+        /*
+         var toDeleteIds = [];
+         console.log("users to del : " + JSON.stringify({users: $scope.users.usersList}));
+         var user;
+         for(var i = 0; i < $scope.users.usersList.length; i++){
+         user = $scope.users.usersList[i];
+         if(user.checked){
+         toDeleteIds.push(user.id);
+         }
+         }
+         if(toDeleteIds.length <= 0){
+         return true;
+         }
+         $http({
+         method: "post",
+         url: "user/delete",
+         data: toDeleteIds
+         }).success(function(data, status, headers, config) {
+         $location.path("users");
+         }).error(function(data, status, headers, config) {
+         console.log("Exception details in UsersController.delete() : " + JSON.stringify({data: data}));
+         });
+         */
     };
 
     $scope.init = function () {

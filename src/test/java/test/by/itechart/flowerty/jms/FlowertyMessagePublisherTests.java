@@ -1,9 +1,19 @@
-package by.itechart.flowerty.jms;
+package test.by.itechart.flowerty.jms;
 
 import by.itechart.flowerty.configuration.JmsConfiguration;
 import by.itechart.flowerty.configuration.LocalConfiguration;
 import by.itechart.flowerty.configuration.MailConfiguration;
 import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,12 +33,12 @@ import java.util.Map;
 /**
  * @author Eugene Putsykovich(slesh) Apr 29, 2015
  *
+ *         strange test
  */
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {MailConfiguration.class, JmsConfiguration.class,
-	LocalConfiguration.class })
-public class TestFlowertyMessagePublisher {
+@ContextConfiguration(classes = { MailConfiguration.class, JmsConfiguration.class, LocalConfiguration.class })
+public class FlowertyMessagePublisherTests {
     private final String to = "studentbntu@mail.ru";
     private final String subject = "flowerty-promotion";
     private final String text = "flowerty-text";
@@ -36,11 +46,13 @@ public class TestFlowertyMessagePublisher {
     @Autowired
     private FlowertyMessagePublisher messagePublisher;
 
+    @Ignore
     @Test
     public void send_PassPlainMessageInfo_ShouldSendIt() {
 	messagePublisher.send(to, subject, text);
     }
-    
+
+    @Ignore
     @Test
     public void send_PassMessageWithAttachment_ShoudSendIt() throws IOException, MessagingException {
 	Map<String, byte[]> attachments = new HashMap<String, byte[]>();

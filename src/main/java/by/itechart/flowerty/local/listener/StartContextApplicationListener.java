@@ -21,7 +21,7 @@ public class StartContextApplicationListener implements ApplicationListener<Cont
 
     @Autowired
     private FlowertyMessageConsumer consumer;
- 
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 	LOGGER.info("context refreshed");

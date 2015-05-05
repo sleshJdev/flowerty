@@ -1,4 +1,4 @@
-package by.itechart.flowerty.config.aware;
+package test.by.itechart.flowerty.config.aware;
 
 import java.lang.reflect.Method;
 

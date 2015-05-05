@@ -1,4 +1,4 @@
-package by.itechart.flowerty.web.controller;
+package test.by.itechart.flowerty.web.controller;
 
 
 import static org.mockito.Mockito.times;
@@ -18,8 +18,9 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
+import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
 import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.web.controller.LoginController;
 import by.itechart.flowerty.web.model.SigninForm;
 import by.itechart.flowerty.web.service.UserService;
 
@@ -28,7 +29,7 @@ import by.itechart.flowerty.web.service.UserService;
  * 
  *         Test for SiginController
  */
-public class TestSigninController extends MockTestConfigigurationAware {
+public class SigninControllerTests extends MockTestConfigigurationAware {
 	@Mock
 	private UserService userServiceMock;
 
@@ -56,7 +57,7 @@ public class TestSigninController extends MockTestConfigigurationAware {
     	@Ignore
 	@Test
 	public void signin_PassValidLoginAndPassword_ShouldAuthenticate() throws Exception{
-		User existsUser = TestControllerHelper.buildValidShortUserForTest();
+		User existsUser = ControllerHelperTests.buildValidShortUserForTest();
 		SigninForm user = new SigninForm(existsUser.getLogin(), existsUser.getPassword());
 		
 		when(userServiceMock.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
@@ -64,8 +65,8 @@ public class TestSigninController extends MockTestConfigigurationAware {
 		
 		mock
 			.perform(post("/authenticate")
-					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-					.content(TestControllerHelper.convertObjectToJsonBytes(user))
+					.contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
+					.content(ControllerHelperTests.convertObjectToJsonBytes(user))
 //					.param("login", existsUser.getLogin())
 //					.param("password", existsUser.getPassword())
 					)
@@ -80,7 +81,7 @@ public class TestSigninController extends MockTestConfigigurationAware {
     	@Ignore
 	@Test
 	public void signin_PassInvalidLoginAndPassword_NotAuthenticateShouldRedirectToSigninPage() throws Exception{
-		User notExistsUser = TestControllerHelper.buildInvalideShordUserForTest();
+		User notExistsUser = ControllerHelperTests.buildInvalideShordUserForTest();
 		SigninForm user = new SigninForm(notExistsUser.getLogin(), notExistsUser.getPassword());
 		
 		when(userServiceMock.findUserByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword()))
@@ -88,8 +89,8 @@ public class TestSigninController extends MockTestConfigigurationAware {
 		
 		mock
 			.perform(post("/authenticate")
-					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-					.content(TestControllerHelper.convertObjectToJsonBytes(user))
+					.contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
+					.content(ControllerHelperTests.convertObjectToJsonBytes(user))
 //					.param("login", notExistsUser.getLogin())
 //					.param("password", notExistsUser.getPassword())
 					)
