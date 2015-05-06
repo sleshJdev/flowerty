@@ -8,14 +8,14 @@ package by.itechart.flowerty.solr.model;
 import org.apache.solr.client.solrj.beans.Field;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import java.util.Date;
 
-//import org.apache.solr.client.solrj.impl.
-//@SolrDocument
-//@Entity
-//@Indexed
+@SolrDocument(solrCoreName="flowerty-contact")
 public class ContactDocument {
+
+
     public static Builder getBuilder(Long id, String name) {
         return new Builder(id, name);
     }
@@ -220,10 +220,11 @@ public class ContactDocument {
         }
     }
 
-    public ContactDocument(String id, String name, String surname, Date birthday, String email, String country, String town, String street, String house, String flat, Long company) {
+    public ContactDocument(String id, String name, String surname, String fathername,Date birthday, String email, String country, String town, String street, String house, String flat, Long company) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.fathername = fathername;
         this.birthday = birthday;
         this.email = email;
         this.country = country;
@@ -250,7 +251,4 @@ public class ContactDocument {
 
     public ContactDocument() {
     }
-   /* public Contact getContact() {
-
-    } */
 }

@@ -22,7 +22,7 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
   // private static final QContactDocument QD_BOOK = QCo
 
     @Resource
-    private SolrTemplate solrTemplate;
+    private SolrTemplate solrTemplateContact;
 
     @Override
     public List<Long> findByBirthDate(String birthday) {
@@ -36,7 +36,7 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
         Criteria criteria = new Criteria("month").is(date.getMonthOfYear());
         criteria = criteria.and(new Criteria("day").is(date.getDayOfMonth()));
         SimpleQuery search = new SimpleQuery(criteria);
-        Page results = solrTemplate.queryForPage(search, ContactDocument.class);
+        Page results = solrTemplateContact.queryForPage(search, ContactDocument.class);
         return results.getContent();
     }
 
@@ -135,7 +135,7 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
         }
         SimpleQuery query = new SimpleQuery(criteria);
 
-        Page results = solrTemplate.queryForPage(query, ContactDocument.class);
+        Page results = solrTemplateContact.queryForPage(query, ContactDocument.class);
         List<Long> list = new ArrayList<Long>();
         for (ContactDocument cd: (List<ContactDocument>)results.getContent()) {
             list.add(Long.valueOf(cd.getId()));
@@ -148,7 +148,7 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
         Criteria criteria = new Criteria("surname").startsWith(surname);
         criteria = criteria.and(new Criteria("company").is(company));// .is(date.dayOfMonth())
         SimpleQuery search = new SimpleQuery(criteria);
-        Page results = solrTemplate.queryForPage(search, ContactDocument.class);
+        Page results = solrTemplateContact.queryForPage(search, ContactDocument.class);
         List<Long> list = new ArrayList<Long>();
         list.add(0L);
         for (ContactDocument cd: (List<ContactDocument>)results.getContent()) {

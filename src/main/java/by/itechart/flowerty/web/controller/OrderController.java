@@ -1,7 +1,9 @@
 package by.itechart.flowerty.web.controller;
 
- 
-import by.itechart.flowerty.persistence.model.OrderAltering;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.solr.model.OrderDocument;
+import by.itechart.flowerty.web.model.OrderEditBundle;
+import by.itechart.flowerty.web.service.OrderService;
 import by.itechart.flowerty.web.model.OrderCreateBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import by.itechart.flowerty.persistence.model.Order;
-import by.itechart.flowerty.web.model.OrderEditBundle;
-import by.itechart.flowerty.web.service.OrderService;
 
 /**
  * Created by Катерина on 24.04.2015.
@@ -67,7 +65,13 @@ public class OrderController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "order/create/bundle", method = RequestMethod.GET)
+    @RequestMapping(value = "order/search", method = RequestMethod.POST)
+    public Page<Order> search(@RequestBody OrderDocument order) {
+        LOGGER.info("findBySearch order");
+        return  orderService.findBySearch(order, 0, 10);
+    }
+        @ResponseBody
+        @RequestMapping(value = "order/create/bundle", method = RequestMethod.GET)
     public OrderCreateBundle createBundle() throws Exception{
         LOGGER.info("getting prepared order bundle for creating a new one");
         return orderService.getOrderCreateBundle();
