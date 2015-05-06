@@ -16,7 +16,7 @@ import by.itechart.flowerty.persistence.model.Phone.PHONE_TYPE;
  *
  *         provides data for check tests
  */
-public abstract class TestRepositoryHelper {
+public abstract class RepositoryHelperTests {
     public static final Contact getContactWithIdOne() {
 	Address address = new Address();
 	address.setId(1L);

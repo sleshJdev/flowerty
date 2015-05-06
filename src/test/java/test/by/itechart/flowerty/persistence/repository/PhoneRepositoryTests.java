@@ -1,18 +1,21 @@
-package by.itechart.flowerty.persistence.repository;
+package test.by.itechart.flowerty.persistence.repository;
 
 
 import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.persistence.repository.PhoneRepository;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 
 /**
  * @author Мария 31.03.15
  */
 @Ignore
-public class TestPhoneRepository extends JpaConfigurationAware {
+public class PhoneRepositoryTests extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
 

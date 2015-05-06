@@ -1,16 +1,19 @@
-package by.itechart.flowerty.persistence.repository;
+package test.by.itechart.flowerty.persistence.repository;
 
 
 import by.itechart.flowerty.persistence.model.Order;
 import by.itechart.flowerty.persistence.model.OrderAltering;
 import by.itechart.flowerty.persistence.model.State;
 import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 
 import java.util.Date;
@@ -18,7 +21,7 @@ import java.util.Date;
 /**
  @author  Мария 30.03.15
  */
-public class TestOrderAlteringRepository extends JpaConfigurationAware {
+public class OrderAlteringRepositoryTests extends JpaConfigurationAware {
     @Autowired
     private OrderAlteringRepository orderAlteringRepository;
 
