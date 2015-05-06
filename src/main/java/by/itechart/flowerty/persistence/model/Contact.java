@@ -174,4 +174,14 @@ public class Contact {
 	}
 	return sb.append("]\n").toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+	//TODO
+	if(!(obj instanceof Contact)){
+	    return false;
+	}
+	Contact contact = (Contact)obj;
+	return true;
+    }
 }

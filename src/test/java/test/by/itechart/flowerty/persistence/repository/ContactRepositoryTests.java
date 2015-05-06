@@ -2,6 +2,8 @@ package test.by.itechart.flowerty.persistence.repository;
 
 import java.util.List;
 
+import javassist.compiler.ast.AssignExpr;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,14 @@ public class ContactRepositoryTests extends JpaConfigurationAware{
     }
     
     @Test
-    public void findBySurnameStartingWithAndCompany_PassValidParameters_ReturnsContact(){
+    public void findBySurnameStartingWithAndCompany_PassValidParameters_ReturnsNotNullCollectionWithTargetContact(){
+	final Contact expected = TestRepositoryHelper.getContactWithIdOne();
 	
+	final List<Contact> actuals = contactRepository.findBySurnameStartingWithAndCompany(expected.getSurname(), expected.getCompany());
+	
+	Assert.assertNotNull(actuals);
+	org.springframework.util.Assert.notEmpty(actuals);
+	for (Contact contact : actuals) {
+	}
     }
 }
