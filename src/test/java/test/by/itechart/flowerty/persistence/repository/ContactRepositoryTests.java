@@ -2,8 +2,6 @@ package test.by.itechart.flowerty.persistence.repository;
 
 import java.util.List;
 
-import javassist.compiler.ast.AssignExpr;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +55,6 @@ public class ContactRepositoryTests extends JpaConfigurationAware{
 	
 	Assert.assertNotNull(actuals);
 	org.springframework.util.Assert.notEmpty(actuals);
-	for (Contact contact : actuals) {
-	}
+	//TODO: add more assert
     }
 }
