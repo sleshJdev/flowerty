@@ -4,7 +4,7 @@
  * Created by Катерина on 17.04.2015.
  */
 
-var goodsModule = angular.module("flowertyApplication.goodsModule", ['ngRoute']);
+var goodsModule = angular.module("flowertyApplication.goodsModule", ['ngRoute', 'ngStorage']);
 
 goodsModule.constant("GOODS_MODULE_CONSTANTS", (function(){
 

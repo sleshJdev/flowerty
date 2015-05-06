@@ -4,16 +4,11 @@
     <h1>Orders</h1>
     <table class="table table-bordered">
         <tr>
-            <th data-ng-click="orders.deleteOrders()"><a href=""><span class="glyphicon glyphicon-remove"></span></a></th>
             <th>date</th>
             <th>description</th>
             <th>full cost</th>
         </tr>
         <tr data-ng-repeat="order in orders.ordersList" >
-            <td><input
-                    type="checkbox"
-                    data-ng-model="order.checked"/>
-            </td>
             <td><a href="#edit-order/{{order.id}}"><span class="glyphicon glyphicon-edit"></span></a> {{order.deliveryDate}}</td>
             <td>{{order.description}}</td>
             <td>{{order.cost | currency}}</td>

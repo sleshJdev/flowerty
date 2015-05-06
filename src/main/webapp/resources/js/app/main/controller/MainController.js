@@ -18,16 +18,17 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
             itemsCount : 0,
             fullCost: 0
         },
-        items : [],
+        items : {},
         reset : function(){
             $scope.current.basket.info.itemsCount = 0;
             $scope.current.basket.info.fullCost = 0;
-            $scope.current.basket.items = [];
+            $scope.current.basket.items = {};
         }
     };
 
     $scope.current.logOut = function () {
         sessionService.logout($scope, $location);
+        $scope.current.basket.reset();
     };
 
     $scope.pagination = {
