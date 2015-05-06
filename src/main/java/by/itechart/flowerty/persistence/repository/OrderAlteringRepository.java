@@ -14,7 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 public interface OrderAlteringRepository extends PagingAndSortingRepository<OrderAltering, Long> {
     public OrderAltering findOne(Long id);
     public Page<OrderAltering> findByOrder(Order order, Pageable pageable);
+    public List<OrderAltering> findByOrder(Order order);
 }

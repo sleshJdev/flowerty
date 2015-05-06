@@ -12,6 +12,7 @@ import by.itechart.flowerty.persistence.model.*;
 import by.itechart.flowerty.persistence.repository.*;
 import by.itechart.flowerty.web.model.OrderCreateBundle;
 import by.itechart.flowerty.web.model.OrderEditBundle;
+import by.itechart.flowerty.web.model.OrderHistoryBundle;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +72,11 @@ public class OrderService {
     public Order saveChanges(OrderEditBundle orderEditBundle){
 
         Order savedOrder = orderRepository.save(orderEditBundle.getOrder());
+        if(orderEditBundle.getOrderAltering() == null){
+            return savedOrder;
+        }
 
-        //  Gettin info about user, that changed the state
+        //  Saving order altering
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = null;
         if (!(auth instanceof AnonymousAuthenticationToken)) {
@@ -191,5 +195,11 @@ public class OrderService {
             }
         }
         return orderCreateBundle;
+    }
+
+    public OrderHistoryBundle getOrderHistoryBundle(Long id){
+        Order order = orderRepository.findOne(id);
+        List<OrderAltering> orderAlterings = orderAlteringRepository.findByOrder(order);
+        return new OrderHistoryBundle(order, orderAlterings);
     }
 }

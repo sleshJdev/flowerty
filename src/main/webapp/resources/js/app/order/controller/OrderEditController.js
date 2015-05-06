@@ -15,7 +15,6 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
             url: "order/details/" + $routeParams.id
         }).success(function (data, status, headers, config) {
             $scope.bundle = data;
-            $scope.order = $scope.bundle.order;
             getDeliveryManagers();
             getOrderProcessors();
         }).error(function (data, status, headers, config) {
@@ -66,10 +65,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
         $http({
             method: "post",
             url: "order/change/save",
-            data: {
-                order : $scope.order,
-                orderAltering : $scope.orderAltering
-            }
+            data: $scope.bundle
         }).success(function (data, status, headers, config) {
             $location.path("users");
         }).error(function (data, status, headers, config) {
@@ -81,7 +77,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
             state : $scope.temp.state,
             comment : $scope.temp.comment
         };
-        $scope.state = $scope.orderAltering.state;
+        $scope.bundle.order.state = $scope.orderAltering.state;
     };
 
     $scope.temp = {
