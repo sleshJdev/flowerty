@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import javax.sql.DataSource;
 import java.util.Properties;
 
-;
+
 
  
 
@@ -83,7 +83,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 		jpaProperties.put(org.hibernate.cfg.Environment.FORMAT_SQL, formatSql);
 
 		entityManagerFactoryBean.setJpaProperties(jpaProperties);
-
+        entityManagerFactoryBean.getJpaPropertyMap().put("jadira.usertype.autoRegisterUserTypes", "true");
 		return entityManagerFactoryBean;
 	}
 

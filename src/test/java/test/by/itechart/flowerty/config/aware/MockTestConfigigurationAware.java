@@ -1,7 +1,6 @@
 package test.by.itechart.flowerty.config.aware;
 
-import java.lang.reflect.Method;
-
+import by.itechart.flowerty.web.exception.ExceptionHandler;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.method.HandlerMethod;
@@ -9,7 +8,7 @@ import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
-import by.itechart.flowerty.web.exception.ExceptionHandler;
+import java.lang.reflect.Method;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015

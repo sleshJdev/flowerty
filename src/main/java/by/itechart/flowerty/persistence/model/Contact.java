@@ -2,6 +2,7 @@ package by.itechart.flowerty.persistence.model;
 
 import by.itechart.flowerty.solr.model.ContactDocument;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -139,19 +140,20 @@ public class Contact {
         this.email = email;
     }
 
-/*    public ContactDocument buildContactDocument() {
-        ContactDocument contactDocument = new ContactDocument();
-        contactDocument.setId(String.valueOf(id));
-        contactDocument.setName(name);
-        contactDocument.setSurname(surname);
-        return contactDocument;
-    }    */
+    @Transient
+    public String getFullName() {
+        String theName = StringUtils.isNotEmpty(name) ? "" : name;
+        String theSurname = StringUtils.isNotEmpty(surname) ? "" : surname;
+        String theFathername = StringUtils.isNotEmpty(fathername) ? "" : fathername;
+        return String.format("%s %s %s", theFathername, theName, theSurname);
+    }
+
     @Transient
     @JsonIgnore
     public ContactDocument getContactDocument() {
-        return id == null ? (address == null? new ContactDocument(name, surname, fathername, birthday, email, company.getId()) : new ContactDocument("", name, surname, birthday, email,
+        return id == null ? (address == null? new ContactDocument(name, surname, fathername, birthday, email, company.getId()) : new ContactDocument("", name, surname, fathername, birthday, email,
                 address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat(), company.getId()) ):
-        new ContactDocument(id.toString(), name, surname, birthday, email,
+        new ContactDocument(id.toString(), name, surname, fathername, birthday, email,
                 address.getCountry(), address.getTown(), address.getStreet(), address.getHouse(), address.getFlat(), company.getId());
     }
 

@@ -10,7 +10,8 @@ import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 
 /**
- * User: Мария Date: 06.04.15 Time: 9:57
+ * @author Maria
+ *         Date:  06.04.15
  */
 @Configuration
 @ComponentScan
@@ -19,12 +20,18 @@ import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 public class SearchContext {
     @Bean
     public SolrServer solrServer() {
-	return new HttpSolrServer("http://localhost:8983/solr/flowerty");
+	return new HttpSolrServer("http://localhost:8983/solr");
     }
 
-    @Bean
-    public SolrTemplate solrTemplate(SolrServer server) throws Exception {
-	SolrTemplate solrTemplate = new SolrTemplate(server);
-	return solrTemplate;
+    @Bean(name = "solrTemplateContact")
+    public SolrTemplate solrTemplateContact(SolrServer server) throws Exception {
+	SolrTemplate solrTemplateContact = new SolrTemplate(new HttpSolrServer("http://localhost:8983/solr/flowerty-contact"));
+	return solrTemplateContact;
+    }
+
+    @Bean(name = "solrTemplatePurchase")
+    public SolrTemplate solrTemplatePurchase(SolrServer server) throws Exception {
+        SolrTemplate solrTemplatePurchase = new SolrTemplate(new HttpSolrServer("http://localhost:8983/solr/flowerty-purchase"));
+        return solrTemplatePurchase;
     }
 }

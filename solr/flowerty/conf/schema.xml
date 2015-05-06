@@ -300,7 +300,7 @@
      -->
     <fieldType name="point" class="solr.PointType" dimension="2" subFieldSuffix="_d"/>
 
-    <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
+    <!-- A specialized field for geospatial findBySearch. If indexed, this fieldType must not be multivalued. -->
     <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
 
     <!-- An alternative geospatial field type new to Solr 4.  It supports multiValued and polygon shapes.
@@ -575,7 +575,7 @@
     
     <!-- Japanese using morphological analysis (see text_cjk for a configuration using bigramming)
 
-         NOTE: If you want to optimize search for precision, use default operator AND in your query
+         NOTE: If you want to optimize findBySearch for precision, use default operator AND in your query
          parser config with <solrQueryParser defaultOperator="AND"/> further down in this file.  Use 
          OR if you would like to optimize for recall (default).
     -->
@@ -583,15 +583,15 @@
       <analyzer>
       <!-- Kuromoji Japanese morphological analyzer/tokenizer (JapaneseTokenizer)
 
-           Kuromoji has a search mode (default) that does segmentation useful for search.  A heuristic
+           Kuromoji has a findBySearch mode (default) that does segmentation useful for findBySearch.  A heuristic
            is used to segment compounds into its parts and the compound itself is kept as synonym.
 
            Valid values for attribute mode are:
               normal: regular segmentation
-              search: segmentation useful for search with synonyms compounds (default)
-            extended: same as search mode, but unigrams unknown words (experimental)
+              findBySearch: segmentation useful for findBySearch with synonyms compounds (default)
+            extended: same as findBySearch mode, but unigrams unknown words (experimental)
 
-           For some applications it might be good to use search mode for indexing and normal mode for
+           For some applications it might be good to use findBySearch mode for indexing and normal mode for
            queries to reduce recall and prevent parts of compounds from being matched and highlighted.
            Use <analyzer type="index"> and <analyzer type="query"> for this and mode normal in query.
 
@@ -610,14 +610,14 @@
            See http://wiki.apache.org/solr/JapaneseLanguageSupport for more on Japanese language support.
         -->
         <tokenizer class="solr.JapaneseTokenizerFactory" mode="search"/>
-        <!--<tokenizer class="solr.JapaneseTokenizerFactory" mode="search" userDictionary="lang/userdict_ja.txt"/>-->
+        <!--<tokenizer class="solr.JapaneseTokenizerFactory" mode="findBySearch" userDictionary="lang/userdict_ja.txt"/>-->
         <!-- Reduces inflected verbs and adjectives to their base/dictionary forms (辞書形) -->
         <filter class="solr.JapaneseBaseFormFilterFactory"/>
         <!-- Removes tokens with certain part-of-speech tags -->
         <filter class="solr.JapanesePartOfSpeechStopFilterFactory" tags="lang/stoptags_ja.txt" />
         <!-- Normalizes full-width romaji to half-width and half-width kana to full-width (Unicode NFKC subset) -->
         <filter class="solr.CJKWidthFilterFactory"/>
-        <!-- Removes common tokens typically not useful for search, but have a negative effect on ranking -->
+        <!-- Removes common tokens typically not useful for findBySearch, but have a negative effect on ranking -->
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ja.txt" />
         <!-- Normalizes common katakana spelling variations by removing any last long sound character (U+30FC) -->
         <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>

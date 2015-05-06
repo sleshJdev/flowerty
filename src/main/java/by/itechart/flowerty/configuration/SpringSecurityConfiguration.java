@@ -3,10 +3,7 @@ package by.itechart.flowerty.configuration;
 import by.itechart.flowerty.security.CsrfHeaderFilter;
 import by.itechart.flowerty.security.CustomAuthenticationProvider;
 import by.itechart.flowerty.security.TokenBasedRememberMeServices;
-import by.itechart.flowerty.security.handler.AccessDeniedHandler;
-import by.itechart.flowerty.security.handler.AuthFailure;
-import by.itechart.flowerty.security.handler.AuthSuccess;
-import by.itechart.flowerty.security.handler.EntryPointUnauthorizedHandler;
+import by.itechart.flowerty.security.handler.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,12 +19,14 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Created by Rostislav on 26-Mar-15
  */
 @Configuration
 @EnableWebMvcSecurity
+@EnableWebMvc
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -37,7 +36,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AuthSuccess authSuccess;
 
     @Autowired
-    private EntryPointUnauthorizedHandler unauthorizedHandler;
+    private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
@@ -57,10 +56,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/user/profile")
-                .authenticated()
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/profile")
+                .authenticated()
                 .antMatchers("/contact/**")
                 .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
             .and()
@@ -76,14 +75,18 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/login")
 //                .successHandler(authSuccess)
                 .failureHandler(authFailure)
-                .and()
-                .logout()
+                .permitAll()
             .and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .logout()
+                .logoutSuccessHandler(logoutSuccessHandler)
+            .and()
+                .csrf()
+                .csrfTokenRepository(csrfTokenRepository())
 //            .and()
 //                .exceptionHandling()
 //                .accessDeniedHandler(accessDeniedHandler)
+            .and()
+                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
         ;
     }
 
@@ -121,7 +124,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return services;
     }
 
-    private CsrfTokenRepository csrfTokenRepository() {
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName("X-XSRF-TOKEN");
         return repository;
