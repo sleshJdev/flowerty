@@ -100,10 +100,16 @@ a:hover{
     padding: 1%;
     margin: 0;
     border: none;
+    float: left;
 }
 
 .goods-image{
-    height: 80%;
+    overflow: hidden;
+    height: 200px;
+}
+
+.goods-image img{
+    max-width: 100%;
 }
 
 .goods-item-info{
@@ -117,10 +123,11 @@ a:hover{
 
 .goods-item-border{
     padding: 10%;
+    margin: 1%;
 }
 
 .in-cart{
-    border: solid limegreen 3px;
+    border: solid limegreen 1px;
 }
 
 .bigicon {

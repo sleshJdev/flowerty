@@ -23,15 +23,12 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         deliveryManagers : []
     };
 
-    $scope.initItems = function(){
+    $scope.initItems = function(basket){
         var i;
+        var basketItem;
         $scope.bundle.order.items = [];
-        for(i = 0; i < $scope.current.basket.items.length; i++){
-            var basketItem = $scope.current.basket.items[i];
-            var orderItem = {};
-            orderItem.goods = basketItem;
-            orderItem.quantity = basketItem.count;
-            $scope.bundle.order.items.push(orderItem);
+        for(basketItem in basket){
+            $scope.bundle.order.items.push(basket[basketItem]);
         }
     };
 
@@ -65,13 +62,13 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             $scope.bundle = {
                 order : data
             };
-            $scope.initItems();
+            $scope.initItems($scope.current.basket.items);
             $scope.bundle.order.cost = $scope.current.basket.info.fullCost;
             getDeliveryManagers();
             getOrderProcessors();
 
             //  Makes the basket empty
-            $scope.current.basket.reset();
+            $scope.current.resetBasket();
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");

@@ -82,6 +82,6 @@ public class GoodsController {
         LOGGER.info("get goods page with number {}", page);
 
         page = (page == null || page < 1) ? 0 : --page;
-        return goodsService.getPage(page, 10);
+        return goodsService.getPage(page, 9);
     }
 }

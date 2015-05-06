@@ -3,7 +3,9 @@
  * Created by Катерина on 20.04.2015.
  */
 
-angular.module("flowertyApplication.goodsModule").controller("GoodsListController", ['$scope', '$http', '$location', '$filter', '$localStorage', function($scope, $http, $location, $filter, $localStorage) {
+angular.module("flowertyApplication.goodsModule").controller("GoodsListController",
+    ['$scope', '$http', '$location', '$filter', '$localStorage', 'GOODS_MODULE_CONSTANTS',
+        function($scope, $http, $location, $filter, $localStorage, GOODS_MODULE_CONSTANTS) {
 
     $scope.goods = {
         pages : [],
@@ -13,20 +15,18 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
     };
 
     $scope.goods.initGoodsArray = function(goodsArray){
-        var rows = Math.ceil(goodsArray.length / 3);
-        var cols = 3;
+        var cols = GOODS_MODULE_CONSTANTS.COLUMN_NUMBER;
         var resultMatrix = [];
-        var i, j, goodsArrayInd = 0;
-        for(i = 0; i < rows && goodsArrayInd < goodsArray.length; i++){
-            resultMatrix.push([]);
-            for(j = 0; j < cols && goodsArrayInd < goodsArray.length; j++, goodsArrayInd++){
+        var i, j, goodsArrayInd = 0, rowIndex;
+        for(i = 0; i < goodsArray.length; i++) {
 
-                //  If it's in cart, then goods element by item from cart
-                $scope.current.basket.items[goodsArray[goodsArrayInd].id] ?
-                    goodsArray[goodsArrayInd] = $scope.current.basket.items[goodsArray[goodsArrayInd].id] :
-                    goodsArray[goodsArrayInd].count = 1;
-                resultMatrix[i].push(goodsArray[goodsArrayInd]);
+            goodsArray[i].count = $scope.current.basket.items[goodsArray[i].id] ?
+                $scope.current.basket.items[goodsArray[i].id].quantity :
+                1;
+            if(!(i % cols)){
+                resultMatrix.push([]);
             }
+            resultMatrix[Math.floor(i / cols)].push(goodsArray[i]);
         }
         return resultMatrix;
     };
@@ -79,8 +79,16 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
         return $scope.goods.pagesCount;
     };
 
+    var getOrderItem = function (goodsItem) {
+        return {
+            goods: goodsItem,
+            quantity: goodsItem.count
+        };
+    };
+
     $scope.goods.makeOrder = function(goodsItem){
-        $scope.current.basket.items[goodsItem.id] = goodsItem;
+
+        $scope.current.basket.items[goodsItem.id] = getOrderItem(goodsItem);
         $scope.current.basket.info.itemsCount += goodsItem.count;
         $scope.current.basket.info.fullCost += goodsItem.cost * goodsItem.count;
         $localStorage.cart = $scope.current.basket;
@@ -88,8 +96,8 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
 
     $scope.goods.removeFromOrder = function(goodsItem) {
         if ($scope.current.basket.items[goodsItem.id]) {
-            $scope.current.basket.info.itemsCount -= $scope.current.basket.items[goodsItem.id].count;
-            $scope.current.basket.info.fullCost -= goodsItem.cost * $scope.current.basket.items[goodsItem.id].count;
+            $scope.current.basket.info.itemsCount -= $scope.current.basket.items[goodsItem.id].quantity;
+            $scope.current.basket.info.fullCost -= goodsItem.cost * $scope.current.basket.items[goodsItem.id].quantity;
             delete $scope.current.basket.items[goodsItem.id];
             goodsItem.count = 1;
         }
@@ -102,6 +110,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
 
             //  If it's already in cart, we also change count in it
             if($scope.current.basket.items[goodsItem.id]){
+                $scope.current.basket.items[goodsItem.id].quantity--;
                 $scope.current.basket.info.itemsCount--;
                 $scope.current.basket.info.fullCost -= goodsItem.cost;
                 $localStorage.cart = $scope.current.basket;
@@ -116,6 +125,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
 
             //  If it's already in cart, we also change count in it
             if($scope.current.basket.items[goodsItem.id]){
+                $scope.current.basket.items[goodsItem.id].quantity++;
                 $scope.current.basket.info.itemsCount++;
                 $scope.current.basket.info.fullCost += goodsItem.cost;
                 $localStorage.cart = $scope.current.basket;
