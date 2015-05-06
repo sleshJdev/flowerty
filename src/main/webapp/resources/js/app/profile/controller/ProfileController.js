@@ -8,10 +8,11 @@ angular.module("flowertyApplication.profileModule")
 
     .controller("ProfileController", ["$scope", "$http", "$location", "PROFILE_MODULE_CONSTANTS",
         function ($scope, $http, $location, PROFILE_MODULE_CONSTANTS) {
-            //if (!$scope.current.isLogged) {
-            //    $location.path("/");
-            //    return;
-            //}
+
+            if (!$scope.current.isLogged) {
+                $location.path("/");
+                return;
+            }
 
             $scope.profile = {
                 user: {},
@@ -28,7 +29,6 @@ angular.module("flowertyApplication.profileModule")
             });
 
             request.error(function (data, status, headers, config) {
-                $scope.profile.user = data;
             });
 
         }]);
