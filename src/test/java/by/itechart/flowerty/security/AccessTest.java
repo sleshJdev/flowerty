@@ -46,14 +46,21 @@ public class AccessTest {
     }
 
     @Test
-    public void getUser() throws Exception {
+    public void accessDenied() throws Exception {
         this.mockMvc
                 .perform(get("/user/details/1").with(user("admin").password("password").roles("USER")))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    public void getUserr() throws Exception {
+    public void allowedAccess() throws Exception {
+        this.mockMvc
+                .perform(get("/user/details/1").with(user("admin").password("password").roles("ADMIN")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void accessDeniedUnauthorized() throws Exception {
         this.mockMvc
                 .perform(get("/user/details/1").with(user("user")))
                 .andExpect(status().isForbidden());

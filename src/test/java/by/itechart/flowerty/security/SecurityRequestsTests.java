@@ -2,7 +2,6 @@ package by.itechart.flowerty.security;
 
 import by.itechart.flowerty.configuration.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,15 +69,14 @@ public class SecurityRequestsTests {
     @Test
     public void requestProtectedUrlWithAdmin() throws Exception {
         mvc
-                .perform(get("/admin").with(user("admin").password("pass").roles("USER", "ADMIN")))
+                .perform(get("/admin").with(user("admin").password("password").roles("ADMIN")))
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername("admin"));
     }
 
-    @Ignore
     @Test
     public void requestProtectedUrlWithUserDetails() throws Exception {
-        UserDetails userDetails = userDetailsService.loadUserByUsername("user");
+        UserDetails userDetails = userDetailsService.loadUserByUsername("test");
         mvc
                 .perform(get("/").with(user(userDetails)))
                 .andExpect(status().isOk())

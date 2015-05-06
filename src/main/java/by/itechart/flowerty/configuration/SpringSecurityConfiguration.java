@@ -3,7 +3,10 @@ package by.itechart.flowerty.configuration;
 import by.itechart.flowerty.security.CsrfHeaderFilter;
 import by.itechart.flowerty.security.CustomAuthenticationProvider;
 import by.itechart.flowerty.security.TokenBasedRememberMeServices;
-import by.itechart.flowerty.security.handler.*;
+import by.itechart.flowerty.security.handler.AccessDeniedHandler;
+import by.itechart.flowerty.security.handler.AuthFailure;
+import by.itechart.flowerty.security.handler.AuthSuccess;
+import by.itechart.flowerty.security.handler.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,22 +14,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Created by Rostislav on 26-Mar-15
  */
 @Configuration
-@EnableWebMvcSecurity
-@EnableWebMvc
+@EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -61,7 +62,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/profile")
                 .authenticated()
                 .antMatchers("/contact/**")
-                .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
+                .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER', 'ROLE_ADMIN')")
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())

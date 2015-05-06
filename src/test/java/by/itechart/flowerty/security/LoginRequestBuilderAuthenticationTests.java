@@ -1,16 +1,12 @@
 package by.itechart.flowerty.security;
 
 import by.itechart.flowerty.configuration.*;
-import by.itechart.flowerty.security.handler.AccessDeniedHandler;
-import by.itechart.flowerty.security.handler.AuthFailure;
-import by.itechart.flowerty.security.handler.AuthSuccess;
-import by.itechart.flowerty.security.handler.LogoutSuccessHandlerImpl;
-import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.FormLoginRequestBuilder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -20,8 +16,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -34,14 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         ApplicationConfiguration.class,
         JpaConfiguration.class,
         SearchContext.class,
-        SpringSecurityConfiguration.class,
-        AuthFailure.class,
-        AuthSuccess.class,
-        LogoutSuccessHandlerImpl.class,
-        AccessDeniedHandler.class,
-        UserDetailsServiceImpl.class})
+        SpringSecurityConfiguration.class})
 @WebAppConfiguration
-public class CustomCsrfTests {
+public class LoginRequestBuilderAuthenticationTests {
 
     @Autowired
     private WebApplicationContext context;
@@ -49,34 +40,41 @@ public class CustomCsrfTests {
     @Autowired
     private Filter springSecurityFilterChain;
 
-    @Autowired
-    private CsrfTokenRepository repository;
-
     private MockMvc mvc;
 
     @Before
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .defaultRequest(get("/").with(csrf()))
                 .addFilters(springSecurityFilterChain)
-                .build()
+                .build();
+    }
+
+    @Test
+    public void authenticationSuccess() throws Exception {
+        mvc
+                .perform(login())
+                .andExpect(status().isOk())
+                .andExpect(redirectedUrl(null))
+//                .andExpect(authenticated().withUsername("username"))
         ;
     }
 
     @Test
-    public void postWithCsrfWorks() throws Exception {
+    public void authenticationFailed() throws Exception {
         mvc
-                .perform(post("/").with(csrf()))
+                .perform(login().user("incorrect").password("incorrect"))
                 .andExpect(status().isOk())
+                .andExpect(redirectedUrl(null))
+                .andExpect(unauthenticated())
         ;
     }
 
-    @Test
-    public void postWithCsrfWorksWithPut() throws Exception {
-        mvc
-                .perform(put("/").with(csrf()))
-                .andExpect(status().isOk())
+    static FormLoginRequestBuilder login() {
+        return SecurityMockMvcRequestBuilders
+                .formLogin("/#/login")
+                .userParameter("username")
+                .passwordParam("password")
         ;
     }
 }

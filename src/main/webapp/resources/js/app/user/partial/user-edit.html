@@ -5,17 +5,17 @@
         <div class="row">
             <form class="form-horizontal">
                 <div class="form-group" data-ng-show="option.edit">
-                    <label class="col-sm-3 control-label">Name</label>
+                    <label class="col-sm-4 control-label">Name</label>
 
-                    <div class="col-sm-7">
+                    <div class="col-sm-6">
                         <p class="form-control-static">{{bundle.user.contact.name + ' ' +
                             bundle.user.contact.fathername + ' ' + bundle.user.contact.surname}}</p>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="!option.edit">
-                    <label class="col-sm-3 control-label">Contacts</label>
+                    <label class="col-sm-4 control-label">Contacts</label>
 
-                    <div class="col-sm-7">
+                    <div class="col-sm-6">
                         <input type="text" class="form-control input-lg" placeholder="start typing.."
                                data-ng-model="search.user.enteredSurname"
                                data-ng-change="dynamicSearch.offerContacts(search.user)"/>
@@ -25,40 +25,64 @@
                                 data-ng-model="search.user.selected"
                                 data-ng-click="dynamicSearch.selectContact(search.user)">
                         </select>
+                        <div data-ng-show="error.emptyContact">
+                            <p class="text-center alert-danger">You can't leave this empty..</p>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Roles</label>
+                    <label class="col-sm-4 control-label">Roles</label>
 
-                    <div class="col-sm-7">
+                    <div class="col-sm-6">
                         <select class="form-control"
                                 data-ng-model="bundle.user.role.id"
                                 data-ng-options="r.id as r.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' ' for r in bundle.roles">
                         </select>
+                        <div data-ng-show="error.emptyRole">
+                            <p class="text-center alert-danger">You can't leave this empty..</p>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group" data-ng-show="option.edit">
-                    <label class="col-sm-3 control-label">Login</label>
 
-                    <div class="col-sm-7">
+                <div class="form-group" data-ng-show="option.edit">
+                    <label class="col-sm-4 control-label">Login</label>
+
+                    <div class="col-sm-6">
                         <p class="form-control-static">{{bundle.user.login}}</p>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="!option.edit">
-                    <label class="col-sm-3 control-label">Login</label>
+                    <label class="col-sm-4 control-label">Login</label>
 
-                    <div class="col-sm-7">
+                    <div class="col-sm-6">
                         <input type="text" class="form-control" data-ng-model="bundle.user.login"
                                placeholder="Login">
+                        <div data-ng-show="error.emptyLogin">
+                            <p class="text-center alert-danger">You can't leave this empty..</p>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label" data-ng-show="!option.edit">Password</label>
-                    <label class="col-sm-3 control-label" data-ng-show="option.edit">Reset Password</label>
+                    <label class="col-sm-4 control-label" data-ng-show="!option.edit">Create a password</label>
+                    <label class="col-sm-4 control-label" data-ng-show="option.edit">Reset a password</label>
 
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" data-ng-model="bundle.user.password"
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" data-ng-model="bundle.user.password"
                                placeholder="Password">
+                        <div data-ng-show="error.emptyPassword">
+                            <p class="text-center alert-danger">You can't leave this empty..</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="bundle.user.password">
+                    <label class="col-sm-4 control-label">Confirm your password</label>
+
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm"
+                               placeholder="Password">
+                        <div data-ng-show="bundle.user.password != bundle.passwordConfirm">
+                            <p class="text-center alert-danger">These passwords don't match.</p>
+                        </div>
                     </div>
                 </div>
                 <br>

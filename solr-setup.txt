@@ -25,7 +25,7 @@ to stop it run solr stop -all or close those two windows
     note: (you don't need them in the project folder anymore)
 
 6. go to solr-5.1.0/bin and execute: 
-      solr start -e cloud -nopromt
+      solr start -e cloud -noprompt
 
 7. when it asks about replacing log files, choose all
 
