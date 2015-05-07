@@ -21,7 +21,8 @@ public class ApplicationConfiguration {
     @Bean
     public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 	PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-	ppc.setLocations(new ClassPathResource("/persistence.properties"), new ClassPathResource("/local.properties"));
+	ppc.setLocations(new ClassPathResource("/persistence.properties"), new ClassPathResource("/mongo.properties"),
+		new ClassPathResource("/local.properties"));
 
 	return ppc;
     }

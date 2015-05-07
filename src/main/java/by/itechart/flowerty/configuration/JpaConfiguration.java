@@ -74,7 +74,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(configureDataSource());
-		entityManagerFactoryBean.setPackagesToScan("by.itechart.flowerty");
+		entityManagerFactoryBean.setPackagesToScan("by.itechart.flowerty.persistence");
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
 		Properties jpaProperties = new Properties();
@@ -83,7 +83,8 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 		jpaProperties.put(org.hibernate.cfg.Environment.FORMAT_SQL, formatSql);
 
 		entityManagerFactoryBean.setJpaProperties(jpaProperties);
-        entityManagerFactoryBean.getJpaPropertyMap().put("jadira.usertype.autoRegisterUserTypes", "true");
+		entityManagerFactoryBean.getJpaPropertyMap().put("jadira.usertype.autoRegisterUserTypes", "true");
+		
 		return entityManagerFactoryBean;
 	}
 
