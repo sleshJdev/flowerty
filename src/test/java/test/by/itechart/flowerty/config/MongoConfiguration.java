@@ -1,4 +1,4 @@
-package by.itechart.flowerty.configuration;
+package test.by.itechart.flowerty.config;
 
 import java.net.UnknownHostException;
 
@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-
-import by.itechart.flowerty.Application;
 
 import com.mongodb.DBAddress;
 import com.mongodb.Mongo;
@@ -19,7 +17,7 @@ import com.mongodb.Mongo;
  *         configuration of mongodb
  */
 @Configuration
-@EnableMongoRepositories(basePackageClasses = Application.class)
+@EnableMongoRepositories(basePackages = { "by.itechart.flowerty.persistence" })
 public class MongoConfiguration extends AbstractMongoConfiguration {
     @Value("${mongo.host}")
     private String host;

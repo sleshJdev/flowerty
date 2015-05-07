@@ -1,20 +1,34 @@
 package by.itechart.flowerty.persistence.model;
 
-import by.itechart.flowerty.solr.model.ContactDocument;
+import java.util.Date;
+import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.client.solrj.beans.Field;
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import java.util.Date;
-import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import by.itechart.flowerty.solr.model.ContactDocument;
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -141,6 +155,7 @@ public class Contact {
     }
 
     @Transient
+    @JsonIgnore
     public String getFullName() {
         String theName = StringUtils.isNotEmpty(name) ? "" : name;
         String theSurname = StringUtils.isNotEmpty(surname) ? "" : surname;
@@ -183,7 +198,6 @@ public class Contact {
 	if(!(obj instanceof Contact)){
 	    return false;
 	}
-	Contact contact = (Contact)obj;
 	return true;
     }
 }

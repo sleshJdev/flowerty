@@ -1,9 +1,5 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.security.CsrfHeaderFilter;
-import by.itechart.flowerty.security.CustomAuthenticationProvider;
-import by.itechart.flowerty.security.TokenBasedRememberMeServices;
-import by.itechart.flowerty.security.handler.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -21,9 +17,18 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import by.itechart.flowerty.security.CsrfHeaderFilter;
+import by.itechart.flowerty.security.CustomAuthenticationProvider;
+import by.itechart.flowerty.security.TokenBasedRememberMeServices;
+import by.itechart.flowerty.security.handler.AccessDeniedHandler;
+import by.itechart.flowerty.security.handler.AuthFailure;
+import by.itechart.flowerty.security.handler.AuthSuccess;
+import by.itechart.flowerty.security.handler.LogoutSuccessHandlerImpl;
+
 /**
  * Created by Rostislav on 26-Mar-15
  */
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebMvcSecurity
 @EnableWebMvc
