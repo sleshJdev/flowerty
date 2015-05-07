@@ -1,8 +1,9 @@
 package by.itechart.flowerty.configuration;
 
-import by.itechart.flowerty.Application;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +15,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import javax.sql.DataSource;
-import java.util.Properties;
+import by.itechart.flowerty.Application;
 
-;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+
 
  
 
@@ -74,7 +77,7 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(configureDataSource());
-		entityManagerFactoryBean.setPackagesToScan("by.itechart.flowerty");
+		entityManagerFactoryBean.setPackagesToScan("by.itechart.flowerty.persistence");
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
 		Properties jpaProperties = new Properties();
@@ -83,7 +86,8 @@ public class JpaConfiguration implements TransactionManagementConfigurer {
 		jpaProperties.put(org.hibernate.cfg.Environment.FORMAT_SQL, formatSql);
 
 		entityManagerFactoryBean.setJpaProperties(jpaProperties);
-
+		entityManagerFactoryBean.getJpaPropertyMap().put("jadira.usertype.autoRegisterUserTypes", "true");
+		
 		return entityManagerFactoryBean;
 	}
 

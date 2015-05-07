@@ -28,7 +28,7 @@ import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
-
+    
     @Autowired
     private PhoneRepository phoneRepository;
 
@@ -100,18 +100,9 @@ public class ContactService {
 	contactRepository.save(contact);
 	
 	if(contact.getPhones() != null){
-	    System.out.println("before saving");
-	    for(Phone phone : contact.getPhones()){
-		    System.out.println(phone.toString());
-	    }
 	    phoneRepository.save(contact.getPhones());
-	    System.out.println("after saving");
-	    for(Phone phone : contact.getPhones()){
-		    System.out.println(phone.toString());
-	    }
 	    phoneRepository.deleteIdNotIn(contact.getId(), processPhonesAndGetId(contact));
 	}
-	
 
 	return contact;
     }

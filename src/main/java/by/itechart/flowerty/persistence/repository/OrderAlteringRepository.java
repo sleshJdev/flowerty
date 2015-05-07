@@ -18,8 +18,6 @@ import java.util.List;
 
 public interface OrderAlteringRepository extends PagingAndSortingRepository<OrderAltering, Long> {
     public OrderAltering findOne(Long id);
-    public OrderAltering save(OrderAltering orderAltering);
-    public void delete (OrderAltering orderAltering);
     public Page<OrderAltering> findByOrder(Order order, Pageable pageable);
     public List<OrderAltering> findByOrder(Order order);
 }

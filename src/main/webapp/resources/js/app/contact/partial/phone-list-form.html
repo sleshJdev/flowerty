@@ -27,7 +27,7 @@
 						data-ng-checked="bundle.state.ischecked(phone)"
 					   	data-ng-change="fake.ischecked ? bundle.state.checked(phone) : bundle.state.unchecked(phone)">
 		    </td>
-			<td>{{phone.country + phone.operator + phone.number}}</td>
+			<td>{{phone.country + '(' + phone.operator + ') ' + phone.number}}</td>
 			<td>{{phone.type | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
 			<td>{{phone.comment}}</td>
 			<td><a href="" data-ng-click="bundle.actions.editPhone(phone)"> <span class="glyphicon glyphicon-edit" data-toggle="modal"

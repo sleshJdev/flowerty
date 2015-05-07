@@ -11,6 +11,7 @@ var app = angular.module('flowertyApplication', [
     'flowertyApplication.contactModule',
     'flowertyApplication.goodsModule',
     'flowertyApplication.orderModule',
+    'flowertyApplication.profileModule',
     'flowertyApplication.utilModule',
     'flowertyApplication.errorModule'])
 

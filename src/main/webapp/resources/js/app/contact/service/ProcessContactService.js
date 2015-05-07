@@ -24,8 +24,8 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
         	for(var i = 0; i < contact.phones.length; ++i) {
         		if(!!contact.phones[i].id) {
         			delete contact.phones[i].id;
-        		};
-        	};
+        		}
+        	}
         	
         	$http({
                 method: "post",
@@ -35,9 +35,9 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
                 console.log("save contact success!");
                 $location.path("show-contacts");
             }).error(function(data, status, headers, config) {
-                console.log("save contact error: " + JSON.stringify(data))//REMOVE_COMMENT
+                console.log("save contact error: " + JSON.stringify(data));//REMOVE_COMMENT
             });
-        }
+        };
         
         /*
          * delete phone. remove all phone at which id < 0
@@ -77,7 +77,7 @@ angular.module("flowertyApplication.contactModule").service("processContactServi
         me.bundle.actions.savePhone = function(newPhone){
             if(!newPhone.id){
             	newPhone.id = -(me.bundle.contact.phones.length + 1);//unique in contact scope
-                me.bundle.contact.phones.push(newPhone)
+                me.bundle.contact.phones.push(newPhone);
                 console.log("add new phone");
             }else{
                 angular.copy(newPhone, me.bundle.originPhone);

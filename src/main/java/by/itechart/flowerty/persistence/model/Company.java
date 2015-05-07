@@ -5,7 +5,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * User: Мария Date: 23.03.15
+ * @author Maria
+ *         Date:  23.03.15
  */
 @Entity
 @Table(name = "company")
@@ -53,5 +54,17 @@ public class Company {
 
     public void setWebsite(String website) {
 	this.website = website;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	//TODO
+	if(!(obj instanceof Company)){
+	    return false;
+	}
+	Company company = (Company) obj;
+	return getId().equals(company.getId()) &&
+		getName().equals(company.getName()) &&
+		getWebsite().equals(company.getWebsite());
     }
 }

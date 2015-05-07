@@ -131,7 +131,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .filter("flowerFullContactName", function() {
 	return function(contact){
-		return (!contact.name ? "" : contact.name) + " " + 
+		return !contact ? "" : (!contact.name ? "" : contact.name) + " " +
 		(!contact.surname ? "" : contact.surname) + " " + 
 		(!contact.fathername ? "" : contact.fathername);
 	}

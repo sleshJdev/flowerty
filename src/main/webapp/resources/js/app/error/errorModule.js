@@ -28,8 +28,11 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
         return {
             responseError: function(rejection) {
 
-				errorDataTransportService.setErrorBundle(rejection);
-				$location.path("error");
+				if (401 !== rejection.status) {
+					errorDataTransportService.setErrorBundle(rejection);
+					$location.path("error");
+				}
+
 				$routeProvider.
                 console.log(JSON.stringify(rejection));//TODO: remove comment
                 return $q.reject(rejection);

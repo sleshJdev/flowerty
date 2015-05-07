@@ -4,11 +4,14 @@
  */
 package by.itechart.flowerty.web.controller;
 
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.web.service.ContactService;
+import by.itechart.flowerty.web.service.RepositorySolrContactService;
 import java.util.ArrayList;
 import java.util.List;
-
 import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.solr.model.ContactDocument;
-import by.itechart.flowerty.web.service.ContactService;
-import by.itechart.flowerty.web.service.RepositorySolrContactService;
-
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
  *
@@ -44,6 +42,8 @@ public class ContactController {
 
     @Autowired
     private RepositorySolrContactService solrContactService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -52,14 +52,12 @@ public class ContactController {
     @RequestMapping(value = {"contact/list/{page}", "tempsearch/contact/list/{page}"})
     public Page<Contact> page(@PathVariable("page") Integer page) {
 	LOGGER.info("get contact page with number {}", page);
-
 	page = (page == null || page < 1) ? 0 : --page;
-	
 	return contactService.getPage(page, 10);
     }
 
     @ResponseBody
-    @RequestMapping(value = "contact/search/{surname}")
+    @RequestMapping(value = "contact/search/{surname}", method = RequestMethod.GET)
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
        // LOGGER.info("search contact");
 
@@ -97,7 +95,7 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/search", method = RequestMethod.POST)
     public Page<Contact> search(@RequestBody ContactDocument contact) {
-	LOGGER.info("search contact");
+	LOGGER.info("findBySearch contact");
 
 	return contactService.findContacts(contact, 0, 10);
     }

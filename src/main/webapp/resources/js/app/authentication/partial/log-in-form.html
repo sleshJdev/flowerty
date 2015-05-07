@@ -1,11 +1,19 @@
 <!-- The form for logging in -->
 <div ng-app="flowertyApplication.authenticationModule">
     <form id="log-in-form" class="form-narrow form-horisontal" ng-submit="logIn()">
-        <div class="alert alert-danger" data-ng-show="current.errorLogin">
-            There was a problem logging in. Please try again.
-        </div>
         <fieldset>
             <legend class="text-center">Log In</legend>
+
+            <div class="alert alert-danger" data-ng-show="current.errorLogin">
+                <p>Unable to log in.</p>
+
+                <p>Please check that you have entered your login and password correctly.</p>
+                <ul>
+                    <li>Is the Caps Lock safely turned off?</li>
+                    <li>Maybe you are using the wrong input language? (e.g. German vs. English)</li>
+                    <li>Try typing your password in a text editor and pasting it into the "Password" field.</li>
+                </ul>
+            </div>
             <br>
 
             <div class="form-group form-horizontal">

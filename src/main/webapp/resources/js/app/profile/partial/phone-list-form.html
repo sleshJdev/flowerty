@@ -1,0 +1,21 @@
+<!-- Form for showing phones -->
+<legend class="small" style="color: grey">PHONES</legend>
+<div data-ng-show="!profile.user.contact.phones.length">
+    <div class="col-md-offset-1">
+        <p>Phone list is empty.</p>
+    </div>
+</div>
+<div data-ng-show="profile.user.contact.phones.length">
+    <table class="table">
+        <tr>
+            <th>Number</th>
+            <th>Type</th>
+            <th>Comment</th>
+        </tr>
+        <tr data-ng-repeat="phone in profile.user.contact.phones">
+            <td>{{phone.country + '(' +  phone.operator + ') ' + phone.number}}</td>
+            <td>{{phone.type | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
+            <td>{{phone.comment}}</td>
+        </tr>
+    </table>
+</div>

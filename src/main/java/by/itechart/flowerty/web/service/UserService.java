@@ -46,6 +46,14 @@ public class UserService {
 	
 		return bundle;
 	}
+
+	public User getUserByLogin(String login){
+		User user = userRepository.findUserByLogin(login);
+
+		user.setPassword(null);
+
+		return user;
+	}
 	
 //	public Page<User> findAll() {
 //		return userRepository.findAll();

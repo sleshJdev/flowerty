@@ -4,7 +4,7 @@
  */
 
 angular.module("flowertyApplication.userModule").controller('UsersController', function ($scope, $http, $location, USER_MODULE_CONSTANTS) {
-	
+
     $scope.users = {
         pagesCount: 1,
         currentPage: 1,
@@ -50,7 +50,7 @@ angular.module("flowertyApplication.userModule").controller('UsersController', f
             console.log("Exception details in UsersController.delete() : " + JSON.stringify({data: data}));
         });
     };
-    
+
     $scope.users.getPageFromServer = function () {
         var request = $http({
             method: "get",
@@ -67,26 +67,22 @@ angular.module("flowertyApplication.userModule").controller('UsersController', f
         });
 
         request.error(function (data, status, headers, config) {
-        	console.log("get user list error");
+            console.log("get user list error");
         });
     };
 
     $scope.users.getPreviousPage = function () {
         if ($scope.users.currentPage > 1) {
             $scope.users.currentPage--;
-        } else {
-            return;
+            $scope.users.getPage($scope.users.currentPage);
         }
-        $scope.users.getPage($scope.users.currentPage);
     };
 
     $scope.users.getNextPage = function () {
         if ($scope.users.currentPage < $scope.users.pagesCount) {
             $scope.users.currentPage++;
-        } else {
-            return;
+            $scope.users.getPage($scope.users.currentPage);
         }
-        $scope.users.getPage($scope.users.currentPage);
     };
 
     $scope.users.getPagesCount = function () {
