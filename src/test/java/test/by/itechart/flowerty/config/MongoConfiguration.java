@@ -3,7 +3,9 @@ package test.by.itechart.flowerty.config;
 import java.net.UnknownHostException;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -16,9 +18,14 @@ import com.mongodb.Mongo;
  *
  *         configuration of mongodb
  */
+
 @Configuration
-@EnableMongoRepositories(basePackages = { "by.itechart.flowerty.persistence" })
+@Profile("test")
+@EnableMongoRepositories
+@ComponentScan(basePackages = { MongoConfiguration.TO_SCAN })
 public class MongoConfiguration extends AbstractMongoConfiguration {
+    protected static final String TO_SCAN = "by.itechart.flowerty.persistence.mongo";
+
     @Value("${mongo.host}")
     private String host;
 
@@ -48,7 +55,7 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     protected String getMappingBasePackage() {
-	return "by.itechart.flowerty.persistence";
+	return MongoConfiguration.TO_SCAN;
     }
 
     @Override
