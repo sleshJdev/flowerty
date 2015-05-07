@@ -5,6 +5,7 @@
 
 var app = angular.module('flowertyApplication', [
     'ngRoute',
+    'ngStorage',
     'flowertyApplication.userModule',
     'flowertyApplication.authenticationModule',
     'flowertyApplication.contactModule',

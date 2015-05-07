@@ -45,6 +45,9 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             url: 'order/save',
             data: $scope.bundle.order
         }).success(function(data, status, headers, config){
+
+            //  Makes the basket empty
+            $scope.current.resetBasket();
             $location.path('/');
         }).error(function(data, status, headers, config){
             console.log("Exception details in OrderAddController.save() : " + JSON.stringify({data: data}));
@@ -66,9 +69,6 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             $scope.bundle.order.cost = $scope.current.basket.info.fullCost;
             getDeliveryManagers();
             getOrderProcessors();
-
-            //  Makes the basket empty
-            $scope.current.resetBasket();
         }).error(function(data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));
             $location.path("add-order");

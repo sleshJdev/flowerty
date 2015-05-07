@@ -3,7 +3,7 @@
  * Created by Катерина on 20.04.2015.
  */
 
-angular.module('flowertyApplication').controller('MainController', function ($scope, $http, $location, $filter, sessionService) {
+angular.module('flowertyApplication').controller('MainController', function ($scope, $http, $location, $filter, sessionService, $localStorage) {
 
     sessionService.setLoggedUser($scope);
 
@@ -17,6 +17,7 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
         $scope.current.basket.info.itemsCount = 0;
         $scope.current.basket.info.fullCost = 0;
         $scope.current.basket.items = {};
+        delete $localStorage.cart;
     };
 
     $scope.current.basket = {
