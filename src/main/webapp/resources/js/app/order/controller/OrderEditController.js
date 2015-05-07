@@ -98,7 +98,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
             state : $scope.temp.newState,
             comment : $scope.temp.comment
         };
-        $scope.bundle.order.state = $scope.orderAltering.state;
+        $scope.bundle.order.state = $scope.bundle.orderAltering.state;
     };
 
     $scope.temp = {

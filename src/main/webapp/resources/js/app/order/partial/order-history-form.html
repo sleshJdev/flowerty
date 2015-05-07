@@ -9,7 +9,8 @@
             <th>who changed</th>
             <th>comment</th>
         </tr>
-        <tr data-ng-repeat="orderAltering in changes.orderAlterings" >
+        <tr class="{{orderAltering.state.description | lowercase}}"
+                data-ng-repeat="orderAltering in changes.orderAlterings" >
             <td>{{orderAltering.date}}</td>
             <td>{{orderAltering.state.description}}</td>
             <td>{{orderAltering.user.login}}</td>

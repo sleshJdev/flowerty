@@ -121,8 +121,12 @@ public class OrderService {
             case IMPOSSIBLE:{
                 return true;
             }
+            case NEW:{
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.SUPERVISOR.toString())
+                        && currentState.getDescription() == State.DESCRIPTION_TYPE.IMPOSSIBLE;
+            }
             case ACCEPTED:{
-                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.ORDERS_PROCESSOR.toString())
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.ORDERS_MANAGER.toString())
                         && currentState.getDescription() == State.DESCRIPTION_TYPE.NEW;
             }
             case PROCESSING:{
@@ -130,7 +134,7 @@ public class OrderService {
                         && currentState.getDescription() == State.DESCRIPTION_TYPE.ACCEPTED;
             }
             case READY:{
-                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.DELIVERY_MANAGER.toString())
+                return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.ORDERS_PROCESSOR.toString())
                         && currentState.getDescription() == State.DESCRIPTION_TYPE.PROCESSING;
             }
             case DELIVERY:{

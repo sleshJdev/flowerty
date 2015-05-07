@@ -149,3 +149,36 @@ a:hover{
     z-index: 1000;
     border: solid #33baaf 3px;
 }
+
+.new{
+    font-weight: bold;
+}
+
+.accepted{
+    background-color: #F5EFFB;
+}
+
+.processing{
+    background-color: #E6E0F8;
+}
+
+.ready{
+    background-color: #E3CEF6;
+}
+
+.delivery{
+    background-color: #D0A9F5;
+}
+
+.closed{
+    background-color: #BE81F7;
+}
+
+.canceled{
+    background-color: #F79F81;
+    font-weight: bold;
+}
+
+.impossible{
+    color: #999999;
+}
