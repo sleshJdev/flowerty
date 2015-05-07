@@ -1,7 +1,7 @@
 package by.itechart.flowerty.security;
 
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -21,8 +20,7 @@ import java.util.Collection;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    @Qualifier("userDetailsService")
-    UserDetailsService userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

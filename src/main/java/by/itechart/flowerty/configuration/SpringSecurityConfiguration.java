@@ -7,8 +7,8 @@ import by.itechart.flowerty.security.handler.AccessDeniedHandler;
 import by.itechart.flowerty.security.handler.AuthFailure;
 import by.itechart.flowerty.security.handler.AuthSuccess;
 import by.itechart.flowerty.security.handler.LogoutSuccessHandlerImpl;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -62,7 +61,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/profile")
                 .authenticated()
                 .antMatchers("/contact/**")
-                .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER', 'ROLE_ADMIN')")
+                .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())
@@ -113,8 +112,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    @Qualifier("userDetailsService")
-    UserDetailsService userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     private final String KEY = "e9862d10db8e7de7877e9d28ef8153b4f0e209b8";
 

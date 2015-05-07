@@ -7104,7 +7104,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
      * Looks for directives on the given node and adds them to the directive collection which is
      * sorted.
      *
-     * @param node Node to search.
+     * @param node Node to find.
      * @param directives An array to which the directives are added to. This array is sorted before
      *        the function returns.
      * @param attrs The shared attrs object which is used to populate the normalized attributes.
@@ -10839,7 +10839,7 @@ var locationPrototype = {
    *
    * Return url (e.g. `/path?a=b#hash`) when called without any parameter.
    *
-   * Change path, search and hash, when called with parameter and return `$location`.
+   * Change path, find and hash, when called with parameter and return `$location`.
    *
    *
    * ```js
@@ -10954,39 +10954,39 @@ var locationPrototype = {
 
   /**
    * @ngdoc method
-   * @name $location#search
+   * @name $location#find
    *
    * @description
    * This method is getter / setter.
    *
-   * Return search part (as object) of current url when called without any parameter.
+   * Return find part (as object) of current url when called without any parameter.
    *
-   * Change search part when called with parameter and return `$location`.
+   * Change find part when called with parameter and return `$location`.
    *
    *
    * ```js
    * // given url http://example.com/#/some/path?foo=bar&baz=xoxo
-   * var searchObject = $location.search();
+   * var searchObject = $location.find();
    * // => {foo: 'bar', baz: 'xoxo'}
    *
    * // set foo to 'yipee'
-   * $location.search('foo', 'yipee');
-   * // $location.search() => {foo: 'yipee', baz: 'xoxo'}
+   * $location.find('foo', 'yipee');
+   * // $location.find() => {foo: 'yipee', baz: 'xoxo'}
    * ```
    *
-   * @param {string|Object.<string>|Object.<Array.<string>>} search New search params - string or
+   * @param {string|Object.<string>|Object.<Array.<string>>} search New find params - string or
    * hash object.
    *
-   * When called with a single argument the method acts as a setter, setting the `search` component
+   * When called with a single argument the method acts as a setter, setting the `find` component
    * of `$location` to the specified value.
    *
    * If the argument is a hash object containing an array of values, these values will be encoded
-   * as duplicate search parameters in the url.
+   * as duplicate find parameters in the url.
    *
-   * @param {(string|Number|Array<string>|boolean)=} paramValue If `search` is a string or number, then `paramValue`
-   * will override only a single search property.
+   * @param {(string|Number|Array<string>|boolean)=} paramValue If `find` is a string or number, then `paramValue`
+   * will override only a single find property.
    *
-   * If `paramValue` is an array, it will override the property of the `search` component of
+   * If `paramValue` is an array, it will override the property of the `find` component of
    * `$location` specified via the first argument.
    *
    * If `paramValue` is `null`, the property specified via the first argument will be deleted.
@@ -10994,7 +10994,7 @@ var locationPrototype = {
    * If `paramValue` is `true`, the property specified via the first argument will be added with no
    * value nor trailing equal sign.
    *
-   * @return {Object} If called with no arguments returns the parsed `search` object. If called with
+   * @return {Object} If called with no arguments returns the parsed `find` object. If called with
    * one or more arguments returns `$location` object itself.
    */
   search: function(search, paramValue) {
@@ -11015,7 +11015,7 @@ var locationPrototype = {
           this.$$search = search;
         } else {
           throw $locationMinErr('isrcharg',
-              'The first argument of the `$location#search()` call must be a string or an object.');
+              'The first argument of the `$location#find()` call must be a string or an object.');
         }
         break;
       default:
@@ -11150,7 +11150,7 @@ function locationGetterSetter(property, preprocess) {
  *   - Changes the address bar.
  *   - Clicks the back or forward button (or clicks a History link).
  *   - Clicks on a link.
- * - Represents the URL object as a set of methods (protocol, host, port, path, search, hash).
+ * - Represents the URL object as a set of methods (protocol, host, port, path, find, hash).
  *
  * For more information see {@link guide/$location Developer Guide: Using $location}
  */
@@ -11173,7 +11173,7 @@ function $LocationProvider() {
    * @ngdoc method
    * @name $locationProvider#hashPrefix
    * @description
-   * @param {string=} prefix Prefix for hash part (containing path and search)
+   * @param {string=} prefix Prefix for hash part (containing path and find)
    * @returns {*} current value if used as getter or itself (chaining) if used as setter
    */
   this.hashPrefix = function(prefix) {
@@ -16069,7 +16069,7 @@ function $$TestabilityProvider() {
      * Returns an array of elements that are bound (via ng-bind or {{}})
      * to expressions matching the input.
      *
-     * @param {Element} element The element root to search from.
+     * @param {Element} element The element root to find from.
      * @param {string} expression The binding expression to match.
      * @param {boolean} opt_exactMatch If true, only returns exact matches
      *     for the expression. Filters and whitespace are ignored.
@@ -16104,7 +16104,7 @@ function $$TestabilityProvider() {
      * Returns an array of elements that are two-way found via ng-model to
      * expressions matching the input.
      *
-     * @param {Element} element The element root to search from.
+     * @param {Element} element The element root to find from.
      * @param {string} expression The model expression to match.
      * @param {boolean} opt_exactMatch If true, only returns exact matches
      *     for the expression.
@@ -16126,7 +16126,7 @@ function $$TestabilityProvider() {
      *
      * @description
      * Shortcut for getting the location in a browser agnostic way. Returns
-     *     the path, search, and hash. (e.g. /path?a=b#hash)
+     *     the path, find, and hash. (e.g. /path?a=b#hash)
      */
     testability.getLocation = function() {
       return $location.url();
@@ -16138,7 +16138,7 @@ function $$TestabilityProvider() {
      * @description
      * Shortcut for navigating to a location without doing a full page reload.
      *
-     * @param {string} url The location url (path, search and hash,
+     * @param {string} url The location url (path, find and hash,
      *     e.g. /path?a=b#hash) to go to.
      */
     testability.setLocation = function(url) {
@@ -16303,7 +16303,7 @@ var originUrl = urlResolve(window.location.href);
  *   | href          | A normalized version of the provided URL if it was not an absolute URL |
  *   | protocol      | The protocol including the trailing colon                              |
  *   | host          | The host and port (if the port is non-default) of the normalizedUrl    |
- *   | search        | The search params, minus the question mark                             |
+ *   | find        | The find params, minus the question mark                             |
  *   | hash          | The hash string, minus the hash symbol
  *   | hostname      | The hostname
  *   | port          | The port, without ":"
@@ -16616,13 +16616,13 @@ function $FilterProvider($provide) {
          </tr>
        </table>
        <hr>
-       Any: <input ng-model="search.$"> <br>
-       Name only <input ng-model="search.name"><br>
-       Phone only <input ng-model="search.phone"><br>
+       Any: <input ng-model="find.$"> <br>
+       Name only <input ng-model="find.name"><br>
+       Phone only <input ng-model="find.phone"><br>
        Equality <input type="checkbox" ng-model="strict"><br>
        <table id="searchObjResults">
          <tr><th>Name</th><th>Phone</th></tr>
-         <tr ng-repeat="friendObj in friends | filter:search:strict">
+         <tr ng-repeat="friendObj in friends | filter:find:strict">
            <td>{{friendObj.name}}</td>
            <td>{{friendObj.phone}}</td>
          </tr>
@@ -16637,7 +16637,7 @@ function $FilterProvider($provide) {
          });
        };
 
-       it('should search across all fields when filtering with a string', function() {
+       it('should find across all fields when filtering with a string', function() {
          var searchText = element(by.model('searchText'));
          searchText.clear();
          searchText.sendKeys('m');
@@ -16648,14 +16648,14 @@ function $FilterProvider($provide) {
          expectFriendNames(['John', 'Julie'], 'friend');
        });
 
-       it('should search in specific fields when filtering with a predicate object', function() {
-         var searchAny = element(by.model('search.$'));
+       it('should find in specific fields when filtering with a predicate object', function() {
+         var searchAny = element(by.model('find.$'));
          searchAny.clear();
          searchAny.sendKeys('i');
          expectFriendNames(['Mary', 'Mike', 'Julie', 'Juliette'], 'friendObj');
        });
        it('should use a equal comparison when comparator is true', function() {
-         var searchName = element(by.model('search.name'));
+         var searchName = element(by.model('find.name'));
          var strict = element(by.model('strict'));
          searchName.clear();
          searchName.sendKeys('Julie');
@@ -24152,7 +24152,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
         {name:'Samantha', age:60, gender:'girl'}
       ]">
         I have {{friends.length}} friends. They are:
-        <input type="search" ng-model="q" placeholder="filter friends..." />
+        <input type="find" ng-model="q" placeholder="filter friends..." />
         <ul class="example-animate-container">
           <li class="animate-repeat" ng-repeat="friend in friends | filter:q as results">
             [{{$index + 1}}] {{friend.name}} who is {{friend.age}} years old.

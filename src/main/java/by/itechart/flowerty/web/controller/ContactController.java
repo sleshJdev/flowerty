@@ -4,11 +4,11 @@
  */
 package by.itechart.flowerty.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.web.service.ContactService;
+import by.itechart.flowerty.web.service.RepositorySolrContactService;
 import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,16 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.solr.model.ContactDocument;
-import by.itechart.flowerty.web.service.ContactService;
-import by.itechart.flowerty.web.service.RepositorySolrContactService;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015

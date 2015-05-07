@@ -69,10 +69,48 @@ public class SecurityRequestsTests {
     @Test
     public void requestProtectedUrlWithAdmin() throws Exception {
         mvc
-                .perform(get("/admin").with(user("admin").password("password").roles("ADMIN")))
+                .perform(get("/user/list/page=1&limit=10").with(user("admin").password("admin").roles("ADMIN")))
                 .andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"));
+                .andExpect(authenticated().withUsername("admin"))
+        ;
     }
+
+    @Test
+    public void requestProtectedUrlWithSupervisor() throws Exception {
+        mvc
+                .perform(get("/user/details/1").with(user("supervisor").password("supervisor").roles("SUPERVISOR")))
+                .andExpect(status().isForbidden())
+                .andExpect(authenticated().withUsername("supervisor"))
+        ;
+    }
+
+    @Test
+    public void requestProtectedUrlWithDeliveryManager() throws Exception {
+        mvc
+                .perform(get("/user/details/1").with(user("delivery_manager").password("delivery_manager").roles("DELIVERY_MANAGER")))
+                .andExpect(status().isForbidden())
+                .andExpect(authenticated().withUsername("delivery_manager"))
+        ;
+    }
+
+    @Test
+    public void requestProtectedUrlWithOrdersManager() throws Exception {
+        mvc
+                .perform(get("/user/details/1").with(user("orders_manager").password("orders_manager").roles("ORDERS_MANAGER")))
+                .andExpect(status().isForbidden())
+                .andExpect(authenticated().withUsername("orders_manager"))
+        ;
+    }
+
+    @Test
+    public void requestProtectedUrlWithOrdersProcessor() throws Exception {
+        mvc
+                .perform(get("/user/details/1").with(user("orders_processor").password("orders_processor").roles("ORDERS_PROCESSOR")))
+                .andExpect(status().isForbidden())
+                .andExpect(authenticated().withUsername("orders_processor"))
+        ;
+    }
+
 
     @Test
     public void requestProtectedUrlWithUserDetails() throws Exception {
@@ -86,7 +124,7 @@ public class SecurityRequestsTests {
 
     @Test
     public void requestProtectedUrlWithAuthentication() throws Exception {
-        Authentication authentication = new TestingAuthenticationToken("test", "notused", "ROLE_USER");
+        Authentication authentication = new TestingAuthenticationToken("supervisor", "supervisor", "ROLE_SUPERVISOR");
         mvc
                 .perform(get("/").with(authentication(authentication)))
                 .andExpect(status().isOk())

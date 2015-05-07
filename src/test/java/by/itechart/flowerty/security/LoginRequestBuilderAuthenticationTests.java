@@ -16,6 +16,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,13 +52,12 @@ public class LoginRequestBuilderAuthenticationTests {
                 .build();
     }
 
-    @Test
     public void authenticationSuccess() throws Exception {
         mvc
-                .perform(login())
-                .andExpect(status().isOk())
-                .andExpect(redirectedUrl(null))
-//                .andExpect(authenticated().withUsername("username"))
+                .perform(login().user("test").password("test"))
+                .andExpect(status().isMovedTemporarily())
+                .andExpect(redirectedUrl("/login"))
+                .andExpect(authenticated())
         ;
     }
 
@@ -64,17 +65,28 @@ public class LoginRequestBuilderAuthenticationTests {
     public void authenticationFailed() throws Exception {
         mvc
                 .perform(login().user("incorrect").password("incorrect"))
-                .andExpect(status().isOk())
+                .andExpect(status().isUnauthorized())
                 .andExpect(redirectedUrl(null))
                 .andExpect(unauthenticated())
         ;
     }
 
+
     static FormLoginRequestBuilder login() {
         return SecurityMockMvcRequestBuilders
-                .formLogin("/#/login")
+                .formLogin("/login")
                 .userParameter("username")
                 .passwordParam("password")
-        ;
+                ;
+    }
+
+    @Test
+    public void authenticationSuccess1() throws Exception {
+        mvc
+                .perform(formLogin("/login").user("test"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(redirectedUrl(null))
+                .andExpect(unauthenticated())
+                ;
     }
 }

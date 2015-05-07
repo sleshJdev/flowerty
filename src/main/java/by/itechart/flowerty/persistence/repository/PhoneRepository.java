@@ -6,9 +6,4 @@ import by.itechart.flowerty.persistence.model.Phone;
 
 public interface PhoneRepository extends PagingAndSortingRepository<Phone, Long>, PhoneRepositoryCustom{
     public Phone findOne(Long id);
-
-    @SuppressWarnings("unchecked")
-    public Phone save(Phone phone);
-
-    public void delete(Long id);
 }

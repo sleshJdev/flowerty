@@ -1,7 +1,6 @@
 package by.itechart.flowerty.configuration;
 
-import java.io.File;
-
+import by.itechart.flowerty.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import by.itechart.flowerty.Application;
+import java.io.File;
 
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
@@ -39,7 +38,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Bean
     public CommonsMultipartResolver multipartResolver() {
 	CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-	resolver.setMaxUploadSize(100_000_000);// 10mb
+	resolver.setMaxUploadSize(100_000_000);// 100mb
 
 	return resolver;
     }
