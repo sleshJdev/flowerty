@@ -10,8 +10,8 @@ import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.mongodb.DBAddress;
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 
 /**
  * @author Eugene Putsykovich(slesh) May 6, 2015
@@ -60,8 +60,7 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws UnknownHostException {
-	DBAddress address = new DBAddress(host, port, getDatabaseName());
-	Mongo mongo = Mongo.connect(address).getMongo();
+	Mongo mongo = new MongoClient(host, port);
 
 	return mongo;
     }
