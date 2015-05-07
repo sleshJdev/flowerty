@@ -25,6 +25,7 @@
                                 data-ng-model="search.user.selected"
                                 data-ng-click="dynamicSearch.selectContact(search.user)">
                         </select>
+
                         <div data-ng-show="error.emptyContact">
                             <p class="text-center alert-danger">You can't leave this empty..</p>
                         </div>
@@ -38,6 +39,7 @@
                                 data-ng-model="bundle.user.role.id"
                                 data-ng-options="r.id as r.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' ' for r in bundle.roles">
                         </select>
+
                         <div data-ng-show="error.emptyRole">
                             <p class="text-center alert-danger">You can't leave this empty..</p>
                         </div>
@@ -57,6 +59,7 @@
                     <div class="col-sm-6">
                         <input type="text" class="form-control" data-ng-model="bundle.user.login"
                                placeholder="Login">
+
                         <div data-ng-show="error.emptyLogin">
                             <p class="text-center alert-danger">You can't leave this empty..</p>
                         </div>
@@ -69,6 +72,7 @@
                     <div class="col-sm-6">
                         <input type="password" class="form-control" data-ng-model="bundle.user.password"
                                placeholder="Password">
+
                         <div data-ng-show="error.emptyPassword">
                             <p class="text-center alert-danger">You can't leave this empty..</p>
                         </div>
@@ -80,18 +84,21 @@
                     <div class="col-sm-6">
                         <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm"
                                placeholder="Password">
-                        <div data-ng-show="bundle.user.password != bundle.passwordConfirm">
+
+                        <div data-ng-show="bundle.user.password && bundle.user.password != bundle.passwordConfirm">
                             <p class="text-center alert-danger">These passwords don't match.</p>
                         </div>
                     </div>
                 </div>
                 <br>
+
                 <div class="form-group">
                     <div class="col-sm-6">
                         <a href="#users" class="col-sm-4 btn btn-default btn-lg pull-right">Cancel</a>
                     </div>
                     <div class="col-sm-6">
-                        <button data-ng-click="save()" class="col-sm-4 btn btn-success btn-lg">{{option.actionButton}}</button>
+                        <button data-ng-click="save()" class="col-sm-4 btn btn-success btn-lg">{{option.actionButton}}
+                        </button>
                     </div>
                 </div>
             </form>
