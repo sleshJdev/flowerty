@@ -73,7 +73,7 @@ public class OrderService {
                 orderEditBundle.getOrderAltering().setOrder(savedOrder);
                 orderEditBundle.getOrderAltering().setUser(editingUser);
                 orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
-                OrderAltering orderAltering = orderAlteringRepository.save(orderEditBundle.getOrderAltering());
+                orderAlteringRepository.save(orderEditBundle.getOrderAltering());
             }
         }
         return savedOrder;

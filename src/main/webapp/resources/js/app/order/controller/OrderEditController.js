@@ -3,10 +3,14 @@
  * Created by Катерина on 21.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderEditController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
+angular.module("flowertyApplication.orderModule").controller('OrderEditController', ['$scope', '$http', '$location', '$routeParams', 'ORDER_MODULE_CONSTANTS', function($scope, $http, $location, $routeParams, ORDER_MODULE_CONSTANTS) {
 
     $scope.access = {
         canChangeStaff : $scope.current.user.role === 'ROLE_SUPERVISOR'
+    };
+
+    $scope.partial = {
+        stateChange : ORDER_MODULE_CONSTANTS.ORDER_STATE_CHANGE_FORM
     };
 
     $scope.init = function(){
@@ -75,7 +79,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
     $scope.orderAction = {};
 
     $scope.orderAction.changeState = function (state) {
-        $scope.temp.state = state;
+        $scope.temp.newState = state;
     };
 
     $scope.orderAction.save = function () {
@@ -90,15 +94,15 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
     };
 
     $scope.orderAction.saveStateChanges = function () {
-        $scope.orderAltering = {
-            state : $scope.temp.state,
+        $scope.bundle.orderAltering = {
+            state : $scope.temp.newState,
             comment : $scope.temp.comment
         };
         $scope.bundle.order.state = $scope.orderAltering.state;
     };
 
     $scope.temp = {
-        state : {},
+        newState : {},
         comment : ''
     };
 }]);
