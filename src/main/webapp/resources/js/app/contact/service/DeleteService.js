@@ -1,6 +1,7 @@
 'use strict';
-
 /*
+ * @author Eugene Putsykovich(slesh) May 8, 2015
+ * 
  * remove item from collection
  */
 angular.module("flowertyApplication.contactModule").service("deleteService",

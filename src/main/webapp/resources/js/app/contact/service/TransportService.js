@@ -1,8 +1,9 @@
 'use strict';
-
 /*
- * for pass parameter for search from ContactListController to SendEmailController.
- * he will be pass emails of contacts.
+ * @author Eugene Putsykovich(slesh) May 8, 2015
+ * 
+ * for pass parameter for search from ContactListController to
+ * SendEmailController. he will be pass emails of contacts.
  */
 angular.module("flowertyApplication.contactModule").service("transportService", function() {
     var value = "";

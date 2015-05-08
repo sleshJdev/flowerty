@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+ * @author Eugene Putsykovich(slesh) Apr 5, 2015
+ *
+ *	show contact list
+ */
 angular.module("flowertyApplication.contactModule").controller("ContactListController", 
 		["$scope", "$http", "$location", "transportService", "deleteService", "contactListService", "stateSaverService",
 		 function($scope, $http, $location, transportService, deleteService, contactListService, stateSaverService) {
