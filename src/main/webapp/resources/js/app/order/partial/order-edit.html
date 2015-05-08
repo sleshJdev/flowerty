@@ -1,8 +1,8 @@
 
 <!-- Form for editing or creating an order -->
 <div data-ng-app="flowertyApplication.orderModule">
-    <h1 data-ng-show="!option.edit">Checkout!</h1>
-    <h1 data-ng-show="option.edit">Edit order</h1>
+    <h1 data-ng-show="!bundle.order.id">Checkout!</h1>
+    <h1 data-ng-show="bundle.order.id">Edit order <a href="#order-history/{{bundle.order.id}}">#{{bundle.order.id}} <span class="glyphicon glyphicon-time"></span></a></h1>
     <form class="form-horizontal col-md-offset-1 col-md-10">
         <div class="form-group form-group-lg">
             <label for="state" class="col-sm-2 control-label">State</label>
@@ -116,27 +116,25 @@
         </div>
         <div class="form-group">
             <label for="orders-processor" class="col-sm-2 control-label">Orders processor</label>
-            <div class="col-sm-10" data-ng-show="bundle.order.id">
+            <div class="col-sm-10" data-ng-show="bundle.order.id && !access.canChangeStaff">
                 <p class="form-control-static">{{bundle.order.staff.login}}</p>
             </div>
             <div class="col-sm-10" data-ng-show="!bundle.order.id || access.canChangeStaff">
                 <select class="form-control" id="orders-processor"
                         data-ng-model="bundle.order.staff"
                         data-ng-options="processor as processor.login for processor in staff.processors">
-                    <option value="" disabled selected >click to change</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label for="delivery-manager" class="col-sm-2 control-label">Delivery manager</label>
-            <div class="col-sm-10" data-ng-show="bundle.order.id">
+            <div class="col-sm-10" data-ng-show="bundle.order.id && !access.canChangeStaff">
                 <p class="form-control-static">{{bundle.order.delivery.login}}</p>
             </div>
             <div class="col-sm-10" data-ng-show="!bundle.order.id || access.canChangeStaff">
                 <select class="form-control" id="delivery-manager"
                         data-ng-model="bundle.order.delivery"
                         data-ng-options="deliveryManager as deliveryManager.login for deliveryManager in staff.deliveryManagers">
-                    <option value="" disabled selected >click to change</option>
                 </select>
             </div>
         </div>
@@ -167,4 +165,7 @@
             </div>
         </div>
     </div>
+
+    <!-- Partials -->
+    <div data-ng-include="partial.stateChange"></div>
 </div>

@@ -3,7 +3,9 @@
  * Created by Катерина on 20.04.2015.
  */
 
-angular.module("flowertyApplication.goodsModule").controller("GoodsListController", ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
+angular.module("flowertyApplication.goodsModule").controller("GoodsListController",
+    ['$scope', '$http', '$location', '$filter', '$localStorage', 'GOODS_MODULE_CONSTANTS',
+        function($scope, $http, $location, $filter, $localStorage, GOODS_MODULE_CONSTANTS) {
 
     $scope.goods = {
         pages : [],
@@ -12,70 +14,19 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
         goodsArray : []
     };
 
-/*
-    $scope.goods.goodsArray = [
-        [
-            {
-                imageName : 'flowers-iris.jpg',
-                flower : { name : 'Iris' },
-                cost : 13,
-                //  This is the count of items you want to order
-                //  Default is 1
-                quantity : 1,
-                ordered : false
-            },
-            {
-                imageName : 'orchid_rose.jpg',
-                flower : { name : 'Buquet orchid+rose' },
-                cost : 50,
-                //  This is the count of items you want to order
-                //  Default is 1
-                quantity : 1,
-                ordered : false
-            },
-            {
-                imageName : 'bush-rose.jpg',
-                flower : { name : 'Bush rose' },
-                cost : 17,
-                //  This is the count of items you want to order
-                //  Default is 1
-                count : 1,
-                ordered : false
-            }
-        ],
-        [
-            {
-                imageName : 'violet-pion.jpg',
-                flower : { name : 'Pion' },
-                cost : 20,
-                //  This is the count of items you want to order
-                //  Default is 1
-                quantity : 1,
-                ordered : false
-            },
-            {
-                imageName : 'coral-pion.jpg',
-                flower : { name : 'Coral pion' },
-                cost : 20,
-                //  This is the count of items you want to order
-                //  Default is 1
-                quantity : 1,
-                ordered : false
-            }
-        ]
-    ];
-*/
     $scope.goods.initGoodsArray = function(goodsArray){
-        var rows = Math.ceil(goodsArray.length / 3);
-        var cols = 3;
+        var cols = GOODS_MODULE_CONSTANTS.COLUMN_NUMBER;
         var resultMatrix = [];
-        var i, j, goodsArrayInd = 0;
-        for(i = 0; i < rows && goodsArrayInd < goodsArray.length; i++){
-            resultMatrix.push([]);
-            for(j = 0; j < cols && goodsArrayInd < goodsArray.length; j++, goodsArrayInd++){
-                goodsArray[goodsArrayInd].count = 1;
-                resultMatrix[i].push(goodsArray[goodsArrayInd]);
+        var i, j, goodsArrayInd = 0, rowIndex;
+        for(i = 0; i < goodsArray.length; i++) {
+
+            goodsArray[i].count = $scope.current.basket.items[goodsArray[i].id] ?
+                $scope.current.basket.items[goodsArray[i].id].quantity :
+                1;
+            if(!(i % cols)){
+                resultMatrix.push([]);
             }
+            resultMatrix[Math.floor(i / cols)].push(goodsArray[i]);
         }
         return resultMatrix;
     };
@@ -128,46 +79,68 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
         return $scope.goods.pagesCount;
     };
 
+    var getOrderItem = function (goodsItem) {
+        return {
+            goods: goodsItem,
+            quantity: goodsItem.count
+        };
+    };
+
     $scope.goods.makeOrder = function(goodsItem){
-        goodsItem.ordered = true;
-        $scope.current.basket.items.push(goodsItem);
+
+        $scope.current.basket.items[goodsItem.id] = getOrderItem(goodsItem);
         $scope.current.basket.info.itemsCount += goodsItem.count;
         $scope.current.basket.info.fullCost += goodsItem.cost * goodsItem.count;
+        $localStorage.cart = $scope.current.basket;
     };
 
     $scope.goods.removeFromOrder = function(goodsItem) {
-        var index = $scope.current.basket.items.indexOf(goodsItem);
-        if (index !== -1) {
-            $scope.current.basket.items.splice(index, 1);
-            goodsItem.ordered = false;
-            $scope.current.basket.info.itemsCount -= goodsItem.count;
-            $scope.current.basket.info.fullCost -= goodsItem.cost * goodsItem.count;
+        if ($scope.current.basket.items[goodsItem.id]) {
+            $scope.current.basket.info.itemsCount -= $scope.current.basket.items[goodsItem.id].quantity;
+            $scope.current.basket.info.fullCost -= goodsItem.cost * $scope.current.basket.items[goodsItem.id].quantity;
+            delete $scope.current.basket.items[goodsItem.id];
             goodsItem.count = 1;
         }
+        $localStorage.cart = $scope.current.basket;
     };
 
     $scope.goods.less = function(goodsItem){
         if(goodsItem.count > 1) {
             goodsItem.count--;
-            var index = $scope.current.basket.items.indexOf(goodsItem);
-            if (index !== -1) {
+
+            //  If it's already in cart, we also change count in it
+            if($scope.current.basket.items[goodsItem.id]){
+                $scope.current.basket.items[goodsItem.id].quantity--;
                 $scope.current.basket.info.itemsCount--;
                 $scope.current.basket.info.fullCost -= goodsItem.cost;
+                $localStorage.cart = $scope.current.basket;
             }
         }
-
     };
 
-    $scope.goods.more = function(goodsItem){
-        goodsItem.count++;
-        var index = $scope.current.basket.items.indexOf(goodsItem);
-        if (index !== -1) {
-            $scope.current.basket.info.itemsCount++;
-            $scope.current.basket.info.fullCost += goodsItem.cost;
+    $scope.goods.more = function(goodsItem) {
+        console.log(goodsItem.remain);
+        if (goodsItem.count < goodsItem.remain) {
+            goodsItem.count++;
+
+            //  If it's already in cart, we also change count in it
+            if($scope.current.basket.items[goodsItem.id]){
+                $scope.current.basket.items[goodsItem.id].quantity++;
+                $scope.current.basket.info.itemsCount++;
+                $scope.current.basket.info.fullCost += goodsItem.cost;
+                $localStorage.cart = $scope.current.basket;
+            }
         }
     };
 
-    $scope.init = function(){
+    $scope.goods.getGoodsItemClass = function(goodsItem){
+        return $scope.current.basket.items[goodsItem.id] ? 'in-cart' : '';
+    };
+
+    $scope.init = function() {
+        if ($localStorage.cart) {
+            $scope.current.basket = $localStorage.cart;
+        }
         $scope.goods.getPage(1);
         $scope.pagination.getNextPage = $scope.goods.getNextPage;
         $scope.pagination.getPreviousPage = $scope.goods.getPreviousPage;

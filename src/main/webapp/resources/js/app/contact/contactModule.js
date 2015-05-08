@@ -53,7 +53,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         }
     }
 })())
-
+ 
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
     $routeProvider
         .when("/contact-list", {

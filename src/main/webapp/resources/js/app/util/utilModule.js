@@ -128,7 +128,6 @@ angular.module("flowertyApplication.utilModule", [])
 
             console.log('Searching by surname: ' + enteredSurname);
 
-            //  Simulation
             $http({
                 url: 'contact/search/' + enteredSurname,
                 method: 'GET'
