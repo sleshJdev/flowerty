@@ -78,7 +78,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 				me.state.checkeds.splice(findById(entityWithId.id).index, 1);
 			},
 			ischecked: function(entityWithId) {
-				return findById(entityWithId.id).index !== -1 ? true : false; 
+				return findById(entityWithId.id).index !== -1;
 			},
 			isempty: function(){
 				return me.state.checkeds.length === 0;
