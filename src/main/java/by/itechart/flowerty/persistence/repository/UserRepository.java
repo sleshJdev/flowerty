@@ -6,9 +6,12 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface UserRepository extends PagingAndSortingRepository <User, Long> {
-	public User findUserByLoginAndPassword(String login, String password);
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
+    public User findUserByLoginAndPassword(String login, String password);
+
     public User findUserByLogin(String login);
+
     public User findOne(Long id);
+
     public List<User> findByRole(Role role);
 }

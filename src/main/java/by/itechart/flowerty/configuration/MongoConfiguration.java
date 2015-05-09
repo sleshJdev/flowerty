@@ -9,10 +9,8 @@ import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import by.itechart.flowerty.Application;
-
-import com.mongodb.DBAddress;
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 
 /**
  * @author Eugene Putsykovich(slesh) May 6, 2015
@@ -21,8 +19,10 @@ import com.mongodb.Mongo;
  */
 @Configuration
 @EnableMongoRepositories
-@ComponentScan(basePackageClasses = Application.class)
+@ComponentScan(basePackages = { MongoConfiguration.TO_SCAN })
 public class MongoConfiguration extends AbstractMongoConfiguration {
+    protected static final String TO_SCAN = "by.itechart.flowerty.persistence.mongo";
+
     @Value("${mongo.host}")
     private String host;
 
@@ -52,13 +52,12 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     protected String getMappingBasePackage() {
-	return "by.itechart.flowerty.persistence";
+	return MongoConfiguration.TO_SCAN;
     }
 
     @Override
     public Mongo mongo() throws UnknownHostException {
-	DBAddress address = new DBAddress(host, port, getDatabaseName());
-	Mongo mongo = Mongo.connect(address).getMongo();
+	Mongo mongo = new MongoClient(host, port);
 
 	return mongo;
     }

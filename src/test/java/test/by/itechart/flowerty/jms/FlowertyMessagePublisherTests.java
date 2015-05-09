@@ -1,9 +1,5 @@
 package test.by.itechart.flowerty.jms;
 
-import by.itechart.flowerty.configuration.JmsConfiguration;
-import by.itechart.flowerty.configuration.LocalConfiguration;
-import by.itechart.flowerty.configuration.MailConfiguration;
-import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,8 +8,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,14 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.imageio.ImageIO;
-import javax.mail.MessagingException;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import by.itechart.flowerty.configuration.JmsConfiguration;
+import by.itechart.flowerty.configuration.LocalConfiguration;
+import by.itechart.flowerty.configuration.MailConfiguration;
+import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 29, 2015
@@ -46,13 +40,11 @@ public class FlowertyMessagePublisherTests {
     @Autowired
     private FlowertyMessagePublisher messagePublisher;
 
-    @Ignore
     @Test
     public void send_PassPlainMessageInfo_ShouldSendIt() {
 	messagePublisher.send(to, subject, text);
     }
 
-    @Ignore
     @Test
     public void send_PassMessageWithAttachment_ShoudSendIt() throws IOException, MessagingException {
 	Map<String, byte[]> attachments = new HashMap<String, byte[]>();

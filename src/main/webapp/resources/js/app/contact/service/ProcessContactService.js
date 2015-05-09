@@ -1,6 +1,7 @@
 'use strict';
-
 /*
+ * @author Eugene Putsykovich(slesh) May 8, 2015
+ * 
  * provides a method for create/edit/remove contact and phones
  */
 angular.module("flowertyApplication.contactModule").service("processContactService", 

@@ -1,19 +1,9 @@
 'use strict';
-/**
+/*
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
  *
+ *	contact module main file
  */
-
-
-/*
- * TODO: need think about that the do separate file for filters, services and
- * etc, because over-head code obtained
- */
-
-/*
-    TODO: DONE!!! :)
- */
-
 angular.module("flowertyApplication.contactModule", ["ngRoute"])
 
 .constant("CONSTANTS", (function(){
@@ -63,44 +53,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         }
     }
 })())
-
-.service("stateSaverService", function(){
-	var me = this;
-	me.state = {
-			checkeds: [],
-			reset: function(){
-				me.state.checkeds = [];
-			},
-			checked: function(entityWithId) {
-				me.state.checkeds.push(entityWithId);
-			},
-			unchecked: function(entityWithId) {
-				me.state.checkeds.splice(findById(entityWithId.id).index, 1);
-			},
-			ischecked: function(entityWithId) {
-				return findById(entityWithId.id).index !== -1;
-			},
-			isempty: function(){
-				return me.state.checkeds.length === 0;
-			}
-	};
-	function findById(id){
-		for(var i = 0; i < me.state.checkeds.length; ++i){
-			if(me.state.checkeds[i].id === id){
-				return {
-					index: i,
-					value: me.state.checkeds[i]
-				};
-			}
-		}
-		
-		return {
-			index: -1,
-			value: {}			
-		}
-	}
-})
-
+ 
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
     $routeProvider
         .when("/contact-list", {
