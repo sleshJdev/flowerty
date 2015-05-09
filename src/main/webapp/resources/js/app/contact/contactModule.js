@@ -37,7 +37,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
             EDIT:{
                 name: "Save contact",
                 titleContact: "Edit Contact",
-                titlePhone: "Add phone",//init below
+                titlePhone: "Edit phone",//init below
                 isShowPhones: true,
                 widthClass: "col-md-6",
                 action: []//main action
@@ -56,30 +56,30 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
  
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
     $routeProvider
-        .when("/contact-list", {
+    .when("/contact-list", {
         templateUrl: CONSTANTS.CONTACTS,
         controller: "ContactListController"
     })
-        .when("/contact-edit/:id", {
-            templateUrl: CONSTANTS.EDIT_CONTACT,
-            controller: "EditContactController"
-        })
-        .when("/contact-add", {
-            templateUrl: CONSTANTS.ADD_CONTACT,
-            controller: "AddContactController"
-        })
-        .when("/contact-search", {
-            templateUrl: CONSTANTS.SEARCH_CONTACT,
-            controller: "SearchContactController"
-        })
-        .when("/show-contacts", {
-            templateUrl: CONSTANTS.SHOW_CONTACTS,
-            controller: "ShowContactsController"
-        })
-        .when("/send-email", {
-            templateUrl: CONSTANTS.SEND_EMAIL,
-            controller: "SendEmailController"
-        });
+    .when("/contact-edit/:id", {
+        templateUrl: CONSTANTS.EDIT_CONTACT,
+        controller: "EditContactController"
+    })
+    .when("/contact-add", {
+        templateUrl: CONSTANTS.ADD_CONTACT,
+        controller: "AddContactController"
+    })
+    .when("/contact-search", {
+        templateUrl: CONSTANTS.SEARCH_CONTACT,
+        controller: "SearchContactController"
+    })
+    .when("/show-contacts", {
+        templateUrl: CONSTANTS.SHOW_CONTACTS,
+        controller: "ShowContactsController"
+    })
+    .when("/send-email", {
+        templateUrl: CONSTANTS.SEND_EMAIL,
+        controller: "SendEmailController"
+    });
 }])
 
 .filter("flowerFullContactName", function() {
