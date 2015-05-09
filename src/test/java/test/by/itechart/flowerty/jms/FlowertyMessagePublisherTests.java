@@ -29,7 +29,6 @@ import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
  *
  *         strange test
  */
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MailConfiguration.class, JmsConfiguration.class, LocalConfiguration.class })
 public class FlowertyMessagePublisherTests {
