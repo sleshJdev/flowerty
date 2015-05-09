@@ -33,19 +33,18 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
          */
         $scope.contacts.deleteContact = function(){
             console.log("delete contact");
-            deleteService.deleteIsChecked($scope.contacts.state.ischecked, $scope.contacts.list);
             
             $http({
                 method: "post",
                 url: "contact/remove",
-                data: $scope.contacts.list,
+                data: $scope.contacts.state.checkeds,
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "text/plain"
                 }
             }).success(function(data, status, headers, config) {
+            	deleteService.deleteIsChecked($scope.contacts.state.ischecked, $scope.contacts.list);
                 console.log("contact delete successful");
-                $location.path("contacts");
             }).error(function(data, status, headers, config) {
             });
         };

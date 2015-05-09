@@ -1,7 +1,3 @@
-/**
- * @author Eugene Putsykovich(slesh) Apr 5, 2015
- *
- */
 package by.itechart.flowerty.web.controller;
 
 import by.itechart.flowerty.persistence.model.Contact;
@@ -99,12 +95,12 @@ public class ContactController {
 
 	return contactService.findContacts(contact, 0, 10);
     }
-
+    
     @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<Contact> contacts) {
 	LOGGER.info("remove contacts. obtained {} contacts, wicht not remove", contacts.size());
 	
-	contactService.deleteIdNotIn(fetchIdOfContact(contacts));
+	contactService.deleteIdIn(fetchIdOfContact(contacts));
     }
 
     @ResponseBody

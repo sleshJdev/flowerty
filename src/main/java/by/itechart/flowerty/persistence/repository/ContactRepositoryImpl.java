@@ -12,11 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ContactRepositoryImpl implements ContactRepositoryCustom {
     @Autowired
     private EntityManager em;
-
+    
     @Override
     @Transactional
-    public int deleteIdNotIn(List<Long> list) {
-	int rowCount = em.createQuery("DELETE FROM Contact c WHERE c.id NOT IN :list").setParameter("list", list)
+    public int deleteIdIn(List<Long> list) {
+	int rowCount = em.createQuery("DELETE FROM Contact c WHERE c.id IN :list")
+		.setParameter("list", list)
 		.executeUpdate();
 	return rowCount;
     }
