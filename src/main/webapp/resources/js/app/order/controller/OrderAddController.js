@@ -3,7 +3,7 @@
  * Created by Катерина on 22.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', '$filter', function($scope, $http, $location, $filter) {
+angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', 'checkoutService', function($scope, $http, $location, checkoutService) {
 
     $scope.search = {
         customer : {
@@ -35,23 +35,23 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
     $scope.orderAction = {};
 
     $scope.orderAction.checkout = function(){
-        console.log('Checkout: ' + JSON.stringify($scope.bundle.order));
         $scope.bundle.order.customer = $scope.search.customer.selected;
         $scope.bundle.order.receiver = $scope.search.receiver.selected;
 
-        //  TODO: create a service
-        $http({
-            method: 'post',
-            url: 'order/save',
-            data: $scope.bundle.order
-        }).success(function(data, status, headers, config){
+        checkoutService.checkout($scope.bundle.order,
+            function(data, status, headers, config){
+                console.log('Checkout order completed succesfully: ' + JSON.stringify($scope.bundle.order));
 
-            //  Makes the basket empty
-            $scope.current.resetBasket();
-            $location.path('/');
-        }).error(function(data, status, headers, config){
-            console.log("Exception details in OrderAddController.save() : " + JSON.stringify({data: data}));
-        });
+                //  Makes the basket empty
+                $scope.current.resetBasket();
+                $location.path('orders');
+                alert('success!!!');
+            },
+            function(data, status, headers, config){
+                console.log('Cannot checkout order: ' + JSON.stringify($scope.bundle.order) +
+                '\nException details : ' + JSON.stringify({data: data}));
+                alert('error!!!');
+            });
     };
 
     $scope.init = function(){

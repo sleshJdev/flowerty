@@ -35,5 +35,8 @@ var app = angular.module('flowertyApplication', [
         .when('/', {
             templateUrl: MAIN_MODULE_CONSTANTS.APP_PATH + 'goods/partial/goods-list.html',
             controller: 'GoodsListController'
+        })
+        .otherwise({
+            redirectTo: '/'
         });
 }]);
