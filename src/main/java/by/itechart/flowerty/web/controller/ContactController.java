@@ -55,10 +55,6 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/search/{surname}", method = RequestMethod.GET)
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
-       // LOGGER.info("search contact");
-
-        //  Getting company
-        //  Kat changes
         Company company = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = null;
@@ -69,7 +65,6 @@ public class ContactController {
                 company = userService.getCompanyFor(login);
             }
         }
-        //
 
         return contactService.findBySurnameStartsWithAndCompany(surname, company.getId()); //get company normally
     }
