@@ -23,6 +23,10 @@ angular.module("flowertyApplication.userModule").controller("UserEditController"
 
         $scope.save = function () {
 
+            if ($scope.bundle.user.password != $scope.bundle.passwordConfirm) {
+                return;
+            }
+
             for (var i = 0; i < $scope.bundle.roles.length; ++i) {
                 if ($scope.bundle.user.role.id === $scope.bundle.roles[i].id) {
                     $scope.bundle.user.role = $scope.bundle.roles[i];

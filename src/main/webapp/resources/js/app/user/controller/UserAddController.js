@@ -16,7 +16,15 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
             user: {
                 contact: null
             },
-            roles: {}
+            roles: {},
+            passwordConfirm: undefined
+        };
+
+        $scope.error = {
+            emptyContact: false,
+            emptyLogin: false,
+            emptyRole: false,
+            emptyPassword: false
         };
 
         $scope.search = {
@@ -39,6 +47,10 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
         $scope.save = function () {
             $scope.bundle.user.contact = $scope.search.selected;
 
+            if (!isFullData()) {
+                return;
+            }
+
             for (var i = 0; i < $scope.bundle.roles.length; ++i) {
                 if ($scope.bundle.user.role.id === $scope.bundle.roles[i].id) {
                     $scope.bundle.user.role = $scope.bundle.roles[i];
@@ -48,7 +60,7 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
 
             $http({
                 method: "post",
-                url: "user/add",
+                url: "user/save",
                 data: $scope.bundle.user
             }).success(function (data, status, headers, config) {
                 $location.path("users");
@@ -56,4 +68,42 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
                 console.log("Exception details in UserAddController.save() : " + JSON.stringify({data: data}));
             });
         };
+
+        function isFullData() {
+            var isFull = true;
+
+            if (!$scope.bundle.user.contact) {
+                $scope.error.emptyContact = true;
+                isFull = false;
+            } else {
+                $scope.error.emptyRole = false;
+            }
+
+            if (!$scope.bundle.user.role) {
+                $scope.error.emptyRole = true;
+                isFull = false;
+            } else {
+                $scope.error.emptyRole = false;
+            }
+
+            if (!$scope.bundle.user.login) {
+                $scope.error.emptyLogin = true;
+                isFull = false;
+            } else {
+                $scope.error.emptyLogin = false;
+            }
+
+            if (!$scope.bundle.user.password) {
+                $scope.error.emptyPassword = true;
+                isFull = false;
+            } else {
+                $scope.error.emptyPassword = false;
+            }
+
+            if ($scope.bundle.user.password != $scope.bundle.passwordConfirm) {
+                isFull = false;
+            }
+
+            return isFull;
+        }
     }]);

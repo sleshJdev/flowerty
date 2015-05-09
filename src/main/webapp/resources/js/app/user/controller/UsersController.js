@@ -54,7 +54,7 @@ angular.module("flowertyApplication.userModule").controller('UsersController', f
     $scope.users.getPageFromServer = function () {
         var request = $http({
             method: "get",
-            url: "user/list/" + $scope.users.currentPage + '&' + $scope.users.limit
+            url: "user/list/page=" + $scope.users.currentPage + '&limit=' + $scope.users.limit
         });
 
         request.success(function (data, status, headers, config) {

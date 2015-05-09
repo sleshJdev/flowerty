@@ -1,22 +1,5 @@
 package by.itechart.flowerty.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
 import by.itechart.flowerty.security.CsrfHeaderFilter;
 import by.itechart.flowerty.security.CustomAuthenticationProvider;
 import by.itechart.flowerty.security.TokenBasedRememberMeServices;
@@ -24,14 +7,26 @@ import by.itechart.flowerty.security.handler.AccessDeniedHandler;
 import by.itechart.flowerty.security.handler.AuthFailure;
 import by.itechart.flowerty.security.handler.AuthSuccess;
 import by.itechart.flowerty.security.handler.LogoutSuccessHandlerImpl;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Rostislav on 26-Mar-15
  */
-@SuppressWarnings("deprecation")
 @Configuration
-@EnableWebMvcSecurity
-@EnableWebMvc
+@EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -61,10 +56,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/user/**")
-                .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/user/profile")
                 .authenticated()
+                .antMatchers("/user/**")
+                .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/contact/**")
                 .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
             .and()
@@ -80,10 +75,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/login")
 //                .successHandler(authSuccess)
                 .failureHandler(authFailure)
-                .permitAll()
             .and()
                 .logout()
-                .logoutSuccessHandler(logoutSuccessHandler)
+//                .logoutSuccessHandler(logoutSuccessHandler)
             .and()
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository())
@@ -117,8 +111,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    @Qualifier("userDetailsService")
-    UserDetailsService userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     private final String KEY = "e9862d10db8e7de7877e9d28ef8153b4f0e209b8";
 
