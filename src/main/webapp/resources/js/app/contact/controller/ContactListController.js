@@ -45,7 +45,9 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
             }).success(function(data, status, headers, config) {
             	deleteService.deleteIsChecked($scope.contacts.state.ischecked, $scope.contacts.list);
                 console.log("contact delete successful");
+//                $location.path("contacts");
             }).error(function(data, status, headers, config) {
+            	console.log("contact delete error. details: " + JSON.stringify({data: data}));
             });
         };
 
