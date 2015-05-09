@@ -48,7 +48,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
             //  Makes the basket empty
             $scope.current.resetBasket();
-            $location.path('/');
+            $location.path("users");
         }).error(function(data, status, headers, config){
             console.log("Exception details in OrderAddController.save() : " + JSON.stringify({data: data}));
         });

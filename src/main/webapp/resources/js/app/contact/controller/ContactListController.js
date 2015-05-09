@@ -29,11 +29,11 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
         };
 
         /*
-         * remove spicific contact(s)
+         * remove specific contact(s)
          */
         $scope.contacts.deleteContact = function(){
             console.log("delete contact");
-            deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
+            deleteService.deleteIsChecked($scope.contacts.state.ischecked, $scope.contacts.list);
             
             $http({
                 method: "post",

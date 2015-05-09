@@ -5,3 +5,5 @@
  */
 'use strict';
 
+angula.module("flowertyApplication.xi", ["ngRoute"]);
+
