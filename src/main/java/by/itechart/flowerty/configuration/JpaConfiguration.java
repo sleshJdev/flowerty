@@ -16,10 +16,8 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 
 import javax.sql.DataSource;
 import java.util.Properties;
-
-
-
- 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -28,69 +26,70 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = Application.class)
+@EnableJpaRepositories(basePackages = { JpaConfiguration.TO_SCAN })
 public class JpaConfiguration implements TransactionManagementConfigurer {
-	@Value("${dataSource.driverClassName}")
-	private String driver;
+    protected static final String TO_SCAN = "by.itechart.flowerty.persistence";
 
-	@Value("${dataSource.url}")
-	private String url;
+    @Value("${dataSource.driverClassName}")
+    private String driver;
 
-	@Value("${dataSource.username}")
-	private String username;
+    @Value("${dataSource.url}")
+    private String url;
 
-	@Value("${dataSource.password}")
-	private String password;
+    @Value("${dataSource.username}")
+    private String username;
 
-	@Value("${hibernate.dialect}")
-	private String dialect;
+    @Value("${dataSource.password}")
+    private String password;
 
-	@Value("${hibernate.hbm2ddl.auto}")
-	private String hbm2ddlAuto;
+    @Value("${hibernate.dialect}")
+    private String dialect;
 
-	@Value("${hibernate.show_sql}")
-	private String showSql;
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hbm2ddlAuto;
 
-	@Value("${hibernate.format_sql}")
-	private String formatSql;
+    @Value("${hibernate.show_sql}")
+    private String showSql;
 
-	@Bean
-	public DataSource configureDataSource() {
-		HikariConfig config = new HikariConfig();
-		
-		config.setDriverClassName(driver);
-		config.setJdbcUrl(url);
-		config.setUsername(username);
-		config.setPassword(password);
-		config.addDataSourceProperty("cachePrepStmts", "true");
-		config.addDataSourceProperty("prepStmtCacheSize", "250");
-		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-		config.addDataSourceProperty("useServerPrepStmts", "true");
+    @Value("${hibernate.format_sql}")
+    private String formatSql;
 
-		return new HikariDataSource(config);
-	}
+    @Bean
+    public DataSource configureDataSource() {
+	HikariConfig config = new HikariConfig();
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactoryBean.setDataSource(configureDataSource());
-		entityManagerFactoryBean.setPackagesToScan("by.itechart.flowerty.persistence");
-		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+	config.setDriverClassName(driver);
+	config.setJdbcUrl(url);
+	config.setUsername(username);
+	config.setPassword(password);
+	config.addDataSourceProperty("cachePrepStmts", "true");
+	config.addDataSourceProperty("prepStmtCacheSize", "250");
+	config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+	config.addDataSourceProperty("useServerPrepStmts", "true");
 
-		Properties jpaProperties = new Properties();
-		jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
-		jpaProperties.put(org.hibernate.cfg.Environment.SHOW_SQL, showSql);
-		jpaProperties.put(org.hibernate.cfg.Environment.FORMAT_SQL, formatSql);
+	return new HikariDataSource(config);
+    }
 
-		entityManagerFactoryBean.setJpaProperties(jpaProperties);
-		entityManagerFactoryBean.getJpaPropertyMap().put("jadira.usertype.autoRegisterUserTypes", "true");
-		
-		return entityManagerFactoryBean;
-	}
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+	entityManagerFactoryBean.setDataSource(configureDataSource());
+	entityManagerFactoryBean.setPackagesToScan(JpaConfiguration.TO_SCAN);
+	entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
-	@Bean
-	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		return new JpaTransactionManager();
-	}
+	Properties jpaProperties = new Properties();
+	jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
+	jpaProperties.put(org.hibernate.cfg.Environment.SHOW_SQL, showSql);
+	jpaProperties.put(org.hibernate.cfg.Environment.FORMAT_SQL, formatSql);
 
+	entityManagerFactoryBean.setJpaProperties(jpaProperties);
+	entityManagerFactoryBean.getJpaPropertyMap().put("jadira.usertype.autoRegisterUserTypes", "true");
+
+	return entityManagerFactoryBean;
+    }
+
+    @Bean
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
+	return new JpaTransactionManager();
+    }
 }

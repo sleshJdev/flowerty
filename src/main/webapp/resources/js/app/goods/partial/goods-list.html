@@ -8,24 +8,31 @@
         <div class="panel-body">
             <p>Items count: <strong>{{current.basket.info.itemsCount}}</strong></p>
             <p>Full cost: <strong>{{current.basket.info.fullCost | currency}}</strong></p>
-            <div class="btn btn-default"><a href="#add-order">Form the order!</a></div>
+            <a href="#add-order"><div class="btn btn-default">Form the order!</div></a>
         </div>
     </div>
     <h1>Make an order!</h1>
+    <div data-ng-include="templates.pagination.url"></div>
     <div class="row" data-ng-repeat="goodsRow in goods.goodsArray">
-        <div class="goods-item col-md-4 thumbnail" data-ng-repeat="goodsItem in goodsRow">
-            <div class="goods-image">
-                <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.image}}"/>
-            </div>
-            <div class="goods-item-info caption text-center">
-                <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
-                <h5 class="goods-item-description">{{goodsItem.cost | currency}}</h5>
-                <p>Count: <span class="glyphicon glyphicon-minus" data-ng-click="goods.less(goodsItem)"></span>
-                    <span class="goods-item-count badge">{{goodsItem.count}}</span>
-                    <span class="glyphicon glyphicon-plus" data-ng-click="goods.more(goodsItem)"></span>
-                </p>
-                <div class="btn btn-default" data-ng-show="!goodsItem.ordered" data-ng-click="goods.makeOrder(goodsItem)">Add to basket</div>
-                <div class="btn btn-default" data-ng-show="goodsItem.ordered" data-ng-click="goods.removeFromOrder(goodsItem)">Remove from basket</div>
+        <div class="goods-item col-md-4 thumbnail"
+             data-ng-repeat="goodsItem in goodsRow">
+            <div class="goods-item-border"
+                    data-ng-class="goods.getGoodsItemClass(goodsItem)">
+                <div class="goods-image">
+                    <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.image}}"/>
+                </div>
+                <div class="goods-item-info caption text-center">
+                    <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
+                    <h5 class="goods-item-description">{{goodsItem.cost | currency}}</h5>
+                    <p data-ng-show="current.isLogged">Count: <span class="glyphicon glyphicon-minus" data-ng-click="goods.less(goodsItem)"></span>
+                        <span class="goods-item-count badge">{{goodsItem.count}}</span>
+                        <span class="glyphicon glyphicon-plus" data-ng-click="goods.more(goodsItem)"></span>
+                    </p>
+                    <div data-ng-show="current.isLogged">
+                        <div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]" data-ng-click="goods.makeOrder(goodsItem)">Add to basket</div>
+                        <div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]" data-ng-click="goods.removeFromOrder(goodsItem)">Remove from basket</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

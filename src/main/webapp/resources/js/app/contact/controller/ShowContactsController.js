@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+ * @author Maria Apr 5, 2015
+ *
+ *	show contacts after search
+ */
 angular.module("flowertyApplication.contactModule").controller("ShowContactsController", ["$scope", "$http", "$location", "contactListService",
     function($scope, $http, $location, contactListService) {
         $scope.init = function () {

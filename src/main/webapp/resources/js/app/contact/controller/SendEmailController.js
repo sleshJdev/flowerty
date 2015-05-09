@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+ * @author Eugene Putsykovich(slesh) Apr 5, 2015
+ *
+ *	send email for selected contact
+ */
 angular.module("flowertyApplication.contactModule").controller("SendEmailController", ["$scope", "$http", "$location", "transportService",
                                     function($scope, $http, $location, transportService) {
 	$scope.bundle = {

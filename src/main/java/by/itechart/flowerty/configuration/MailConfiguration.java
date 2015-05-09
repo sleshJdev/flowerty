@@ -25,9 +25,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableAsync
 @EnableScheduling
-@ComponentScan(basePackages = { "by.itechart.flowerty.jms" })
+@ComponentScan(basePackages = { MailConfiguration.TO_SCAN })
 @PropertySource("classpath:/web.properties")
 public class MailConfiguration {
+    protected static final String TO_SCAN = "by.itechart.flowerty.jms";
+    
     @Autowired
     private Environment environment;
 

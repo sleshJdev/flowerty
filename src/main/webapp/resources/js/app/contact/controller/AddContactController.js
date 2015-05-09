@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+ * @author Eugene Putsykovich(slesh) Apr 5, 2015
+ *
+ * add new contact
+ */
 angular.module("flowertyApplication.contactModule").controller("AddContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "CONSTANTS",
     function($scope, $http, $location, $routeParams, processContactService, CONSTANTS){
         $scope.bundle = processContactService.bundle;

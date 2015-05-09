@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+ * @author Eugene Putsykovich(slesh) Apr 5, 2015
+ *
+ *	show contact list
+ */
 angular.module("flowertyApplication.contactModule").controller("ContactListController", 
 		["$scope", "$http", "$location", "transportService", "deleteService", "contactListService", "stateSaverService",
 		 function($scope, $http, $location, transportService, deleteService, contactListService, stateSaverService) {
@@ -25,24 +29,25 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
         };
 
         /*
-         * remove spicific contact(s)
+         * remove specific contact(s)
          */
         $scope.contacts.deleteContact = function(){
             console.log("delete contact");
-            deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
             
             $http({
                 method: "post",
                 url: "contact/remove",
-                data: $scope.contacts.list,
+                data: $scope.contacts.state.checkeds,
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "text/plain"
                 }
             }).success(function(data, status, headers, config) {
+            	deleteService.deleteIsChecked($scope.contacts.state.ischecked, $scope.contacts.list);
                 console.log("contact delete successful");
-                $location.path("contacts");
+//                $location.path("contacts");
             }).error(function(data, status, headers, config) {
+            	console.log("contact delete error. details: " + JSON.stringify({data: data}));
             });
         };
 

@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+ * @author Eugene Putsykovich(slesh) Apr 5, 2015
+ *
+ *	edit contact
+ */
 angular.module("flowertyApplication.contactModule").controller("EditContactController", 
 		["$scope", "$http", "$location", "$routeParams", "processContactService", "deleteService", "stateSaverService", "CONSTANTS",
 		 function($scope, $http, $location, $routeParams, processContactService, deleteService, stateSaverService, CONSTANTS){

@@ -8,5 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface GoodsRepository extends PagingAndSortingRepository<Goods, Long> {
     public Goods findOne(Long id);
+
     public Page<Goods> findByCompany(Company company, Pageable pageable);
 }

@@ -20,9 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Created by Катерина on 24.04.2015.
  *
- * Controller for processing all the requests connected with orders
+ * controller for processing all the requests connected with orders
  */
-
 @Controller
 public class OrderController {
 
@@ -68,8 +67,9 @@ public class OrderController {
         LOGGER.info("findBySearch order");
         return  orderService.findBySearch(order, 0, 10);
     }
-        @ResponseBody
-        @RequestMapping(value = "order/create/bundle", method = RequestMethod.GET)
+    
+    @ResponseBody
+    @RequestMapping(value = "order/create/bundle", method = RequestMethod.GET)
     public OrderCreateBundle createBundle() throws Exception{
         LOGGER.info("getting prepared order bundle for creating a new one");
         return orderService.getOrderCreateBundle();

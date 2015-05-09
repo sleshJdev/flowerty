@@ -113,9 +113,9 @@ public class ContactService {
     }
 
     @Transactional
-    public int deleteIdNotIn(List<Long> list) {
+    public int deleteIdIn(List<Long> list) {
 
-	return contactRepository.deleteIdNotIn(list);
+	return contactRepository.deleteIdIn(list);
     }
 
     public List<Contact> findByBirthDate(String date) {

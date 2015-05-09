@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+ * @author Eugene Putsykovich(slesh) Apr 5, 2015
+ *
+ *	search contact
+ */
 angular.module("flowertyApplication.contactModule").controller("SearchContactController", ["$scope", "$http", "$location","processContactService", "contactListService", "CONSTANTS",
     function($scope, $http, $location, processContactService, contactListService, CONSTANTS){
         $scope.bundle = processContactService.bundle;

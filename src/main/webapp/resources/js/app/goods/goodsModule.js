@@ -11,8 +11,9 @@ goodsModule.constant("GOODS_MODULE_CONSTANTS", (function(){
     var GOODS_MODULE_PATH = "resources/js/app/goods/";
 
     return {
-        GOODS_LIST_FORM: GOODS_MODULE_PATH + "partial/goods-list.html",
-        ADD_GOODS:	GOODS_MODULE_PATH + "partial/goods-form.html"
+        GOODS_LIST_FORM : GOODS_MODULE_PATH + "partial/goods-list.html",
+        ADD_GOODS :	GOODS_MODULE_PATH + "partial/goods-form.html",
+        COLUMN_NUMBER : 3
     }
 })());
 
