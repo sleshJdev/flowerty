@@ -30,9 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        WebMvcConfiguration.class,
-        ApplicationConfiguration.class,
-        JpaConfiguration.class,
+//        WebMvcConfiguration.class,
+//        ApplicationConfiguration.class,
+//        JpaConfiguration.class,
         SearchContext.class,
         SpringSecurityConfiguration.class,
         AuthFailure.class,
@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         AccessDeniedHandler.class,
         UserDetailsServiceImpl.class})
 @WebAppConfiguration
-public class CustomCsrfTests {
+public class CsrfTests {
 
     @Autowired
     private WebApplicationContext context;
@@ -58,9 +58,17 @@ public class CustomCsrfTests {
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .defaultRequest(get("/").with(csrf()))
+                .defaultRequest(get("/"))
                 .addFilters(springSecurityFilterChain)
                 .build()
+        ;
+    }
+
+    @Test
+    public void postWithoutCsrfWorks() throws Exception {
+        mvc
+                .perform(post("/"))
+                .andExpect(status().isForbidden())
         ;
     }
 
