@@ -4,7 +4,6 @@ import by.itechart.flowerty.persistence.model.Role;
 import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,9 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
@@ -51,7 +48,7 @@ public class UserController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
-            return  userService.getUserByLogin(auth.getName());
+            return userService.getUserByLogin(auth.getName());
         }
 
         return null;
@@ -97,9 +94,9 @@ public class UserController {
     }
 
     @ResponseBody
-     @RequestMapping(value = {"user/list/{page}&{limit}"})
-     public Page<User> getPageLimit(@PathVariable("page") Integer page,
-                               @PathVariable("limit") Integer limit) throws Exception {
+    @RequestMapping(value = {"user/list/page={page}&limit={limit}"})
+    public Page<User> getPageLimit(@PathVariable("page") Integer page,
+                                   @PathVariable("limit") Integer limit) throws Exception {
         LOGGER.info("get page with number {}", page);
 
         // TODO: *add testing for this method
@@ -140,7 +137,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "users/role/{role}", method = RequestMethod.GET)
-    public List<User> getUserListByRole(@PathVariable("role") String roleString){
+    public List<User> getUserListByRole(@PathVariable("role") String roleString) {
         LOGGER.info("geting list of users by their role: {}", roleString);
         return userService.getUsersByRoleName(roleString.toUpperCase());
     }

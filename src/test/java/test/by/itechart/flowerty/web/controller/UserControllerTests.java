@@ -1,5 +1,6 @@
 package test.by.itechart.flowerty.web.controller;
 import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.web.controller.UserController;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import by.itechart.flowerty.web.service.UserService;
 import org.junit.Before;
@@ -11,15 +12,16 @@ import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
+
 import java.io.IOException;
+
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
-import by.itechart.flowerty.web.controller.UserController;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015

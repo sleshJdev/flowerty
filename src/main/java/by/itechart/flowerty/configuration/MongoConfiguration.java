@@ -1,7 +1,8 @@
 package by.itechart.flowerty.configuration;
 
-import java.net.UnknownHostException;
-
+import by.itechart.flowerty.Application;
+import com.mongodb.DBAddress;
+import com.mongodb.Mongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.net.UnknownHostException;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
