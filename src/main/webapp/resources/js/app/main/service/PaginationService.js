@@ -5,49 +5,48 @@
  * Service for paging
  */
 
-angular.module("flowertyApplication.orderModule").service('orderPaginationService', ['$location', 'MAIN_MODULE_CONSTANTS',
+angular.module("flowertyApplication.orderModule").service('paginationService', ['$location', 'MAIN_MODULE_CONSTANTS',
     function($location, MAIN_MODULE_CONSTANTS) {
 
         var service = this;
 
-        var orders = {
+        var listBundle = {
             pages: [],
             pagesCount: 1,
             currentPage: 1,
-            ordersList: [],
+            list: [],
             limit: MAIN_MODULE_CONSTANTS.LIMITS[1]
         };
 
         var changeLimit = function(limit){
-            orders.limit = limit;
-            getPage(orders.currentPage);
+            listBundle.limit = limit;
+            getPage(listBundle.currentPage);
         };
 
-        service.getOrdersListBundle = function () {
-            return orders;
+        service.getListBundle = function () {
+            return listBundle;
         };
 
         var pageClass = function (pageNumber) {
-            return pageNumber == orders.currentPage ? 'active' : '';
+            return pageNumber == listBundle.currentPage ? 'active' : '';
         };
 
         var getPage = function (pageNumber) {
-            orders.currentPage = pageNumber;
-            //TODO: ????
-            if(!orders.limit){
-                orders.limit = MAIN_MODULE_CONSTANTS.LIMITS[1];
+            listBundle.currentPage = pageNumber;
+
+            if(!listBundle.limit){
+                listBundle.limit = MAIN_MODULE_CONSTANTS.LIMITS[1];
             }
 
-            //TODO: add limit
             service.getPageFromServer(
                 pageNumber,
-                orders.limit,
+                listBundle.limit,
                 function (data) {
                     if (!data.content) {
                         $location.path("login");
                     } else {
-                        orders.ordersList = data.content;
-                        orders.pagesCount = data.totalPages;
+                        listBundle.list = data.content;
+                        listBundle.pagesCount = data.totalPages;
                     }
                 },
                 //TODO: error processing
@@ -59,21 +58,21 @@ angular.module("flowertyApplication.orderModule").service('orderPaginationServic
         service.getPageFromServer = function () {};
 
         var getPreviousPage = function () {
-            if (orders.currentPage !== 1) {
-                orders.currentPage--;
+            if (listBundle.currentPage !== 1) {
+                listBundle.currentPage--;
             }
-            getPage(orders.currentPage);
+            getPage(listBundle.currentPage);
         };
 
         var getNextPage = function () {
-            if (orders.currentPage !== orders.pagesCount) {
-                orders.currentPage++;
+            if (listBundle.currentPage !== listBundle.pagesCount) {
+                listBundle.currentPage++;
             }
-            getPage(orders.currentPage);
+            getPage(listBundle.currentPage);
         };
 
         var getPagesCount = function () {
-            return orders.pagesCount;
+            return listBundle.pagesCount;
         };
 
         service.getPagination = function (getPageFromServerFunction) {
@@ -85,7 +84,7 @@ angular.module("flowertyApplication.orderModule").service('orderPaginationServic
                 pageClass: pageClass,
                 getPagesCount: getPagesCount,
                 changeLimit: changeLimit,
-                limit: orders.limit,
+                limit: listBundle.limit,
                 limits: MAIN_MODULE_CONSTANTS.LIMITS
             }
         };

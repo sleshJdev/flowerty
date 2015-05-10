@@ -8,7 +8,6 @@ angular.module("flowertyApplication.orderModule").service("orderListService", ['
 
     var service = this;
 
-    //TODO: use LIMIT!!!
     service.getOrderList = function(page, limit, successCallback, errorCallback){
         $http({
             method: "get",
