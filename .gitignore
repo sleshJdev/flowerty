@@ -10,6 +10,7 @@ lib/
 *.iws
 /target/
 persistence.properties
+local.properties
 
 # Mac
 .DS_Store
