@@ -150,8 +150,11 @@
 				<div data-ng-include="bundle.phoneListTemplate" data-ng-if="bundle.processType.isShowPhones"></div>
 			</div>
 			<div> 
-				<button style="margin-bottom: 80px;" data-ng-click="bundle.processType.action(bundle.contact)"
-					class="pull-right col-sm-4 btn btn-primary btn-lg active">{{bundle.processType.name}}
+				<button 
+					data-ng-disabled="contactForm.$invalid"
+					data-ng-click="bundle.processType.action(bundle.contact)"
+					class="pull-right btn btn-primary"
+					style="margin-bottom: 80px;">{{bundle.processType.name}}
 				</button>
 			</div>
 		</fieldset>

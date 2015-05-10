@@ -35,6 +35,9 @@ angular.module("flowertyApplication.contactModule")
 			},
 			"number" : function(fieldName){
 				return "{0} should contain only the numerals".format(fieldName.toUpperCase());
-			}
+			},
+			"password" : function() {
+				return "Password has incorrect format";
+			} 
 		}
 	})());

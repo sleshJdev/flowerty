@@ -7,6 +7,7 @@ angular.module("flowertyApplication.utilModule")
 
 .directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", 
                             	function($compile, VALIDATE_MESSAGES) {
+	
 	var template = "<span class='glyphicon form-control-feedback' aria-hidden='true' data-ng-class='info.icon'></span>" +
 				   "<small class='btn-danger'>{{info.message}}</small>";
 	
@@ -53,21 +54,24 @@ angular.module("flowertyApplication.utilModule")
 				var message = "";
 				if(ngModelCtrl.$error.minlength){
 					message = VALIDATE_MESSAGES["minlength"](attributes.name, attributes.minlength);
-				};
-				if(ngModelCtrl.$error.maxlength){
+				
+				}else if(ngModelCtrl.$error.maxlength){
 					message = VALIDATE_MESSAGES["maxlength"](attributes.name, attributes.maxlength);
-				};
-				if(ngModelCtrl.$error.required){
+				
+				}else if(ngModelCtrl.$error.required){
 					message = VALIDATE_MESSAGES["required"](attributes.name);
-				};
-				if(ngModelCtrl.$error.pattern){
+				
+				}else if(ngModelCtrl.$error.pattern){
 					message = VALIDATE_MESSAGES["pattern"](attributes.name);
-				};
-				if(ngModelCtrl.$error.email){
+				
+				}else if(ngModelCtrl.$error.email){
 					message = VALIDATE_MESSAGES["email"]();
-				};
-				if(ngModelCtrl.$error.number){
+				
+				}else if(ngModelCtrl.$error.number){
 					message = VALIDATE_MESSAGES["number"](attributes.name);
+				
+				}else if(ngModelCtrl.$error.password){
+					message = VALIDATE_MESSAGES["password"]();
 				};
 				
 				var isInvalid = ngModelCtrl.$dirty && ngModelCtrl.$invalid;

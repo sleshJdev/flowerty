@@ -1,6 +1,6 @@
 <!-- The form for logging in -->
-<div ng-app="flowertyApplication.authenticationModule">
-    <form id="log-in-form" class="form-narrow form-horisontal" ng-submit="logIn()">
+<div data-ng-app="flowertyApplication.authenticationModule">
+    <form id="log-in-form" class="form-narrow form-horisontal" name="loginForm" data-ng-submit="logIn()">
         <fieldset>
             <legend class="text-center">Log In</legend>
 
@@ -20,7 +20,10 @@
                 <label for="login" class="col-lg-2 control-label">Login</label>
 
                 <div class="col-lg-10">
-                    <input type="text" id="login" data-ng-model="current.user.username" class="form-control"/>
+                    <input type="text" id="login" 
+                    		data-ng-model="current.user.username" class="form-control" name="login" placeholder="Login"
+                    		data-ng-maxlength="20" required 
+						  	data-flowerty-validate>
                 </div>
             </div>
             <br><br>
@@ -29,7 +32,10 @@
                 <label for="password" class="col-lg-2 control-label">Password</label>
 
                 <div class="col-lg-10">
-                    <input type="password" id="password" data-ng-model="current.user.password" class="form-control"/>
+                    <input type="password" id="password" 
+                    	data-ng-model="current.user.password" class="form-control" name="password" placeholder="Password"
+                    	data-ng-maxlength="20" required 
+					  	data-flowerty-validate>
                 </div>
             </div>
             <div class="form-group">
@@ -43,7 +49,7 @@
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
-                    <button class="btn btn-success" type="submit">Log In</button>
+                    <button data-ng-disabled="loginForm.$invalid" class="btn btn-success" type="submit">Log In</button>
                 </div>
             </div>
             <div class="form-group">
