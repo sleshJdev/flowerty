@@ -54,7 +54,7 @@ public class SigninControllerTests extends MockTestConfigigurationAware {
     @Ignore
     @Test
     public void signin_PassValidLoginAndPassword_ShouldAuthenticate() throws Exception {
-        User existsUser = ControllerHelperTests.buildValidShortUserForTest();
+        User existsUser = TestControllerHelper.buildValidShortUserForTest();
         SigninForm user = new SigninForm(existsUser.getLogin(), existsUser.getPassword());
 
         when(userServiceMock.findUserByLoginAndPassword(existsUser.getLogin(), existsUser.getPassword()))
@@ -62,8 +62,8 @@ public class SigninControllerTests extends MockTestConfigigurationAware {
 
         mock
                 .perform(post("/authenticate")
-                                .contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
-                                .content(ControllerHelperTests.convertObjectToJsonBytes(user))
+                                .contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
+                                .content(TestControllerHelper.convertObjectToJsonBytes(user))
 //					.param("login", existsUser.getLogin())
 //					.param("password", existsUser.getPassword())
                 )
@@ -78,7 +78,7 @@ public class SigninControllerTests extends MockTestConfigigurationAware {
     @Ignore
     @Test
     public void signin_PassInvalidLoginAndPassword_NotAuthenticateShouldRedirectToSigninPage() throws Exception {
-        User notExistsUser = ControllerHelperTests.buildInvalideShordUserForTest();
+        User notExistsUser = TestControllerHelper.buildInvalideShordUserForTest();
         SigninForm user = new SigninForm(notExistsUser.getLogin(), notExistsUser.getPassword());
 
         when(userServiceMock.findUserByLoginAndPassword(notExistsUser.getLogin(), notExistsUser.getPassword()))
@@ -86,8 +86,8 @@ public class SigninControllerTests extends MockTestConfigigurationAware {
 
         mock
                 .perform(post("/authenticate")
-                                .contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
-                                .content(ControllerHelperTests.convertObjectToJsonBytes(user))
+                                .contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
+                                .content(TestControllerHelper.convertObjectToJsonBytes(user))
 //					.param("login", notExistsUser.getLogin())
 //					.param("password", notExistsUser.getPassword())
                 )

@@ -4,35 +4,24 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
 import by.itechart.flowerty.web.controller.HomeController;
-import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *
  *         Test for HomeController
  */
-public class HomeControllerTests extends MockTestConfigigurationAware {
-	@InjectMocks
+public class HomeControllerTests extends WebApplicationConfigurationAware {
+    	@InjectMocks
 	private HomeController homeControllerMock;
-
-	private MockMvc mock;
-
-	@Before
-	public void setUp() {
-		mock = MockMvcBuilders.standaloneSetup(homeControllerMock)
-				.build();
-	}
 
 	@Test
 	public void index_ShouldReturnViewNameForIndexPage() throws Exception {
-		mock
+	    mockMvc
 			.perform(get("/"))
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("home/index"));			

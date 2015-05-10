@@ -64,7 +64,7 @@ public class UserControllerTests extends MockTestConfigigurationAware {
     @Ignore
 	@Test
 	public void getById_PassValidUserId_ShouldReturnUserEditBundle() throws Exception {
-		UserEditBundle bundle = ControllerHelperTests.buildUserEditBundleForTest();
+		UserEditBundle bundle = TestControllerHelper.buildUserEditBundleForTest();
 		User returnedUser = bundle.getUser();
 		
 		when(userServiceMock.getUserEditBundleFor(returnedUser.getId())).thenReturn(bundle);
@@ -84,18 +84,18 @@ public class UserControllerTests extends MockTestConfigigurationAware {
     @Ignore
 	@Test
 	public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
-		User returnedUser = ControllerHelperTests.buildUserAdminForTest();
+		User returnedUser = TestControllerHelper.buildUserAdminForTest();
 
 		when(userServiceMock.save(any(User.class)))
 			.thenReturn(returnedUser);
 		
 		mock
 			.perform(post("/user/save")
-					.contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
-					.content(ControllerHelperTests.convertObjectToJsonBytes(returnedUser))
+					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
+					.content(TestControllerHelper.convertObjectToJsonBytes(returnedUser))
 					)
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(ControllerHelperTests.APPLICATION_JSON_UTF8))
+			.andExpect(content().contentType(TestControllerHelper.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.login", is(returnedUser.getLogin())))
 			.andExpect(jsonPath("$.password", is(returnedUser.getPassword())));
 		

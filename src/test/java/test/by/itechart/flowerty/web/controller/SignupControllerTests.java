@@ -57,15 +57,15 @@ public class SignupControllerTests extends MockTestConfigigurationAware {
     @Ignore
 	@Test
 	public void signup_PassSiginFormFromClient_ShouldSaveNewUserAndReturnNameIndexPage() throws Exception{
-		User newUser = ControllerHelperTests.buildValidShortUserForTest();
+		User newUser = TestControllerHelper.buildValidShortUserForTest();
 		
 		when(userServiceMock.save(any(User.class)))
 			.thenReturn(newUser);
 		
 		mock
 			.perform(post("/signup")
-						.contentType(ControllerHelperTests.APPLICATION_JSON_UTF8)
-						.content(ControllerHelperTests.convertObjectToJsonBytes(newUser))
+						.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
+						.content(TestControllerHelper.convertObjectToJsonBytes(newUser))
 					)
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("home/index"));

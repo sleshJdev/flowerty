@@ -1,21 +1,19 @@
 package test.by.itechart.flowerty.config.aware;
 
-import by.itechart.flowerty.web.exception.ExceptionHandler;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import java.lang.reflect.Method;
+
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
-import java.lang.reflect.Method;
+import by.itechart.flowerty.web.exception.ExceptionHandler;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  * 
- *         Configuration for testing Controllers
+ *         configuration for testing controllers
  */
-@RunWith(MockitoJUnitRunner.class)
 public abstract class MockTestConfigigurationAware {
 	protected ExceptionHandlerExceptionResolver withExceptionControllerAdvice() {
 		final ExceptionHandlerExceptionResolver exceptionResolver = new ExceptionHandlerExceptionResolver() {
