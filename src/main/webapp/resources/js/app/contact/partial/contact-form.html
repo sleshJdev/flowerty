@@ -60,8 +60,8 @@
 							<div class="col-sm-8">
 								<input 
 									data-ng-model="bundle.contact.address.town" class="form-control" name="town" placeholder="Town"
-									data-ng-maxlength="100"
-									data-flowerty-validate>
+									data-ng-maxlength="100" required
+									data-flowerty-validate data-level-up="2">
 							</div>
                            </div>
                            <div data-ng-if="!bundle.processType.isShowPhones">
@@ -75,7 +75,7 @@
                            <div data-ng-if="bundle.processType.isShowPhones">
                                <div class="col-sm-8">
                                    <input 
-                                   		data-ng-model="bundle.contact.address.street" class="form-control" name="Street" placeholder="Street"
+                                   		data-ng-model="bundle.contact.address.street" class="form-control" name="street" placeholder="Street"
                                    		data-ng-maxlength="100"
 										data-flowerty-validate>
                                </div>
