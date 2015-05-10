@@ -8,30 +8,27 @@
 						<label class="col-sm-3 control-label">Name</label>
 						<div class="col-sm-8">
 							<input 
-								data-ng-init="validateName = {state: '', icon: '', message: ''};"
 								data-ng-model="bundle.contact.name" class="form-control" name="name" placeholder="Name"
 								data-ng-maxlength="20" required 
-							  	data-flowerty-validate  data-validate-info="validateName" >
+							  	data-flowerty-validate>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label">Surname</label>
+						<label class="col-sm-3 control-label" data-ng-class="validateSurname.state">Surname</label>
 						<div class="col-sm-8">
 							<input 
-								data-ng-init="validateSurname = {state: '', icon: '', message: ''};"
 								data-ng-model="bundle.contact.surname" class="form-control" name="surname" placeholder="Surname"
 								data-ng-maxlength="20" required
-								data-flowerty-validate  data-validate-info="validateSurname" >
+								data-flowerty-validate>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label">Fathername</label>
 						<div class="col-sm-8">
 							<input 
-								data-ng-init="validateFathername = {state: '', icon: '', message: ''};"
 								data-ng-model="bundle.contact.fathername" class="form-control" name="fathername" placeholder="Fathername"
 								data-ng-maxlength="20"
-								data-flowerty-validate  data-validate-info="validateFathername" > 
+								data-flowerty-validate> 
 						</div>
 					</div>
 					<div class="form-group">
@@ -51,10 +48,9 @@
 						<label class="col-sm-3 control-label">Email</label>
 						<div class="col-sm-8">
 							<input type="email" 
-								data-ng-init="validateEmail = {state: '', icon: '', message: ''};"
 								data-ng-model="bundle.contact.email" class="form-control" name="email" placeholder="Email"
 								data-ng-maxlength="50"
-								data-flowerty-validate  data-validate-info="validateEmail">
+								data-flowerty-validate>
 						</div>
 					</div>
 					<div class="form-group">
@@ -63,9 +59,9 @@
                                <!--if we search contact, then we return ContactDocument object-->
 							<div class="col-sm-8">
 								<input 
-									data-ng-init="validateTown = {state: '', icon: '', message: ''};"
 									data-ng-model="bundle.contact.address.town" class="form-control" name="town" placeholder="Town"
-									>
+									data-ng-maxlength="100"
+									data-flowerty-validate>
 							</div>
                            </div>
                            <div data-ng-if="!bundle.processType.isShowPhones">
@@ -78,7 +74,10 @@
 						<label class="col-sm-3 control-label">Street</label>
                            <div data-ng-if="bundle.processType.isShowPhones">
                                <div class="col-sm-8">
-                                   <input data-ng-model="bundle.contact.address.street" class="form-control">
+                                   <input 
+                                   		data-ng-model="bundle.contact.address.street" class="form-control" name="Street" placeholder="Street"
+                                   		data-ng-maxlength="100"
+										data-flowerty-validate>
                                </div>
                            </div>
                            <div data-ng-if="!bundle.processType.isShowPhones">
@@ -91,13 +90,16 @@
 						<label class="col-sm-3 control-label">House</label>
                            <div data-ng-if="bundle.processType.isShowPhones">
                                <div class="col-sm-8">
-                                   <input data-ng-model="bundle.contact.address.house" class="form-control">
+                               		<input 
+                                       		data-ng-model="bundle.contact.address.house" class="form-control" name="house" placeholder="House"
+                                       		data-ng-maxlength="10"
+											data-flowerty-validate>
                                </div>
                            </div>
                            <div class="col-sm-8">
                                <div data-ng-if="!bundle.processType.isShowPhones">
                                    <div class="col-sm-8">
-                                       <input data-ng-model="bundle.contact.house" class="form-control">
+	                                   <input data-ng-model="bundle.contact.house" class="form-control">
                                    </div>
                                </div>
                            </div>
@@ -106,7 +108,10 @@
 						<label class="col-sm-3 control-label">Flat</label>
                            <div data-ng-if="bundle.processType.isShowPhones">
                                <div class="col-sm-8">
-                                   <input data-ng-model="bundle.contact.address.flat" class="form-control">
+                                   <input 
+                                   		data-ng-model="bundle.contact.address.flat" class="form-control" name="flat" placeholder="Flat"
+                                   		data-ng-maxlength="10"
+										data-flowerty-validate>
                                </div>
                            </div>
                            <div data-ng-if="!bundle.processType.isShowPhones">
@@ -123,7 +128,10 @@
 						<label class="col-sm-3 control-label">Country</label>
                            <div data-ng-if="bundle.processType.isShowPhones">
                                <div class="col-sm-8">
-                                   <input data-ng-model="bundle.contact.address.country" class="form-control">
+                                   <input 
+                                   		data-ng-model="bundle.contact.address.country" class="form-control" name="country" placeholder="Country"
+                                   		data-ng-maxlength="100"
+										data-flowerty-validate>
                                </div>
                            </div>
                            <div data-ng-if="!bundle.processType.isShowPhones">

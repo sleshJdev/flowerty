@@ -8,22 +8,40 @@ angular.module("flowertyApplication.contactModule")
 .directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", 
                             	function($compile, VALIDATE_MESSAGES) {
 	var template = "<span class='glyphicon form-control-feedback' aria-hidden='true' data-ng-class='info.icon'></span>" +
-				   "<small>{{info.message}}</small>";
+				   "<small class='btn-danger'>{{info.message}}</small>";
 	
 	return {
 		require: "ngModel",
 		restrict: "A",
-		scope:true,
-		scope:{
-			info: "=validateInfo"
-		},
-
+		scope:{},
 		link: function(scope, element, attributes, ngModelCtrl){
+			
+			scope.info = {
+					state: "",
+					icon: "",
+					message: ""
+			};
 			
 			var link = $compile(template);
             var content = link(scope);
-			element.parent().prepend(content);
-			element.parent().addClass("has-feedback");
+
+            var levelUp = 1;
+            if(attributes.levelUp){
+            	levelUp = attributes.levelUp;
+            }
+            
+            var parent = null;
+            for(var i = 0; i < levelUp; ++i){
+            	if(parent === null){
+            		parent = element.parent();
+            		continue;
+            	};
+            	parent = parent.parent();
+            };
+            
+            parent.append(content);
+            parent.addClass("has-feedback");
+			
 			
 			function setState(state, icon, message){
 				scope.info.state = state,
@@ -44,18 +62,15 @@ angular.module("flowertyApplication.contactModule")
 				};
 				if(ngModelCtrl.$error.pattern){
 					message = VALIDATE_MESSAGES["pattern"](attributes.name);
-				}
+				};
 				if(ngModelCtrl.$error.email){
 					message = VALIDATE_MESSAGES["email"]();
-				}
+				};
+				if(ngModelCtrl.$error.number){
+					message = VALIDATE_MESSAGES["number"](attributes.name);
+				};
 				
 				var isInvalid = ngModelCtrl.$dirty && ngModelCtrl.$invalid;
-				
-				
-				console.log("is invalid: " + isInvalid);
-				console.log("message: " + message);
-				console.log("pattern: " + ngModelCtrl.$error.pattern);
-				
 				
 				if(isInvalid){
 					setState("has-error", "glyphicon-remove", message)
@@ -67,9 +82,9 @@ angular.module("flowertyApplication.contactModule")
 					setState("", "", "")
 				}
 				
-				element.parent().removeClass("has-error");
-				element.parent().removeClass("has-success");
-				element.parent().addClass(scope.info.state);
+				parent.removeClass("has-error");
+				parent.removeClass("has-success");
+				parent.addClass(scope.info.state);
 			}
 			
 			ngModelCtrl.$parsers.unshift(function (viewValue) {

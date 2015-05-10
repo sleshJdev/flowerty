@@ -16,7 +16,7 @@ angular.module("flowertyApplication.contactModule")
 				return formatted;
 			};
 		};
-
+		
 		return {
 			"required" : function(fieldName) {
 				return "Please input {0}".format(fieldName.toUpperCase());
@@ -32,6 +32,9 @@ angular.module("flowertyApplication.contactModule")
 			},
 			"email" : function() {
 				return "Email has incorrect format";
+			},
+			"number" : function(fieldName){
+				return "{0} should contain only the numerals".format(fieldName.toUpperCase());
 			}
 		}
 	})());
