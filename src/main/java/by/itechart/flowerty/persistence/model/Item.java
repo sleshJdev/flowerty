@@ -62,4 +62,14 @@ public class Item {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("Item{")
+                .append("id=").append(id)
+                .append(", quantity=").append(quantity)
+                .append(", goods=").append(goods)
+                .append(", order=").append(order)
+                .append('}').toString();
+    }
 }

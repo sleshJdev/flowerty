@@ -4,7 +4,7 @@
  *
  * Service for getting various staff
  *
- * fFor example, order managers
+ * For example, order managers
  */
 
 angular.module("flowertyApplication.orderModule").service('staffService', ['$http', function($http){

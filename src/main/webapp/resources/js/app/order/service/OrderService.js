@@ -24,8 +24,8 @@ angular.module("flowertyApplication.orderModule").service('orderService', ['$htt
     service.initCartItems = function(order, cart){
         var basketItem;
         order.items = [];
-        for(basketItem in cart){
-            order.items.push(cart[basketItem]);
+        for(basketItem in cart.items){
+            order.items.push(cart.items[basketItem]);
         }
         order.cost = cart.info.fullCost;
     };
@@ -40,21 +40,6 @@ angular.module("flowertyApplication.orderModule").service('orderService', ['$htt
                 console.log("Exception details: " + JSON.stringify({data: data}));
                 errorCallback(data);
             });
-    };
-
-    service.findInArrayById = function(object, array){
-        if(!object || !array){
-
-            //  Because we don't want to loose our object
-            return object;
-        }
-        var i;
-        for(i = 0; i < array.length; i++){
-            if(array[i].id === object.id){
-                return array[i];
-            }
-        }
-        return object;
     };
 
     service.getHistory = function(id, successCallback, errorCallback){

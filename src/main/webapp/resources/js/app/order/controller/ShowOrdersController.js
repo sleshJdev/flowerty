@@ -1,11 +1,14 @@
 'use strict';
 
-angular.module("flowertyApplication.orderModule").controller("ShowOrdersController", ["$scope", "$http", "$location", "orderListService",
-    function($scope, $http, $location, orderListService) {
+angular.module("flowertyApplication.orderModule").controller("ShowOrdersController", ["$scope", "$http", "$location", "orderSearchService", 'orderPaginationService',
+    function($scope, $http, $location, orderSearchService, orderPaginationService) {
+
+        $scope.orders = orderPaginationService.getOrdersListBundle();
+
         $scope.init = function () {
-            //if we got here, we need all contacts
-            orderListService.setList(null);
-            $location.path("orders");
+            $scope.pagination = orderPaginationService.getPagination(orderSearchService.searchOrders);
+            $scope.pagination.getPage(1);
         };
+
         $scope.init();
     }]);

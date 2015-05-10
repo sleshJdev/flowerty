@@ -96,7 +96,7 @@ public class Order {
         return deliveryDate;
     }
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "ADDRESS_ID")
     @Valid
     public Address getAddress() {
@@ -157,5 +157,23 @@ public class Order {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("Order{")
+                .append("id=").append(id)
+                .append(", state=").append(state)
+                .append(", cost=").append(cost)
+                .append(", customer=").append(customer)
+                .append(", receiver=").append(receiver)
+                .append(", staff=").append(staff)
+                .append(", manager=").append(manager)
+                .append(", delivery=").append(delivery)
+                .append(", description='").append(description).append('\'')
+                .append(", items=").append(items)
+                .append(", deliveryDate=").append(deliveryDate)
+                .append(", address=").append(address)
+                .append('}').toString();
     }
 }

@@ -1,5 +1,6 @@
 <!-- Form for showing list of users, deleting users -->
 <div data-ng-app="flowertyApplication.userModule">
+    <div class="col-md-11" data-ng-include="templates.pagination.url"></div>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered">
@@ -22,14 +23,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-11" data-ng-include="templates.pagination.url"></div>
-        <div class="col-md-1 pull-right">
-            <br>
-            <select class="form-control"
-                    data-ng-model="users.limit"
-                    data-ng-options="limit for limit in users.limits"
-                    data-ng-change="users.getPageFromServerChangeLimit()">
-            </select>
-        </div>
+    <div class="col-md-11" data-ng-include="templates.pagination.url"></div>
+    <div class="col-md-1 pull-right">
+        <br>
+        <select class="form-control"
+                data-ng-model="users.limit"
+                data-ng-options="limit for limit in users.limits"
+                data-ng-change="users.getPageFromServerChangeLimit()">
+        </select>
+    </div>
     </div>
 </div>

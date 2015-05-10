@@ -29,6 +29,14 @@ public class Right {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return new StringBuilder("Right{")
+                .append("id=").append(id)
+                .append(", name=").append(name)
+                .append('}').toString();
+    }
+
     public static enum RIGHT_TYPE {
         create_order,
         contact,

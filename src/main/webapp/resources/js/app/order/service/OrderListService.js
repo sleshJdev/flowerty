@@ -12,7 +12,7 @@ angular.module("flowertyApplication.orderModule").service("orderListService", ['
     service.getOrderList = function(page, limit, successCallback, errorCallback){
         $http({
             method: "get",
-            url: "order/list/" + page
+            url: "order/list/" + page + "/" + limit
         })
             .success(successCallback)
             .error(function(data) {

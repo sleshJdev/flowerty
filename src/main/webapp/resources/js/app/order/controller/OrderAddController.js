@@ -28,26 +28,20 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
     $scope.orderAction.checkout = function(){
 
-        // TODO: remove!!
-        $scope.bundle = {
-            order : {}
-        };
         $scope.bundle.order.customer = $scope.search.customer.selected;
         $scope.bundle.order.receiver = $scope.search.receiver.selected;
 
         checkoutService.checkout($scope.bundle.order,
-            function(data, status, headers, config){
+            function(data){
                 console.log('Checkout order completed succesfully: ' + JSON.stringify($scope.bundle.order));
 
                 //  Makes the basket empty
                 $scope.current.resetBasket();
                 $location.path('orders');
-                alert('success!!!');
             },
-            function(data, status, headers, config){
+            function(data){
                 console.log('Cannot checkout order: ' + JSON.stringify($scope.bundle.order) +
                 '\nException details : ' + JSON.stringify({data: data}));
-                alert('error!!!');
             });
     };
 
