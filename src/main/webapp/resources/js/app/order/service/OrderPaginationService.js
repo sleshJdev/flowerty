@@ -5,8 +5,8 @@
  * Service for paging
  */
 
-angular.module("flowertyApplication.orderModule").service('orderPaginationService', ['$location',
-    function($location) {
+angular.module("flowertyApplication.orderModule").service('orderPaginationService', ['$location', 'MAIN_MODULE_CONSTANTS',
+    function($location, MAIN_MODULE_CONSTANTS) {
 
         var service = this;
 
@@ -15,11 +15,12 @@ angular.module("flowertyApplication.orderModule").service('orderPaginationServic
             pagesCount: 1,
             currentPage: 1,
             ordersList: [],
-            limit: 10
+            limit: MAIN_MODULE_CONSTANTS.LIMITS[1]
         };
 
-        service.setLimit = function(limit){
+        var changeLimit = function(limit){
             orders.limit = limit;
+            getPage(orders.currentPage);
         };
 
         service.getOrdersListBundle = function () {
@@ -32,6 +33,10 @@ angular.module("flowertyApplication.orderModule").service('orderPaginationServic
 
         var getPage = function (pageNumber) {
             orders.currentPage = pageNumber;
+            //TODO: ????
+            if(!orders.limit){
+                orders.limit = MAIN_MODULE_CONSTANTS.LIMITS[1];
+            }
 
             //TODO: add limit
             service.getPageFromServer(
@@ -78,7 +83,10 @@ angular.module("flowertyApplication.orderModule").service('orderPaginationServic
                 getPreviousPage: getPreviousPage,
                 getPage: getPage,
                 pageClass: pageClass,
-                getPagesCount: getPagesCount
+                getPagesCount: getPagesCount,
+                changeLimit: changeLimit,
+                limit: orders.limit,
+                limits: MAIN_MODULE_CONSTANTS.LIMITS
             }
         };
     }]);

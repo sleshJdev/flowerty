@@ -15,7 +15,10 @@ var app = angular.module('flowertyApplication', [
     'flowertyApplication.utilModule',
     'flowertyApplication.errorModule'])
 
-.constant("MAIN_MODULE_CONSTANTS", {APP_PATH : "resources/js/app/"})
+.constant("MAIN_MODULE_CONSTANTS", {
+        APP_PATH : "resources/js/app/",
+        LIMITS : [5, 10, 20]
+    })
 
 .config(['$routeProvider', 'MAIN_MODULE_CONSTANTS',
          function($routeProvider, MAIN_MODULE_CONSTANTS) {
