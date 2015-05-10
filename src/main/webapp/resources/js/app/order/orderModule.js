@@ -13,7 +13,8 @@ orderModule.constant('ORDER_MODULE_CONSTANTS', (function(){
         ORDER_EDIT_FORM : ORDER_MODULE_PATH + "partial/order-edit.html",
         ORDER_LIST_FORM : ORDER_MODULE_PATH + "partial/order-list-form.html",
         ORDER_HISTORY_FORM : ORDER_MODULE_PATH + "partial/order-history-form.html",
-        ORDER_STATE_CHANGE_FORM : ORDER_MODULE_PATH + "partial/order-state-change.html"
+        ORDER_STATE_CHANGE_FORM : ORDER_MODULE_PATH + "partial/order-state-change.html",
+        ORDER_SEARCH_FORM : ORDER_MODULE_PATH + "partial/order-search.html"
     }
 })());
 
@@ -30,5 +31,9 @@ orderModule.config(["$routeProvider", 'ORDER_MODULE_CONSTANTS', function($routeP
         .when("/order-history/:id", {
             templateUrl: ORDER_MODULE_CONSTANTS.ORDER_HISTORY_FORM,
             controller: "OrderHistoryController"
-        });
+        })
+        .when("/search-order", {
+            templateUrl: ORDER_MODULE_CONSTANTS.ORDER_SEARCH_FORM,
+            controller: "OrderSearchController"
+        })
 }]);

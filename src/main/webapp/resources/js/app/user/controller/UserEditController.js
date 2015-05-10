@@ -11,7 +11,7 @@ angular.module("flowertyApplication.userModule").controller("UserEditController"
             actionButton: USER_MODULE_CONSTANTS.PROCESS_TYPES.EDIT.actionButton,
             edit: true
         };
-
+//TODO: service
         $http({
             method: "get",
             url: "user/details/" + $routeParams.id
@@ -20,7 +20,7 @@ angular.module("flowertyApplication.userModule").controller("UserEditController"
         }).error(function (data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
         });
-
+//TODO: service
         $scope.save = function () {
 
             for (var i = 0; i < $scope.bundle.roles.length; ++i) {

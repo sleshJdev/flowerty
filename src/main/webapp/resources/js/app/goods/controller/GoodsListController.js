@@ -17,7 +17,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
     $scope.goods.initGoodsArray = function(goodsArray){
         var cols = GOODS_MODULE_CONSTANTS.COLUMN_NUMBER;
         var resultMatrix = [];
-        var i, j, goodsArrayInd = 0, rowIndex;
+        var i;
         for(i = 0; i < goodsArray.length; i++) {
 
             goodsArray[i].count = $scope.current.basket.items[goodsArray[i].id] ?
@@ -39,7 +39,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
         $scope.goods.currentPage = pageNumber;
         $scope.goods.getPageFromServer();
     };
-
+//TODO: service
     $scope.goods.getPageFromServer = function(){
         var request = $http({
             method: "get",
@@ -138,7 +138,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
     };
 
     $scope.init = function() {
-        if ($localStorage.cart) {
+        if ($localStorage.cart && $scope.current.isLogged) {
             $scope.current.basket = $localStorage.cart;
         }
         $scope.goods.getPage(1);

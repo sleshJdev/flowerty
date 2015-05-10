@@ -27,7 +27,7 @@ angular.module("flowertyApplication.userModule").controller('UsersController', f
         $scope.users.currentPage = 1;
         $scope.users.getPageFromServer();
     };
-
+//TODO: Service
     $scope.users.deleteUsers = function () {
         var toDeleteIds = [];
         var user;

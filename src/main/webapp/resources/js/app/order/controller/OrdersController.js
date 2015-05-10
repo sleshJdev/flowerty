@@ -18,34 +18,20 @@ angular.module("flowertyApplication.orderModule").controller('OrdersController',
 
     $scope.orders.getPage = function(pageNumber){
         $scope.orders.currentPage = pageNumber;
-        var list = orderListService.getList();
-        if (list) {
-            $scope.orders.list = list.content;
-            $scope.orders.totalPages = list.totalPages;
-        }  else {
-            $scope.orders.getPageFromServer();
-        }
+        $scope.orders.getPageFromServer();
     };
 
     $scope.orders.getPageFromServer = function(){
-        var request = $http({
-            method: "get",
-            url: "order/list/" + $scope.orders.currentPage
-        });
-
-        request.success(function(data, status, headers, config) {
-            if (!data.content) {
-                $location.path("login");
-            } else {
-                $scope.orders.ordersList = data.content;
-                $scope.orders.pagesCount = data.totalPages;
+        orderListService.getOrderList($scope.orders.currentPage, undefined,
+            function(data) {
+                if (!data.content) {
+                    $location.path("login");
+                } else {
+                    $scope.orders.ordersList = data.content;
+                    $scope.orders.pagesCount = data.totalPages;
+                }
             }
-        });
-
-        request.error(function(data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));
-            $location.path("/");
-        });
+        );
     };
 
     $scope.orders.getPreviousPage = function(){

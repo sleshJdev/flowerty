@@ -33,7 +33,6 @@ angular.module("flowertyApplication.errorModule", ["ngRoute"])
 					$location.path("error");
 				}
 
-				$routeProvider.
                 console.log(JSON.stringify(rejection));//TODO: remove comment
                 return $q.reject(rejection);
             }

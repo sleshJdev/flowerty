@@ -26,14 +26,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Катерина on 24.04.2015.
  *
- * Service for manipulating with orders
+ * Service for manipulating orders
  */
 
 @Service

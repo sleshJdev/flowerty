@@ -18,7 +18,7 @@ angular.module("flowertyApplication.profileModule")
                 user: {},
                 phoneListTemplate: PROFILE_MODULE_CONSTANTS.PHONES
             };
-
+//TODO: service
             var request = $http({
                 method: "get",
                 url: "user/profile"
