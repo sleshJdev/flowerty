@@ -3,7 +3,7 @@
  *
  */
 
-angular.module("flowertyApplication.contactModule")
+angular.module("flowertyApplication.utilModule")
 
 .directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", 
                             	function($compile, VALIDATE_MESSAGES) {
