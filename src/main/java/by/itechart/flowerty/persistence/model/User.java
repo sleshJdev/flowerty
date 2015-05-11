@@ -87,4 +87,15 @@ public class User {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("User{")
+                .append("id=").append(id)
+                .append(", login='").append(login).append('\'')
+                .append(", password='").append(password + '\'')
+                .append(", role=").append(role)
+                .append(", contact=").append(contact)
+                .append('}').toString();
+    }
 }

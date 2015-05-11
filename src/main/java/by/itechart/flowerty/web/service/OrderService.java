@@ -15,6 +15,8 @@ import by.itechart.flowerty.web.model.OrderEditBundle;
 import by.itechart.flowerty.web.model.OrderHistoryBundle;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,18 +28,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Катерина on 24.04.2015.
  *
- * Service for manipulating with orders
+ * Service for manipulating orders
  */
 
 @Service
 public class OrderService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
     @Autowired
     private OrderRepository orderRepository;
@@ -57,6 +59,7 @@ public class OrderService {
     @Autowired
     private ItemRepository itemRepository;
 
+    //TODO: ORDERALTERING!!!!!!!!!!!!!!!!
     @Transactional
     public Order save(Order orderToCreate){
         if(orderToCreate.getItems() != null){
@@ -64,31 +67,56 @@ public class OrderService {
                 item.setOrder(orderToCreate);
             }
         }
-        orderDocumentRepository.save(orderToCreate.getOrderDocument());
-        return orderRepository.save(orderToCreate);
+        Order savedOrder = orderRepository.save(orderToCreate);
+        orderDocumentRepository.save(savedOrder.getOrderDocument());
+
+        //  Setting first state history
+        OrderAltering newAltering = new OrderAltering(null, savedOrder, getCurrentUser(),
+                getStateByDescription(State.DESCRIPTION_TYPE.NEW), DateTime.now().toDate(), "");
+        orderAlteringRepository.save(newAltering);
+        return savedOrder;
     }
 
-    @Transactional
-    public Order saveChanges(OrderEditBundle orderEditBundle){
-
-        Order savedOrder = orderRepository.save(orderEditBundle.getOrder());
-        if(orderEditBundle.getOrderAltering() == null){
-            return savedOrder;
+    //TODO: add searching by state with description NEW!!!!!!!!!
+    private State getStateByDescription(State.DESCRIPTION_TYPE type){
+        List<State> states = (List<State>) stateRepository.findAll();
+        for (State state : states) {
+            if (state.getDescription() == type) {
+                return state;
+            }
         }
+        return null;
+    }
 
-        //  Saving order altering
+    private User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = null;
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             userPrincipal = (UserDetails) auth.getPrincipal();
             if (userPrincipal != null) {
-                User editingUser = userRepository.findUserByLogin(userPrincipal.getUsername());
-                orderEditBundle.getOrderAltering().setOrder(savedOrder);
-                orderEditBundle.getOrderAltering().setUser(editingUser);
-                orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
-                orderAlteringRepository.save(orderEditBundle.getOrderAltering());
+                return userRepository.findUserByLogin(userPrincipal.getUsername());
             }
         }
+        return null;
+    }
+
+    @Transactional
+    public Order saveChanges(OrderEditBundle orderEditBundle){
+        if(orderEditBundle == null){
+            return null;
+        }
+        if(orderEditBundle.getOrderAltering() != null) {
+            LOGGER.info("saving order with orderAltering {}", orderEditBundle.getOrderAltering());
+        }
+
+        Order savedOrder = orderRepository.save(orderEditBundle.getOrder());
+        if(orderEditBundle.getOrderAltering() == null){
+            return savedOrder;
+        }
+        orderEditBundle.getOrderAltering().setOrder(savedOrder);
+        orderEditBundle.getOrderAltering().setUser(getCurrentUser());
+        orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
+        orderAlteringRepository.save(orderEditBundle.getOrderAltering());
         return savedOrder;
     }
 
@@ -179,14 +207,7 @@ public class OrderService {
         OrderCreateBundle orderCreateBundle = new OrderCreateBundle();
 
         //  Setting the state "NEW"
-        //TODO: add searching by state with description NEW
-        List<State> states = (List<State>) stateRepository.findAll();
-        for (State state : states) {
-            if (state.getDescription() == State.DESCRIPTION_TYPE.NEW) {
-                orderCreateBundle.setState(state);
-            }
-        }
-        //
+        orderCreateBundle.setState(getStateByDescription(State.DESCRIPTION_TYPE.NEW));
 
         //  Setting manager
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

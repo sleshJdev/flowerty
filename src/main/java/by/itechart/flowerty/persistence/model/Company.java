@@ -67,4 +67,13 @@ public class Company {
 		getName().equals(company.getName()) &&
 		getWebsite().equals(company.getWebsite());
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("Company{")
+                .append("id=").append(id)
+                .append(", name='").append(name).append('\'')
+                .append(", website='").append(website).append('\'')
+                .append('}').toString();
+    }
 }

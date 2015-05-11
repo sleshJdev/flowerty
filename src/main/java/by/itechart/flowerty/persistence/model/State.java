@@ -32,8 +32,6 @@ public class State {
         this.description = description;
     }
 
-
-
     public static enum DESCRIPTION_TYPE{
         ACCEPTED,
         CANCELED,
@@ -43,5 +41,13 @@ public class State {
         NEW,
         PROCESSING,
         READY
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("State{")
+                .append("id=").append(id)
+                .append(", description=").append(description)
+                .append('}').toString();
     }
 }

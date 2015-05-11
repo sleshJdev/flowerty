@@ -1,11 +1,21 @@
 
 <!-- Pagination template -->
-<ul class="pagination container">
-    <li><a href="" data-ng-click="pagination.getPreviousPage()">&lt;</a></li>
-    <li data-ng-repeat="page in [] | flowerRange:pagination.getPagesCount()" 
-		data-ng-init="pageNumber = $index + 1" 	
-		data-ng-class="pagination.pageClass(pageNumber)">
-        <a href="" data-ng-click="pagination.getPage(pageNumber)">{{pageNumber}}</a>
-    </li>
-    <li><a href="" data-ng-click="pagination.getNextPage()">&gt;</a></li>
-</ul>
+<div class="row">
+    <ul class="pagination pagination-sm container col-md-10">
+        <li><a href="" data-ng-click="pagination.getPreviousPage()">&lt;</a></li>
+        <li data-ng-repeat="page in [] | flowerRange:pagination.getPagesCount()"
+            data-ng-init="pageNumber = $index + 1"
+            data-ng-class="pagination.pageClass(pageNumber)">
+            <a href="" data-ng-click="pagination.getPage(pageNumber)">{{pageNumber}}</a>
+        </li>
+        <li><a href="" data-ng-click="pagination.getNextPage()">&gt;</a></li>
+    </ul>
+    <div class="col-md-2 pull-right">
+        <br>
+        <select class="form-control"
+                data-ng-model="pagination.limit"
+                data-ng-options="limit for limit in pagination.limits"
+                data-ng-change="pagination.changeLimit(pagination.limit)">
+        </select>
+    </div>
+</div>

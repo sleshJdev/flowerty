@@ -34,6 +34,8 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
         $scope.contacts.deleteContact = function(){
             console.log("delete contact");
             
+            deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
+            
             $http({
                 method: "post",
                 url: "contact/remove",

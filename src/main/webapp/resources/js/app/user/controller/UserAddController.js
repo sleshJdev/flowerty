@@ -34,7 +34,7 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
                 selected: {}
             }
         };
-
+//TODO: service
         $http({
             method: "get",
             url: "user/roles"
@@ -43,7 +43,7 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
         }).error(function (data, status, headers, config) {
             console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
         });
-
+//TODO: service
         $scope.save = function () {
             $scope.bundle.user.contact = $scope.search.selected;
 
