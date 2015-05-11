@@ -13,13 +13,14 @@ angular.module("flowertyApplication.contactModule").controller("EditContactContr
         $scope.bundle.processType.action = $scope.bundle.actions.saveContact;
         $scope.bundle.state = stateSaverService.state;
         $scope.bundle.state.reset();
-        //TODO: TO SERVICE!!!
-        $http({
-            method: "get",
-            url: "contact/details/" + $routeParams.id
-        }).success(function(data, status, headers, config) {
-            $scope.bundle.contact = data;
-        }).error(function(data, status, headers, config) {
-            console.log("error contact details: " + JSON.stringify(data));
-        });
+
+        $scope.bundle.actions.getContact(
+            $routeParams.id,
+            function(data) {
+                $scope.bundle.contact = data;
+            },
+            function(data) {
+                console.log("error contact details: " + JSON.stringify(data));
+            }
+        );
     }]);
