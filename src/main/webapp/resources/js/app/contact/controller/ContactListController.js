@@ -15,7 +15,7 @@ angular.module("flowertyApplication.contactModule")
 		if ($scope.bundle.state.isempty()) {
 			alert("Please select contacts to send email.");
 		} else {
-	     	transportService.setValue($scope.bundle.state.checkeds);
+			emailService.setValue($scope.bundle.state.checkeds);
 	     	$location.path("send-email");//redirect to email form 
 		};
 	};
