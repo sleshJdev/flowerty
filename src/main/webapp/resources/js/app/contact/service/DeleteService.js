@@ -7,9 +7,6 @@
 angular.module("flowertyApplication.contactModule")
 
 .service("deleteService", function() {
-	/*
-     * removes selected items from collection. does not request to the server
-     */
 	this.deleteIsChecked = function(checker, collection) {
 		var isBreak = true;
 		do {
@@ -23,27 +20,24 @@ angular.module("flowertyApplication.contactModule")
 		} while (!isBreak);
 	};
 	
-	/*
-     * remove specific contacts. does request to the server
-     */
-	this.deleteContact = function(deletableCollection, sourceCollection){
-        console.log("delete contact");
-
-        $http({
-            method: "post",
-            url: "contact/remove",
-            data: deletableCollection,
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "text/plain"
-            }
-        }).success(function(data, status, headers, config) {
-        	deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
-            console.log("contact delete successful");
-        }).error(function(data, status, headers, config) {
-        	console.log("contact delete error. details: " + JSON.stringify(data));
-        });
+	this.deleteContact = function (checker, list, successCallback, errorCallback) {
+	    console.log("delete contact");
+	    deleteIsChecked(checker, list);
+	    $http({
+	        method: "post",
+	        url: "contact/remove",
+	        data: list,
+	        headers: {
+	            "Content-Type": "application/json",
+	            "Accept": "text/plain"
+	        }
+	    })
+	        .success(successCallback)
+	        .error(function (data) {
+	            console.log("Exception during deleting contact:\n"
+	                + JSON.stringify({data: data}));
+	                errorCallback(data);
+	            }
+	        );
     };
 });
-	
-	
