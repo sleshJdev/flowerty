@@ -11,19 +11,32 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label">City code:</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" data-ng-model="bundle.phone.country">
+						<div class="input-group">
+							<span class="input-group-addon">+</span>
+							<input type="number" 
+								data-ng-model="bundle.phone.country" class="form-control" name="city code" placeholder="City code"
+								data-ng-maxlength="5"
+								data-flowerty-validate data-level-up="2">
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Operator code:</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" data-ng-model="bundle.phone.operator">
+						<input type="number" 
+							data-ng-maxlength="5"
+							data-ng-model="bundle.phone.operator" class="form-control" name="operator code" placeholder="Operator code"
+							data-ng-maxlength="5"
+							data-flowerty-validate>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Number:</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" data-ng-model="bundle.phone.number">
+						<input type="number" 
+							data-ng-model="bundle.phone.number" class="form-control" name="number" placeholder="Number"
+							data-ng-maxlength="10"
+							data-flowerty-validate>
 					</div>
 				</div>
 				<div class="form-group">
@@ -37,13 +50,21 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Comment:</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" data-ng-model="bundle.phone.comment"></textarea>
+						<textarea 
+							class="form-control" data-ng-model="bundle.phone.comment" name="comment" placeholder="Comment"
+							data-ng-maxlength="100"
+							data-flowerty-validate></textarea>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" data-ng-click="bundle.actions.savePhone(bundle.phone)" data-dismiss="modal">Save</button>
+				<button type="button" 
+						class="btn btn-primary" 
+						data-ng-disabled="contactForm.$invalid" 
+						data-ng-click="bundle.actions.savePhone(bundle.phone)" 
+						data-dismiss="modal">Save
+				</button>
 			</div>
 		</div>
 	</div>

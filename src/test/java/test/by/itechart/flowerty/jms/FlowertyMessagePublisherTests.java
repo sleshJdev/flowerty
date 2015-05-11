@@ -12,12 +12,12 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import by.itechart.flowerty.configuration.JmsConfiguration;
 import by.itechart.flowerty.configuration.LocalConfiguration;
@@ -29,8 +29,8 @@ import by.itechart.flowerty.jms.core.FlowertyMessagePublisher;
  *
  *         strange test
  */
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration(classes = { MailConfiguration.class, JmsConfiguration.class, LocalConfiguration.class })
 public class FlowertyMessagePublisherTests {
     private final String to = "studentbntu@mail.ru";

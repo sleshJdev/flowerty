@@ -25,12 +25,12 @@ public abstract class RepositoryHelperTests {
 	address.setFlat("11");
 	address.setHouse("10");
 	address.setCountry("Belarus");
-	
+
 	Company company = new Company();
 	company.setId(1L);
 	company.setName("FandJ");
 	company.setWebsite("www.FandJ.com");
-	
+
 	Phone phone1 = new Phone();
 	phone1.setId(1L);
 	phone1.setCountry("12");
@@ -38,7 +38,7 @@ public abstract class RepositoryHelperTests {
 	phone1.setNumber("56789");
 	phone1.setType(PHONE_TYPE.CELL);
 	phone1.setComment("Comment1");
-	
+
 	Phone phone2 = new Phone();
 	phone2.setId(2L);
 	phone2.setCountry("67");
@@ -46,11 +46,11 @@ public abstract class RepositoryHelperTests {
 	phone2.setNumber("01234");
 	phone2.setType(PHONE_TYPE.HOME);
 	phone2.setComment("Comment2");
-	
+
 	Set<Phone> phones = new HashSet<Phone>();
 	phones.add(phone1);
 	phones.add(phone2);
-	
+
 	Contact contact = new Contact();
 	contact.setId(1L);
 	contact.setName("Anton");
@@ -61,7 +61,7 @@ public abstract class RepositoryHelperTests {
 	contact.setAddress(address);
 	contact.setPhones(phones);
 	contact.setCompany(company);
-	
+
 	return contact;
     }
 }

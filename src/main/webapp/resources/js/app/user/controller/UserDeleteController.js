@@ -2,7 +2,7 @@
 /**
  * Created by Катерина on 20.04.2015.
  */
-
+//TODO: service
 angular.module("flowertyApplication.userModule").controller("UserDeleteController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
     $http({
         method: "get",

@@ -32,42 +32,45 @@ public class OrderController {
 
     @RequestMapping(value = "order/save", method = RequestMethod.POST)
     public Order save(@RequestBody Order orderToSave){
-        LOGGER.info("Saving order: {}", orderToSave);
+        LOGGER.info("Checkout order: {}", orderToSave);
         return orderService.save(orderToSave);
     }
 
     @RequestMapping(value = "order/change/save", method = RequestMethod.POST)
     public Order saveChanges(@RequestBody OrderEditBundle orderEditBundle){
+        LOGGER.info("saving changes in order {}", orderEditBundle.getOrder());
         return orderService.saveChanges(orderEditBundle);
     }
 
     @ResponseBody
-    @RequestMapping(value = "order/list/{page}", method = RequestMethod.GET)
-    public Page<Order> page(@PathVariable("page") Integer page){
-        LOGGER.info("Getting order page with number {}", page);
+    @RequestMapping(value = "order/list/{page}/{limit}", method = RequestMethod.GET)
+    public Page<Order> page(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit){
+        LOGGER.info("Getting order page {} with limit {}", page, limit);
 
         page = (page == null || page < 1) ? 0 : --page;
-        return orderService.getPage(page, 10);
+        return orderService.getPage(page, limit);
     }
 
     @ResponseBody
     @RequestMapping(value = "order/details/{id}", method = RequestMethod.GET)
     public OrderEditBundle details(@PathVariable("id") Long id) throws Exception{
-        LOGGER.info("get details about contact with id: {}", id);
+        LOGGER.info("get details about order with id: {}", id);
 
         if (id == null || id < 0) {
-            throw new Exception("contact id cannot be negative or null");
+            throw new Exception("order id cannot be negative or null");
         }
         return orderService.getOrderEditBundleById(id);
     }
 
     @ResponseBody
-    @RequestMapping(value = "order/search", method = RequestMethod.POST)
-    public Page<Order> search(@RequestBody OrderDocument order) {
-        LOGGER.info("findBySearch order");
-        return  orderService.findBySearch(order, 0, 10);
+    @RequestMapping(value = "order/search/{page}/{limit}", method = RequestMethod.POST)
+    public Page<Order> search(@RequestBody OrderDocument order, @PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
+        LOGGER.info("findBySearch - getting page {} with limit {}, order: {}", page, limit, order);
+
+        page = (page == null || page < 1) ? 0 : --page;
+        return  orderService.findBySearch(order, page, limit);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "order/create/bundle", method = RequestMethod.GET)
     public OrderCreateBundle createBundle() throws Exception{
@@ -78,6 +81,7 @@ public class OrderController {
     @ResponseBody
     @RequestMapping(value = "order/history/{id}", method = RequestMethod.GET)
     public OrderHistoryBundle history(@PathVariable("id") Long id){
+        LOGGER.info("getting history for order with id = {}", id);
         return orderService.getOrderHistoryBundle(id);
     }
 }

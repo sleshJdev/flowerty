@@ -38,7 +38,10 @@ angular.module('flowertyApplication').controller('MainController', function ($sc
         pageClass : function(page){},
         getPage : function(page){},
         getPreviousPage : function(){},
-        getNextPage : function(){}
+        getNextPage : function(){},
+        changeLimit: function(limit){},
+        limit: 10,
+        limits: []
     };
 
     $scope.dynamicSearch = {

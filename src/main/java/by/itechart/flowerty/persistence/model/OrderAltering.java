@@ -23,6 +23,15 @@ public class OrderAltering {
     public OrderAltering() {
     }
 
+    public OrderAltering(Long id, Order order, User user, State state, Date date, String comment) {
+        this.id = id;
+        this.order = order;
+        this.user = user;
+        this.state = state;
+        this.date = date;
+        this.comment = comment;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", length = 10, nullable = false)
@@ -82,5 +91,17 @@ public class OrderAltering {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("OrderAltering{")
+                .append("id=").append(id)
+                .append(", order=").append(order)
+                .append(", user=").append(user)
+                .append(", state=").append(state)
+                .append(", date=").append(date)
+                .append(", comment='").append(comment).append('\'')
+                .append('}').toString();
     }
 }

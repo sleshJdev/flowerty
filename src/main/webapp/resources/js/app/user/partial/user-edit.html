@@ -1,9 +1,8 @@
 <div data-ng-app="flowertyApplication.userModule">
     <div class="col-md-offset-2 col-md-8 well well-lg">
-        <legend class="text-center header">{{option.title}}</legend>
-
         <div class="row">
-            <form class="form-horizontal">
+			<fieldset class="form-horizontal" data-ng-form="userForm">
+		        <legend class="text-center">{{option.title}}</legend>
                 <div class="form-group" data-ng-show="option.edit">
                     <label class="col-sm-4 control-label">Name</label>
 
@@ -57,12 +56,9 @@
                     <label class="col-sm-4 control-label">Login</label>
 
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" data-ng-model="bundle.user.login"
-                               placeholder="Login">
-
-                        <div data-ng-show="error.emptyLogin">
-                            <p class="text-center alert-danger">You can't leave this empty..</p>
-                        </div>
+                        <input type="text" class="form-control" data-ng-model="bundle.user.login" name="login" placeholder="Login"
+                    		data-ng-maxlength="20" required 
+						  	data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group">
@@ -70,21 +66,19 @@
                     <label class="col-sm-4 control-label" data-ng-show="option.edit">Reset a password</label>
 
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" data-ng-model="bundle.user.password"
-                               placeholder="Password">
-
-                        <div data-ng-show="error.emptyPassword">
-                            <p class="text-center alert-danger">You can't leave this empty..</p>
-                        </div>
+                        <input type="password" class="form-control" data-ng-model="bundle.user.password"  name="password" placeholder="Password"
+		                    	data-ng-maxlength="20" required  
+							  	data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="bundle.user.password">
                     <label class="col-sm-4 control-label">Confirm your password</label>
 
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm"
-                               placeholder="Password">
-
+                        <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm" name="password" placeholder="Confirm password"
+		                    	data-ng-maxlength="20" required 
+							  	data-flowerty-validate >
+						
                         <div data-ng-show="bundle.user.password && bundle.user.password != bundle.passwordConfirm">
                             <p class="text-center alert-danger">These passwords don't match.</p>
                         </div>
@@ -97,11 +91,13 @@
                         <a href="#users" class="col-sm-4 btn btn-default btn-lg pull-right">Cancel</a>
                     </div>
                     <div class="col-sm-6">
-                        <button data-ng-click="save()" class="col-sm-4 btn btn-success btn-lg">{{option.actionButton}}
+                        <button
+                        	data-ng-disabled="userForm.$invalid"
+                        	data-ng-click="save()" class="col-sm-4 btn btn-success btn-lg">{{option.actionButton}}
                         </button>
                     </div>
                 </div>
-            </form>
+           	</fieldset>
         </div>
     </div>
 </div>

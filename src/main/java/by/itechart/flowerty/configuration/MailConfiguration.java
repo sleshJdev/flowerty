@@ -17,6 +17,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import by.itechart.flowerty.Application;
+
 /**
  * @author Eugene Putsykovich(slesh) Apr 14, 2015
  *
@@ -25,11 +27,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableAsync
 @EnableScheduling
-@ComponentScan(basePackages = { MailConfiguration.TO_SCAN })
+@ComponentScan(basePackageClasses = Application.class)
 @PropertySource("classpath:/web.properties")
 public class MailConfiguration {
-    protected static final String TO_SCAN = "by.itechart.flowerty.jms";
-    
     @Autowired
     private Environment environment;
 

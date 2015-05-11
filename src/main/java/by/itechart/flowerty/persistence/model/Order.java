@@ -1,6 +1,7 @@
 package by.itechart.flowerty.persistence.model;
 
 import by.itechart.flowerty.solr.model.OrderDocument;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ public class Order {
     private String description;
     private Set<Item> items;
     private Date deliveryDate;
+    private Address address;
 
     public Order() {
     }
@@ -94,6 +96,21 @@ public class Order {
         return deliveryDate;
     }
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADDRESS_ID")
+    @Valid
+    public Address getAddress() {
+        return address;
+    }
+
+    @JsonIgnore
+    @Transient
+    public OrderDocument getOrderDocument() {
+        if(id == null || customer == null || receiver == null || deliveryDate == null){
+            return null;
+        }
+        return new OrderDocument(id.toString(), customer.getFathername(), receiver.getFathername(), deliveryDate, customer.getCompany());
+    }
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
@@ -134,13 +151,29 @@ public class Order {
         this.id = id;
     }
 
-
     public void setState(State state) {
         this.state = state;
     }
 
-    @Transient
-    public OrderDocument getOrderDocument() {
-        return new OrderDocument(id.toString(), customer.getFathername(), receiver.getFathername(), deliveryDate, customer.getCompany());
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("Order{")
+                .append("id=").append(id)
+                .append(", state=").append(state)
+                .append(", cost=").append(cost)
+                .append(", customer=").append(customer)
+                .append(", receiver=").append(receiver)
+                .append(", staff=").append(staff)
+                .append(", manager=").append(manager)
+                .append(", delivery=").append(delivery)
+                .append(", description='").append(description).append('\'')
+                .append(", items=").append(items)
+                .append(", deliveryDate=").append(deliveryDate)
+                .append(", address=").append(address)
+                .append('}').toString();
     }
 }

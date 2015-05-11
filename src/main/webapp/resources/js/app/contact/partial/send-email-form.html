@@ -1,64 +1,58 @@
-<div class="row">
-	<div class="col-md-12">
-		<div class="well well-sm">
-			<data-notification alert-data="notification"></data-notification><!-- notification is custom directive -->
-			<fieldset class="form-horizontal" form="send-email-form">
-				<legend class="text-center">Send email</legend>
-				<div class="form-group">
-					<label class="col-sm-3 control-label">To</label>
-					<div class="col-md-8">
-						<!-- TODO: need think -->
+<data-notification alert-data="notification"></data-notification><!-- notification is custom directive -->
+<fieldset class="form-horizontal" form="send-email-form">
+	<legend class="text-center">Send email</legend>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">To</label>
+		<div class="col-md-8">
+			<!-- TODO: need think -->
 <!-- 						<input id="fname"  -->
 <!-- 									data-ng-model="bundle.newEmail"  -->
 <!-- 									data-ng-keyup="bundle.actions.addNewEmail($event);"  -->
 <!-- 									placeholder="Type new email to send here and press enter." class="form-control"> -->
-						<ul class="list-inline">
-							<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to.email}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeEmail($index)"></span> </li>
-						</ul>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Subject</label>
-					<div class="col-md-8">
-						<input id="lname" data-ng-model="bundle.email.subject" placeholder="Subject" class="form-control">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Template</label>
-					<div class="col-md-8">
-						<select data-ng-model="bundle.template" data-ng-options="t as t.name for t in bundle.templates"></select>
-					</div>
-				</div>
-				<div class="form-group">
-					 <label class="col-sm-3 control-label">Attachments</label>
-					<div class="col-md-8 row">
-				    	<div class="col-md-2">
-							<!-- TODO: add directive for this -->
-				    		<input id="selected-file" type="file" data-ng-hide="true" data-flowerty-file-upload multiple/><!-- file-upload is custom directive -->
-							<input class="btn" type="button" onclick="$('#selected-file').trigger('click');" value="Browse..." />
-				    	</div>
-			    		<ul class="list-inline list-group">
-						  <li data-ng-repeat="file in bundle.files">
-						  	{{file.name}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeAttachment($index)"></span>
-						  </li>
-						</ul>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Message</label>
-					<div class="col-md-8">
-						<textarea class="form-control" data-ng-model="bundle.template.value" placeholder="Enter your massage for us here." rows="7">
-                         </textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-12 text-center">
-						<form id="send-email-form">
-							<button type="submit" class="btn btn-primary btn-lg" data-ng-click="bundle.actions.send()">Submit</button>
-						</form>
-					</div>
-				</div>
-			</fieldset>
+			<ul class="list-inline">
+				<li style="background-color: white;" data-ng-repeat="to in bundle.email.to">{{to.email}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeEmail($index)"></span> </li>
+			</ul>
 		</div>
 	</div>
-</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Subject</label>
+		<div class="col-md-8">
+			<input id="lname" data-ng-model="bundle.email.subject" placeholder="Subject" class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Template</label>
+		<div class="col-md-8">
+			<select data-ng-model="bundle.template" data-ng-options="t as t.name for t in bundle.templates"></select>
+		</div>
+	</div>
+	<div class="form-group">
+		 <label class="col-sm-3 control-label">Attachments</label>
+		<div class="col-md-8 row">
+	    	<div class="col-md-2">
+				<!-- TODO: add directive for this -->
+	    		<input id="selected-file" type="file" data-ng-hide="true" data-flowerty-file-upload multiple/><!-- file-upload is custom directive -->
+				<input class="btn" type="button" onclick="$('#selected-file').trigger('click');" value="Browse..." />
+	    	</div>
+    		<ul class="list-inline list-group">
+			  <li data-ng-repeat="file in bundle.files">
+			  	{{file.name}}<span class="btn glyphicon glyphicon-remove-circle" data-ng-click="bundle.actions.removeAttachment($index)"></span>
+			  </li>
+			</ul>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Message</label>
+		<div class="col-md-8">
+			<textarea class="form-control" data-ng-model="bundle.template.value" placeholder="Enter your massage for us here." rows="7">
+                      </textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-12 text-center">
+			<form id="send-email-form">
+				<button type="submit" class="btn btn-primary btn-lg" data-ng-click="bundle.actions.send()">Submit</button>
+			</form>
+		</div>
+	</div>
+</fieldset>

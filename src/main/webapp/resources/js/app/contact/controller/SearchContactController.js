@@ -11,7 +11,7 @@ angular.module("flowertyApplication.contactModule").controller("SearchContactCon
         $scope.bundle.contact = {};
         $scope.bundle.contact.phones = [];
         $scope.bundle.processType.action = function(contact){
-            $http({
+            $http({     //TODO: service
                 method: "post",
                 url: "contact/search",
                 data: $scope.bundle.contact

@@ -13,7 +13,7 @@ import javax.servlet.Filter;
         SearchContext.class,
         SpringSecurityConfiguration.class})
 @WebAppConfiguration
-public abstract class WebSecurityConfigurationAware extends WebAppConfigurationAware {
+public abstract class WebSecurityConfigurationAware extends WebApplicationConfigurationAware {
 
     @Autowired
     protected WebApplicationContext context;

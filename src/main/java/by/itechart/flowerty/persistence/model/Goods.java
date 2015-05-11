@@ -75,4 +75,15 @@ public class Goods {
         this.remain = remain;
     }
 
+    @Override
+    public String toString() {
+        return new StringBuilder("Goods{")
+                .append("id=").append(id)
+                .append(", cost=").append(cost)
+                .append(", remain=").append(remain)
+                .append(", company=").append(company)
+                .append(", flower=").append(flower)
+                .append(", image='").append(image).append('\'')
+                .append('}').toString();
+    }
 }
