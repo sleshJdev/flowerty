@@ -31,6 +31,6 @@ angular.module("flowertyApplication.contactModule")
 	        }
 	    })
 	    .success(successCallback)
-        .error(errorCallback(data));
+        .error(errorCallback);
     };
 }]);

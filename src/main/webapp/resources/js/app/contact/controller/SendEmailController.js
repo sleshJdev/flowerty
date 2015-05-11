@@ -4,8 +4,8 @@
  *
  *	send email for selected contact
  */
-angular.module("flowertyApplication.contactModule").controller("SendEmailController", ["$scope", "$http", "$location", "transportService",
-                                    function($scope, $http, $location, transportService) {
+angular.module("flowertyApplication.contactModule").controller("SendEmailController", ["$scope", "$http", "$location", "emailService",
+                                    function($scope, $http, $location, emailService) {
 	$scope.bundle = {
 			actions: [],
 			email:{
@@ -24,16 +24,8 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
         type: ""
     };
 	
-	//TODO: service!
-	$http({
-		method: "get",
-		url: "email/templates"
-	}).success(function(data, status, headers, config) {
-		$scope.bundle.templates = data;
-		$scope.bundle.template = $scope.bundle.templates[0];
-	}).error(function(data, status, headers, config) {
-		console.log("error occured during fetch email templates: " + JSON.stringify(data));//LOG
-	});
+	$scope.bundle.templates = getTemplates.getTemplates();
+	$scope.bundle.template = $scope.bundle.templates[0];
 	
 	$scope.bundle.email.to = transportService.getValue();//for test: studentbntu@mail.ru is valid
 	
@@ -76,21 +68,6 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 	$scope.bundle.actions.removeAttachment = function(number){
 		$scope.bundle.files.splice(number, 1);
 		console.log("remove attachment with number: " + number + ", current quantity: " + $scope.bundle.files.length);
-	};
-	
-	//TODO: remove in future
-	$scope.bundle.actions.removeEmail = function(number){
-		$scope.bundle.email.to.splice(number, 1);
-		console.log("remove email to send with number: " + number + ", current quantity: " + $scope.bundle.email.to.length);
-	};
-	
-	//TODO: remove in future
-	$scope.bundle.actions.addNewEmail = function(event){
-		if(event.which === 13) {//code of enter button
-			$scope.bundle.email.to.push($scope.bundle.newEmail);
-			$scope.bundle.newEmail = "";
-			console.log("add new email: " + $scope.bundle.newEmail + ", current quantity: " + $scope.bundle.email.to.length);
-		}
 	};
 	
 	function reset(){

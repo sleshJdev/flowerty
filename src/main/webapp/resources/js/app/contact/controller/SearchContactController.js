@@ -14,6 +14,6 @@ angular.module("flowertyApplication.contactModule")
     $scope.bundle.contact.phones = [];
     $scope.bundle.processType.action = function(){
         contactSearchService.setContactToSearch($scope.bundle.contact);
-        $location.path("show-contacts");
+        $location.path("contact-list");
     };
 }]);

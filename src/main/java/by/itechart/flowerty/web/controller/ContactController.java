@@ -93,7 +93,9 @@ public class ContactController {
     
     @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<Contact> contacts) {
-        LOGGER.info("remove contacts. obtained {} contacts, wicht not remove", contacts.size());
+	
+	
+        LOGGER.info("remove contacts. obtained {} contacts", contacts.size());
 
         contactService.deleteIdIn(fetchIdOfContact(contacts));
     }
