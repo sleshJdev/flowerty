@@ -1,7 +1,7 @@
 
 <!-- Pagination template -->
 <div class="row">
-    <ul class="pagination pagination-sm container col-md-10">
+    <ul class="pagination pagination-sm col-md-10">
         <li><a href="" data-ng-click="pagination.getPreviousPage()">&lt;</a></li>
         <li data-ng-repeat="page in [] | flowerRange:pagination.getPagesCount()"
             data-ng-init="pageNumber = $index + 1"

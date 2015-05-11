@@ -57,9 +57,9 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
 .config(["$routeProvider", "$locationProvider", "CONSTANTS", function($routeProvider, $locationProvider, CONSTANTS) {
     $routeProvider
         .when("/contact-list", {
-        templateUrl: CONSTANTS.CONTACTS,
-        controller: "ContactListController"
-    })
+            templateUrl: CONSTANTS.CONTACTS,
+            controller: "ContactListController"
+        })
         .when("/contact-edit/:id", {
             templateUrl: CONSTANTS.EDIT_CONTACT,
             controller: "EditContactController"

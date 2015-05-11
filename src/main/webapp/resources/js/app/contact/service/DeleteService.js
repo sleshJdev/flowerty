@@ -6,6 +6,7 @@
  */
 angular.module("flowertyApplication.contactModule").service("deleteService",
 		function() {
+
 			this.deleteIsChecked = function(checker, collection) {
 				var isBreak = true;
 				do {
@@ -17,5 +18,26 @@ angular.module("flowertyApplication.contactModule").service("deleteService",
 						}
 					}
 				} while (!isBreak);
-			}
+			};
+
+            this.deleteContact = function (checker, list, successCallback, errorCallback) {
+                console.log("delete contact");
+                deleteIsChecked(checker, list);
+                $http({
+                    method: "post",
+                    url: "contact/remove",
+                    data: list,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "text/plain"
+                    }
+                })
+                    .success(successCallback)
+                    .error(function (data) {
+                        console.log("Exception during deleting contact:\n"
+                        + JSON.stringify({data: data}));
+                        errorCallback(data);
+                    }
+                );
+            };
 		});

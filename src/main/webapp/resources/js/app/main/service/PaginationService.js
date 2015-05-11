@@ -20,6 +20,9 @@ angular.module("flowertyApplication.orderModule").service('paginationService', [
 
         var changeLimit = function(limit){
             listBundle.limit = limit;
+
+            //TODO: maybe change this logic
+            listBundle.currentPage = listBundle.currentPage > listBundle.pagesCount ? 1 : listBundle.currentPage;
             getPage(listBundle.currentPage);
         };
 
