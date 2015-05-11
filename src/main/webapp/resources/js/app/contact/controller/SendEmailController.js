@@ -23,6 +23,7 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
         message: "",
         type: ""
     };
+	
 	//TODO: service!
 	$http({
 		method: "get",
