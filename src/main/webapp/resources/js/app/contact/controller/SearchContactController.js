@@ -4,12 +4,14 @@
  *
  *	search contact
  */
-angular.module("flowertyApplication.contactModule").controller("SearchContactController", ["$scope", "$http", "$location","processContactService", "contactListService", "CONSTANTS",
-    function($scope, $http, $location, processContactService, contactListService, CONSTANTS){
-        $scope.bundle = processContactService.bundle;
-        $scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
+angular.module("flowertyApplication.contactModule").controller("SearchContactController", 
+		["$scope", "$http", "$location","processContactService", "contactListService", "CONSTANTS",
+		  function($scope, $http, $location, processContactService, contactListService, CONSTANTS){
+        
+		$scope.bundle = processContactService.bundle;
         $scope.bundle.contact = {};
         $scope.bundle.contact.phones = [];
+        $scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
         $scope.bundle.processType.action = function(contact){
             $http({     //TODO: service
                 method: "post",
@@ -23,5 +25,4 @@ angular.module("flowertyApplication.contactModule").controller("SearchContactCon
                 console.log("error search contact. details: " + JSON.stringify(data))//REMOVE_COMMENT
             });
         };
-
     }]);

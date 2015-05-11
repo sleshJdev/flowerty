@@ -5,21 +5,20 @@
  *	show contact list
  */
 angular.module("flowertyApplication.contactModule").controller("ContactListController", 
-		["$scope", "$http", "$location", "transportService", "deleteService", "contactListService", "stateSaverService",
-		 function($scope, $http, $location, transportService, deleteService, contactListService, stateSaverService) {
+		["$scope", "$http", "$location", "transportService", "deleteService", "contactListService", "stateSaverService", "paginationService",
+		  function($scope, $http, $location, transportService, deleteService, contactListService, stateSaverService, paginationService) {
         
-		$scope.contacts = {
-            currentPage: 1,
-            totalPages: [],
-            list: [],
-            state: stateSaverService.state
-        };
-        $scope.contacts.state.reset();
+        $scope.bundle = {
+        		contacts: paginationService.getListBundle(),
+        		state: stateSaverService.state,
+        		actions: []
+        }
+        $scope.bundle.state.reset();
         
         /*
          * grab emails of selected contact and pass they to SendEmailController
          */
-        $scope.contacts.goToEmailSend = function(){
+        $scope.bundle.actions.goToEmailSend = function(){
             if($scope.contacts.state.isempty()){
             	alert("Please select contacts to send email.");
             }else{
@@ -29,31 +28,26 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
         };
 
         /*
-         * remove specific contact(s)
+         * remove specific contacts
          */
-        $scope.contacts.deleteContact = function(){
-            console.log("delete contact");
-            
-            deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
-            
+        $scope.bundle.actions.deleteContact = function(){
             $http({
                 method: "post",
                 url: "contact/remove",
-                data: $scope.contacts.state.checkeds,
+                data: deletableCollection,
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "text/plain"
                 }
             }).success(function(data, status, headers, config) {
-            	deleteService.deleteIsChecked($scope.contacts.state.ischecked, $scope.contacts.list);
+            	deleteService.deleteIsChecked($scope.state.ischecked, $scope.contacts.list);
                 console.log("contact delete successful");
-//                $location.path("contacts");
             }).error(function(data, status, headers, config) {
-            	console.log("contact delete error. details: " + JSON.stringify({data: data}));
+            	console.log("contact delete error. details: " + JSON.stringify(data));
             });
         };
 
-        $scope.contacts.getPageFromServer = function(){
+        function getPageFromServer(){
             $http({
                 method: "get",
                 url: "contact/list/" + $scope.contacts.currentPage
@@ -68,46 +62,9 @@ angular.module("flowertyApplication.contactModule").controller("ContactListContr
             });
         };
 
-        $scope.contacts.getPage = function(pageNumber){
-            $scope.contacts.currentPage = pageNumber;
-            var list = contactListService.getList();
-            if (list) {
-                $scope.contacts.list = list.content;
-                $scope.contacts.totalPages = list.totalPages;
-            }  else {
-                $scope.contacts.getPageFromServer();
-            }
-        };
-
-        $scope.contacts.getPreviousPage = function(){
-            if($scope.contacts.currentPage > 1) {
-                $scope.contacts.currentPage--;
-                $scope.contacts.getPageFromServer();
-            }
-        };
-
-        $scope.contacts.getNextPage = function(){
-            if($scope.contacts.currentPage < $scope.contacts.totalPages){
-                $scope.contacts.currentPage++;
-                $scope.contacts.getPageFromServer();
-            }
-        };
-
-        $scope.contacts.getPagesCount = function(){
-            return $scope.contacts.totalPages;
-        };
-
-        $scope.contacts.pageClass = function(pageNumber){
-            return pageNumber == $scope.contacts.currentPage ? 'active' : '';
-        };
-
         $scope.init = function () {
             $scope.contacts.getPage(1);
-            $scope.pagination.getNextPage = $scope.contacts.getNextPage;
-            $scope.pagination.getPreviousPage = $scope.contacts.getPreviousPage;
-            $scope.pagination.getPage = $scope.contacts.getPage;
-            $scope.pagination.pageClass = $scope.contacts.pageClass;
-            $scope.pagination.getPagesCount = $scope.contacts.getPagesCount;
+            $scope.pagination.getNextPage = paginationService.getPagination(getPageFromServer);
         };
 
         $scope.init();
