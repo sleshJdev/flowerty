@@ -39,12 +39,13 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                     //  Makes the basket empty
                     $scope.current.resetBasket();
                     notificationService.notify("success", "New order added!");
-                    $location.path('orders');
+                    $location.path('/orders');
                 },
                 function (data) {
                     console.log('Cannot checkout order: ' + JSON.stringify($scope.bundle.order) +
                     '\nException details : ' + JSON.stringify({data: data}));
                     notificationService.notify("danger", "Checking out failed!");
+                    $location.path('/add-order');
                 });
         };
 

@@ -1,97 +1,98 @@
 <!DOCTYPE html>
 <html data-ng-app="flowertyApplication" data-ng-controller="MainController">
-    <head>
-        <title>Flowerty</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <!-- styles -->
-        <link rel="shortcut icon" href="resources/images/favicon.ico"/>
-        <link href="resources/css/bootstrap/bootstrap.min.css"  type="text/css" rel="stylesheet" media="all" />
-        <link href="resources/css/bootstrap/datepicker.css"  type="text/css" rel="stylesheet" media="all" />
-        <link href="resources/css/app/css.css" type="text/css" rel="stylesheet" media="all" />
-    </head>
-    <body data-ng-controller="ViewController">
+<head>
+    <title>Flowerty</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- styles -->
+    <link rel="shortcut icon" href="resources/images/favicon.ico"/>
+    <link href="resources/css/bootstrap/bootstrap.min.css"  type="text/css" rel="stylesheet" media="all" />
+    <link href="resources/css/bootstrap/datepicker.css"  type="text/css" rel="stylesheet" media="all" />
+    <link href="resources/css/app/css.css" type="text/css" rel="stylesheet" media="all" />
+</head>
+<body data-ng-controller="ViewController">
+    <div class="notification-wrapper">
+        <data-notification class="notification" alert-data="notification"></data-notification><!-- notification is custom directive -->
+    </div>
+    <div class="wrapper">
+        <div data-ng-include="templates.header.url"></div>
 
-        <div class="wrapper">
-            <div data-ng-include="templates.header.url"></div>
 
-            <data-notification alert-data="notification"></data-notification><!-- notification is custom directive -->
-
-            <div id="main-container-content" class="container-fluid col-sm-8 col-sm-offset-2">
-                <div class="row">
-                    <div data-ng-view="" class="main"></div>
-                </div>
+        <div id="main-container-content" class="container-fluid col-sm-8 col-sm-offset-2">
+            <div class="row">
+                <div data-ng-view="" class="main"></div>
             </div>
-
-            <div class="footer-placeholder"></div>
-
         </div>
-        <div data-ng-include="templates.footer.url"></div>
 
-            <!-- external -->
-        <script src="resources/js/external/jquery-2.1.3.min.js"></script>
-        <script src="resources/js/external/bootstrap.min.js"></script>
-        <script src="resources/js/external/bootstrap-datepicker.js"></script>
-        <script src="resources/js/external/angular.js"></script>
-        <script src="resources/js/external/angular-route.js"></script>
-        <script src="resources/js/external/ngStorage.min.js"></script>
-            <!-- app modules -->
-        <script src="resources/js/app/flowertyApplication.js" ></script>
-        <script src="resources/js/app/authentication/authenticationModule.js" ></script>
-        <script src="resources/js/app/user/userModule.js" ></script>
-        <script src="resources/js/app/error/errorModule.js"></script>
-        <script src="resources/js/app/util/utilModule.js"></script>
-        <script src="resources/js/app/contact/contactModule.js"></script>
-        <script src="resources/js/app/goods/goodsModule.js"></script>
-        <script src="resources/js/app/order/orderModule.js"></script>
-        <script src="resources/js/app/profile/profileModule.js"></script>
-            <!-- main -->
-        <script src="resources/js/app/main/controller/ViewController.js" ></script>
-        <script src="resources/js/app/main/controller/MainController.js" ></script>
-        <script src="resources/js/app/main/service/PaginationService.js" ></script>
-        <script src="resources/js/app/main/service/NotificationService.js" ></script>
-            <!-- for user -->
-        <script src="resources/js/app/user/controller/UserEditController.js" ></script>
-        <script src="resources/js/app/user/controller/UserAddController.js" ></script>
-        <script src="resources/js/app/user/controller/UserDeleteController.js" ></script>
-        <script src="resources/js/app/user/controller/UsersController.js" ></script>
-            <!-- goods -->
-        <script src="resources/js/app/goods/controller/GoodsListController.js" ></script>
-        <script src="resources/js/app/goods/controller/GoodsAddController.js" ></script>
-        <script src="resources/js/app/goods/service/GoodsProcessService.js" ></script>
-        <script src="resources/js/app/goods/directive/FlowertyPicturePick.js" ></script>
-        <script src="resources/js/app/goods/service/GoodsListService.js" ></script>
-            <!-- error -->
-        <script src="resources/js/app/error/controller/ErrorHandler.js" ></script>
-        <script src="resources/js/app/error/service/ErrorDataTransportService.js" ></script>
-            <!-- contact -->
-        <script src="resources/js/app/contact/service/DeleteService.js" ></script>
-        <script src="resources/js/app/contact/service/ProcessContactService.js" ></script>
-        <script src="resources/js/app/contact/service/TransportService.js" ></script>
-        <script src="resources/js/app/contact/service/ContactListService.js" ></script>
-        <script src="resources/js/app/contact/service/StateSaverService.js" ></script>
-        <script src="resources/js/app/contact/directive/FileUpload.js" ></script>
-        <script src="resources/js/app/contact/controller/ContactListController.js" ></script>
-        <script src="resources/js/app/contact/controller/AddContactController.js" ></script>
-        <script src="resources/js/app/contact/controller/EditContactController.js" ></script>
-        <script src="resources/js/app/contact/controller/SearchContactController.js" ></script>
-        <script src="resources/js/app/contact/controller/SendEmailController.js" ></script>
-        <script src="resources/js/app/contact/controller/ShowContactsController.js" ></script>
-            <!-- authentication -->
-        <script src="resources/js/app/authentication/controller/LogInController.js" ></script>
-        <script src="resources/js/app/authentication/factory/AuthServerProvider.js" ></script>
-            <!--profile-->
-        <script src="resources/js/app/profile/controller/ProfileController.js" ></script>
-            <!-- order -->
-        <script src="resources/js/app/order/controller/OrderEditController.js" ></script>
-        <script src="resources/js/app/order/controller/OrderAddController.js" ></script>
-        <script src="resources/js/app/order/controller/OrdersController.js" ></script>
-        <script src="resources/js/app/order/controller/OrderSearchController.js" ></script>
-        <script src="resources/js/app/order/controller/ShowOrdersController.js" ></script>
-        <script src="resources/js/app/order/controller/OrderHistoryController.js" ></script>
-        <script src="resources/js/app/order/service/OrderListService.js" ></script>
-        <script src="resources/js/app/order/service/CheckoutService.js" ></script>
-        <script src="resources/js/app/order/service/OrderService.js" ></script>
-        <script src="resources/js/app/order/service/StaffService.js" ></script>
-        <script src="resources/js/app/order/service/OrderSearchService.js" ></script>
-    </body>
+        <div class="footer-placeholder"></div>
+
+    </div>
+    <div data-ng-include="templates.footer.url"></div>
+
+    <!-- external -->
+    <script src="resources/js/external/jquery-2.1.3.min.js"></script>
+    <script src="resources/js/external/bootstrap.min.js"></script>
+    <script src="resources/js/external/bootstrap-datepicker.js"></script>
+    <script src="resources/js/external/angular.js"></script>
+    <script src="resources/js/external/angular-route.js"></script>
+    <script src="resources/js/external/ngStorage.min.js"></script>
+    <!-- app modules -->
+    <script src="resources/js/app/flowertyApplication.js" ></script>
+    <script src="resources/js/app/authentication/authenticationModule.js" ></script>
+    <script src="resources/js/app/user/userModule.js" ></script>
+    <script src="resources/js/app/error/errorModule.js"></script>
+    <script src="resources/js/app/util/utilModule.js"></script>
+    <script src="resources/js/app/contact/contactModule.js"></script>
+    <script src="resources/js/app/goods/goodsModule.js"></script>
+    <script src="resources/js/app/order/orderModule.js"></script>
+    <script src="resources/js/app/profile/profileModule.js"></script>
+    <!-- main -->
+    <script src="resources/js/app/main/controller/ViewController.js" ></script>
+    <script src="resources/js/app/main/controller/MainController.js" ></script>
+    <script src="resources/js/app/main/service/PaginationService.js" ></script>
+    <script src="resources/js/app/main/service/NotificationService.js" ></script>
+    <!-- for user -->
+    <script src="resources/js/app/user/controller/UserEditController.js" ></script>
+    <script src="resources/js/app/user/controller/UserAddController.js" ></script>
+    <script src="resources/js/app/user/controller/UserDeleteController.js" ></script>
+    <script src="resources/js/app/user/controller/UsersController.js" ></script>
+    <!-- goods -->
+    <script src="resources/js/app/goods/controller/GoodsListController.js" ></script>
+    <script src="resources/js/app/goods/controller/GoodsAddController.js" ></script>
+    <script src="resources/js/app/goods/service/GoodsProcessService.js" ></script>
+    <script src="resources/js/app/goods/directive/FlowertyPicturePick.js" ></script>
+    <script src="resources/js/app/goods/service/GoodsListService.js" ></script>
+    <!-- error -->
+    <script src="resources/js/app/error/controller/ErrorHandler.js" ></script>
+    <script src="resources/js/app/error/service/ErrorDataTransportService.js" ></script>
+    <!-- contact -->
+    <script src="resources/js/app/contact/service/DeleteService.js" ></script>
+    <script src="resources/js/app/contact/service/ProcessContactService.js" ></script>
+    <script src="resources/js/app/contact/service/TransportService.js" ></script>
+    <script src="resources/js/app/contact/service/ContactListService.js" ></script>
+    <script src="resources/js/app/contact/service/StateSaverService.js" ></script>
+    <script src="resources/js/app/contact/directive/FileUpload.js" ></script>
+    <script src="resources/js/app/contact/controller/ContactListController.js" ></script>
+    <script src="resources/js/app/contact/controller/AddContactController.js" ></script>
+    <script src="resources/js/app/contact/controller/EditContactController.js" ></script>
+    <script src="resources/js/app/contact/controller/SearchContactController.js" ></script>
+    <script src="resources/js/app/contact/controller/SendEmailController.js" ></script>
+    <script src="resources/js/app/contact/controller/ShowContactsController.js" ></script>
+    <!-- authentication -->
+    <script src="resources/js/app/authentication/controller/LogInController.js" ></script>
+    <script src="resources/js/app/authentication/factory/AuthServerProvider.js" ></script>
+    <!--profile-->
+    <script src="resources/js/app/profile/controller/ProfileController.js" ></script>
+    <!-- order -->
+    <script src="resources/js/app/order/controller/OrderEditController.js" ></script>
+    <script src="resources/js/app/order/controller/OrderAddController.js" ></script>
+    <script src="resources/js/app/order/controller/OrdersController.js" ></script>
+    <script src="resources/js/app/order/controller/OrderSearchController.js" ></script>
+    <script src="resources/js/app/order/controller/ShowOrdersController.js" ></script>
+    <script src="resources/js/app/order/controller/OrderHistoryController.js" ></script>
+    <script src="resources/js/app/order/service/OrderListService.js" ></script>
+    <script src="resources/js/app/order/service/CheckoutService.js" ></script>
+    <script src="resources/js/app/order/service/OrderService.js" ></script>
+    <script src="resources/js/app/order/service/StaffService.js" ></script>
+    <script src="resources/js/app/order/service/OrderSearchService.js" ></script>
+</body>
 </html>

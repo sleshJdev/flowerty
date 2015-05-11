@@ -80,5 +80,5 @@ angular.module('flowertyApplication').controller('MainController',
             }
         };
 
-        $scope.pagination = notificationService.getNotificationBundle();
+        $scope.notification = notificationService.getNotificationBundle();
     });
