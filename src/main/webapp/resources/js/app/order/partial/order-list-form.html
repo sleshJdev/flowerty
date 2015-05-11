@@ -9,7 +9,7 @@
             <th>description</th>
             <th>full cost</th>
         </tr>
-        <tr data-ng-repeat="order in orders.ordersList" >
+        <tr data-ng-repeat="order in orders.list" >
             <td><a href="#edit-order/{{order.id}}"><span class="glyphicon glyphicon-edit"></span></a> {{order.deliveryDate}}</td>
             <td>{{order.description}}</td>
             <td>{{order.cost | currency}}</td>

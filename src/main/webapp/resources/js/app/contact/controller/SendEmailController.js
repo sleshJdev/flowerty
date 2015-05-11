@@ -10,7 +10,7 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 			actions: [],
 			email:{
 				to: [],
-				subject: "you subject",
+				subject: "your subject",
 				text: ""
 			},
 			templates: [],
@@ -23,10 +23,10 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
         message: "",
         type: ""
     };
-	
+	//TODO: service!
 	$http({
 		method: "get",
-		url: "email/templates",
+		url: "email/templates"
 	}).success(function(data, status, headers, config) {
 		$scope.bundle.templates = data;
 		$scope.bundle.template = $scope.bundle.templates[0];
@@ -97,4 +97,4 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 		$scope.bundle.template = {};
 		$scope.bundle.files = [];
 	}
-}])
+}]);
