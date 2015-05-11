@@ -2,17 +2,26 @@
 /*
  * @author Eugene Putsykovich(slesh) May 8, 2015
  * 
- * contains the list of contacts found by search. if the list is null, than
- * we're not searching but browsing all contacts
+ * Service for getting lists of contacts at certain page with some limit
  */
-angular.module("flowertyApplication.contactModule").service("contactListService", function() {
-    var list = null;
-    return {
-        getList: function(){
-            return list;
-        },
-        setList: function(newList){
-            list = newList;
-        }
-    };
-})
+
+angular.module("flowertyApplication.contactModule").service("contactListService", ['$http',
+    function($http) {
+
+    var service = this;
+
+    service.getContactList = function(page, limit, successCallback, errorCallback){
+        $http({
+            method: "get",
+            url: "contact/list/" + page + "/" + limit
+        })
+            .success(successCallback)
+            .error(function(data) {
+                console.log("Exception during getting list of the contacts at page " + page + " with limit of " + limit +":\n"
+                + JSON.stringify({data: data}));
+                errorCallback(data);
+            }
+        );
+    }
+
+}]);
