@@ -69,7 +69,6 @@ public class Item {
                 .append("id=").append(id)
                 .append(", quantity=").append(quantity)
                 .append(", goods=").append(goods)
-                .append(", order=").append(order)
                 .append('}').toString();
     }
 }
