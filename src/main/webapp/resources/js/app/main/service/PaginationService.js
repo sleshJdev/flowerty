@@ -5,7 +5,7 @@
  * Service for paging
  */
 
-angular.module("flowertyApplication.orderModule").service('paginationService', ['$location', 'MAIN_MODULE_CONSTANTS',
+angular.module("flowertyApplication").service('paginationService', ['$location', 'MAIN_MODULE_CONSTANTS',
     function($location, MAIN_MODULE_CONSTANTS) {
 
         var service = this;
@@ -20,7 +20,9 @@ angular.module("flowertyApplication.orderModule").service('paginationService', [
 
         var changeLimit = function(limit){
             listBundle.limit = limit;
-            getPage(listBundle.currentPage);
+
+            //TODO: maybe change this logic
+            getPage(1);
         };
 
         service.getListBundle = function () {

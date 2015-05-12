@@ -4,13 +4,15 @@
  *
  *	send email for selected contact
  */
-angular.module("flowertyApplication.contactModule").controller("SendEmailController", ["$scope", "$http", "$location", "transportService",
-                                    function($scope, $http, $location, transportService) {
+angular.module("flowertyApplication.contactModule")
+
+.controller("SendEmailController", ["$scope", "$http", "$location", "emailService", "notificationService",
+                                    function($scope, $http, $location, emailService, notificationService) {
 	$scope.bundle = {
 			actions: [],
 			email:{
 				to: [],
-				subject: "your subject",
+				subject: "",
 				text: ""
 			},
 			templates: [],
@@ -18,23 +20,11 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 			files: []
 	};
 	
-	$scope.notification = {
-        status: "hide",
-        message: "",
-        type: ""
-    };
-	//TODO: service!
-	$http({
-		method: "get",
-		url: "email/templates"
-	}).success(function(data, status, headers, config) {
+	emailService.getTemplates(function(data) {
 		$scope.bundle.templates = data;
-		$scope.bundle.template = $scope.bundle.templates[0];
-	}).error(function(data, status, headers, config) {
-		console.log("error occured during fetch email templates: " + JSON.stringify(data));//LOG
+		$scope.bundle.template = data[0];
 	});
-	
-	$scope.bundle.email.to = transportService.getValue();//for test: studentbntu@mail.ru is valid
+	$scope.bundle.email.to = emailService.getValue();//for test: studentbntu@mail.ru is valid
 	
 	$scope.$on("fileSelected", function (event, args) {
 		$scope.$apply(function () {            
@@ -43,53 +33,26 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 		});
 	});
 
-	// TODO: add service for this logic
 	$scope.bundle.actions.send = function(){
 		$scope.bundle.email.text = $scope.bundle.template.value;
-
-		var formData = new FormData();
-		formData.append("email", angular.toJson($scope.bundle.email));
-		formData.append("template", angular.toJson($scope.bundle.template));
-		for (var i = 0; i < $scope.bundle.files.length; i++) {
-			formData.append("file", $scope.bundle.files[i]);
-		}
-
-		$http.post("email/send", formData, {
-			headers: {'Content-Type': undefined },
-			transformRequest: angular.identity
-		}).success(function (data, status, headers, config) {
-			console.log("send email success!");
-			$scope.notification.type = "success";
-			$scope.notification.message = "Send email success!";
-			$scope.notification.status = "show";
-		}).error(function (data, status, headers, config) {
-			alert("send email failed!");
-			$scope.notification.type = "danger";
-			$scope.notification.message = "Send email failed!";
-			$scope.notification.status = "show";
-		});
-		
-		reset();
+		emailService.send(
+				$scope.bundle.email, 
+				$scope.bundle.files, 
+				$scope.bundle.template,
+				function(data){
+					console.log("send email success!");
+					notificationService.notify("success", "Send email success!");
+					reset();
+				},
+				function(data){
+					console.log("send email failed!");
+					notificationService.notify("danger", "Send email failed!");
+				});
 	};
 	
 	$scope.bundle.actions.removeAttachment = function(number){
 		$scope.bundle.files.splice(number, 1);
 		console.log("remove attachment with number: " + number + ", current quantity: " + $scope.bundle.files.length);
-	};
-	
-	//TODO: remove in future
-	$scope.bundle.actions.removeEmail = function(number){
-		$scope.bundle.email.to.splice(number, 1);
-		console.log("remove email to send with number: " + number + ", current quantity: " + $scope.bundle.email.to.length);
-	};
-	
-	//TODO: remove in future
-	$scope.bundle.actions.addNewEmail = function(event){
-		if(event.which === 13) {//code of enter button
-			$scope.bundle.email.to.push($scope.bundle.newEmail);
-			$scope.bundle.newEmail = "";
-			console.log("add new email: " + $scope.bundle.newEmail + ", current quantity: " + $scope.bundle.email.to.length);
-		}
 	};
 	
 	function reset(){
@@ -98,3 +61,4 @@ angular.module("flowertyApplication.contactModule").controller("SendEmailControl
 		$scope.bundle.files = [];
 	}
 }]);
+ 

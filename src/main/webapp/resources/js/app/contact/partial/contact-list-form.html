@@ -1,18 +1,17 @@
 <!-- Form for showing list of contacts, deleting contacts -->
 <div data-ng-app="flowertyApplication.contactModule">
-	 <div><span data-ng-click="contacts.goToEmailSend()" class="btn glyphicon glyphicon-send"> Send email</span></div>
+	 <div><span data-ng-click="bundle.sendEmail()" class="btn glyphicon glyphicon-send"> Send email</span></div>
     <div data-ng-include="templates.pagination.url"></div>
      <table class="table table-bordered">
          <tr>
-             <th> <span data-ng-click="contacts.deleteContact()" class="btn glyphicon glyphicon-remove"></span> </th>
+             <th> <span data-ng-click="bundle.deleteContact()" class="btn glyphicon glyphicon-remove"></span> </th>
              <th>Full Name</th>
              <th>Birthday</th>
              <th>Address</th>
          </tr>
-         <tr data-ng-repeat="contact in contacts.list" >
-             <td><input type="checkbox" data-ng-model="fake.ischecked"
-             							data-ng-checked="contacts.state.ischecked(contact)"
-             							data-ng-change="fake.ischecked ? contacts.state.checked(contact) : contacts.state.unchecked(contact)"/></td>
+         <tr data-ng-repeat="contact in bundle.contacts.list" >
+             <td><input type="checkbox" data-ng-checked="bundle.state.ischecked(contact)"
+             							data-ng-click="bundle.state.ischecked(contact) ? bundle.state.unchecked(contact) : bundle.state.checked(contact)"/></td>
              <td> 
              	<a href="#/contact-edit/{{contact.id}}"> <span class="glyphicon glyphicon-edit"></span>
            			{{contact | flowerFullContactName}} 
