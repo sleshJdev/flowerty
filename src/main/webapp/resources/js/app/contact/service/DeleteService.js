@@ -24,7 +24,7 @@ angular.module("flowertyApplication.contactModule")
 	    $http({
 	        method: "post",
 	        url: "contact/remove",
-	        data: list,
+	        data: angular.toJson(list),
 	        headers: {
 	            "Content-Type": "application/json",
 	            "Accept": "text/plain"
