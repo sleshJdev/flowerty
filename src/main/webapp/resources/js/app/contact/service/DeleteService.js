@@ -7,6 +7,8 @@
 angular.module("flowertyApplication.contactModule")
 
 .service("deleteService", ["$http", function($http) {
+	var me = this;
+	
 	this.deleteIsChecked = function(checker, collection) {
 		var isBreak = true;
 		do {
@@ -31,6 +33,6 @@ angular.module("flowertyApplication.contactModule")
 	        }
 	    })
 	    .success(successCallback)
-        .error(errorCallback);
+	    .error(errorCallback);
     };
 }]);

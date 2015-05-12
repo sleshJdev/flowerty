@@ -6,8 +6,8 @@
  */
 angular.module("flowertyApplication.contactModule")
 
-.controller("SendEmailController", ["$scope", "$http", "$location", "emailService",
-                                    function($scope, $http, $location, emailService) {
+.controller("SendEmailController", ["$scope", "$http", "$location", "emailService", "notificationService",
+                                    function($scope, $http, $location, emailService, notificationService) {
 	$scope.bundle = {
 			actions: [],
 			email:{
@@ -19,12 +19,6 @@ angular.module("flowertyApplication.contactModule")
 			template: {},
 			files: []
 	};
-	
-	$scope.notification = {
-        status: "hide",
-        message: "",
-        type: ""
-    };
 	
 	emailService.getTemplates(function(data) {
 		$scope.bundle.templates = data;
@@ -47,18 +41,14 @@ angular.module("flowertyApplication.contactModule")
 				$scope.bundle.template,
 				function(data){
 					console.log("send email success!");
-					$scope.notification.type = "success";
-					$scope.notification.message = "Send email success!";
-					$scope.notification.status = "show";
+					notificationService.notify("success", "Send email success!");
 					reset();
 				},
 				function(data){
 					console.log("send email failed!");
-					$scope.notification.type = "danger";
-					$scope.notification.message = "Send email failed!";
-					$scope.notification.status = "show";
+					notificationService.notify("danger", "Send email failed!");
 				});
-	}
+	};
 	
 	$scope.bundle.actions.removeAttachment = function(number){
 		$scope.bundle.files.splice(number, 1);
@@ -71,3 +61,4 @@ angular.module("flowertyApplication.contactModule")
 		$scope.bundle.files = [];
 	}
 }]);
+ 

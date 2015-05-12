@@ -22,7 +22,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         DATE_PICKER		: CONTACT_MODULE_PATH + "partial/date-picker.html",
 
         SEND_EMAIL		: CONTACT_MODULE_PATH + "partial/send-email-form.html",
-
+        
         PHONE_TYPES: [{name: "CELL"}, {name: "HOME"}],
 
         PROCESS_TYPES : {
