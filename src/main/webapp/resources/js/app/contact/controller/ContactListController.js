@@ -24,17 +24,9 @@ angular.module("flowertyApplication.contactModule")
 	 * remove specific contacts
 	 */
 	 function deleteContact() {
-		 deleteService.deleteContact(
-				 $scope.bundle.state.checkeds,
-				 function (data) {
-					 console.log("contact delete successful");
-					 $location.path("contact-list");
-				 },
-				 function (data) {
-					 console.log("contact delete error. details: " + JSON.stringify(data));
-				 }
-		)
-		deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
+		 deleteService.deleteContact($scope.bundle.state.checkeds);
+		 deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
+		 $location.path("contact-list");
 	 };
 	
 	 $scope.bundle = {
