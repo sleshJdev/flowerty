@@ -74,6 +74,7 @@ public class UserService {
 	}
 
 	public Page<User> getPage(int page, int size) {
+		Page<User> users = userRepository.findAll(new PageRequest(page, size));
 		return userRepository.findAll(new PageRequest(page, size));
 	}
 

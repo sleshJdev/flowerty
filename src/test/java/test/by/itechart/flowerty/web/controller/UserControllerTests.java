@@ -1,4 +1,5 @@
 package test.by.itechart.flowerty.web.controller;
+
 import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.web.controller.UserController;
 import by.itechart.flowerty.web.model.UserEditBundle;
@@ -25,86 +26,86 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
- *
+ *         <p/>
  *         Test for UserController
  */
 public class UserControllerTests extends MockTestConfigigurationAware {
-	@Mock
-	private UserService userServiceMock;
+    @Mock
+    private UserService userServiceMock;
 
-	@InjectMocks
-	private UserController userControllerMock;
+    @InjectMocks
+    private UserController userControllerMock;
 
-	private MockMvc mock;
-	
-	@Before
-	public void setUp() {
-		mock = MockMvcBuilders.standaloneSetup(userControllerMock)
-				.setHandlerExceptionResolvers(withExceptionControllerAdvice())
-				.build();
-	}
+    private MockMvc mock;
 
-	@SuppressWarnings("unchecked")
+    @Before
+    public void setUp() {
+        mock = MockMvcBuilders.standaloneSetup(userControllerMock)
+                .setHandlerExceptionResolvers(withExceptionControllerAdvice())
+                .build();
+    }
+
+    @SuppressWarnings("unchecked")
     @Ignore
-	@Test
-	public void getById_PassNotValidUserId_ShouldReturnShouldRedirectToErroPage() throws Exception {
-		final Long id = Long.MAX_VALUE;
+    @Test
+    public void getById_PassNotValidUserId_ShouldReturnShouldRedirectToErroPage() throws Exception {
+        final Long id = Long.MAX_VALUE;
 
-		when(userServiceMock.getUserEditBundleFor(id))
-			.thenReturn(null)
-			.thenThrow(Exception.class);
-		
-		mock.perform(get("/user/details/{id}", id))
-			.andExpect(status().isOk());
+        when(userServiceMock.getUserEditBundleFor(id))
+                .thenReturn(null)
+                .thenThrow(Exception.class);
 
-		verify(userServiceMock, times(1)).getUserEditBundleFor(id);
-		verifyNoMoreInteractions(userServiceMock);
-	}
+        mock.perform(get("/user/details/{id}", id))
+                .andExpect(status().isOk());
 
-    @Ignore
-	@Test
-	public void getById_PassValidUserId_ShouldReturnUserEditBundle() throws Exception {
-		UserEditBundle bundle = TestControllerHelper.buildUserEditBundleForTest();
-		User returnedUser = bundle.getUser();
-		
-		when(userServiceMock.getUserEditBundleFor(returnedUser.getId())).thenReturn(bundle);
-		
-		mock
-			.perform(get("/user/details/{id}", returnedUser.getId()))
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-			.andExpect(jsonPath("$.user.id", is(1)))
-			.andExpect(jsonPath("$.user.login", is(returnedUser.getLogin())))
-			.andExpect(jsonPath("$.user.password", is(returnedUser.getPassword())));
-
-		verify(userServiceMock, times(1)).getUserEditBundleFor(returnedUser.getId());
-		verifyNoMoreInteractions(userServiceMock);
-	}
+        verify(userServiceMock, times(1)).getUserEditBundleFor(id);
+        verifyNoMoreInteractions(userServiceMock);
+    }
 
     @Ignore
-	@Test
-	public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
-		User returnedUser = TestControllerHelper.buildUserAdminForTest();
+    @Test
+    public void getById_PassValidUserId_ShouldReturnUserEditBundle() throws Exception {
+        UserEditBundle bundle = TestControllerHelper.buildUserEditBundleForTest();
+        User returnedUser = bundle.getUser();
 
-		when(userServiceMock.save(any(User.class)))
-			.thenReturn(returnedUser);
-		
-		mock
-			.perform(post("/user/save")
-					.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-					.content(TestControllerHelper.convertObjectToJsonBytes(returnedUser))
-					)
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(TestControllerHelper.APPLICATION_JSON_UTF8))
-			.andExpect(jsonPath("$.login", is(returnedUser.getLogin())))
-			.andExpect(jsonPath("$.password", is(returnedUser.getPassword())));
-		
-		ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-		
-		verify(userServiceMock, times(1))
-			.save(userCaptor.capture());
-		verifyNoMoreInteractions(userServiceMock);
-	}
+        when(userServiceMock.getUserEditBundleFor(returnedUser.getId())).thenReturn(bundle);
+
+        mock
+                .perform(get("/user/details/{id}", returnedUser.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.user.id", is(1)))
+                .andExpect(jsonPath("$.user.login", is(returnedUser.getLogin())))
+                .andExpect(jsonPath("$.user.password", is(returnedUser.getPassword())));
+
+        verify(userServiceMock, times(1)).getUserEditBundleFor(returnedUser.getId());
+        verifyNoMoreInteractions(userServiceMock);
+    }
+
+    @Ignore
+    @Test
+    public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
+        User returnedUser = TestControllerHelper.buildUserAdminForTest();
+
+        when(userServiceMock.save(any(User.class)))
+                .thenReturn(returnedUser);
+
+        mock
+                .perform(post("/user/save")
+                                .contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
+                                .content(TestControllerHelper.convertObjectToJsonBytes(returnedUser))
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(TestControllerHelper.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.login", is(returnedUser.getLogin())))
+                .andExpect(jsonPath("$.password", is(returnedUser.getPassword())));
+
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+
+        verify(userServiceMock, times(1))
+                .save(userCaptor.capture());
+        verifyNoMoreInteractions(userServiceMock);
+    }
 
 	/*@Test
 
@@ -130,10 +131,10 @@ public class UserControllerTests extends MockTestConfigigurationAware {
 			.findAll();
 		verifyNoMoreInteractions(userServiceMock);
 	}    */
-	
-	@Ignore
-	@Test
-	public void getPage_PassValidPageNumber_ShouldReturnLisUserOnThisPage() {
-		// TODO: need implements this test
-	}
+
+    @Ignore
+    @Test
+    public void getPage_PassValidPageNumber_ShouldReturnLisUserOnThisPage() {
+        // TODO: need implements this test
+    }
 }
