@@ -6,8 +6,8 @@
  */
 angular.module("flowertyApplication.contactModule")
 
-.controller("ContactListController", ["$scope", "$http", "$location", "emailService", "deleteService", "contactListService", "stateSaverService", "paginationService",
-                                  		function($scope, $http, $location, emailService, deleteService, contactListService, stateSaverService, paginationService) {
+.controller("ContactListController", ["$scope", "$http", "$location", "emailService", "deleteService", "contactListService", "stateSaverService", "paginationService", "notificationService",
+                                  		function($scope, $http, $location, emailService, deleteService, contactListService, stateSaverService, paginationService, notificationService) {
 	/*
 	 * grab emails of selected contact and pass they to SendEmailController
 	 */
@@ -24,9 +24,17 @@ angular.module("flowertyApplication.contactModule")
 	 * remove specific contacts
 	 */
 	 function deleteContact() {
-		 deleteService.deleteContact($scope.bundle.state.checkeds);
-		 deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
-		 $location.path("contact-list");
+		 deleteService.deleteContact(
+				 $scope.bundle.state.checkeds,
+				 function (data) {
+					 console.log("contact delete successful");
+					 deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
+					 notificationService.notify("success", $scope.bundle.state.ischecked.length + " contacts success removed!");
+					 $location.path("contact-list");
+				 },
+				 function (data) {
+					 console.log("contact delete error. details: " + JSON.stringify(data));
+				 });
 	 };
 	
 	 $scope.bundle = {
