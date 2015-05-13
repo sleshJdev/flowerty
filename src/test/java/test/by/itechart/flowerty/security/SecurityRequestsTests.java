@@ -1,4 +1,4 @@
-package by.itechart.flowerty.security;
+package test.by.itechart.flowerty.security;
 
 import org.junit.Before;
 import org.junit.Test;

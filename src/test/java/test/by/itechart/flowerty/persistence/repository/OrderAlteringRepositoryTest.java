@@ -1,14 +1,16 @@
 package test.by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.model.OrderAltering;
-import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.OrderAltering;
+import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
 
 /**
  * Created by Rostislav on 13-May-15
@@ -25,6 +27,7 @@ public class OrderAlteringRepositoryTest extends JpaConfigurationAware {
 
         OrderAltering orderAltering = orderAlteringRepository.findOne(1L);
 
+        Assert.assertNotNull(orderAltering);
         assertThat(orderAltering.getId(), equalTo(1L));
     }
 }
