@@ -16,7 +16,6 @@ angular.module("flowertyApplication.contactModule")
     };
 
     me.searchContact = function (page, limit, successCallback, errorCallback) {
-    	console.log("search contact: " + JSON.stringify(me.contactToSearch));
         $http({
             method: "post",
             url: "contact/search/" + page + "/" + limit,
