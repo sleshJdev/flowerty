@@ -1,12 +1,12 @@
 package by.itechart.flowerty.web.service;
 
 import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.repository.ContactRepository;
-import by.itechart.flowerty.persistence.repository.RoleRepository;
-import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Role;
 import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.repository.ContactRepository;
+import by.itechart.flowerty.persistence.repository.RoleRepository;
+import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -74,6 +74,7 @@ public class UserService {
 	}
 
 	public Page<User> getPage(int page, int size) {
+		Page<User> users = userRepository.findAll(new PageRequest(page, size));
 		return userRepository.findAll(new PageRequest(page, size));
 	}
 
@@ -91,7 +92,9 @@ public class UserService {
 
     public Company getCompanyFor(String login){
         User currentUser = userRepository.findUserByLogin(login);
-        return currentUser == null ? null : currentUser.getContact() == null ? null : currentUser.getContact().getCompany();
+        return currentUser == null ?
+				null : currentUser.getContact() == null ?
+				null : currentUser.getContact().getCompany();
     }
 
     public List<User> getUsersByRoleName(String roleString){

@@ -1,7 +1,7 @@
 package test.by.itechart.flowerty.config;
 
-import java.net.UnknownHostException;
-
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,19 +10,18 @@ import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
+import java.net.UnknownHostException;
 
 /**
  * @author Eugene Putsykovich(slesh) May 6, 2015
- *
+ *         <p/>
  *         configuration of mongodb
  */
 
 @Configuration
 @Profile("test")
 @EnableMongoRepositories
-@ComponentScan(basePackages = { MongoConfiguration.TO_SCAN })
+@ComponentScan(basePackages = {MongoConfiguration.TO_SCAN})
 public class MongoConfiguration extends AbstractMongoConfiguration {
     protected static final String TO_SCAN = "by.itechart.flowerty.persistence.mongo";
 
@@ -43,25 +42,25 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     protected UserCredentials getUserCredentials() {
-	UserCredentials userCredentials = new UserCredentials(username, password);
+        UserCredentials userCredentials = new UserCredentials(username, password);
 
-	return userCredentials;
+        return userCredentials;
     }
 
     @Override
     protected String getDatabaseName() {
-	return database;
+        return database;
     }
 
     @Override
     protected String getMappingBasePackage() {
-	return MongoConfiguration.TO_SCAN;
+        return MongoConfiguration.TO_SCAN;
     }
 
     @Override
     public Mongo mongo() throws UnknownHostException {
-	Mongo mongo = new MongoClient(host, port);
+        Mongo mongo = new MongoClient(host, port);
 
-	return mongo;
+        return mongo;
     }
 }

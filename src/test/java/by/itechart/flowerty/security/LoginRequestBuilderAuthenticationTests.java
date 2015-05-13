@@ -71,7 +71,6 @@ public class LoginRequestBuilderAuthenticationTests {
         ;
     }
 
-
     static FormLoginRequestBuilder login() {
         return SecurityMockMvcRequestBuilders
                 .formLogin("/login")

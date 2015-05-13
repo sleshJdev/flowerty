@@ -24,7 +24,7 @@ authenticationModule
                 "login",
                 "username=" + $scope.current.user.username +
                 "&password=" + $scope.current.user.password +
-                "&_spring_security_remember_me=" + !!$scope.rememberMe, {
+                "&remember-me=" + !!$scope.rememberMe, {
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 })
                 .then(function (data) {
