@@ -17,7 +17,7 @@ import java.util.Properties;
 @Configuration
 @Profile("test")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = { JpaConfiguration.TO_SCAN })
+@EnableJpaRepositories(basePackages = {JpaConfiguration.TO_SCAN})
 public class JpaConfiguration extends EmbeddedDataSourceConfig implements TransactionManagementConfigurer {
     protected static final String TO_SCAN = "by.itechart.flowerty.persistence";
 
@@ -36,20 +36,20 @@ public class JpaConfiguration extends EmbeddedDataSourceConfig implements Transa
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-	LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-	entityManagerFactoryBean.setDataSource(dataSource());
-	entityManagerFactoryBean.setPackagesToScan(JpaConfiguration.TO_SCAN);
-	entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPackagesToScan(JpaConfiguration.TO_SCAN);
+        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
-	Properties jpaProperties = new Properties();
-	jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
-	entityManagerFactoryBean.setJpaProperties(jpaProperties);
+        Properties jpaProperties = new Properties();
+        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
+        entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
-	return entityManagerFactoryBean;
+        return entityManagerFactoryBean;
     }
 
     @Bean
     public PlatformTransactionManager annotationDrivenTransactionManager() {
-	return new JpaTransactionManager();
+        return new JpaTransactionManager();
     }
 }
