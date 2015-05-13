@@ -5,20 +5,22 @@
 angular.module("flowertyApplication.contactModule")
 
 .service("contactSearchService", ['$http', function ($http) {
+    var me = this;
 
-    var service = this;
-
-    var contactToSearch = {};
-
-    service.setContactToSearch = function(contact) {
-        contactToSearch = contact;
+    me.contactToSearch = {};
+    me.isSearch = false;
+    
+    me.setContactToSearch = function(contact) {
+    	me.contactToSearch = contact;
+        me.isSearch = true;
     };
 
-    service.searchContact = function (page, limit, successCallback, errorCallback) {
+    me.searchContact = function (page, limit, successCallback, errorCallback) {
+    	console.log("search contact: " + JSON.stringify(me.contactToSearch));
         $http({
             method: "post",
             url: "contact/search/" + page + "/" + limit,
-            data: contactToSearch
+            data: me.contactToSearch
         })
             .success(successCallback)
             .error(function(data) {
@@ -27,5 +29,4 @@ angular.module("flowertyApplication.contactModule")
             }
         );
     };
-
 }]);

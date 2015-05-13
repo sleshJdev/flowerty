@@ -8,9 +8,10 @@
 angular.module("flowertyApplication.contactModule").service("contactListService", ['$http',
     function($http) {
 
-    var service = this;
+    var me = this;
 
-    service.getContactList = function(page, limit, successCallback, errorCallback){
+    me.getContactList = function(page, limit, successCallback, errorCallback){
+    	console.log("search contact");
         $http({
             method: "get",
             url: "contact/list/" + page + "/" + limit
@@ -22,6 +23,5 @@ angular.module("flowertyApplication.contactModule").service("contactListService"
                 errorCallback(data);
             }
         );
-    }
-
+    };
 }]);
