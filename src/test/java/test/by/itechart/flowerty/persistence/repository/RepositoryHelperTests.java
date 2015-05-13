@@ -1,9 +1,6 @@
 package test.by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.model.Address;
-import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.persistence.model.*;
 import by.itechart.flowerty.persistence.model.Phone.PHONE_TYPE;
 import org.joda.time.DateTime;
 
@@ -63,5 +60,25 @@ public abstract class RepositoryHelperTests {
         contact.setCompany(company);
 
         return contact;
+    }
+
+    public static Role getRoleWithIdOne() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName(Role.ROLE_TYPE.ADMIN);
+
+        return role;
+    }
+
+    public static User getUserWithIdOne() {
+        User user = new User();
+
+        user.setId(1L);
+        user.setLogin("test");
+        user.setPassword("test");
+        user.setRole(getRoleWithIdOne());
+        user.setContact(getContactWithIdOne());
+
+        return user;
     }
 }
