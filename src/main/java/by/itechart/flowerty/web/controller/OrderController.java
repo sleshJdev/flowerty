@@ -30,12 +30,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @ResponseBody
     @RequestMapping(value = "order/save", method = RequestMethod.POST)
     public Order save(@RequestBody Order orderToSave){
         LOGGER.info("Checkout order: {}", orderToSave);
         return orderService.save(orderToSave);
     }
 
+    @ResponseBody
     @RequestMapping(value = "order/change/save", method = RequestMethod.POST)
     public Order saveChanges(@RequestBody OrderEditBundle orderEditBundle){
         LOGGER.info("saving changes in order {}", orderEditBundle.getOrder());
