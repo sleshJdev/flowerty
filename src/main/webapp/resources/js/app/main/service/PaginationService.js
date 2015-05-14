@@ -56,7 +56,7 @@ angular.module("flowertyApplication").service('paginationService', ['$location',
                 }
             );
         };
-
+        
         service.getPageFromServer = function () {};
 
         var getPreviousPage = function () {
