@@ -5,17 +5,17 @@
  * for pass parameter for search from ContactListController to
  * SendEmailController. he will be pass emails of contacts.
  */
-angular.module("flowertyApplication.contactModule").service("emailService", ["$http", "notificationService",
-    function($http, notificationService) {
-        function getTemplates(successCallback) {
+angular.module("flowertyApplication.contactModule").service("emailService", ["$http",
+    function($http) {
+        function getTemplates(successCallback, errorCallback) {
             $http({
                 method: "get",
                 url: "email/templates"
             })
                 .success(successCallback)
-                .error(function (data, status, headers, config) {
+                .error(function (data) {
                     console.log("error occured during fetch email templates: " + JSON.stringify(data));
-                    notificationService.notify("danger", "Please, select phones to be deleted!");
+                    errorCallback(data);
                 });
         }
 

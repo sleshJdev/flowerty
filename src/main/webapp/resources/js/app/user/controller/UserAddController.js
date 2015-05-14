@@ -3,8 +3,8 @@
  * Created by Катерина on 20.04.2015.
  */
 
-userModule.controller("UserAddController", ['$scope', '$http', '$location', '$filter', 'USER_MODULE_CONSTANTS',
-    function ($scope, $http, $location, $filter, USER_MODULE_CONSTANTS) {
+userModule.controller("UserAddController", ['$scope', '$http', '$location', '$filter', 'USER_MODULE_CONSTANTS', 'userService', 'notificationService',
+    function ($scope, $http, $location, $filter, USER_MODULE_CONSTANTS, userService, notificationService) {
 
         $scope.option = {
             title: USER_MODULE_CONSTANTS.PROCESS_TYPES.ADD.title,
@@ -34,17 +34,15 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
                 selected: {}
             }
         };
-//TODO: service
-        $http({
-            method: "get",
-            url: "user/roles"
-        }).success(function (data, status, headers, config) {
-            $scope.bundle.roles = data;
-        }).error(function (data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
-        });
-//TODO: service
+
+        userService.getRoles(
+            function (data) {
+                $scope.bundle.roles = data;
+            }
+        );
+
         $scope.save = function () {
+
             $scope.bundle.user.contact = $scope.search.selected;
 
             if (!isFullData()) {
@@ -58,15 +56,17 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
                 }
             }
 
-            $http({
-                method: "post",
-                url: "user/save",
-                data: $scope.bundle.user
-            }).success(function (data, status, headers, config) {
-                $location.path("users");
-            }).error(function (data, status, headers, config) {
-                console.log("Exception details in UserAddController.save() : " + JSON.stringify({data: data}));
-            });
+
+            userService.save(
+                $scope.bundle.user,
+                function (data) {
+                    notificationService.notify('success', 'Successfully added this user!');
+                    $location.path("users");
+                },
+                function (data) {
+                    notificationService.notify('danger', 'Error occured during saving this user!');
+                }
+            );
         };
 
         function isFullData() {
