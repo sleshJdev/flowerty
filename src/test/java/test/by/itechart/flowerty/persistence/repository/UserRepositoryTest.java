@@ -77,6 +77,6 @@ public class UserRepositoryTest extends JpaConfigurationAware {
 
         List<User> users = userRepository.findByRole(RepositoryHelperTests.getRoleWithIdOne());
 
-        assertThat(users.size(), is(1));
+        assertThat(users.size(), is(2));
     }
 }
