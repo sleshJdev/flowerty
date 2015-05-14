@@ -3,7 +3,7 @@
  * Created by Катерина on 20.04.2015.
  */
 
-angular.module("flowertyApplication.userModule").controller('UsersController', ['paginationService', 'userListService', 'userDeleteService', 'notificationService',
+angular.module("flowertyApplication.userModule").controller('UsersController', ['$scope', '$http', '$location', 'USER_MODULE_CONSTANTS', 'paginationService', 'userListService', 'userDeleteService', 'notificationService',
     function ($scope, $http, $location, USER_MODULE_CONSTANTS, paginationService, userListService, userDeleteService, notificationService) {
 
         $scope.users = paginationService.getListBundle();
