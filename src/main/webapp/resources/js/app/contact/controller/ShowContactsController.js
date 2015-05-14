@@ -4,15 +4,12 @@
  *
  *	show contacts after search
  */
-angular.module("flowertyApplication.contactModule").controller("ShowContactsController", ["$scope", "$http", "$location", "contactListService", "paginationService",
-    function($scope, $http, $location, contactListService, paginationService) {
+angular.module("flowertyApplication.contactModule").controller("ShowContactsController", ["$scope", "$http", "$location", "contactSearchService", "paginationService",
+    function($scope, $http, $location, contactSearchService, paginationService) {
 
-        $scope.contacts = paginationService.getListBundle();
-
-        $scope.init = function () {
-            $scope.pagination = paginationService.getPagination(contactListService.searchContact);
-            $scope.pagination.getPage(1);
+        $scope.bundle = {
+            contacts : paginationService.getListBundle()
         };
-
-        $scope.init();
+        $scope.pagination = paginationService.getPagination(contactSearchService.searchContact);
+        $scope.pagination.getPage(1);
     }]);

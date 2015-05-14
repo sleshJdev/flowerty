@@ -48,7 +48,8 @@ angular.module('flowertyApplication').controller('MainController',
             changeLimit: function (limit) {
             },
             limit: 10,
-            limits: []
+            limits: [],
+            canChangeLimit : true
         };
 
         $scope.dynamicSearch = {

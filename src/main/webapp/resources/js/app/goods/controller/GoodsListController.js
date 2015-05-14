@@ -8,80 +8,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
         function($scope, $http, $location, $filter, $localStorage, GOODS_MODULE_CONSTANTS, goodsListService, paginationService) {
 
             $scope.goods = paginationService.getListBundle();
-/*
 
-            $scope.goods = {
-                pages: [],
-                pagesCount: 1,
-                currentPage: 1,
-                goodsArray: []
-            };
-
-            $scope.goods.initGoodsArray = function (goodsArray) {
-                var cols = GOODS_MODULE_CONSTANTS.COLUMN_NUMBER;
-                var resultMatrix = [];
-                var i;
-                for (i = 0; i < goodsArray.length; i++) {
-
-                    goodsArray[i].count = $scope.current.basket.items[goodsArray[i].id] ?
-                        $scope.current.basket.items[goodsArray[i].id].quantity :
-                        1;
-                    if (!(i % cols)) {
-                        resultMatrix.push([]);
-                    }
-                    resultMatrix[Math.floor(i / cols)].push(goodsArray[i]);
-                }
-                return resultMatrix;
-            };
-
-            $scope.goods.pageClass = function (pageNumber) {
-                return pageNumber == $scope.goods.currentPage ? 'active' : '';
-            };
-
-            $scope.goods.getPage = function (pageNumber) {
-                $scope.goods.currentPage = pageNumber;
-                $scope.goods.getPageFromServer();
-            };
-
-            $scope.goods.getPageFromServer = function () {
-                var request = $http({
-                    method: "get",
-                    url: "goods/list/" + $scope.goods.currentPage
-                });
-
-                request.success(function (data, status, headers, config) {
-                    if (!data.content) {
-                        $location.path("login");
-                    } else {
-                        $scope.goods.goodsArray = $scope.goods.initGoodsArray(data.content);
-                        $scope.goods.pagesCount = data.totalPages;
-                    }
-                });
-
-                request.error(function (data, status, headers, config) {
-                    $scope.current.errorMessage = status;
-                    $location.path("/error");
-                });
-            };
-
-            $scope.goods.getPreviousPage = function () {
-                if ($scope.goods.currentPage !== 1) {
-                    $scope.goods.currentPage--;
-                }
-                $scope.goods.getPage($scope.goods.currentPage);
-            };
-
-            $scope.goods.getNextPage = function () {
-                if ($scope.goods.currentPage !== $scope.goods.pagesCount) {
-                    $scope.goods.currentPage++;
-                }
-                $scope.goods.getPage($scope.goods.currentPage);
-            };
-
-            $scope.goods.getPagesCount = function () {
-                return $scope.goods.pagesCount;
-            };
-*/
             var getOrderItem = function (goodsItem) {
                 return {
                     goods: goodsItem,
@@ -137,6 +64,8 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
             };
 
             $scope.goods.getGoodsItemClass = function (goodsItem) {
+
+                console.log(goodsItem);
                 return $scope.current.basket.items[goodsItem.id] ? 'in-cart' : '';
             };
 
@@ -147,6 +76,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
                 goodsListService.setCart($scope.current.basket);
                 $scope.pagination = paginationService.getPagination(goodsListService.getGoodsList);
                 $scope.pagination.getPage(1);
+                $scope.pagination.canChangeLimit = false;
             };
 
             $scope.init();

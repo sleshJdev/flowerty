@@ -87,7 +87,8 @@ angular.module("flowertyApplication").service('paginationService', ['$location',
                 getPagesCount: getPagesCount,
                 changeLimit: changeLimit,
                 limit: listBundle.limit,
-                limits: MAIN_MODULE_CONSTANTS.LIMITS
+                limits: MAIN_MODULE_CONSTANTS.LIMITS,
+                canChangeLimit : true
             }
         };
     }]);

@@ -6,8 +6,8 @@
  */
 angular.module("flowertyApplication.contactModule")
 
-.controller("EditContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "deleteService", "stateSaverService", "CONSTANTS",
-                                      function($scope, $http, $location, $routeParams, processContactService, deleteService, stateSaverService, CONSTANTS){
+.controller("EditContactController", ["$scope", "$http", "$location", "$routeParams", "processContactService", "deleteService", "stateSaverService", "CONSTANTS", "notificationService",
+                                      function($scope, $http, $location, $routeParams, processContactService, deleteService, stateSaverService, CONSTANTS, notificationService){
 	$scope.bundle = processContactService.bundle;
     $scope.bundle.processType = CONSTANTS.PROCESS_TYPES.EDIT;
     $scope.bundle.processType.action = $scope.bundle.actions.saveContact;
@@ -21,6 +21,7 @@ angular.module("flowertyApplication.contactModule")
         },
         function(data) {
             console.log("error contact details: " + JSON.stringify(data));
+            notificationService.notify("danger", "Cannot get contact information.");
         }
     );
 }]);

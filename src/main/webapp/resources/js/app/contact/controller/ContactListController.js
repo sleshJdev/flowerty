@@ -7,53 +7,46 @@
 angular.module("flowertyApplication.contactModule")
 
 .controller("ContactListController", ["$scope", "$http", "$location", "emailService", "deleteService", "contactListService", "contactSearchService", "stateSaverService", "paginationService", "notificationService",
-                                  		function($scope, $http, $location, emailService, deleteService, contactListService, contactSearchService, stateSaverService, paginationService, notificationService) {
-	/*
-	 * grab emails of selected contact and pass they to SendEmailController
-	 */
-	function sendEmail() {
-		if ($scope.bundle.state.isempty()) {
-			alert("Please select contacts to send email.");
-		} else {
-			emailService.setValue($scope.bundle.state.checkeds);
-	     	$location.path("send-email");//redirect to email form 
-		};
-	};
-	
-	/*
-	 * remove specific contacts
-	 */
-	 function deleteContact() {
-		 deleteService.deleteContact(
-				 $scope.bundle.state.checkeds,
-				 function (data) {
-					 console.log("contact delete successful");
-					 deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
-					 notificationService.notify("success", $scope.bundle.state.ischecked.length + " contacts success removed!");
-					 $location.path("contact-list");
-				 },
-				 function (data) {
-					 console.log("contact delete error. details: " + JSON.stringify(data));
-				 });
-	 };
-	
-	 $scope.bundle = {
-			contacts: paginationService.getListBundle(),
-			state: stateSaverService.state,
-			deleteContact: deleteContact,
-			sendEmail: sendEmail
-	};
-	$scope.bundle.state.reset();
-	
-	
-	console.log("isSearch: " + contactSearchService.isSearch);
-	if(contactSearchService.isSearch){
-		contactSearchService.isSearch = false;
-		$scope.pagination = paginationService.getPagination(contactSearchService.searchContact);
-		console.log("search result, contactSearchService.isSearch : " + contactSearchService.isSearch);
-	}else{
-		$scope.pagination = paginationService.getPagination(contactListService.getContactList);
-		console.log("simple result, contactSearchService.isSearch : " + contactSearchService.isSearch);
-	}
-	$scope.pagination.getPage(1);
- }]);
+        function($scope, $http, $location, emailService, deleteService, contactListService, contactSearchService, stateSaverService, paginationService, notificationService) {
+            /*
+             * grab emails of selected contact and pass they to SendEmailController
+             */
+            function sendEmail() {
+                if ($scope.bundle.state.isempty()) {
+                    notificationService.notify("danger", "Please select contacts to send email.");
+                } else {
+                    emailService.setValue($scope.bundle.state.checkeds);
+                    $location.path("send-email");//redirect to email form
+                }
+            }
+
+            /*
+             * remove specific contacts
+             */
+            function deleteContact() {
+                deleteService.deleteContact(
+                    $scope.bundle.state.checkeds,
+                    function (data) {
+                        console.log("contact delete successful");
+                        deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
+                        notificationService.notify("success", $scope.bundle.state.ischecked.length + " contacts success removed!");
+                        $location.path("contact-list");
+                    },
+                    function (data) {
+                        console.log("contact delete error. details: " + JSON.stringify(data));
+                        notificationService.notify("danger", "Error during deleting contacts!");
+                    });
+            }
+
+            $scope.bundle = {
+                contacts: paginationService.getListBundle(),
+                state: stateSaverService.state,
+                deleteContact: deleteContact,
+                sendEmail: sendEmail
+            };
+
+            $scope.bundle.state.reset();
+            $scope.pagination = paginationService.getPagination(contactListService.getContactList);
+            $scope.pagination.getPage(1);
+
+        }]);
