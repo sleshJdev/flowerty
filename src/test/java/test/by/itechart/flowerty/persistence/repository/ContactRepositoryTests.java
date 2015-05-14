@@ -1,17 +1,16 @@
 package test.by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.persistence.repository.ContactRepository;
+import static org.springframework.util.Assert.notEmpty;
+
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 
-import java.util.List;
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.repository.ContactRepository;
 
 public class ContactRepositoryTests extends JpaConfigurationAware {
 
@@ -24,6 +23,8 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
 
         final Contact actual = contactRepository.findOne(1L);
 
+        Assert.assertNotNull(actual);
+        
         Assert.assertEquals(expected.getId(), actual.getId());
         Assert.assertEquals(expected.getName(), actual.getName());
         Assert.assertEquals(expected.getSurname(), actual.getSurname());
@@ -48,7 +49,7 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
         final List<Contact> actual = (List<Contact>) contactRepository.findAll();
 
         Assert.assertNotNull(actual);
-        org.springframework.util.Assert.notEmpty(actual);
+        notEmpty(actual);
     }
 
     @Test
@@ -58,7 +59,7 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
         final List<Contact> actuals = contactRepository.findBySurnameStartingWithAndCompany(expected.getSurname(), expected.getCompany());
 
         Assert.assertNotNull(actuals);
-        org.springframework.util.Assert.notEmpty(actuals);
+        notEmpty(actuals);
         //TODO: add more assert
     }
 }

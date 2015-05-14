@@ -16,7 +16,6 @@ angular.module("flowertyApplication.utilModule")
 		restrict: "A",
 		scope:{},
 		link: function(scope, element, attributes, ngModelCtrl){
-			
 			scope.info = {
 					state: "",
 					icon: "",

@@ -6,8 +6,8 @@
  */
 angular.module("flowertyApplication.contactModule")
 
-.controller("ContactListController", ["$scope", "$http", "$location", "emailService", "deleteService", "contactListService", "stateSaverService", "paginationService", "notificationService",
-                                  		function($scope, $http, $location, emailService, deleteService, contactListService, stateSaverService, paginationService, notificationService) {
+.controller("ContactListController", ["$scope", "$http", "$location", "emailService", "deleteService", "contactListService", "contactSearchService", "stateSaverService", "paginationService", "notificationService",
+                                  		function($scope, $http, $location, emailService, deleteService, contactListService, contactSearchService, stateSaverService, paginationService, notificationService) {
 	/*
 	 * grab emails of selected contact and pass they to SendEmailController
 	 */
@@ -45,8 +45,15 @@ angular.module("flowertyApplication.contactModule")
 	};
 	$scope.bundle.state.reset();
 	
-	(function(){
+	
+	console.log("isSearch: " + contactSearchService.isSearch);
+	if(contactSearchService.isSearch){
+		contactSearchService.isSearch = false;
+		$scope.pagination = paginationService.getPagination(contactSearchService.searchContact);
+		console.log("search result, contactSearchService.isSearch : " + contactSearchService.isSearch);
+	}else{
 		$scope.pagination = paginationService.getPagination(contactListService.getContactList);
-		$scope.pagination.getPage(1);
-	})();
+		console.log("simple result, contactSearchService.isSearch : " + contactSearchService.isSearch);
+	}
+	$scope.pagination.getPage(1);
  }]);
