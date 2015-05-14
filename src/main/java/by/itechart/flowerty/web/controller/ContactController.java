@@ -50,7 +50,7 @@ public class ContactController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "contact/search/{surname}")
+    @RequestMapping(value = "contact/partial-search/{surname}")
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
         Company company = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

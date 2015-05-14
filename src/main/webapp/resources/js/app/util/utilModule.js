@@ -112,7 +112,7 @@ angular.module("flowertyApplication.utilModule", [])
             }
             var left = value.substr(0, from);
             var center = value.substr(from, length);
-            center = isUp ? center.toUpperCase() : center.toLowerCase()
+            center = isUp ? center.toUpperCase() : center.toLowerCase();
             var right = value.substr(from + length, value.length);
 
             return left.concat(center).concat(right);
@@ -129,7 +129,7 @@ angular.module("flowertyApplication.utilModule", [])
             console.log('Searching by surname: ' + enteredSurname);
 
             $http({
-                url: 'contact/search/' + enteredSurname,
+                url: 'contact/partial-search/' + enteredSurname,
                 method: 'GET'
             }).success(function(data, status, headers, config) {
                 filterCallback(model,data);

@@ -2,15 +2,11 @@ package by.itechart.flowerty.persistence.model;
 
 import javax.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "ROLE")
 public class Role {
 	private Long id;
 	private ROLE_TYPE name;
-	private Set<Right> rights = new HashSet<>();
 
     public static enum ROLE_TYPE {
 		ORDERS_MANAGER, ORDERS_PROCESSOR, DELIVERY_MANAGER, SUPERVISOR, ADMIN
@@ -32,14 +28,6 @@ public class Role {
 		return name;
 	}
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	@JoinTable(name = "role_right", 
-				joinColumns = { @JoinColumn(name = "ROLE_ID") },
-				inverseJoinColumns = { @JoinColumn(name = "RIGHT_ID") })
-	public Set<Right> getRights() {
-		return rights;
-	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -48,16 +36,11 @@ public class Role {
 		this.name = name;
 	}
 
-	public void setRights(Set<Right> rights) {
-		this.rights = rights;
-	}
-
     @Override
     public String toString() {
         return new StringBuilder("Role{")
                 .append("id=").append(id)
                 .append(", name=").append(name)
-                .append(", rights=").append(rights)
                 .append('}').toString();
     }
 
