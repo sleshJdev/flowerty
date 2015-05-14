@@ -58,12 +58,24 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/profile")
                 .authenticated()
+
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/contact/search/**")
-                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERVISOR')")
+
+                .antMatchers("/contact/partial-search/**")
+                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_ORDERS_MANAGER')")
                 .antMatchers("/contact/**")
                 .access("hasAnyRole('ROLE_SUPERVISOR', 'ROLE_ORDERS_MANAGER')")
+
+                .antMatchers("/order/save")
+                .access("hasRole('ROLE_ORDERS_MANAGER')")
+                .antMatchers("/order/change/save")
+                .access("hasAnyRole('ROLE_ORDERS_MANAGER', 'ROLE_SUPERVISOR')")
+                .antMatchers("/order/create/bundle")
+                .access("hasRole('ROLE_ORDERS_MANAGER')")
+                .antMatchers("/order/**")
+                .access("hasAnyRole('ROLE_ORDERS_MANAGER', 'ROLE_DELIVERY_MANAGER', 'ROLE_ORDERS_PROCESSOR', 'ROLE_SUPERVISOR')")
+
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())
@@ -80,13 +92,13 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .logout()
 //                .logoutSuccessHandler(logoutSuccessHandler)
-                .and()
+            .and()
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository())
 //            .and()
 //                .exceptionHandling()
 //                .accessDeniedHandler(accessDeniedHandler)
-                .and()
+            .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
         ;
     }
