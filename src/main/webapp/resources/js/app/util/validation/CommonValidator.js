@@ -71,6 +71,12 @@ angular.module("flowertyApplication.utilModule")
 				
 				}else if(ngModelCtrl.$error.password){
 					message = VALIDATE_MESSAGES["password"]();
+				}else if(ngModelCtrl.$error.isFutureDate){
+					message = "is future";
+					console.log("is future");
+				}else if(ngModelCtrl.$error.isPastDate){
+					message = "is past";
+					console.log("is past");
 				};
 				
 				var isInvalid = ngModelCtrl.$dirty && ngModelCtrl.$invalid;

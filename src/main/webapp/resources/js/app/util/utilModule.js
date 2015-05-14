@@ -1,10 +1,10 @@
 /**
  * @author Eugene Putsykovich(slesh) Apr 7, 2015
  *
- * Contains filters, directions and other for util stuff
+ * contains filters, directions and other for util stuff
  */
 angular.module("flowertyApplication.utilModule", [])
-
+	
     /*
      * show notification message
      */
@@ -35,6 +35,7 @@ angular.module("flowertyApplication.utilModule", [])
 	        require: "?ngModel",
 	        link: function (scope, element, attrs, ngModelCtrl) {
 	            element.datepicker({
+	            	autoclose: true,
 	                format : attrs.format.length > 4 ? attrs.format : (" " + attrs.format + " "), //extra space for fetch only year, month or day
 	                viewMode : !attrs.viewMode ? "days" : attrs.viewMode,
 	                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode
