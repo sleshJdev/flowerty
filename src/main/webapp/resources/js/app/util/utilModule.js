@@ -30,7 +30,6 @@ angular.module("flowertyApplication.utilModule", [])
     }])
     
     .directive('flowertyDate', function ($filter) {
-    	var disabled_dates = ["2015.05.14.","2015.05.17"];
 	    return {
 	        restrict: "A",
 	        require: "?ngModel",
@@ -38,17 +37,7 @@ angular.module("flowertyApplication.utilModule", [])
 	            element.datepicker({
 	                format : attrs.format.length > 4 ? attrs.format : (" " + attrs.format + " "), //extra space for fetch only year, month or day
 	                viewMode : !attrs.viewMode ? "days" : attrs.viewMode,
-	                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode,
-            		beforeShowDay: function(date){
-            			console.log("date: " + date);
-            			var formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy-MM-dd');
-            			if ($.inArray(formattedDate.toString(), disabled_dates) != -1){
-            				return {
-            					enabled : false
-        					};
-        				}
-        				return;
-            		}
+	                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode
 	            }).on('changeDate', function( e ){
 	                switch(attrs.format.toLowerCase().trim()){
 	                    case "yyyy":
@@ -123,7 +112,7 @@ angular.module("flowertyApplication.utilModule", [])
             }
             var left = value.substr(0, from);
             var center = value.substr(from, length);
-            center = isUp ? center.toUpperCase() : center.toLowerCase();
+            center = isUp ? center.toUpperCase() : center.toLowerCase()
             var right = value.substr(from + length, value.length);
 
             return left.concat(center).concat(right);
@@ -140,7 +129,7 @@ angular.module("flowertyApplication.utilModule", [])
             console.log('Searching by surname: ' + enteredSurname);
 
             $http({
-                url: 'contact/partial-search/' + enteredSurname,
+                url: 'contact/search/' + enteredSurname,
                 method: 'GET'
             }).success(function(data, status, headers, config) {
                 filterCallback(model,data);

@@ -38,6 +38,9 @@ angular.module("flowertyApplication.contactModule")
 		},
 		"password" : function() {
 			return "Password has incorrect format";
-		} 
+		},
+		"date" : function(fieldName, which){
+			return "{0} should be {1}, than current date".format(fieldName.toUpperCase(), which);
+		}
 	}
 })());

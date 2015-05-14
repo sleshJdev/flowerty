@@ -6,51 +6,41 @@
 
 angular.module("flowertyApplication.utilModule")
 
-.directive("flowertyValidatePastDate", function() {
+.constant("VALIDATE_DATE", (function(){
+	var format = "YYYY-MM-DD";
+	return{
+		validate : function(dateString, isCheckOnPast){
+			var now = moment().format(format);
+	        var dateToCheck = moment(dateString).format(format);
+	        
+	        return isCheckOnPast ? moment(dateToCheck).isBefore(now) : moment(dateToCheck).isAfter(now);
+		}
+	};
+})())
+
+.directive("flowertyValidatePastDate", ["VALIDATE_DATE", function(VALIDATE_DATE) {
 	return {
         require: 'ngModel',
-        link: function (scope, element, attrs, ngModel) {
-        	
-            scope.$watch(function () {
-                return ngModel.$modelValue;
-            }, function () {
-            	var now = Date.now();
-                var dateToCheck = Date.parse(ngModel.$modelValue);
-                var result = (dateToCheck < now);
-                ngModel.$setValidity("isPastDate", result);
-            });
-            
-            attrs.$observe("flowertyValidatePastDate", function () {
-            	var now = Date.now();
-                var dateToCheck = Date.parse(ngModel.$modelValue);
-                var result = (dateToCheck > now);
-                ngModel.$setValidity("isPastDate", result);
-            });
+        link: function (scope, element, attributes, ngModelCtrl) {
+        	ngModelCtrl.$parsers.unshift(function(viewValue){
+        		ngModelCtrl.$setValidity("isPastDate", VALIDATE_DATE.validate(viewValue, true));
+        		
+    			return viewValue;
+        	});
         }
     };
-})
+}])
 
-.directive('flowertyValidateFutureDate', function () {
+.directive('flowertyValidateFutureDate', ["VALIDATE_DATE", function (VALIDATE_DATE) {
     return {
         require: 'ngModel',
-        link: function (scope, element, attrs, ngModel) {
-        	
-            scope.$watch(function () {
-                return ngModel.$modelValue;
-            }, function () {
-            	var now = Date.now();
-                var dateToCheck = Date.parse(ngModel.$modelValue);
-                var result = (dateToCheck > now);
-                ngModel.$setValidity("isFutureDate", result);
-            });
-            
-            attrs.$observe("flowertyValidateFutureDate", function () {
-            	var now = Date.now();
-                var dateToCheck = Date.parse(ngModel.$modelValue);
-                var result = (dateToCheck > now);
-                ngModel.$setValidity("isFutureDate", result);
-            });
+        link: function (scope, element, attributes, ngModelCtrl) {
+        	ngModelCtrl.$parsers.unshift(function(viewValue){
+        		ngModelCtrl.$setValidity("isFutureDate", VALIDATE_DATE.validate(viewValue, false));
+        		
+    			return viewValue;
+        	});
         }
     };
-});
+}]);
 
