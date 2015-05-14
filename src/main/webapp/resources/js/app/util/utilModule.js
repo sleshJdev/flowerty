@@ -30,15 +30,25 @@ angular.module("flowertyApplication.utilModule", [])
     }])
     
     .directive('flowertyDate', function ($filter) {
+    	var disabled_dates = ["2015.05.14.","2015.05.17"];
 	    return {
 	        restrict: "A",
 	        require: "?ngModel",
 	        link: function (scope, element, attrs, ngModelCtrl) {
 	            element.datepicker({
-	            	autoclose: true,
 	                format : attrs.format.length > 4 ? attrs.format : (" " + attrs.format + " "), //extra space for fetch only year, month or day
 	                viewMode : !attrs.viewMode ? "days" : attrs.viewMode,
-	                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode
+	                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode,
+            		beforeShowDay: function(date){
+            			console.log("date: " + date);
+            			var formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy-MM-dd');
+            			if ($.inArray(formattedDate.toString(), disabled_dates) != -1){
+            				return {
+            					enabled : false
+        					};
+        				}
+        				return;
+            		}
 	            }).on('changeDate', function( e ){
 	                switch(attrs.format.toLowerCase().trim()){
 	                    case "yyyy":
