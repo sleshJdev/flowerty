@@ -30,7 +30,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
 
         User expected = RepositoryHelperTests.getUserWithIdOne();
 
-        User actual = userRepository.findUserByLoginAndPassword("test", "test");
+        User actual = userRepository.findUserByLoginAndPassword("test", "cf9ba7b8884c4431fe5cf83336a021df");
 
         assertNotNull(actual);
         assertThat(actual.getId(), equalTo(1L));
