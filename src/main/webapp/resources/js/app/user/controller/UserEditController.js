@@ -3,24 +3,25 @@
  * Created by Катерина on 20.04.2015.
  */
 
-angular.module("flowertyApplication.userModule").controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', 'USER_MODULE_CONSTANTS',
-    function ($scope, $http, $location, $routeParams, USER_MODULE_CONSTANTS) {
+angular.module("flowertyApplication.userModule").controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', 'USER_MODULE_CONSTANTS', 'userService', 'notificationService',
+    function ($scope, $http, $location, $routeParams, USER_MODULE_CONSTANTS, userService, notificationService) {
 
         $scope.option = {
             title: USER_MODULE_CONSTANTS.PROCESS_TYPES.EDIT.title,
             actionButton: USER_MODULE_CONSTANTS.PROCESS_TYPES.EDIT.actionButton,
             edit: true
         };
-//TODO: service
-        $http({
-            method: "get",
-            url: "user/details/" + $routeParams.id
-        }).success(function (data, status, headers, config) {
-            $scope.bundle = data;
-        }).error(function (data, status, headers, config) {
-            console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
-        });
-//TODO: service
+
+        userService.getUser(
+            $routeParams.id,
+            function (data) {
+                $scope.bundle = data;
+            },
+            function (data) {
+                notificationService.notify('danger', 'Error occured during getting info about this user!');
+            }
+        );
+
         $scope.save = function () {
 
             if ($scope.bundle.user.password != $scope.bundle.passwordConfirm) {
@@ -34,14 +35,16 @@ angular.module("flowertyApplication.userModule").controller("UserEditController"
                 }
             }
 
-            $http({
-                method: "post",
-                url: "user/save",
-                data: $scope.bundle.user
-            }).success(function (data, status, headers, config) {
-                $location.path("users");
-            }).error(function (data, status, headers, config) {
-            });
+            userService.save(
+                $scope.bundle.user,
+                function (data) {
+                    notificationService.notify('success', 'Successfully added this user!');
+                    $location.path("users");
+                },
+                function (data) {
+                    notificationService.notify('danger', 'Error occured during saving this user!');
+                }
+            );
         };
     }]);
 

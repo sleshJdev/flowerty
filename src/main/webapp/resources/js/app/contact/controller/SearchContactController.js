@@ -29,12 +29,12 @@ angular.module("flowertyApplication.contactModule")
     		      house: 			sourceContact.address.house,
     		      flat: 			sourceContact.address.flat
 	      };
-    };
+    }
 	
     function action(contactToSearch){
         contactSearchService.setContactToSearch(buildContactDocument(contactToSearch));        
-        $location.path("contact-list");
-    };
+        $location.path("show-contacts");
+    }
     
 	$scope.bundle = processContactService.bundle;
 	$scope.bundle.processType = CONSTANTS.PROCESS_TYPES.SEARCH;
@@ -55,7 +55,7 @@ angular.module("flowertyApplication.contactModule")
 				town: "",
 				street: "",
 				house: "",
-				flat: "",
+				flat: ""
 			},
 			
 			date: {

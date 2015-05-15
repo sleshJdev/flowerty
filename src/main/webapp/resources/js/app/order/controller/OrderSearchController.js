@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module("flowertyApplication.orderModule").controller("OrderSearchController", ["$scope", "$http", "$location", "orderListService",
-    'orderSearchService',
+angular.module("flowertyApplication.orderModule").controller("OrderSearchController", ["$scope", "$http", "$location", "orderListService", 'orderSearchService',
     function($scope, $http, $location, orderListService, orderSearchService){
 
         $scope.bundle = {

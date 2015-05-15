@@ -4,9 +4,9 @@
  */
 
 angular.module("flowertyApplication.orderModule").controller('OrderEditController', ['$scope', '$http', '$location', '$routeParams', 'ORDER_MODULE_CONSTANTS',
-    'checkoutService', 'orderService', 'staffService', function($scope, $http, $location, $routeParams, ORDER_MODULE_CONSTANTS, checkoutService, orderService, staffService) {
+    'checkoutService', 'orderService', 'staffService', 'notificationService',
+    function($scope, $http, $location, $routeParams, ORDER_MODULE_CONSTANTS, checkoutService, orderService, staffService, notificationService) {
 
-        //TODO: Get from server?? By rights??
         $scope.access = {
             canChangeStaff: $scope.current.user.role === 'ROLE_SUPERVISOR'
         };
@@ -32,7 +32,15 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
         };
 
         $scope.orderAction.save = function () {
-            checkoutService.saveChanges($scope.bundle);
+            checkoutService.saveChanges(
+                $scope.bundle,
+                function (data) {
+                    notificationService.notify('success', 'Changes saved successfully!');
+                },
+                function (data) {
+                    notificationService.notify('danger', 'Cannot apply changes!');
+                }
+            );
         };
 
         $scope.orderAction.saveStateChanges = function () {
@@ -60,6 +68,9 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
                         $scope.bundle.order.staff = findInArrayById($scope.bundle.order.staff, $scope.staff.processors);
                     }
                 );
+            },
+            function (data) {
+                notificationService.notify("danger", "Error occured during getting order info!")
             }
         );
 

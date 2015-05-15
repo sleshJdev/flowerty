@@ -11,7 +11,7 @@
                     <th>login</th>
                     <th>role</th>
                 </tr>
-                <tr data-ng-repeat="user in users.usersList">
+                <tr data-ng-repeat="user in users.list">
                     <td><input type="checkbox" data-ng-model="user.checked"/>
                     </td>
                     <td><a href="#edit-user/{{user.id}}"><span class="glyphicon glyphicon-edit"></span>
@@ -22,15 +22,5 @@
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-11" data-ng-include="templates.pagination.url"></div>
-        <div class="col-md-1 pull-right">
-            <br>
-            <select class="form-control"
-                    data-ng-model="users.limit"
-                    data-ng-options="limit for limit in users.limits"
-                    data-ng-change="users.getPageFromServerChangeLimit()">
-            </select>
-        </div>
-    </div>
+    <div class="col-md-11" data-ng-include="templates.pagination.url"></div>
 </div>

@@ -43,7 +43,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticator());
+        auth
+                .authenticationProvider(authenticator())
+        ;
     }
 
     @Bean
@@ -87,42 +89,16 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/login")
-//                .successHandler(authSuccess)
                 .failureHandler(authFailure)
             .and()
                 .logout()
-//                .logoutSuccessHandler(logoutSuccessHandler)
             .and()
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository())
-//            .and()
-//                .exceptionHandling()
-//                .accessDeniedHandler(accessDeniedHandler)
             .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
         ;
     }
-
-
-//    @Bean(name="simpleMappingExceptionResolver")
-//    public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
-//        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
-//
-//        Properties mappings = new Properties();
-//        mappings.setProperty(".DataAccessException", "dataAccessFailure");
-//        mappings.setProperty(".NoSuchRequestHandlingMethodException", "resourceNotFound");
-//        mappings.setProperty(".TypeMismatchException", "resourceNotFound");
-//        mappings.setProperty(".MissingServletRequestParameterException", "resourceNotFound");
-//
-//        r.setDefaultErrorView("error");    // No default
-////        r.setExceptionAttribute("ex");     // Default is "exception"
-//        r.setExcludedExceptions(AccessDeniedException.class);
-////        r.setWarnLogCategory("example.MvcLogger");     // No default
-//        r.setExceptionMappings(mappings);  // None by default
-//
-//        return r;
-//    }
-
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;

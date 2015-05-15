@@ -6,8 +6,8 @@
 
 angular.module("flowertyApplication.profileModule")
 
-    .controller("ProfileController", ["$scope", "$http", "$location", "PROFILE_MODULE_CONSTANTS",
-        function ($scope, $http, $location, PROFILE_MODULE_CONSTANTS) {
+    .controller("ProfileController", ["$scope", "$http", "$location", "PROFILE_MODULE_CONSTANTS", 'profileService', 'notificationService',
+        function ($scope, $http, $location, PROFILE_MODULE_CONSTANTS, profileService, notificationService) {
 
             if (!$scope.current.isLogged) {
                 $location.path("/");
@@ -18,17 +18,14 @@ angular.module("flowertyApplication.profileModule")
                 user: {},
                 phoneListTemplate: PROFILE_MODULE_CONSTANTS.PHONES
             };
-//TODO: service
-            var request = $http({
-                method: "get",
-                url: "user/profile"
-            });
 
-            request.success(function (data, status, headers, config) {
-                $scope.profile.user = data;
-            });
-
-            request.error(function (data, status, headers, config) {
-            });
+            profileService.getProfile(
+                function (data) {
+                    $scope.profile.user = data;
+                },
+                function (data) {
+                    notificationService.notify('danger', 'Cannot get your profile info!');
+                }
+            );
 
         }]);

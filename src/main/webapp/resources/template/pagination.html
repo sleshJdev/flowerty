@@ -10,7 +10,7 @@
         </li>
         <li><a href="" data-ng-click="pagination.getNextPage()">&gt;</a></li>
     </ul>
-    <div class="col-md-2 pull-right">
+    <div class="col-md-2 pull-right" data-ng-show="pagination.canChangeLimit">
         <br>
         <select class="form-control"
                 data-ng-model="pagination.limit"
