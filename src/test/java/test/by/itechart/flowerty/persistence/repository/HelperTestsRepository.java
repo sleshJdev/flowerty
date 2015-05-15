@@ -12,7 +12,7 @@ import java.util.Set;
  *         <p/>
  *         provides data for check tests
  */
-public abstract class RepositoryHelperTests {
+public abstract class HelperTestsRepository {
 
     public static Contact getContactWithIdOne() {
         Address address = new Address();

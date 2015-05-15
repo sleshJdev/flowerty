@@ -2,6 +2,8 @@ package by.itechart.flowerty.persistence.model;
 
 import org.apache.solr.client.solrj.beans.Field;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

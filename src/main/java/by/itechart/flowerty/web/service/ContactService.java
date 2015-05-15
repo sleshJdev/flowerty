@@ -114,7 +114,10 @@ public class ContactService {
 
     @Transactional
     public int deleteIdIn(List<Long> list) {
-
+	for (Long id : list) {
+	    
+	}
+	
 	return contactRepository.deleteIdIn(list);
     }
 

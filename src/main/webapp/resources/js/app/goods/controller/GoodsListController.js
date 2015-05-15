@@ -65,7 +65,6 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
 
             $scope.goods.getGoodsItemClass = function (goodsItem) {
 
-                console.log(goodsItem);
                 return $scope.current.basket.items[goodsItem.id] ? 'in-cart' : '';
             };
 

@@ -28,7 +28,7 @@ public class RoleRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findByName_ShouldReturnAUser() {
 
-        Role expected = RepositoryHelperTests.getRoleWithIdOne();
+        Role expected = HelperTestsRepository.getRoleWithIdOne();
 
         Role actual = roleRepository.findByName(Role.ROLE_TYPE.ADMIN);
 

@@ -19,7 +19,7 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
 
     @Test
     public void findOne_PassValidId_RetursContact() {
-        final Contact expected = RepositoryHelperTests.getContactWithIdOne();
+        final Contact expected = HelperTestsRepository.getContactWithIdOne();
 
         final Contact actual = contactRepository.findOne(1L);
 
@@ -54,7 +54,7 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
 
     @Test
     public void findBySurnameStartingWithAndCompany_PassValidParameters_ReturnsNotNullCollectionWithTargetContact() {
-        final Contact expected = RepositoryHelperTests.getContactWithIdOne();
+        final Contact expected = HelperTestsRepository.getContactWithIdOne();
 
         final List<Contact> actuals = contactRepository.findBySurnameStartingWithAndCompany(expected.getSurname(), expected.getCompany());
 

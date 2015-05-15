@@ -28,7 +28,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findUserByLoginAndPassword_ShouldReturnAUser() {
 
-        User expected = RepositoryHelperTests.getUserWithIdOne();
+        User expected = HelperTestsRepository.getUserWithIdOne();
 
         User actual = userRepository.findUserByLoginAndPassword("test", "cf9ba7b8884c4431fe5cf83336a021df");
 
@@ -46,7 +46,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findUserByLogin_ShouldReturnAUser() {
 
-        User expected = RepositoryHelperTests.getUserWithIdOne();
+        User expected = HelperTestsRepository.getUserWithIdOne();
 
         User actual = userRepository.findUserByLogin("test");
 
@@ -63,7 +63,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findOne_findUserByLogin_ShouldReturnAUser() {
 
-        User expected = RepositoryHelperTests.getUserWithIdOne();
+        User expected = HelperTestsRepository.getUserWithIdOne();
 
         User actual = userRepository.findOne(1L);
 
@@ -80,7 +80,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findByRole_ShouldReturnAListOfUsers() {
 
-        List<User> users = userRepository.findByRole(RepositoryHelperTests.getRoleWithIdOne());
+        List<User> users = userRepository.findByRole(HelperTestsRepository.getRoleWithIdOne());
 
         assertNotNull(users);
         assertThat(users.size(), is(2));

@@ -41,7 +41,7 @@ public class Contact {
     private Address address;
     private Set<Phone> phones;
     private Company company;
-
+    
     public Contact() {
     }
 
@@ -64,7 +64,7 @@ public class Contact {
     public Long getId() {
 	return id;
     }
-
+    
     @Column(name = "NAME", length = 20, nullable = true)
     @NotNull
     @Size(max = 20)
