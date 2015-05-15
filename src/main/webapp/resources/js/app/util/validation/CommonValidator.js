@@ -4,12 +4,23 @@
  */
 angular.module("flowertyApplication.utilModule")
 
-.directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", 
-                            	function($compile, VALIDATE_MESSAGES) {
-	
+.constant("VALIDATE_DATE", (function(){
+	var format = "YYYY-MM-DD";
+	return{
+		validate : function(dateString, isCheckOnPast){
+			var now = moment().format(format);
+	        var dateToCheck = moment(dateString).format(format);
+	        
+	        return isCheckOnPast ? moment(dateToCheck).isBefore(now) : moment(dateToCheck).isAfter(now);
+		}
+	};
+})())
+
+.directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", "VALIDATE_DATE", 
+                            	function($compile, VALIDATE_MESSAGES, VALIDATE_DATE) {
 	var template = "<span class='glyphicon form-control-feedback' aria-hidden='true' data-ng-class='info.icon'></span>" +
 				   "<small class='btn-danger'>{{info.message}}</small>";
-	
+
 	return {
 		require: "ngModel",
 		restrict: "A",
@@ -40,7 +51,6 @@ angular.module("flowertyApplication.utilModule")
             
             parent.append(content);
             parent.addClass("has-feedback");
-			
 			
 			function setState(state, icon, message){
 				scope.info.state = state,
@@ -79,6 +89,9 @@ angular.module("flowertyApplication.utilModule")
 					
 				};
 				
+				console.log(ngModelCtrl.$viewValue);
+				console.log(JSON.stringify(ngModelCtrl));
+				
 				var isInvalid = ngModelCtrl.$dirty && ngModelCtrl.$invalid;
 				
 				if(isInvalid){
@@ -94,17 +107,28 @@ angular.module("flowertyApplication.utilModule")
 				parent.removeClass("has-error");
 				parent.removeClass("has-success");
 				parent.addClass(scope.info.state);
-			}
+			};
+			
+			function validateDate(dateString){
+				var dateValidateType = attributes.dateValidate;
+				if(!!dateValidateType && dateValidateType === "past"){
+					ngModelCtrl.$setValidity("isPastDate", VALIDATE_DATE.validate(dateString, true));
+				}else if(!!dateValidateType && dateValidateType === "future"){
+					ngModelCtrl.$setValidity("isFutureDate", VALIDATE_DATE.validate(dateString, false));
+				};
+			};
 			
 			ngModelCtrl.$parsers.unshift(function (viewValue) {
+				validateDate(viewValue);
 				validate(viewValue);
 					
 				return viewValue;
             });
 
             ngModelCtrl.$formatters.unshift(function (modelValue) {
+            	validateDate(modelValue)
             	validate(modelValue);
-            	
+
             	return modelValue;
             });
 		}

@@ -39,6 +39,7 @@ angular.module("flowertyApplication.utilModule", [])
 	                viewMode : !attrs.viewMode ? "days" : attrs.viewMode,
 	                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode
 	            }).on('changeDate', function( e ){
+	            	//ngModelCtrl.$setViewValue(e.date);
 	                switch(attrs.format.toLowerCase().trim()){
 	                    case "yyyy":
 	                        ngModelCtrl.$setViewValue(e.date.getFullYear());
@@ -53,17 +54,13 @@ angular.module("flowertyApplication.utilModule", [])
 	                        ngModelCtrl.$setViewValue($filter('date')(e.date,'yyyy-MM-dd'));
 	                        break;
 	                }
+	                console.log(JSON.stringify(ngModelCtrl));
+	                
 	                element.datepicker('hide');
 	            });
-	
-	            //TODO: wtf?? this code thrown exception: data[option] is not a function
-	//            scope.$on('$destroy', function () {
-	//                element.datepicker('destroy');
-	//            });
 	        }
 	    };
 	})
-
 
     /*
      * create array of numbers as objects to iterate with 'in' operator
@@ -101,6 +98,7 @@ angular.module("flowertyApplication.utilModule", [])
             return result;
         }
     })
+    
     /*
      * filter to change case all character 'from' by 'length'.
      *

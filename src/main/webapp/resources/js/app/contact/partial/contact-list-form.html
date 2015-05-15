@@ -13,7 +13,7 @@
              <td><input type="checkbox" data-ng-checked="bundle.state.ischecked(contact)"
              							data-ng-click="bundle.state.ischecked(contact) ? bundle.state.unchecked(contact) : bundle.state.checked(contact)"/></td>
              <td> 
-             	<a href="#/contact-edit/{{contact.id}}"> <span class="glyphicon glyphicon-edit"></span>
+             	<a href="#/contact-edit/{{contact.id}}">{{contact.user}} <span class="glyphicon glyphicon-edit"></span>
            			{{contact | flowerFullContactName}} 
            		</a> 
          	 </td>

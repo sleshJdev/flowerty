@@ -45,7 +45,7 @@ public class SignupControllerTests extends MockTestConfigigurationAware {
 				.build();
 	}
 
-    @Ignore
+	@Ignore
 	@Test
 	public void signup_ShouldReturnViewNameForSignup() throws Exception{
 		mock
@@ -54,18 +54,18 @@ public class SignupControllerTests extends MockTestConfigigurationAware {
 			.andExpect(forwardedUrl("signup/signup"));
 	}
 
-    @Ignore
+	@Ignore
 	@Test
 	public void signup_PassSiginFormFromClient_ShouldSaveNewUserAndReturnNameIndexPage() throws Exception{
-		User newUser = TestControllerHelper.buildValidShortUserForTest();
+		User newUser = HelperTestsController.buildValidShortUserForTest();
 		
 		when(userServiceMock.save(any(User.class)))
 			.thenReturn(newUser);
 		
 		mock
 			.perform(post("/signup")
-						.contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-						.content(TestControllerHelper.convertObjectToJsonBytes(newUser))
+						.contentType(HelperTestsController.APPLICATION_JSON_UTF8)
+						.content(HelperTestsController.convertObjectToJsonBytes(newUser))
 					)
 			.andExpect(status().isOk())
 			.andExpect(forwardedUrl("home/index"));

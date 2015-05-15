@@ -11,5 +11,5 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface PhoneRepositoryCustom {
-    public void deleteIdNotIn(Long contactId, List<Long> list);
+    public int deleteIdNotIn(Long contactId, List<Long> list);
 }

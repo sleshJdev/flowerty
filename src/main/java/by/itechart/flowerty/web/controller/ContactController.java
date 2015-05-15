@@ -94,9 +94,10 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<Contact> contacts) {
-	
         LOGGER.info("remove contacts. obtained {} contacts", contacts.size());
-
+        
+        
+        
         contactService.deleteIdIn(fetchIdOfContact(contacts));
     }
 

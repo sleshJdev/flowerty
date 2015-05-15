@@ -1,6 +1,10 @@
 package test.by.itechart.flowerty.config.aware;
 
+import by.itechart.flowerty.configuration.LocalConfiguration;
+import by.itechart.flowerty.configuration.MailConfiguration;
+import by.itechart.flowerty.configuration.SearchContext;
 import by.itechart.flowerty.configuration.WebMvcConfiguration;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
@@ -10,6 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
 import test.by.itechart.flowerty.config.ApplicationConfiguration;
 import test.by.itechart.flowerty.config.EmbeddedDataSourceConfig;
 import test.by.itechart.flowerty.config.JpaConfiguration;
@@ -22,9 +27,12 @@ import javax.inject.Inject;
 @WebAppConfiguration
 @ContextConfiguration(classes = {
         ApplicationConfiguration.class,
+        LocalConfiguration.class,
+        MailConfiguration.class,
         EmbeddedDataSourceConfig.class,
         JpaConfiguration.class,
         MongoConfiguration.class,
+        SearchContext.class,
         WebMvcConfiguration.class
 })
 public abstract class WebApplicationConfigurationAware extends MockTestConfigigurationAware {

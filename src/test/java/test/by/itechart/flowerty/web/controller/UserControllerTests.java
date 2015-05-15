@@ -1,61 +1,55 @@
 package test.by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.persistence.model.User;
-import by.itechart.flowerty.web.controller.UserController;
-import by.itechart.flowerty.web.model.UserEditBundle;
-import by.itechart.flowerty.web.service.UserService;
-import org.junit.Before;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.io.IOException;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import test.by.itechart.flowerty.config.aware.MockTestConfigigurationAware;
 
-import java.io.IOException;
-
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
+import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.web.controller.UserController;
+import by.itechart.flowerty.web.model.UserEditBundle;
+import by.itechart.flowerty.web.service.UserService;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 24, 2015
- *         <p/>
- *         Test for UserController
+ *         
+ *         test for UserController
  */
-public class UserControllerTests extends MockTestConfigigurationAware {
+public class UserControllerTests extends WebApplicationConfigurationAware {
     @Mock
     private UserService userServiceMock;
 
     @InjectMocks
     private UserController userControllerMock;
 
-    private MockMvc mock;
-
-    @Before
-    public void setUp() {
-        mock = MockMvcBuilders.standaloneSetup(userControllerMock)
-                .setHandlerExceptionResolvers(withExceptionControllerAdvice())
-                .build();
-    }
-
     @SuppressWarnings("unchecked")
-    @Ignore
     @Test
-    public void getById_PassNotValidUserId_ShouldReturnShouldRedirectToErroPage() throws Exception {
+    public void getById_PassNotValidUserId_ShouldRedirectToErroPage() throws Exception {
         final Long id = Long.MAX_VALUE;
 
         when(userServiceMock.getUserEditBundleFor(id))
                 .thenReturn(null)
                 .thenThrow(Exception.class);
 
-        mock.perform(get("/user/details/{id}", id))
+        mockMvc
+        	.perform(get("/user/details/{id}", id))
                 .andExpect(status().isOk());
 
         verify(userServiceMock, times(1)).getUserEditBundleFor(id);
@@ -65,12 +59,12 @@ public class UserControllerTests extends MockTestConfigigurationAware {
     @Ignore
     @Test
     public void getById_PassValidUserId_ShouldReturnUserEditBundle() throws Exception {
-        UserEditBundle bundle = TestControllerHelper.buildUserEditBundleForTest();
+        UserEditBundle bundle = HelperTestsController.buildUserEditBundleForTest();
         User returnedUser = bundle.getUser();
 
         when(userServiceMock.getUserEditBundleFor(returnedUser.getId())).thenReturn(bundle);
 
-        mock
+        mockMvc
                 .perform(get("/user/details/{id}", returnedUser.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -85,18 +79,18 @@ public class UserControllerTests extends MockTestConfigigurationAware {
     @Ignore
     @Test
     public void add_PassValidJson_ShouldReturnCreatedUserObject() throws IOException, Exception {
-        User returnedUser = TestControllerHelper.buildUserAdminForTest();
+        User returnedUser = HelperTestsController.buildUserAdminForTest();
 
         when(userServiceMock.save(any(User.class)))
                 .thenReturn(returnedUser);
 
-        mock
+        mockMvc
                 .perform(post("/user/save")
-                                .contentType(TestControllerHelper.APPLICATION_JSON_UTF8)
-                                .content(TestControllerHelper.convertObjectToJsonBytes(returnedUser))
+                                .contentType(HelperTestsController.APPLICATION_JSON_UTF8)
+                                .content(HelperTestsController.convertObjectToJsonBytes(returnedUser))
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestControllerHelper.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(HelperTestsController.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.login", is(returnedUser.getLogin())))
                 .andExpect(jsonPath("$.password", is(returnedUser.getPassword())));
 

@@ -28,7 +28,7 @@ public class PhoneRepositoryImpl extends QueryDslRepositorySupport implements Ph
 
     @Override
     @Transactional
-    public void deleteIdNotIn(Long contactId, List<Long> list) {
-	delete(PHONE).where(PHONE.id.notIn(list).and(PHONE.contact.id.eq(contactId))).execute();
+    public int deleteIdNotIn(Long contactId, List<Long> list) {
+	return (int) delete(PHONE).where(PHONE.id.notIn(list).and(PHONE.contact.id.eq(contactId))).execute();
     }
 }
