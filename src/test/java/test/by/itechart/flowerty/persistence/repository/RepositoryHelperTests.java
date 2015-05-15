@@ -75,7 +75,7 @@ public abstract class RepositoryHelperTests {
 
         user.setId(1L);
         user.setLogin("test");
-        user.setPassword("cf9ba7b8884c4431fe5cf83336a021df");
+        user.setPassword("$2a$10$ZWwh6S.iW5Sjeo2mklifkegHdSDOpmxpAw5oHDRTEMWgHLS.bILny");
         user.setRole(getRoleWithIdOne());
         user.setContact(getContactWithIdOne());
 
