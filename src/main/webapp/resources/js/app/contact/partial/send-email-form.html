@@ -1,7 +1,7 @@
 <fieldset class="form-horizontal" form="send-email-form">
-	<legend class="text-center">Send email</legend>
+	<legend class="text-center">{{'SEND_EMAIL' | xlat}}</legend>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">To</label>
+		<label class="col-sm-3 control-label">{{'TO' | xlat}}</label>
 		<div class="col-md-8">
 			<ul class="list-inline">
 				<li style="background-color: white;" 
@@ -12,21 +12,21 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">Subject</label>
+		<label class="col-sm-3 control-label">{{'SUBJECT' | xlat}}</label>
 		<div class="col-md-8">
-			<input id="lname" data-ng-model="bundle.email.subject" class="form-control" name="subject" placeholder="Subject"
+			<input id="lname" data-ng-model="bundle.email.subject" class="form-control" name="subject" placeholder="{{'SUBJECT' | xlat}}"
 				data-ng-maxlength="100"
 				data-flowerty-validate>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">Template</label>
+		<label class="col-sm-3 control-label">{{'TEMPLATE' | xlat}}</label>
 		<div class="col-md-8">
 			<select data-ng-model="bundle.template" data-ng-options="t as t.name for t in bundle.templates"></select>
 		</div>
 	</div>
 	<div class="form-group">
-		 <label class="col-sm-3 control-label">Attachments</label>
+		 <label class="col-sm-3 control-label">{{'ATTACHMENTS' | xlat}}</label>
 		<div class="col-md-8 row">
 	    	<div class="col-md-2">
 				<!-- TODO: add directive for this -->
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">Message</label>
+		<label class="col-sm-3 control-label">{{'MESSAGE' | xlat}}</label>
 		<div class="col-md-8">
 			<textarea class="form-control" data-ng-model="bundle.template.value" placeholder="Enter your massage for us here." rows="7" ></textarea>
 		</div>

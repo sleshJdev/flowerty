@@ -3,15 +3,15 @@
 <div data-ng-app="flowertyApplication.goodsModule">
     <div class="panel panel-default order-info" data-ng-show="current.basket.info.itemsCount || current.basket.info.fullCost">
         <div class="panel-heading">
-            <h1 class="panel-title">Your order</h1>
+            <h1 class="panel-title">{{'YOUR_ORDER' | xlat}}</h1>
         </div>
         <div class="panel-body">
-            <p>Items count: <strong>{{current.basket.info.itemsCount}}</strong></p>
-            <p>Full cost: <strong>{{current.basket.info.fullCost | currency}}</strong></p>
-            <a href="#add-order"><div class="btn btn-default">Form the order!</div></a>
+            <p>{{'ITEMS_COUNT' | xlat}} <strong>{{current.basket.info.itemsCount}}</strong></p>
+            <p>{{'FULL_COST' | xlat}} <strong>{{current.basket.info.fullCost | currency}}</strong></p>
+            <a href="#add-order"><div class="btn btn-default">{{'FORM_ORDER' | xlat}}</div></a>
         </div>
     </div>
-    <h1>Make an order!</h1>
+    <h1>{{'MAKE_ORDER' | xlat}}</h1>
     <div data-ng-include="templates.pagination.url"></div>
     <div class="row" data-ng-repeat="goodsRow in goods.list">
         <div class="goods-item col-md-4 thumbnail"
@@ -29,8 +29,8 @@
                         <span class="glyphicon glyphicon-plus" data-ng-click="goods.more(goodsItem)"></span>
                     </p>
                     <div data-ng-show="current.isLogged">
-                        <div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]" data-ng-click="goods.makeOrder(goodsItem)">Add to basket</div>
-                        <div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]" data-ng-click="goods.removeFromOrder(goodsItem)">Remove from basket</div>
+                        <div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]" data-ng-click="goods.makeOrder(goodsItem)">{{'ADD_BASKET' | xlat}}</div>
+                        <div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]" data-ng-click="goods.removeFromOrder(goodsItem)">{{'REMOVE_BASKET' | xlat}}</div>
                     </div>
                 </div>
             </div>
