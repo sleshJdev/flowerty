@@ -22,10 +22,23 @@ angular.module("flowertyApplication.utilModule")
 	return {
         require: 'ngModel',
         link: function (scope, element, attributes, ngModelCtrl) {
+        	scope.$watch(attributes.ngModel, function(newValue, oldValue, scope){
+        		console.log("new value: " + newValue + ", old value: " + oldValue);
+        		ngModelCtrl.$setValidity("isPastDate", VALIDATE_DATE.validate(newValue, true));
+        	});
+        	
         	ngModelCtrl.$parsers.unshift(function(viewValue){
+        		console.log("parsers");
         		ngModelCtrl.$setValidity("isPastDate", VALIDATE_DATE.validate(viewValue, true));
         		
     			return viewValue;
+        	});
+        	
+        	ngModelCtrl.$formatters.unshift(function(modelValue){
+        		console.log("formatters");
+        		ngModelCtrl.$setValidity("isPastDate", VALIDATE_DATE.validate(modelValue, true));
+        		
+    			return modelValue;
         	});
         }
     };
