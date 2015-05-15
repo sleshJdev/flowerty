@@ -89,7 +89,7 @@ public class OrderService {
         orderAlteringRepository.save(newAltering);
         return savedOrder;
     }
-
+	
     private boolean availableOnWarehouse(List<Item> items){
         boolean availableOnWarehouse = true;
         for(Item item : items){
@@ -190,7 +190,6 @@ public class OrderService {
         orderEditBundle.setAvailableStates(availableStates);
         return orderEditBundle;
     }
-
 
     //TODO: make smart
     private boolean canChangeToThisState(String roleDescription, State newState, State currentState){
