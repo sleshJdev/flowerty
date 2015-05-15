@@ -2,8 +2,6 @@ package by.itechart.flowerty.persistence.model;
 
 import org.apache.solr.client.solrj.beans.Field;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -47,9 +45,9 @@ public class User {
     }
 
 
-    @Column(name = "PASSWORD", length = 50, nullable = false)
+    @Column(name = "PASSWORD", length = 100, nullable = false)
     @NotNull
-    @Size(max=50)
+    @Size(max=100)
     public String getPassword() {
         return password;
     }

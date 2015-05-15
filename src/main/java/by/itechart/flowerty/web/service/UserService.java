@@ -15,8 +15,10 @@ import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.repository.ContactRepository;
 import by.itechart.flowerty.persistence.repository.RoleRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
-import by.itechart.flowerty.security.PasswordEncoder;
 import by.itechart.flowerty.web.model.UserEditBundle;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *
@@ -68,9 +70,7 @@ public class UserService {
 	public User save(User newUser) {
 		String password = newUser.getPassword();
 
-		password = passwordEncoder.encodePassword(password, passwordEncoder.getSalt());
-
-		newUser.setPassword(password);
+		newUser.setPassword(passwordEncoder.encode(password));
 
 		return userRepository.save(newUser);
 	}
