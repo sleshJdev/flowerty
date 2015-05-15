@@ -4,7 +4,7 @@
  */
 
 angular.module('flowertyApplication').controller('MainController',
-    function ($scope, $http, $location, $filter, AuthServerProvider, $localStorage, notificationService) {
+    function ($scope, $http, $location, $filter, AuthServerProvider, $localStorage, notificationService, xlatService) {
 
         AuthServerProvider.setLoggedUser($scope);
 
@@ -80,5 +80,12 @@ angular.module('flowertyApplication').controller('MainController',
             }
         };
 
+        $scope.setCurrentLanguage = function(language) {
+            alert(language);
+            xlatService.setCurrentLanguage(language);
+        };
+
         $scope.notification = notificationService.getNotificationBundle();
+
+
     });
