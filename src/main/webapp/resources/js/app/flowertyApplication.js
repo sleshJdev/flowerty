@@ -13,7 +13,8 @@ var app = angular.module('flowertyApplication', [
     'flowertyApplication.orderModule',
     'flowertyApplication.profileModule',
     'flowertyApplication.utilModule',
-    'flowertyApplication.errorModule'])
+    'flowertyApplication.errorModule',
+    'xlat'])
 
 .constant("MAIN_MODULE_CONSTANTS", {
         APP_PATH : "resources/js/app/",

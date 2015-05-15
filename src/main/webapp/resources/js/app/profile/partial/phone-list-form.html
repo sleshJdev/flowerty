@@ -2,15 +2,15 @@
 <legend class="small" style="color: grey">PHONES</legend>
 <div data-ng-show="!profile.user.contact.phones.length">
     <div class="col-md-offset-1">
-        <p>Phone list is empty.</p>
+        <p>{{'PHONE_LIST_EMPTY' | xlat}}</p>
     </div>
 </div>
 <div data-ng-show="profile.user.contact.phones.length">
     <table class="table">
         <tr>
-            <th>Number</th>
-            <th>Type</th>
-            <th>Comment</th>
+            <th>{{'NUMBER' | xlat}}</th>
+            <th>{{'TYPE' | xlat}}</th>
+            <th>{{'COMMENT' | xlat}}</th>
         </tr>
         <tr data-ng-repeat="phone in profile.user.contact.phones">
             <td>{{phone.country + '(' +  phone.operator + ') ' + phone.number}}</td>
