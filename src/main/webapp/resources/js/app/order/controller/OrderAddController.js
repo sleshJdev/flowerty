@@ -42,8 +42,6 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                     //$location.path('orders');
                 },
                 function (data) {
-                    console.log('Cannot checkout order: ' + JSON.stringify($scope.bundle.order) +
-                    '\nException details : ' + JSON.stringify({data: data}));
                     notificationService.notify("danger", "Checking out failed!");
                     $location.path('/add-order');
                 });
@@ -67,6 +65,9 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                         $scope.bundle.order.staff = $scope.staff.processors[0];
                     }
                 )
+            },
+            function (data) {
+                notificationService.notify("danger", "Error occured during creating an order");
             }
         );
 

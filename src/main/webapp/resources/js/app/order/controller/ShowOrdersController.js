@@ -4,11 +4,6 @@ angular.module("flowertyApplication.orderModule").controller("ShowOrdersControll
     function($scope, $http, $location, orderSearchService, paginationService) {
 
         $scope.orders = paginationService.getListBundle();
-
-        $scope.init = function () {
-            $scope.pagination = paginationService.getPagination(orderSearchService.searchOrders);
-            $scope.pagination.getPage(1);
-        };
-
-        $scope.init();
+        $scope.pagination = paginationService.getPagination(orderSearchService.searchOrders);
+        $scope.pagination.getPage(1);
     }]);

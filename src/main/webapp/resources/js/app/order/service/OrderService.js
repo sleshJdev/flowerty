@@ -25,6 +25,7 @@ angular.module("flowertyApplication.orderModule").service('orderService', ['$htt
         var basketItem;
         order.items = [];
         for(basketItem in cart.items){
+            cart.items[basketItem].goods.remain -= cart.items[basketItem].quantity;
             order.items.push(cart.items[basketItem]);
         }
         order.cost = cart.info.fullCost;

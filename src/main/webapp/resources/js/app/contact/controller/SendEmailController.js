@@ -20,10 +20,15 @@ angular.module("flowertyApplication.contactModule")
 			files: []
 	};
 	
-	emailService.getTemplates(function(data) {
-		$scope.bundle.templates = data;
-		$scope.bundle.template = data[0];
-	});
+	emailService.getTemplates(
+        function(data) {
+            $scope.bundle.templates = data;
+            $scope.bundle.template = data[0];
+        },
+        function(data){
+            notificationService.notify("danger", "Cannot get templates! Use plain text.");
+        }
+    );
 	$scope.bundle.email.to = emailService.getValue();//for test: studentbntu@mail.ru is valid
 	
 	$scope.$on("fileSelected", function (event, args) {
