@@ -1,7 +1,7 @@
 <div class="col-md-5">
 	<table class="table">
 		<caption>
-			Phones 
+            {{'PHONES' | xlat}}
 			<a href=""> 
 				<span class="glyphicon glyphicon-remove pull-right red"
 						data-ng-click="bundle.actions.deletePhone()"></span>
@@ -16,9 +16,9 @@
 		</caption>
 		<tr>
 			<th></th>
-			<th>Number</th>
-			<th>Type</th>
-			<th>Comment</th>
+			<th>{{'NUMBER' | xlat}}</th>
+			<th>{{'TYPE' | xlat}}</th>
+			<th>{{'COMMENT' | xlat}}</th>
 			<th></th>
 		</tr>
 		<tr data-ng-repeat="phone in bundle.contact.phones">

@@ -5,35 +5,35 @@
 		<form name="goodsForm">
 		 	<notification alert-data="notification"></notification>
 			<fieldset class="col-md-offset-1 form-horizontal">
-				<legend class="text-center">Add Goods</legend>
+				<legend class="text-center">{{'ADD_GOODS' | xlat}}</legend>
 				<div class="form-group">
-					<label class="col-md-3" style="margin-right: 15px;">Cost</label>
+					<label class="col-md-3" style="margin-right: 15px;">{{'COST' | xlat}}</label>
 					<div style="margin-left: 30px;" class="col-md-3 input-group">
 						<input type="text" class="form-control" placeholder="Cost" data-ng-model="bundle.goods.cost">
 						<div class="input-group-addon">$</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3">Flower</label>
+					<label class="col-md-3">{{'FLOWER' | xlat}}</label>
 					<div class="col-md-8">
-						<input type="text" class="form-control" data-ng-model="bundle.goods.flower.name" placeholder="Type flowerty name here">
+						<input type="text" class="form-control" data-ng-model="bundle.goods.flower.name" placeholder="{{'TYPE_FLOWER_NAME' | xlat}}">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3">Remain</label>
+					<label class="col-md-3">{{'REMAIN' | xlat}}</label>
 					<div class="col-md-3">
-						<input class="form-control" data-ng-model="bundle.goods.remain" placeholder="On warehouse">
+						<input class="form-control" data-ng-model="bundle.goods.remain" placeholder="{{'ON_WAREHOUSE' | xlat}}">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3">Picture</label>
+					<label class="col-md-3">{{'PICTURE' | xlat}}</label>
 					<div class="col-md-4">
 						<input type="file" data-ng-model="bundle.picture" data-flowerty-picture-pick>
 					</div>
 				</div>
 			</fieldset>
 			<div>
-				<button class="pull-right col-sm-2 btn btn-primary active" data-ng-click="bundle.actions.add()">Add</button>
+				<button class="pull-right col-sm-2 btn btn-primary active" data-ng-click="bundle.actions.add()">{{'ADD' | xlat}}</button>
 			</div>
 		</form>
 	</div>
