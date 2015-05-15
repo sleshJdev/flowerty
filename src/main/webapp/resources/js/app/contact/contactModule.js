@@ -74,7 +74,7 @@ angular.module("flowertyApplication.contactModule", ["ngRoute"])
         })
         .when("/show-contacts", {
             templateUrl: CONSTANTS.SHOW_CONTACTS,
-            controller: "ShowContactsController"
+            controller: "ContactSearchResultController"
         })
         .when("/send-email", {
             templateUrl: CONSTANTS.SEND_EMAIL,

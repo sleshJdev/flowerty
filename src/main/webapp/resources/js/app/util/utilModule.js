@@ -1,10 +1,10 @@
 /**
  * @author Eugene Putsykovich(slesh) Apr 7, 2015
  *
- * Contains filters, directions and other for util stuff
+ * contains filters, directions and other for util stuff
  */
 angular.module("flowertyApplication.utilModule", [])
-
+	
     /*
      * show notification message
      */
@@ -112,7 +112,7 @@ angular.module("flowertyApplication.utilModule", [])
             }
             var left = value.substr(0, from);
             var center = value.substr(from, length);
-            center = isUp ? center.toUpperCase() : center.toLowerCase();
+            center = isUp ? center.toUpperCase() : center.toLowerCase()
             var right = value.substr(from + length, value.length);
 
             return left.concat(center).concat(right);
@@ -129,7 +129,7 @@ angular.module("flowertyApplication.utilModule", [])
             console.log('Searching by surname: ' + enteredSurname);
 
             $http({
-                url: 'contact/partial-search/' + enteredSurname,
+                url: 'contact/search/' + enteredSurname,
                 method: 'GET'
             }).success(function(data, status, headers, config) {
                 filterCallback(model,data);
