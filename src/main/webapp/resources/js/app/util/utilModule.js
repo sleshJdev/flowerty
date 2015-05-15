@@ -127,7 +127,7 @@ angular.module("flowertyApplication.utilModule", [])
             console.log('Searching by surname: ' + enteredSurname);
 
             $http({
-            	url: 'contact/partial-search/' + enteredSurname,
+                url: 'contact/partial-search/' + enteredSurname,
                 method: 'GET'
             }).success(function(data, status, headers, config) {
                 filterCallback(model,data);

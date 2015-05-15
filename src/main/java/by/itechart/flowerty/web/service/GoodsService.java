@@ -20,7 +20,9 @@ public class GoodsService {
     private GoodsRepository goodsRepository;
 
     public Page<Goods> getPage(int page, int size) {
-	return goodsRepository.findAll(new PageRequest(page, size));
+
+        //TODO: find by company!!!
+        return goodsRepository.findAll(new PageRequest(page, size));
     }
 
     @Transactional

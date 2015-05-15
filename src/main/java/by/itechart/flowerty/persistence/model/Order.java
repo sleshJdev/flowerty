@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,7 +26,7 @@ public class Order {
     private User manager;
     private User delivery;
     private String description;
-    private Set<Item> items;
+    private List<Item> items;
     private Date deliveryDate;
     private Address address;
 
@@ -86,7 +87,7 @@ public class Order {
     }
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
@@ -115,7 +116,7 @@ public class Order {
         this.deliveryDate = deliveryDate;
     }
 
-    public void setItems(Set<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

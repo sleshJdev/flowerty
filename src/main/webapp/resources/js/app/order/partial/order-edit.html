@@ -172,10 +172,13 @@
                 <div class="goods-image col-md-3">
                     <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.goods.image}}"/>
                 </div>
-                <div class="goods-list-item-info caption col-md-offset-1 col-md-7">
+                <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="goodsItem.quantity">
                     <h3 class="goods-item-description">{{goodsItem.goods.flower.name}}</h3>
                     <h3 class="goods-item-description">{{goodsItem.goods.cost | currency}} x {{goodsItem.quantity}} = {{(goodsItem.goods.cost * goodsItem.quantity) | currency}}</h3>
                     <h3>Count: <strong>{{goodsItem.quantity}}</strong></h3>
+                </div>
+                <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="!goodsItem.quantity">
+                    <h3><strong>Not available at warehouse!</strong></h3>
                 </div>
             </div>
         </div>

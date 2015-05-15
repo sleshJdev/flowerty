@@ -8,8 +8,7 @@
 lib/
 *.iml
 *.iws
-/target/
-persistence.properties
+target/
 local.properties
 
 # Mac
