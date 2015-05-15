@@ -9,7 +9,6 @@ lib/
 *.iml
 *.iws
 target/
-persistence.properties
 local.properties
 
 # Mac
