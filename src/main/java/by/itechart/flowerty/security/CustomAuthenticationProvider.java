@@ -16,11 +16,16 @@ import java.util.Collection;
 /**
  * Created by Rostislav on 31-Mar-15
  */
+
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -33,6 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Username not found.");
         }
 
+        password = passwordEncoder.encodePassword(password, passwordEncoder.getSalt());
         if (!password.equals(user.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
         }
