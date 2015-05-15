@@ -1,23 +1,19 @@
-package by.itechart.flowerty.security;
+package test.by.itechart.flowerty.security;
 
-import by.itechart.flowerty.configuration.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import test.by.itechart.flowerty.config.aware.WebSecurityConfigurationAware;
 
-import javax.servlet.Filter;
+import java.util.ArrayList;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
@@ -28,26 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by Rostislav on 05-May-15
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {
-        WebMvcConfiguration.class,
-        ApplicationConfiguration.class,
-        JpaConfiguration.class,
-        SearchContext.class,
-        SpringSecurityConfiguration.class})
-@WebAppConfiguration
-public class SecurityRequestsTests {
-
-    @Autowired
-    private WebApplicationContext context;
-
-    @Autowired
-    private Filter springSecurityFilterChain;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    private MockMvc mvc;
+public class SecurityRequestsTests extends WebSecurityConfigurationAware {
 
     @Before
     public void setup() {
@@ -63,15 +40,6 @@ public class SecurityRequestsTests {
                 .perform(get("/").with(user("user")))
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername("user"))
-        ;
-    }
-
-    @Test
-    public void requestProtectedUrlWithAdmin() throws Exception {
-        mvc
-                .perform(get("/user/list/page=1&limit=10").with(user("admin").password("admin").roles("ADMIN")))
-                .andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("admin"))
         ;
     }
 
@@ -111,15 +79,29 @@ public class SecurityRequestsTests {
         ;
     }
 
-
     @Test
     public void requestProtectedUrlWithUserDetails() throws Exception {
-        UserDetails userDetails = userDetailsService.loadUserByUsername("test");
+
+        UserDetailsService userDetailsServiceMock = mock(UserDetailsService.class);
+
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                "testAdmin", "testAdmin",
+                true, true, true, true,
+                new ArrayList<GrantedAuthority>() {
+                    {
+                        add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                    }
+                });
+
+        when(userDetailsServiceMock.loadUserByUsername("testAdmin")).thenReturn(userDetails);
+
         mvc
-                .perform(get("/").with(user(userDetails)))
+                .perform(get("/").with(user(userDetailsServiceMock.loadUserByUsername("testAdmin"))))
                 .andExpect(status().isOk())
-                .andExpect(authenticated().withAuthenticationPrincipal(userDetails))
+                .andExpect(authenticated().withAuthenticationPrincipal(userDetailsServiceMock.loadUserByUsername("testAdmin")))
         ;
+
+        verify(userDetailsServiceMock, times(2)).loadUserByUsername("testAdmin");
     }
 
     @Test

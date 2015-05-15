@@ -3,12 +3,16 @@
  * Created by Катерина on 20.04.2015.
  */
 //TODO: service
-angular.module("flowertyApplication.userModule").controller("UserDeleteController", ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
-    $http({
-        method: "get",
-        url: "user/delete/" + $routeParams.id
-    }).success(function(data, status, headers, config) {
-    }).error(function(data, status, headers, config) {
-        console.log("Exception details: " + JSON.stringify({data: data}));//COMMENT HERE
-    });
-}]);
+angular.module("flowertyApplication.userModule").controller("UserDeleteController", ['$scope', '$http', '$location', '$routeParams', 'userDeleteService', 'notificationService',
+    function($scope, $http, $location, $routeParams, userDeleteService, notificationService) {
+
+        userDeleteService.deleteOne(
+            $routeParams.id,
+            function (data) {
+                notificationService.notify('success', 'Successfully removed this user!');
+            },
+            function (data, status, headers, config) {
+                notificationService.notify('danger', 'Error during removing this user!');
+            }
+        );
+    }]);

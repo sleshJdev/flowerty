@@ -24,9 +24,9 @@
                 <div class="goods-item-info caption text-center">
                     <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
                     <h5 class="goods-item-description">{{goodsItem.cost | currency}}</h5>
-                    <p data-ng-show="current.isLogged">Count: <span class="glyphicon glyphicon-minus" data-ng-click="goods.less(goodsItem)"></span>
+                    <p data-ng-show="current.isLogged">Count: <a href="" data-ng-click="goods.less(goodsItem)"><span class="glyphicon glyphicon-minus"></span></a>
                         <span class="goods-item-count badge">{{goodsItem.count}}</span>
-                        <span class="glyphicon glyphicon-plus" data-ng-click="goods.more(goodsItem)"></span>
+                        <a href="" data-ng-click="goods.more(goodsItem)"><span class="glyphicon glyphicon-plus"></span></a>
                     </p>
                     <div data-ng-show="current.isLogged">
                         <div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]" data-ng-click="goods.makeOrder(goodsItem)">{{'ADD_BASKET' | xlat}}</div>

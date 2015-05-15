@@ -14,20 +14,17 @@
             <div class="navbar-text navigation-group" data-ng-show="'ROLE_ADMIN' == current.user.role">
                 <a href="#users" class="navbar-link navigation-group-item">{{'USERS' | xlat}}</a>
                 <a href="#add-user" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
-                <a href="#search-user" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
             </div>
             <div class="navbar-text navigation-group" data-ng-show="'ROLE_SUPERVISOR' == current.user.role || 'ROLE_ORDERS_MANAGER' == current.user.role">
                 <a href="#contact-list" class="navbar-link navigation-group-item">{{'CONTACTS' | xlat}}</a>
                 <a href="#contact-add" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
                 <a href="#contact-search" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
             </div>
-            <div class="navbar-text navigation-group">
+            <div class="navbar-text navigation-group" data-ng-show="'ROLE_SUPERVISOR' == current.user.role || 'ROLE_ORDERS_MANAGER' == current.user.role || 'ROLE_ORDERS_PROCESSOR' == current.user.role || 'ROLE_DELIVERY_MANAGER' == current.user.role">
                 <a href="#orders" class="navbar-link navigation-group-item">{{'ORDERS' | xlat}}</a>
-                <a href="#add-order" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus"></span></a>
                 <a href="#search-order" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="#orders-history" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-time"></span></a>
             </div>
-            <div class="navbar-text navigation-group">
+            <div class="navbar-text navigation-group" data-ng-show="'ROLE_ADMIN' == current.user.role">
                 <a href="#goods-add" class="navbar-link navigation-group-item"><span class="glyphicon glyphicon-plus">{{'ADD_GOODS' | xlat}}</span></a>
             </div>
         </div>

@@ -2,7 +2,6 @@
  * @author Eugene Putsykovich(slesh) May 9, 2015
  *
  */
-
 angular.module("flowertyApplication.utilModule")
 
 .directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", 
@@ -16,7 +15,6 @@ angular.module("flowertyApplication.utilModule")
 		restrict: "A",
 		scope:{},
 		link: function(scope, element, attributes, ngModelCtrl){
-			
 			scope.info = {
 					state: "",
 					icon: "",
@@ -72,6 +70,13 @@ angular.module("flowertyApplication.utilModule")
 				
 				}else if(ngModelCtrl.$error.password){
 					message = VALIDATE_MESSAGES["password"]();
+					
+				}else if(ngModelCtrl.$error.isFutureDate){
+					message = VALIDATE_MESSAGES["date"](attributes.name, "more");
+					
+				}else if(ngModelCtrl.$error.isPastDate){
+					message = VALIDATE_MESSAGES["date"](attributes.name, "less");
+					
 				};
 				
 				var isInvalid = ngModelCtrl.$dirty && ngModelCtrl.$invalid;

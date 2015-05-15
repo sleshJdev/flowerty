@@ -8,7 +8,7 @@ import org.springframework.core.io.ClassPathResource;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
- *
+ *         <p/>
  *         Configuration for fetch properties from resources
  */
 @Configuration
@@ -17,9 +17,9 @@ public class ApplicationConfiguration {
 
     @Bean
     public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-	PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-	ppc.setLocations(new ClassPathResource("/hsql-persistence.properties"), new ClassPathResource("/mongo.properties"));
+        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+        ppc.setLocations(new ClassPathResource("/hsql-persistence.properties"), new ClassPathResource("/mongo.properties"));
 
-	return ppc;
+        return ppc;
     }
 }

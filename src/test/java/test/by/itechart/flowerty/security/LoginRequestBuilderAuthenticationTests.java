@@ -1,4 +1,4 @@
-package by.itechart.flowerty.security;
+package test.by.itechart.flowerty.security;
 
 import by.itechart.flowerty.configuration.*;
 import org.junit.Before;
@@ -70,7 +70,6 @@ public class LoginRequestBuilderAuthenticationTests {
                 .andExpect(unauthenticated())
         ;
     }
-
 
     static FormLoginRequestBuilder login() {
         return SecurityMockMvcRequestBuilders

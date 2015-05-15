@@ -8,20 +8,20 @@
 angular.module("flowertyApplication.contactModule").service("contactListService", ['$http',
     function($http) {
 
-    var service = this;
+        var self = this;
 
-    service.getContactList = function(page, limit, successCallback, errorCallback){
-        $http({
-            method: "get",
-            url: "contact/list/" + page + "/" + limit
-        })
-            .success(successCallback)
-            .error(function(data) {
-                console.log("Exception during getting list of the contacts at page " + page + " with limit of " + limit +":\n"
-                + JSON.stringify({data: data}));
-                errorCallback(data);
-            }
-        );
-    }
-
-}]);
+        self.getContactList = function (page, limit, successCallback, errorCallback) {
+            console.log("search contact");
+            $http({
+                method: "get",
+                url: "contact/list/" + page + "/" + limit
+            })
+                .success(successCallback)
+                .error(function (data) {
+                    console.log("Exception during getting list of the contacts at page " + page + " with limit of " + limit + ":\n"
+                    + JSON.stringify({data: data}));
+                    errorCallback(data);
+                }
+            );
+        };
+    }]);

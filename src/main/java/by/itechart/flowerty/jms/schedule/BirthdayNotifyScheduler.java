@@ -45,13 +45,13 @@ public class BirthdayNotifyScheduler {
 	String birthdayTemplate;
 	try {
 	    birthdayTemplate = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(settings.getBirthdayTemplatePath()));
-	    stringTemplate = new StringTemplate(birthdayTemplate);
 	} catch (IOException e) {
 	    LOGGER.info("birthday template file not found: {}. will be use default template.", e.getMessage());
 	    
-	    stringTemplate = new StringTemplate(getDefaulTemplate());
+	    birthdayTemplate = getDefaulTemplate();
 	}
 	
+	stringTemplate = new StringTemplate(birthdayTemplate);
 	stringTemplate.setAttribute("US_FULL_NAME", settings.getUsFullName());
     }
     

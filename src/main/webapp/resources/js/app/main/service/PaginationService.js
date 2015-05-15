@@ -5,8 +5,8 @@
  * Service for paging
  */
 
-angular.module("flowertyApplication").service('paginationService', ['$location', 'MAIN_MODULE_CONSTANTS',
-    function($location, MAIN_MODULE_CONSTANTS) {
+angular.module("flowertyApplication").service('paginationService', ['$location', 'MAIN_MODULE_CONSTANTS', "notificationService",
+    function($location, MAIN_MODULE_CONSTANTS, notificationService) {
 
         var service = this;
 
@@ -47,16 +47,19 @@ angular.module("flowertyApplication").service('paginationService', ['$location',
                     if (!data.content) {
                         $location.path("login");
                     } else {
+                        console.log("Got page " + pageNumber + " from server with limit of " + listBundle.limit +":\n"
+                        + JSON.stringify({data: data.content}));
                         listBundle.list = data.content;
                         listBundle.pagesCount = data.totalPages;
                     }
                 },
-                //TODO: error processing
                 function (data) {
+                    console.log("Exception during getting from server page " + page + " with limit of " + limit +":\n"
+                    + JSON.stringify({data: data}));
                 }
             );
         };
-
+        
         service.getPageFromServer = function () {};
 
         var getPreviousPage = function () {
@@ -79,6 +82,7 @@ angular.module("flowertyApplication").service('paginationService', ['$location',
 
         service.getPagination = function (getPageFromServerFunction) {
             service.getPageFromServer = getPageFromServerFunction;
+            listBundle.list = [];
             return {
                 getNextPage: getNextPage,
                 getPreviousPage: getPreviousPage,
@@ -87,7 +91,8 @@ angular.module("flowertyApplication").service('paginationService', ['$location',
                 getPagesCount: getPagesCount,
                 changeLimit: changeLimit,
                 limit: listBundle.limit,
-                limits: MAIN_MODULE_CONSTANTS.LIMITS
+                limits: MAIN_MODULE_CONSTANTS.LIMITS,
+                canChangeLimit : true
             }
         };
     }]);

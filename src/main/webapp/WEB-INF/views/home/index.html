@@ -28,6 +28,7 @@
     </div>
     <div data-ng-include="templates.footer.url"></div>
     <!-- external -->
+    <script src="resources/js/external/moment.min.js"></script>
     <script src="resources/js/external/jquery-2.1.3.min.js"></script>
     <script src="resources/js/external/bootstrap.min.js"></script>
     <script src="resources/js/external/bootstrap-datepicker.js"></script>
@@ -49,8 +50,9 @@
     <script src="resources/js/app/profile/profileModule.js"></script>
     <!-- validate -->
     <script src="resources/js/app/util/validation/ValidateMessages.js"></script>
-    <script src="resources/js/app/util/validation/Validator.js"></script>
-
+    <script src="resources/js/app/util/validation/DateValidator.js"></script>
+    <script src="resources/js/app/util/validation/CommonValidator.js"></script>
+    
     <!-- main -->
     <script src="resources/js/app/main/controller/ViewController.js" ></script>
     <script src="resources/js/app/main/controller/MainController.js" ></script>
@@ -61,6 +63,9 @@
     <script src="resources/js/app/user/controller/UserAddController.js" ></script>
     <script src="resources/js/app/user/controller/UserDeleteController.js" ></script>
     <script src="resources/js/app/user/controller/UsersController.js" ></script>
+    <script src="resources/js/app/user/service/UserDeleteService.js" ></script>
+    <script src="resources/js/app/user/service/UserListService.js" ></script>
+    <script src="resources/js/app/user/service/UserService.js" ></script>
     <!-- goods -->
     <script src="resources/js/app/goods/controller/GoodsListController.js" ></script>
     <script src="resources/js/app/goods/controller/GoodsAddController.js" ></script>
@@ -76,18 +81,20 @@
     <script src="resources/js/app/contact/service/SendEmailService.js" ></script>
     <script src="resources/js/app/contact/service/ContactListService.js" ></script>
     <script src="resources/js/app/contact/service/StateSaverService.js" ></script>
+    <script src="resources/js/app/contact/service/ContactSearchService.js" ></script>
     <script src="resources/js/app/contact/directive/FileUpload.js" ></script>
     <script src="resources/js/app/contact/controller/ContactListController.js" ></script>
     <script src="resources/js/app/contact/controller/AddContactController.js" ></script>
     <script src="resources/js/app/contact/controller/EditContactController.js" ></script>
     <script src="resources/js/app/contact/controller/SearchContactController.js" ></script>
     <script src="resources/js/app/contact/controller/SendEmailController.js" ></script>
-    <script src="resources/js/app/contact/controller/ShowContactsController.js" ></script>
+    <script src="resources/js/app/contact/controller/ContactSearchResultController.js" ></script>
     <!-- authentication -->
     <script src="resources/js/app/authentication/controller/LogInController.js" ></script>
     <script src="resources/js/app/authentication/factory/AuthServerProvider.js" ></script>
     <!--profile-->
     <script src="resources/js/app/profile/controller/ProfileController.js" ></script>
+    <script src="resources/js/app/profile/service/ProfileService.js" ></script>
     <!-- order -->
     <script src="resources/js/app/order/controller/OrderEditController.js" ></script>
     <script src="resources/js/app/order/controller/OrderAddController.js" ></script>

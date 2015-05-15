@@ -1,10 +1,10 @@
 /**
  * @author Eugene Putsykovich(slesh) Apr 7, 2015
  *
- * Contains filters, directions and other for util stuff
+ * contains filters, directions and other for util stuff
  */
 angular.module("flowertyApplication.utilModule", [])
-
+	
     /*
      * show notification message
      */
