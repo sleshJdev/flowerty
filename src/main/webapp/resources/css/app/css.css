@@ -103,11 +103,6 @@ a:hover{
     float: left;
 }
 
-.goods-image{
-    overflow: hidden;
-    height: 200px;
-}
-
 .goods-image img{
     max-width: 100%;
 }
