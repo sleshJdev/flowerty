@@ -21,6 +21,6 @@ public class ContactRepositoryImpl extends QueryDslRepositorySupport implements 
     @Override
     @Transactional
     public int deleteIdIn(List<Long> list) {
-	return (int) delete(CONTACT).where(CONTACT.id.notIn(list)).execute();
+	return (int) delete(CONTACT).where(CONTACT.id.in(list)).execute();
     }
 }
