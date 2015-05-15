@@ -7,6 +7,7 @@ import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.repository.ContactRepository;
 import by.itechart.flowerty.persistence.repository.RoleRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.security.PasswordEncoder;
 import by.itechart.flowerty.web.model.UserEditBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,9 @@ public class UserService {
 	
 	@Autowired 
 	private RoleRepository roleRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public User findOne(Long id) {
 		return userRepository.findOne(id);
@@ -61,6 +65,12 @@ public class UserService {
 
 	@Transactional
 	public User save(User newUser) {
+		String password = newUser.getPassword();
+
+		password = passwordEncoder.encodePassword(password, passwordEncoder.getSalt());
+
+		newUser.setPassword(password);
+
 		return userRepository.save(newUser);
 	}
 
