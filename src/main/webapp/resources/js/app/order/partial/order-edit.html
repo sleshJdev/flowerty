@@ -1,0 +1,190 @@
+
+<!-- Form for editing or creating an order -->
+<div data-ng-app="flowertyApplication.orderModule">
+    <h1 data-ng-show="!bundle.order.id">Checkout!</h1>
+    <h1 data-ng-show="bundle.order.id">Edit order <a href="#order-history/{{bundle.order.id}}">#{{bundle.order.id}}<span class="glyphicon glyphicon-time"></span></a></h1>
+    <form class="form-horizontal col-md-offset-1 col-md-10" name="orderForm">
+        <div class="form-group form-group-lg">
+            <label for="state" class="col-sm-2 control-label">State</label>
+            <div class="col-sm-10">
+                <p id="state" class="form-control-static">{{bundle.order.state.description}}</p>
+                <div class="btn-group btn-group-lg">
+                    <div class="btn btn-default"
+                         data-ng-repeat="state in bundle.availableStates"
+                         data-ng-click="orderAction.changeState(state)"
+                         data-toggle="modal"
+                         data-target="#state-change-modal"
+                         data-whatever="@getbootstrap">{{state.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customer" class="col-sm-2 control-label">Customer</label>
+            <div class="col-sm-10" data-ng-show="bundle.order.id">
+                <p class="form-control-static input-lg">{{bundle.order.customer.name}} {{bundle.order.customer.fathername}} {{bundle.order.customer.surname}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!bundle.order.id">
+                <input type="text" class="form-control input-lg" id="customer" placeholder="start typing.."
+                       data-ng-model="search.customer.enteredSurname"
+                       data-ng-change="dynamicSearch.offerContacts(search.customer)"/>
+                <select class="form-control list-group-item select-select" size="3"
+                        data-ng-show="search.customer.show"
+                        data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
+                        data-ng-model="search.customer.selected"
+                        data-ng-click="dynamicSearch.selectContact(search.customer)">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="receiver" class="col-sm-2 control-label">Receiver</label>
+            <div class="col-sm-10" data-ng-show="bundle.order.id">
+                <p class="form-control-static input-lg">{{bundle.order.receiver.name}} {{bundle.order.receiver.fathername}} {{bundle.order.receiver.surname}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!bundle.order.id">
+                <input type="text" class="form-control input-lg" id="receiver" placeholder="start typing.."
+                       data-ng-model="search.receiver.enteredSurname"
+                       data-ng-change="dynamicSearch.offerContacts(search.receiver)"/>
+                <select class="form-control list-group-item select-select" size="3"
+                        data-ng-show="search.receiver.show"
+                        data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
+                        data-ng-model="search.receiver.selected"
+                        data-ng-click="dynamicSearch.selectContact(search.receiver)">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea rows="5" class="form-control" id="description" name="description" placeholder="Description"
+                          data-ng-model="bundle.order.description"
+                          data-ng-maxlength="300"
+                          data-ng-flowerty-validate></textarea>
+            </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <label for="full-cost" class="col-sm-2 control-label">Full cost:</label>
+            <div class="col-sm-10">
+                <p id="full-cost" class="form-control-static">{{bundle.order.cost | currency}}</p>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <!-- TODO: make a directive???? -->
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Town</label>
+            <div class="col-sm-10">
+                <input data-ng-model="bundle.order.address.town" class="form-control" name="town" placeholder="Town"
+									data-ng-maxlength="100"
+									data-flowerty-validate>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Street</label>
+            <div class="col-sm-10">
+                <input data-ng-model="bundle.order.address.street" class="form-control" name="Street" placeholder="Street"
+                                   		data-ng-maxlength="100"
+										data-flowerty-validate>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">House</label>
+            <div class="col-sm-10">
+                <input data-ng-model="bundle.order.address.house" class="form-control" name="house" placeholder="House"
+                                       		data-ng-maxlength="10"
+											data-flowerty-validate>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Flat</label>
+            <div class="col-sm-10">
+                <input data-ng-model="bundle.order.address.flat" class="form-control" name="flat" placeholder="Flat"
+                                   		data-ng-maxlength="10"
+										data-flowerty-validate>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Country</label>
+            <div class="col-sm-10">
+                <input data-ng-model="bundle.order.address.country" class="form-control" name="country" placeholder="Country"
+                                   		data-ng-maxlength="100"
+										data-flowerty-validate>
+            </div>
+        </div>
+        <!-- -->
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Delivery date:</label>
+            <div class="col-sm-4">
+                <input data-flowerty-date class="form-control glyphicon glyphicon-calendar"
+                       data-ng-model="bundle.order.deliveryDate" data-format="yyyy-mm-dd" placeholder="Select date.." name="delivary date" 
+                       readonly required
+                       data-flowerty-validate
+                       data-flowerty-validate-future-date>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="orders-manager" class="col-sm-2 control-label">Orders manager</label>
+            <div class="col-sm-10">
+                <p id="orders-manager" class="form-control-static">{{bundle.order.manager.login}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="orders-processor" class="col-sm-2 control-label">Orders processor</label>
+            <div class="col-sm-10" data-ng-show="bundle.order.id && !access.canChangeStaff">
+                <p class="form-control-static">{{bundle.order.staff.login}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!bundle.order.id || access.canChangeStaff">
+                <select class="form-control" id="orders-processor"
+                        data-ng-model="bundle.order.staff"
+                        data-ng-options="processor as processor.login for processor in staff.processors">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="delivery-manager" class="col-sm-2 control-label">Delivery manager</label>
+            <div class="col-sm-10" data-ng-show="bundle.order.id && !access.canChangeStaff">
+                <p class="form-control-static">{{bundle.order.delivery.login}}</p>
+            </div>
+            <div class="col-sm-10" data-ng-show="!bundle.order.id || access.canChangeStaff">
+                <select class="form-control" id="delivery-manager"
+                        data-ng-model="bundle.order.delivery"
+                        data-ng-options="deliveryManager as deliveryManager.login for deliveryManager in staff.deliveryManagers">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default btn-lg"
+                        data-ng-disabled="orderForm.$invalid"
+                        data-ng-show="!bundle.order.id"
+                        data-ng-click="orderAction.checkout()">Checkout</button>
+                <button class="btn btn-default btn-lg"
+                        data-ng-disabled="orderForm.$invalid"
+                        data-ng-show="bundle.order.id"
+                        data-ng-click="orderAction.save()">Save</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-md-offset-1 col-md-10">
+        <h1 class="col-md-12">Your order:</h1>
+        <div class="row" data-ng-repeat="goodsItem in bundle.order.items">
+            <div class="goods-item col-md-12 thumbnail">
+                <div class="goods-image col-md-3">
+                    <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.goods.image}}"/>
+                </div>
+                <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="goodsItem.quantity">
+                    <h3 class="goods-item-description">{{goodsItem.goods.flower.name}}</h3>
+                    <h3 class="goods-item-description">{{goodsItem.goods.cost | currency}} x {{goodsItem.quantity}} = {{(goodsItem.goods.cost * goodsItem.quantity) | currency}}</h3>
+                    <h3>Count: <strong>{{goodsItem.quantity}}</strong></h3>
+                </div>
+                <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="!goodsItem.quantity">
+                    <h3><strong>Not available at warehouse!</strong></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partials -->
+    <div data-ng-include="partial.stateChange"></div>
+</div>

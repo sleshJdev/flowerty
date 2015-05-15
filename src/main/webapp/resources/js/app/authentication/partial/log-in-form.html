@@ -1,0 +1,62 @@
+<!-- The form for logging in -->
+<div data-ng-app="flowertyApplication.authenticationModule">
+    <form id="log-in-form" class="form-narrow form-horisontal" name="loginForm" data-ng-submit="logIn()">
+        <fieldset>
+            <legend class="text-center">Log In</legend>
+
+            <div class="alert alert-danger" data-ng-show="current.errorLogin">
+                <p>Unable to log in.</p>
+
+                <p>Please check that you have entered your login and password correctly.</p>
+                <ul>
+                    <li>Is the Caps Lock safely turned off?</li>
+                    <li>Maybe you are using the wrong input language? (e.g. German vs. English)</li>
+                    <li>Try typing your password in a text editor and pasting it into the "Password" field.</li>
+                </ul>
+            </div>
+            <br>
+
+            <div class="form-group form-horizontal">
+                <label for="login" class="col-lg-2 control-label">Login</label>
+
+                <div class="col-lg-10">
+                    <input type="text" id="login" 
+                    		data-ng-model="current.user.username" class="form-control" name="login" placeholder="Login"
+                    		data-ng-maxlength="20" required 
+						  	data-flowerty-validate>
+                </div>
+            </div>
+            <br><br>
+
+            <div class="form-group form-horizontal">
+                <label for="password" class="col-lg-2 control-label">Password</label>
+
+                <div class="col-lg-10">
+                    <input type="password" id="password" 
+                    	data-ng-model="current.user.password" class="form-control" name="password" placeholder="Password"
+                    	data-ng-maxlength="20" required 
+					  	data-flowerty-validate>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="rememberMe"> remember me
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button data-ng-disabled="loginForm.$invalid" class="btn btn-success" type="submit">Log In</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <h5>Not registered yet? <a href="/signup">sign up</a></h5>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

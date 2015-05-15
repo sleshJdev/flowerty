@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet id="testdata-4.0.1" author="Maria">
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="1"/>
+            <column name="DESCRIPTION" value="15 Red roses bouquet"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="12"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="2"/>
+            <column name="STATE_ID" value="1"/>
+            <column name="DELIVERY_DATE" value="2015-05-01"/>
+        </insert>
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="3"/>
+            <column name="DESCRIPTION" value="5 yellow tulips"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="19.1"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="4"/>
+            <column name="STATE_ID" value="2"/>
+            <column name="DELIVERY_DATE" value="2015-05-02"/>
+        </insert>
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="5"/>
+            <column name="DESCRIPTION" value="orchids bouquet"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="50"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="6"/>
+            <column name="STATE_ID" value="3"/>
+            <column name="DELIVERY_DATE" value="2015-08-08"/>
+        </insert>
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="7"/>
+            <column name="DESCRIPTION" value="1 red rose"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="5"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="8"/>
+            <column name="STATE_ID" value="4"/>
+            <column name="DELIVERY_DATE" value="2015-05-01"/>
+        </insert>
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="9"/>
+            <column name="DESCRIPTION" value="big pink bouquet"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="50"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="10"/>
+            <column name="STATE_ID" value="5"/>
+            <column name="DELIVERY_DATE" value="2015-10-10"/>
+        </insert>
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="11"/>
+            <column name="DESCRIPTION" value="multicolor tulips bouquet"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="30"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="12"/>
+            <column name="STATE_ID" value="6"/>
+            <column name="DELIVERY_DATE" value="2015-03-02"/>
+        </insert>
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="1"/>
+            <column name="DESCRIPTION" value="9 tea roses"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="32"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="2"/>
+            <column name="STATE_ID" value="7"/>
+            <column name="DELIVERY_DATE" value="2015-05-01"/>
+        </insert>
+        <insert tableName="purchase">
+            <column name="CUSTOMER_ID" value="3"/>
+            <column name="DESCRIPTION" value="1 white and 6 red roses"/>
+            <column name="MANAGER_ID" value="5"/>
+            <column name="COST" value="7"/>
+            <column name="STAFF_ID" value="6"/>
+            <column name="DELIVERY_MANAGER_ID" value="4"/>
+            <column name="RECEIVER_ID" value="4"/>
+            <column name="STATE_ID" value="8"/>
+            <column name="DELIVERY_DATE" value="2015-05-02"/>
+        </insert>
+        </changeSet>
+    <changeSet id="testdata-4.0.2" author="Maria">
+        <insert tableName="goods">
+            <column name="COST" value="12.2"/>
+            <column name="FLOWER_ID" value="1"/>
+            <column name="COMPANY_ID" value="2"/>
+            <column name="REMAIN" value="15"/>
+            <column name="IMAGE_NAME" value="bush-rose.jpg"/>
+        </insert>
+        <insert tableName="goods">
+            <column name="COST" value="19"/>
+            <column name="FLOWER_ID" value="4"/>
+            <column name="COMPANY_ID" value="1"/>
+            <column name="REMAIN" value="15"/>
+            <column name="IMAGE_NAME" value="flower-iris.jpg"/>
+        </insert>
+        <insert tableName="goods">
+            <column name="COST" value="30"/>
+            <column name="FLOWER_ID" value="5"/>
+            <column name="COMPANY_ID" value="2"/>
+            <column name="REMAIN" value="150"/>
+            <column name="IMAGE_NAME" value="orchid_rose.jpg"/>
+        </insert>
+        <insert tableName="goods">
+            <column name="COST" value="3"/>
+            <column name="FLOWER_ID" value="6"/>
+            <column name="COMPANY_ID" value="1"/>
+            <column name="REMAIN" value="130"/>
+            <column name="IMAGE_NAME" value="violet_pion.jpg"/>
+        </insert>
+    </changeSet>
+    <changeSet id="testdata-4.0.3" author="Maria">
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="1"/>
+            <column name="ORDER_ID" value="8"/>
+            <column name="QUANTITY" value="1"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="6"/>
+            <column name="ORDER_ID" value="8"/>
+            <column name="QUANTITY" value="6"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="3"/>
+            <column name="ORDER_ID" value="7"/>
+            <column name="QUANTITY" value="9"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="5"/>
+            <column name="ORDER_ID" value="6"/>
+            <column name="QUANTITY" value="2"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="2"/>
+            <column name="ORDER_ID" value="6"/>
+            <column name="QUANTITY" value="3"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="6"/>
+            <column name="ORDER_ID" value="5"/>
+            <column name="QUANTITY" value="1"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="1"/>
+            <column name="ORDER_ID" value="4"/>
+            <column name="QUANTITY" value="1"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="4"/>
+            <column name="ORDER_ID" value="3"/>
+            <column name="QUANTITY" value="7"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="3"/>
+            <column name="ORDER_ID" value="2"/>
+            <column name="QUANTITY" value="5"/>
+        </insert>
+        <insert tableName="item">
+            <column name="FLOWER_ID" value="4"/>
+            <column name="ORDER_ID" value="1"/>
+            <column name="QUANTITY" value="15"/>
+        </insert>
+    </changeSet>
+    </databaseChangeLog>

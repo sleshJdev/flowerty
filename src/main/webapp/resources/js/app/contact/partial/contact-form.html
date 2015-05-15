@@ -1,0 +1,98 @@
+<div class="col-md-12">
+	<div data-ng-app="flowertyApplication.contactModule">
+		<fieldset id="contact-form" class="form-horizontal" data-ng-form="contactForm">
+			<legend class="text-center">{{bundle.processType.titleContact}}</legend>
+			{{contactForm.birthdat}}
+			<div class="row">
+				<div data-ng-class="bundle.processType.widthClass">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Name</label>
+						<div class="col-sm-8">
+							<!-- if we display phones, then we create/edit contact - need required attribute, else disable it -->
+							<input data-ng-model="bundle.contact.name" class="form-control" name="name" placeholder="Name" data-ng-maxlength="20"
+								data-ng-required="bundle.processType.isShowPhones" data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" data-ng-class="validateSurname.state">Surname</label>
+						<div class="col-sm-8">
+							<!-- if we display phones, then we create/edit contact - need required attribute, else disable it -->
+							<input data-ng-model="bundle.contact.surname" class="form-control" name="surname" placeholder="Surname" data-ng-maxlength="20"
+								data-ng-required="bundle.processType.isShowPhones" data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Fathername</label>
+						<div class="col-sm-8">
+							<input data-ng-model="bundle.contact.fathername" class="form-control" name="fathername" placeholder="Fathername"
+								data-ng-maxlength="20" data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						{{bundle.contact.birthday}}
+						<!-- if -->
+						<div data-ng-if="bundle.processType.isShowPhones">
+							<label class="col-sm-3 control-label">Birthday</label>
+							<div class="col-sm-8">
+								<input data-flowerty-date class="form-control glyphicon glyphicon-calendar" name="birthday" data-ng-model="bundle.contact.birthday"
+									data-format="yyyy-mm-dd" placeholder="Birthday" readonly data-flowerty-validate data-flowerty-validate-past-date>
+							</div>
+						</div>
+						<!-- else -->
+						<!-- if we don't display phones, then we search contact -->
+						<div data-ng-if="!bundle.processType.isShowPhones" data-ng-include="bundle.datePickerTemplate"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Email</label>
+						<div class="col-sm-8">
+							<input type="email" data-ng-model="bundle.contact.email" class="form-control" name="email" placeholder="Email" data-ng-maxlength="50"
+								data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Town</label>
+						<div class="col-sm-8">
+							<input data-ng-model="bundle.contact.address.town" class="form-control" name="town" placeholder="Town" data-ng-maxlength="100"
+								data-ng-required="bundle.processType.isShowPhones" data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Street</label>
+						<div class="col-sm-8">
+							<input data-ng-model="bundle.contact.address.street" class="form-control" name="street" placeholder="Street" data-ng-maxlength="100"
+								data-ng-required="bundle.processType.isShowPhones" data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">House</label>
+						<div class="col-sm-8">
+							<input data-ng-model="bundle.contact.address.house" class="form-control" name="house" placeholder="House" data-ng-maxlength="10"
+								data-ng-required="bundle.processType.isShowPhones" data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Flat</label>
+						<div class="col-sm-8">
+							<input data-ng-model="bundle.contact.address.flat" class="form-control" name="flat" placeholder="Flat" data-ng-maxlength="10"
+								data-ng-required="bundle.processType.isShowPhones" data-flowerty-validate>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Country</label>
+						<div class="col-sm-8">
+							<input data-ng-model="bundle.contact.address.country" class="form-control" name="country" placeholder="Country" 
+ 								data-ng-required="bundle.processType.isShowPhones"	data-ng-maxlength="100" data-flowerty-validate>
+						</div>
+					</div>
+				</div>
+				<!-- include modal form to editing phone. is in the same folder as this page. -->
+				<div data-ng-include="bundle.phoneTemplate"></div>
+				<div data-ng-include="bundle.phoneListTemplate" data-ng-if="bundle.processType.isShowPhones"></div>
+			</div>
+			<div>
+				<button data-ng-disabled="contactForm.$invalid" data-ng-click="bundle.processType.action(bundle.contact)"
+					class="pull-right btn btn-primary" style="margin-bottom: 80px;">{{bundle.processType.name}}</button>
+			</div>
+		</fieldset>
+	</div>
+</div>

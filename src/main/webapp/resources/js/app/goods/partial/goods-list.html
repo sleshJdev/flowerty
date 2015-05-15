@@ -1,0 +1,40 @@
+
+<!-- Goods list -->
+<div data-ng-app="flowertyApplication.goodsModule">
+    <div class="panel panel-default order-info" data-ng-show="current.basket.info.itemsCount || current.basket.info.fullCost">
+        <div class="panel-heading">
+            <h1 class="panel-title">Your order</h1>
+        </div>
+        <div class="panel-body">
+            <p>Items count: <strong>{{current.basket.info.itemsCount}}</strong></p>
+            <p>Full cost: <strong>{{current.basket.info.fullCost | currency}}</strong></p>
+            <a href="#add-order"><div class="btn btn-default">Form the order!</div></a>
+        </div>
+    </div>
+    <h1>Make an order!</h1>
+    <div data-ng-include="templates.pagination.url"></div>
+    <div class="row" data-ng-repeat="goodsRow in goods.list">
+        <div class="goods-item col-md-4 thumbnail"
+             data-ng-repeat="goodsItem in goodsRow">
+            <div class="goods-item-border"
+                    data-ng-class="goods.getGoodsItemClass(goodsItem)">
+                <div class="goods-image">
+                    <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.image}}"/>
+                </div>
+                <div class="goods-item-info caption text-center">
+                    <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
+                    <h5 class="goods-item-description">{{goodsItem.cost | currency}}</h5>
+                    <p data-ng-show="current.isLogged">Count: <a href="" data-ng-click="goods.less(goodsItem)"><span class="glyphicon glyphicon-minus"></span></a>
+                        <span class="goods-item-count badge">{{goodsItem.count}}</span>
+                        <a href="" data-ng-click="goods.more(goodsItem)"><span class="glyphicon glyphicon-plus"></span></a>
+                    </p>
+                    <div data-ng-show="current.isLogged">
+                        <div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]" data-ng-click="goods.makeOrder(goodsItem)">Add to basket</div>
+                        <div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]" data-ng-click="goods.removeFromOrder(goodsItem)">Remove from basket</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-include="templates.pagination.url"></div>
+</div>

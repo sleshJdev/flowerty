@@ -1,0 +1,35 @@
+Initial setup:
+1. download Solr from http://www.apache.org/dyn/closer.cgi/lucene/solr/5.1.0
+
+2. extract it to any folder you prefer
+
+3. visit http://localhost:8983/solr/ to see it's going ok
+
+4. put "solr" folder to solr-5.1.0/server
+
+5. put "cloud" folder to solr-5.1.0/example
+    
+    note: (you don't need them in the project folder anymore)
+
+6. go to solr-5.1.0/bin and execute: 
+      solr start -e cloud -noprompt
+
+7. when it asks about replacing log files, choose all
+
+   ***it opens two windows. don't close them until you don't need solr anymore!
+
+   if somesing doesn't work try running "solr restart -all" from the same bin folder
+
+   to stop it 
+
+      run solr stop -all 
+
+      or 
+
+      close those two windows
+
+
+After update:
+1. start solr by "solr start" command from bin folder
+2. copy solr-update.bat to the same bin folder.execute it
+3. copy solr folder to the same place as the last time (solr-5.1.0/server)

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Maria" id="changelog-2.0-1">
+        <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_customer_id"/>
+        <rollback>
+            <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_customer_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-2">
+        <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_delivery_manager_id"/>
+        <rollback>
+            <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_delivery_manager_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-3">
+        <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_manager_id"/>
+        <rollback>
+            <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_manager_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-4">
+        <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_receiver_id"/>
+        <rollback>
+            <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_receiver_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-5">
+        <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_staff_id"/>
+        <rollback>
+            <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_staff_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-7">
+        <addForeignKeyConstraint baseColumnNames="CUSTOMER_ID" baseTableName="purchase" constraintName="order_customer_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="contact"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_customer_id"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-8">
+        <addForeignKeyConstraint baseColumnNames="DELIVERY_MANAGER_ID" baseTableName="purchase" constraintName="order_delivery_manager_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_delivery_manager_id"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-9">
+        <addForeignKeyConstraint baseColumnNames="MANAGER_ID" baseTableName="purchase" constraintName="order_manager_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_manager_id"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-10">
+        <addForeignKeyConstraint baseColumnNames="RECEIVER_ID" baseTableName="purchase" constraintName="order_receiver_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="contact"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_receiver_id"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Maria" id="changelog-2.0-11">
+        <addForeignKeyConstraint baseColumnNames="STAFF_ID" baseTableName="purchase" constraintName="order_staff_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="purchase" constraintName="order_staff_id"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

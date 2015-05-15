@@ -1,0 +1,103 @@
+<div data-ng-app="flowertyApplication.userModule">
+    <div class="col-md-offset-2 col-md-8 well well-lg">
+        <div class="row">
+			<fieldset class="form-horizontal" data-ng-form="userForm">
+		        <legend class="text-center">{{option.title}}</legend>
+                <div class="form-group" data-ng-show="option.edit">
+                    <label class="col-sm-4 control-label">Name</label>
+
+                    <div class="col-sm-6">
+                        <p class="form-control-static">{{bundle.user.contact.name + ' ' +
+                            bundle.user.contact.fathername + ' ' + bundle.user.contact.surname}}</p>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="!option.edit">
+                    <label class="col-sm-4 control-label">Contacts</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control input-lg" placeholder="start typing.."
+                               data-ng-model="search.user.enteredSurname"
+                               data-ng-change="dynamicSearch.offerContacts(search.user)"/>
+                        <select class="form-control list-group-item select-select" size="3"
+                                data-ng-show="search.user.show"
+                                data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
+                                data-ng-model="search.user.selected"
+                                data-ng-click="dynamicSearch.selectContact(search.user)">
+                        </select>
+
+                        <div data-ng-show="error.emptyContact">
+                            <p class="text-center alert-danger">You can't leave this empty..</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Roles</label>
+
+                    <div class="col-sm-6">
+                        <select class="form-control"
+                                data-ng-model="bundle.user.role.id"
+                                data-ng-options="r.id as r.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' ' for r in bundle.roles">
+                        </select>
+
+                        <div data-ng-show="error.emptyRole">
+                            <p class="text-center alert-danger">You can't leave this empty..</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" data-ng-show="option.edit">
+                    <label class="col-sm-4 control-label">Login</label>
+
+                    <div class="col-sm-6">
+                        <p class="form-control-static">{{bundle.user.login}}</p>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="!option.edit">
+                    <label class="col-sm-4 control-label">Login</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" data-ng-model="bundle.user.login" name="login" placeholder="Login"
+                    		data-ng-maxlength="20" required 
+						  	data-flowerty-validate>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" data-ng-show="!option.edit">Create a password</label>
+                    <label class="col-sm-4 control-label" data-ng-show="option.edit">Reset a password</label>
+
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" data-ng-model="bundle.user.password"  name="password" placeholder="Password"
+		                    	data-ng-maxlength="20" required  
+							  	data-flowerty-validate>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="bundle.user.password">
+                    <label class="col-sm-4 control-label">Confirm your password</label>
+
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm" name="password" placeholder="Confirm password"
+		                    	data-ng-maxlength="20" required 
+							  	data-flowerty-validate >
+						
+                        <div data-ng-show="bundle.user.password && bundle.user.password != bundle.passwordConfirm">
+                            <p class="text-center alert-danger">These passwords don't match.</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <a href="#users" class="col-sm-4 btn btn-default btn-lg pull-right">Cancel</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <button
+                        	data-ng-disabled="userForm.$invalid"
+                        	data-ng-click="save()" class="col-sm-4 btn btn-success btn-lg">{{option.actionButton}}
+                        </button>
+                    </div>
+                </div>
+           	</fieldset>
+        </div>
+    </div>
+</div>

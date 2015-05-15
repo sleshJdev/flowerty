@@ -1,0 +1,38 @@
+<div class="col-md-5">
+	<table class="table">
+		<caption>
+			Phones 
+			<a href=""> 
+				<span class="glyphicon glyphicon-remove pull-right red"
+						data-ng-click="bundle.actions.deletePhone()"></span>
+			</a> 
+			<a href="" data-ng-click="bundle.actions.addPhone()"> 
+				<span class="glyphicon glyphicon-plus pull-right" 
+						data-toggle="modal"
+						data-target="#phone-form-modal" 
+						data-whatever="@getbootstrap"> 
+				</span>
+			</a>
+		</caption>
+		<tr>
+			<th></th>
+			<th>Number</th>
+			<th>Type</th>
+			<th>Comment</th>
+			<th></th>
+		</tr>
+		<tr data-ng-repeat="phone in bundle.contact.phones">
+			<td><input type="checkbox" 
+						data-ng-model="fake.ischecked" 
+						data-ng-checked="bundle.state.ischecked(phone)"
+					   	data-ng-change="fake.ischecked ? bundle.state.checked(phone) : bundle.state.unchecked(phone)">
+		    </td>
+			<td>{{phone.country + '(' + phone.operator + ') ' + phone.number}}</td>
+			<td>{{phone.type | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
+			<td>{{phone.comment}}</td>
+			<td><a href="" data-ng-click="bundle.actions.editPhone(phone)"> <span class="glyphicon glyphicon-edit" data-toggle="modal"
+					data-target="#phone-form-modal" data-whatever="@getbootstrap"></span>
+			</a></td>
+		</tr>
+	</table>
+</div>

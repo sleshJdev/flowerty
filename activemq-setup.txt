@@ -1,0 +1,9 @@
+1. download distribution: http://activemq.apache.org/activemq-5111-release.html
+2. extract to any folder
+3. open terminal
+4. in terminal: move to 'extract-activemq-folder'/bin
+5. execute command: java -jar activemq.jar start 
+   activemq must start without errors
+   
+   
+  note: to shutdown activemq need press Ctrl+C
