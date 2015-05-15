@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "item")
 public class Item {
     private Long id;
-    private int quantity;
+    private Integer quantity;
     private Goods goods;
     private Order order;
 
@@ -30,13 +30,11 @@ public class Item {
 
     @Column(name = "QUANTITY", nullable=false)
     @NotNull
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    @OneToOne
-    @JoinColumn(name = "GOODS_ID")
-    @Valid
+    @ManyToOne(fetch = FetchType.EAGER)
     public Goods getGoods() {
         return goods;
     }
@@ -51,7 +49,7 @@ public class Item {
         this.id = id;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

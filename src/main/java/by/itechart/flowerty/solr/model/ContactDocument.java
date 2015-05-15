@@ -15,10 +15,6 @@ import java.util.Date;
 @SolrDocument(solrCoreName="flowerty-contact")
 public class ContactDocument {
 
-    public static Builder getBuilder(Long id, String name) {
-        return new Builder(id, name);
-    }
-
     private String id;
     private String name;
     private String surname;

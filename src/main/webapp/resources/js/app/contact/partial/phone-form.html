@@ -9,38 +9,38 @@
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label class="col-sm-4 control-label">City code:</label>
+					<label class="col-sm-4 control-label">{{'CITY_CODE' | xlat}}</label>
 					<div class="col-sm-6">
 						<div class="input-group">
 							<span class="input-group-addon">+</span>
 							<input type="number" 
-								data-ng-model="bundle.phone.country" class="form-control" name="city code" placeholder="City code"
+								data-ng-model="bundle.phone.country" class="form-control" name="city code" placeholder="{{'CITY_CODE' | xlat}}"
 								data-ng-maxlength="5"
 								data-flowerty-validate data-level-up="2">
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-4 control-label">Operator code:</label>
+					<label class="col-sm-4 control-label">{{'OPERATOR_CODE' | xlat}}</label>
 					<div class="col-sm-6">
 						<input type="number" 
 							data-ng-maxlength="5"
-							data-ng-model="bundle.phone.operator" class="form-control" name="operator code" placeholder="Operator code"
+							data-ng-model="bundle.phone.operator" class="form-control" name="operator code" placeholder="{{'OPERATOR_CODE' | xlat}}"
 							data-ng-maxlength="5"
 							data-flowerty-validate>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-4 control-label">Number:</label>
+					<label class="col-sm-4 control-label">{{'NUMBER' | xlat}}</label>
 					<div class="col-sm-6">
 						<input type="number" 
-							data-ng-model="bundle.phone.number" class="form-control" name="number" placeholder="Number"
+							data-ng-model="bundle.phone.number" class="form-control" name="number" placeholder="{{'NUMBER' | xlat}}"
 							data-ng-maxlength="10"
 							data-flowerty-validate>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-4 control-label">Type:</label>
+					<label class="col-sm-4 control-label">{{'TYPE' | xlat}}</label>
 					<div class="col-sm-6">
 						<select class="form-control btn-success" data-ng-model="bundle.phone.type"
 							data-ng-options="t.name as t.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' ' for t in bundle.types"></select>
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-4 control-label">Comment:</label>
+					<label class="col-sm-4 control-label">{{'COMMENT' | xlat}}</label>
 					<div class="col-sm-6">
 						<textarea 
 							class="form-control" data-ng-model="bundle.phone.comment" name="comment" placeholder="Comment"
@@ -58,12 +58,12 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">{{'CLOSE' | xlat}}</button>
 				<button type="button" 
 						class="btn btn-primary" 
 						data-ng-disabled="contactForm.$invalid" 
 						data-ng-click="bundle.actions.savePhone(bundle.phone)" 
-						data-dismiss="modal">Save
+						data-dismiss="modal">{{'SAVE' | xlat}}
 				</button>
 			</div>
 		</div>

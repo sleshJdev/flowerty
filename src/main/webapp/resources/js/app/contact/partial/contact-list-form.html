@@ -5,9 +5,9 @@
      <table class="table table-bordered">
          <tr>
              <th> <span data-ng-click="bundle.deleteContact()" class="btn glyphicon glyphicon-remove"></span> </th>
-             <th>Full Name</th>
-             <th>Birthday</th>
-             <th>Address</th>
+             <th>{{'FULL_NAME' | xlat}}</th>
+             <th>{{'BIRTHDAY' | xlat}}</th>
+             <th>{{'ADDRESS' | xlat}}</th>
          </tr>
          <tr data-ng-repeat="contact in bundle.contacts.list" >
              <td><input type="checkbox" data-ng-checked="bundle.state.ischecked(contact)"

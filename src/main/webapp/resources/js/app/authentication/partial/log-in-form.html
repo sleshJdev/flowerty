@@ -2,22 +2,22 @@
 <div data-ng-app="flowertyApplication.authenticationModule">
     <form id="log-in-form" class="form-narrow form-horisontal" name="loginForm" data-ng-submit="logIn()">
         <fieldset>
-            <legend class="text-center">Log In</legend>
+            <legend class="text-center">{{'LOGIN' | xlat}}</legend>
 
             <div class="alert alert-danger" data-ng-show="current.errorLogin">
-                <p>Unable to log in.</p>
+                <p>{{'UNABLE_LOGIN' | xlat}}</p>
 
-                <p>Please check that you have entered your login and password correctly.</p>
+                <p>{{'WRONG_PASS' | xlat}}</p>
                 <ul>
-                    <li>Is the Caps Lock safely turned off?</li>
-                    <li>Maybe you are using the wrong input language? (e.g. German vs. English)</li>
-                    <li>Try typing your password in a text editor and pasting it into the "Password" field.</li>
+                    <li>{{'WRONG_PASS_CAPS' | xlat}}</li>
+                    <li>{{'WRONG_PASS_LANG' | xlat}}</li>
+                    <li>{{'WRONG_PASS_EDITOR' | xlat}}</li>
                 </ul>
             </div>
             <br>
 
             <div class="form-group form-horizontal">
-                <label for="login" class="col-lg-2 control-label">Login</label>
+                <label for="login" class="col-lg-2 control-label">{{'LOGIN' | xlat}}</label>
 
                 <div class="col-lg-10">
                     <input type="text" id="login" 
@@ -29,7 +29,7 @@
             <br><br>
 
             <div class="form-group form-horizontal">
-                <label for="password" class="col-lg-2 control-label">Password</label>
+                <label for="password" class="col-lg-2 control-label">{{'PASSWORD' | xlat}}</label>
 
                 <div class="col-lg-10">
                     <input type="password" id="password" 
@@ -42,19 +42,19 @@
                 <div class="col-lg-offset-2 col-lg-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" data-ng-model="rememberMe"> remember me
+                            <input type="checkbox" data-ng-model="rememberMe"> {{'REMEMBER_ME' | xlat}}
                         </label>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
-                    <button data-ng-disabled="loginForm.$invalid" class="btn btn-success" type="submit">Log In</button>
+                    <button data-ng-disabled="loginForm.$invalid" class="btn btn-success" type="submit">{{'LOG_IN' | xlat}}</button>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
-                    <h5>Not registered yet? <a href="/signup">sign up</a></h5>
+                    <h5>{{'NOT_REG_YET' | xlat}}<a href="/signup">{{'SIGN_UP' | xlat}}</a></h5>
                 </div>
             </div>
         </fieldset>

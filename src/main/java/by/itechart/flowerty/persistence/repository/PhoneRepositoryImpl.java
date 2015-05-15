@@ -1,10 +1,8 @@
 package by.itechart.flowerty.persistence.repository;
 
 import java.util.List;
+//import by.itechart.flowerty.persistence.model.QPhone;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +20,6 @@ public class PhoneRepositoryImpl extends QueryDslRepositorySupport implements Ph
     public PhoneRepositoryImpl() {
 	super(Phone.class);
     }
-
-    @Autowired
-    private EntityManager entityManager;
 
     @Override
     @Transactional
