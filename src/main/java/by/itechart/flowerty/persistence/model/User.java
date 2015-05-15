@@ -45,9 +45,9 @@ public class User {
     }
 
 
-    @Column(name = "PASSWORD", length = 50, nullable = false)
+    @Column(name = "PASSWORD", length = 100, nullable = false)
     @NotNull
-    @Size(max=50)
+    @Size(max=100)
     public String getPassword() {
         return password;
     }
