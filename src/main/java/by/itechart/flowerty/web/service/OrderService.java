@@ -1,18 +1,8 @@
 package by.itechart.flowerty.web.service;
 
-import by.itechart.flowerty.persistence.model.Order;
-import by.itechart.flowerty.persistence.model.Role;
-import by.itechart.flowerty.persistence.model.State;
-import by.itechart.flowerty.persistence.repository.OrderRepository;
-import by.itechart.flowerty.persistence.repository.StateRepository;
-import by.itechart.flowerty.persistence.repository.UserRepository;
-import by.itechart.flowerty.solr.model.OrderDocument;
-import by.itechart.flowerty.solr.repository.OrderDocumentRepository;
-import by.itechart.flowerty.persistence.model.*;
-import by.itechart.flowerty.persistence.repository.*;
-import by.itechart.flowerty.web.model.OrderCreateBundle;
-import by.itechart.flowerty.web.model.OrderEditBundle;
-import by.itechart.flowerty.web.model.OrderHistoryBundle;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -27,10 +17,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+
+import by.itechart.flowerty.persistence.model.Goods;
+import by.itechart.flowerty.persistence.model.Item;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.OrderAltering;
+import by.itechart.flowerty.persistence.model.Role;
+import by.itechart.flowerty.persistence.model.State;
+import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.repository.GoodsRepository;
+import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
+import by.itechart.flowerty.persistence.repository.OrderRepository;
+import by.itechart.flowerty.persistence.repository.StateRepository;
+import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.solr.model.OrderDocument;
+import by.itechart.flowerty.solr.repository.OrderDocumentRepository;
+import by.itechart.flowerty.web.model.OrderCreateBundle;
+import by.itechart.flowerty.web.model.OrderEditBundle;
+import by.itechart.flowerty.web.model.OrderHistoryBundle;
 
 /**
  * Created by Катерина on 24.04.2015.

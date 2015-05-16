@@ -1,11 +1,8 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.solr.model.ContactDocument;
-import by.itechart.flowerty.web.service.ContactService;
-import by.itechart.flowerty.web.service.RepositorySolrContactService;
-import by.itechart.flowerty.web.service.UserService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.web.service.ContactService;
+import by.itechart.flowerty.web.service.UserService;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -33,9 +37,6 @@ public class ContactController {
     private ContactService contactService;
 
     @Autowired
-    private RepositorySolrContactService solrContactService;
-
-    @Autowired
     private UserService userService;
 
     @ResponseBody
@@ -44,7 +45,7 @@ public class ContactController {
         LOGGER.info("get contact page {} with limit {}", page, limit);
         
         page = (page == null || page < 1) ? 0 : --page;
-        limit = (limit == null || limit < 0) ? 10 : limit;
+        limit = (limit == null || limit <= 0) ? 10 : limit;
         
         return contactService.getPage(page, limit);
     }
@@ -71,7 +72,7 @@ public class ContactController {
     public Contact details(@PathVariable("id") Long id) throws Exception {
         LOGGER.info("get details about contact with id: {}", id);
 
-        if (id == null || id < 0) {
+        if (id == null || id <= 0) {
             throw new Exception("contact id cannot be negative or null");
         }
 
@@ -96,8 +97,6 @@ public class ContactController {
     public void remove(@RequestBody List<Contact> contacts) {
         LOGGER.info("remove contacts. obtained {} contacts", contacts.size());
         
-        
-        
         contactService.deleteIdIn(fetchIdOfContact(contacts));
     }
 
@@ -107,7 +106,6 @@ public class ContactController {
         LOGGER.info("save contact: {}", contact.toString());
 
         contactService.save(contact);
-        solrContactService.add(contact);
 
         return contact;
     }

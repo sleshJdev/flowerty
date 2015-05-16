@@ -3,7 +3,19 @@
  * 
  * 	it makes checking the input field, in accordance with the limits of its field (maxLength, type and etc.)
  */
-angular.module("flowertyApplication.contactModule")
+angular.module("flowertyApplication.utilModule")
+
+.constant("VALIDATE_DATE", (function(){
+	var format = "YYYY-MM-DD";
+	return{
+		validate : function(dateString, isCheckOnPast){
+			var now = moment().format(format);
+	        var dateToCheck = moment(dateString).format(format);
+	        
+	        return isCheckOnPast ? moment(dateToCheck).isBefore(now) : moment(dateToCheck).isAfter(now);
+		}
+	};
+})())
 
 .constant("VALIDATE_MESSAGES", (function() {
 	if (!String.prototype.format) {
@@ -28,19 +40,28 @@ angular.module("flowertyApplication.contactModule")
 			return "Please enter {0} a max length of {1}".format(fieldName.toUpperCase(), length);
 		},
 		"pattern" : function(fieldName) {
-			return "{0} has incorrect format".format(fieldName .toUpperCase());
+			return "The {0} has incorrect format".format(fieldName .toUpperCase());
 		},
 		"email" : function() {
 			return "Email has incorrect format";
 		},
 		"number" : function(fieldName){
-			return "{0} should contain only the numerals".format(fieldName.toUpperCase());
+			return "The {0} should contain only the numbers".format(fieldName.toUpperCase());
+		},
+		"positive-only" : function(fieldName){
+			return "The {0} can only be a positive number".format(fieldName.toUpperCase());
+		},
+		"number-min" : function(fieldName, threshold){
+			return "The {0} can't be less than {1}".format(fieldName.toUpperCase(), threshold);
+		},
+		"number-max" : function(fieldName, threshold){
+			return "The {0} can't be more than {1}".format(fieldName.toUpperCase(), threshold);
 		},
 		"password" : function() {
 			return "Password has incorrect format";
 		},
 		"date" : function(fieldName, which){
-			return "{0} should be {1}, than current date".format(fieldName.toUpperCase(), which);
+			return "The {0} should be {1}, than current date".format(fieldName.toUpperCase(), which);
 		}
 	}
 })());
