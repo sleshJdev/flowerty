@@ -2,14 +2,13 @@ package test.by.itechart.flowerty.persistence.repository;
 
 import by.itechart.flowerty.persistence.model.Goods;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
 import test.by.itechart.flowerty.persistence.repository.helper.GoodsRepositoryHelperTests;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -29,9 +28,9 @@ public class GoodsRepositoryTests extends JpaConfigurationAware {
 
         Goods actual = goodsRepository.findOne(1L);
 
-//        Assert.assertEquals(expected.getFlower().getId(), actual.getFlower().getId());
-//        Assert.assertEquals(expected.getFlower().getName(), actual.getFlower().getName());
-//        Assert.assertEquals(expected.getFlower().getClass(), actual.getFlower().getClass());
+        Assert.assertEquals(expected.getFlower().getId(), actual.getFlower().getId());
+        Assert.assertEquals(expected.getFlower().getName(), actual.getFlower().getName());
+        Assert.assertEquals(expected.getFlower().getClass(), actual.getFlower().getClass());
 //        Assert.assertEquals(expected.getFlower(), actual.getFlower());
 
         assertNotNull(actual);

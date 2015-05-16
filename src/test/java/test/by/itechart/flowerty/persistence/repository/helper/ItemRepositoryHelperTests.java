@@ -5,6 +5,7 @@ import by.itechart.flowerty.persistence.model.Item;
 /**
  * Created by Rostislav on 16-May-15
  */
+
 public abstract class ItemRepositoryHelperTests {
 
     public static Item getItemWithIdOne() {
@@ -13,7 +14,7 @@ public abstract class ItemRepositoryHelperTests {
         item.setId(1L);
         item.setQuantity(1);
         item.setGoods(GoodsRepositoryHelperTests.getGoodsWithIdOne());
-//        item.setOrder();
+        item.setOrder(OrderRepositoryHelperTests.getOrderWithIdOne());
 
         return item;
     }
