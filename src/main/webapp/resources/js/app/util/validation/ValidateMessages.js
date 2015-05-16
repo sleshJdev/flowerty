@@ -28,19 +28,28 @@ angular.module("flowertyApplication.contactModule")
 			return "Please enter {0} a max length of {1}".format(fieldName.toUpperCase(), length);
 		},
 		"pattern" : function(fieldName) {
-			return "{0} has incorrect format".format(fieldName .toUpperCase());
+			return "The {0} has incorrect format".format(fieldName .toUpperCase());
 		},
 		"email" : function() {
 			return "Email has incorrect format";
 		},
 		"number" : function(fieldName){
-			return "{0} should contain only the numerals".format(fieldName.toUpperCase());
+			return "The {0} should contain only the numbers".format(fieldName.toUpperCase());
+		},
+		"positive-only" : function(fieldName){
+			return "The {0} can only be a positive number".format(fieldName.toUpperCase());
+		},
+		"number-min" : function(fieldName, threshold){
+			return "The {0} can't be less than {1}".format(fieldName.toUpperCase(), threshold);
+		},
+		"number-max" : function(fieldName, threshold){
+			return "The {0} can't be more than {1}".format(fieldName.toUpperCase(), threshold);
 		},
 		"password" : function() {
 			return "Password has incorrect format";
 		},
 		"date" : function(fieldName, which){
-			return "{0} should be {1}, than current date".format(fieldName.toUpperCase(), which);
+			return "The {0} should be {1}, than current date".format(fieldName.toUpperCase(), which);
 		}
 	}
 })());
