@@ -4,18 +4,6 @@
  */
 angular.module("flowertyApplication.utilModule")
 
-.constant("VALIDATE_DATE", (function(){
-	var format = "YYYY-MM-DD";
-	return{
-		validate : function(dateString, isCheckOnPast){
-			var now = moment().format(format);
-	        var dateToCheck = moment(dateString).format(format);
-	        
-	        return isCheckOnPast ? moment(dateToCheck).isBefore(now) : moment(dateToCheck).isAfter(now);
-		}
-	};
-})())
-
 .directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", "VALIDATE_DATE", 
                             	function($compile, VALIDATE_MESSAGES, VALIDATE_DATE) {
 	var template = "<span class='glyphicon form-control-feedback' aria-hidden='true' data-ng-class='info.icon'></span>" +

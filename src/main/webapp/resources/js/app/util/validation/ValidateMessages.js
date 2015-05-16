@@ -3,7 +3,19 @@
  * 
  * 	it makes checking the input field, in accordance with the limits of its field (maxLength, type and etc.)
  */
-angular.module("flowertyApplication.contactModule")
+angular.module("flowertyApplication.utilModule")
+
+.constant("VALIDATE_DATE", (function(){
+	var format = "YYYY-MM-DD";
+	return{
+		validate : function(dateString, isCheckOnPast){
+			var now = moment().format(format);
+	        var dateToCheck = moment(dateString).format(format);
+	        
+	        return isCheckOnPast ? moment(dateToCheck).isBefore(now) : moment(dateToCheck).isAfter(now);
+		}
+	};
+})())
 
 .constant("VALIDATE_MESSAGES", (function() {
 	if (!String.prototype.format) {

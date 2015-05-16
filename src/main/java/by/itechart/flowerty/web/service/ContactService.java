@@ -28,7 +28,7 @@ import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
-    
+
     @Autowired
     private PhoneRepository phoneRepository;
 
@@ -38,9 +38,27 @@ public class ContactService {
     @Autowired(required = true)
     private ContactDocumentRepository contactDocumentRepository;
 
-    public Page<Contact> getPage(int page, int size) {
+    private List<Long> fetchIdsFromContactDocumentsCollection(List<ContactDocument> contactDocuments) {
+	ArrayList<Long> ids = new ArrayList<Long>();
+	for (ContactDocument cd : contactDocuments) {
+	    ids.add(Long.valueOf(cd.getId()));
+	}
 
-	return contactRepository.findAll(new PageRequest(page, size));
+	return ids;
+    }
+
+    public Page<Contact> getPage(int page, int size) {
+	// contacts, which don't have user
+	List<ContactDocument> contactDocuments = contactDocumentRepository.findAll(new PageRequest(page, size))
+		.getContent();
+	// fetch id of these contacts
+	List<Long> ids = new ArrayList<Long>(contactDocuments.size());
+	for (ContactDocument document : contactDocuments) {
+	    Long id = Long.valueOf(document.getId());
+	    ids.add(id);
+	}
+
+	return new PageImpl<Contact>(contactRepository.findByIdIn(ids));
     }
 
     public Page<Contact> findContacts(ContactDocument contact, int page, int size) {
@@ -57,20 +75,14 @@ public class ContactService {
 
     public Page<Contact> findByName(String name, int page, int size) {
 	List<ContactDocument> contactDocuments = contactDocumentRepository.findByNameOrSurnameAllIgnoreCase(name, name);
-	ArrayList<Long> ids = new ArrayList<Long>();
-	for (ContactDocument cd : contactDocuments) {
-	    ids.add(Long.valueOf(cd.getId()));
-	}
+	List<Long> ids = fetchIdsFromContactDocumentsCollection(contactDocuments);
 
 	return contactRepository.findByIdIsIn(ids, new PageRequest(page, size));
     }
 
     public Page<Contact> findBySurname(String name, int page, int size) {
 	List<ContactDocument> contactDocuments = contactDocumentRepository.findByNameContains(name);
-	ArrayList<Long> ids = new ArrayList<Long>();
-	for (ContactDocument cd : contactDocuments) {
-	    ids.add(Long.valueOf(cd.getId()));
-	}
+	List<Long> ids = fetchIdsFromContactDocumentsCollection(contactDocuments);
 
 	return contactRepository.findByIdIsIn(ids, new PageRequest(page, size));
     }
@@ -80,29 +92,32 @@ public class ContactService {
 	return contactRepository.findOne(id);
     }
 
-    private List<Long> processPhonesAndGetId(Contact contact){
+    private List<Long> processPhonesAndGetId(Contact contact) {
 	List<Long> phonesId = new ArrayList<Long>(contact.getPhones().size());
-	phonesId.add(-1L);// to avoid empty collection: case, if we remove all phones;
+	phonesId.add(-1L);// to avoid empty collection: case, if we remove all
+			  // phones;
 	for (Phone phone : contact.getPhones()) {
 	    phone.setContact(contact);
 	    phonesId.add(phone.getId());
 	}
-	
+
 	return phonesId;
     }
-    
+
     @Transactional
     public Contact save(Contact contact) {
-	if(contact.getId() == null){
+	if (contact.getId() == null) {
 	    contact.setCompany(userDetailsService.getCurrentContact().getCompany());
 	}
 
 	contactRepository.save(contact);
-	
-	if(contact.getPhones() != null){
+
+	if (contact.getPhones() != null) {
 	    phoneRepository.save(contact.getPhones());
 	    phoneRepository.deleteIdNotIn(contact.getId(), processPhonesAndGetId(contact));
 	}
+
+	contactDocumentRepository.save(contact.getContactDocument());
 
 	return contact;
     }
@@ -115,9 +130,9 @@ public class ContactService {
     @Transactional
     public int deleteIdIn(List<Long> list) {
 	for (Long id : list) {
-	    
+	    contactDocumentRepository.delete(id.toString());
 	}
-	
+
 	return contactRepository.deleteIdIn(list);
     }
 
@@ -130,23 +145,26 @@ public class ContactService {
     public Page<Contact> findBySurnameStartsWith(String surname, Company company) {
 	if (StringUtils.endsWith(surname, " ")) {
 	    List<Long> ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, company.getId());
+
 	    return new PageImpl<Contact>(contactRepository.findByIdIn(ids));
 	}
+
 	return contactRepository.findBySurnameStartingWithAndCompany(surname, company, new PageRequest(0, 10));
     }
 
     @Transactional
     public void delete(Long id) {
-
 	contactRepository.delete(id);
 	contactDocumentRepository.delete(String.valueOf(id));
     }
 
     public Page<Contact> findBySurnameStartsWithAndCompany(String surname, Long company) {
 	if (!StringUtils.endsWith(surname, " ")) {
+
 	    return contactRepository.findByIdIsIn(contactDocumentRepository.findBySurnameStartsWithAndCompany(surname,
 		    company), new PageRequest(0, 10));
 	}
+
 	return new PageImpl<Contact>(contactRepository.findByIdIn(contactDocumentRepository
 		.findBySurnameStartsWithAndCompany(surname, company)));
     }
