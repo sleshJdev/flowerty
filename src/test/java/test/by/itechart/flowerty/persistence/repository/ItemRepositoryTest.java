@@ -14,17 +14,18 @@ import by.itechart.flowerty.persistence.repository.ItemRepository;
 /**
  * Created by Rostislav on 13-May-15
  */
+
 public class ItemRepositoryTest extends JpaConfigurationAware {
 
     @Autowired
     private ItemRepository itemRepository;
 
     @Test
-    public void findOne() {
+    public void findOne_ShouldReturnAItem() {
 
-        Item item = itemRepository.findOne(1L);
+        Item actual = itemRepository.findOne(1L);
 
-        Assert.assertNotNull(item);
-        assertThat(item.getId(), equalTo(1L));
+        Assert.assertNotNull(actual);
+        assertThat(actual.getId(), equalTo(1L));
     }
 }

@@ -1,5 +1,6 @@
 package by.itechart.flowerty.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.solr.client.solrj.beans.Field;
 
 import javax.persistence.*;
@@ -43,7 +44,6 @@ public class User {
     public String getLogin() {
         return login;
     }
-
 
     @Column(name = "PASSWORD", length = 100, nullable = false)
     @NotNull
