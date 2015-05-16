@@ -9,6 +9,8 @@ import java.util.List;
  * @author Maria Date: 16.04.15
  */
 public interface ContactDocumentRepositoryCustom {
+    public void deleteIdIsIn(List<String> ids);
+    
     public List<Long> findByBirthDate(String birthday);
 
     public List<Long> findBySearch(ContactDocument contactDocument);

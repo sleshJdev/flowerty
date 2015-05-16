@@ -9,5 +9,5 @@ import java.util.List;
  */
 @NoRepositoryBean
 public interface ContactRepositoryCustom {
-    public int deleteIdIn(List<Long> list);
+    public int deleteIdIsIn(List<Long> list);
 }

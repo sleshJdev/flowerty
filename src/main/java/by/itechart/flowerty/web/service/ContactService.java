@@ -11,6 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Functions;
+import com.google.common.collect.Lists;
+
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Phone;
@@ -37,7 +40,7 @@ public class ContactService {
 
     @Autowired(required = true)
     private ContactDocumentRepository contactDocumentRepository;
-
+    
     private List<Long> fetchIdsFromContactDocumentsCollection(List<ContactDocument> contactDocuments) {
 	ArrayList<Long> ids = new ArrayList<Long>();
 	for (ContactDocument cd : contactDocuments) {
@@ -52,11 +55,7 @@ public class ContactService {
 	List<ContactDocument> contactDocuments = contactDocumentRepository.findAll(new PageRequest(page, size))
 		.getContent();
 	// fetch id of these contacts
-	List<Long> ids = new ArrayList<Long>(contactDocuments.size());
-	for (ContactDocument document : contactDocuments) {
-	    Long id = Long.valueOf(document.getId());
-	    ids.add(id);
-	}
+	List<Long> ids = fetchIdsFromContactDocumentsCollection(contactDocuments);
 
 	return new PageImpl<Contact>(contactRepository.findByIdIn(ids));
     }
@@ -129,11 +128,10 @@ public class ContactService {
 
     @Transactional
     public int deleteIdIn(List<Long> list) {
-	for (Long id : list) {
-	    contactDocumentRepository.delete(id.toString());
-	}
-
-	return contactRepository.deleteIdIn(list);
+	List<String> idsAsString = Lists.transform(list, Functions.toStringFunction());
+	contactDocumentRepository.deleteIdIsIn(idsAsString);
+	
+	return contactRepository.deleteIdIsIn(list);
     }
 
     public List<Contact> findByBirthDate(String date) {
