@@ -57,7 +57,7 @@
 
                     <div class="col-sm-6">
                         <input type="text" class="form-control" data-ng-model="bundle.user.login" name="login" placeholder="Login"
-                    		data-ng-maxlength="20" required 
+                    		data-ng-maxlength="20" data-ng-required="!option.edit"
 						  	data-flowerty-validate>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
 
                     <div class="col-sm-6">
                         <input type="password" class="form-control" data-ng-model="bundle.user.password"  name="password" placeholder="Password"
-		                    	data-ng-maxlength="20" required  
+		                    	data-ng-maxlength="20" data-ng-required="!option.edit"
 							  	data-flowerty-validate>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
 
                     <div class="col-sm-6">
                         <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm" name="password" placeholder="Confirm password"
-		                    	data-ng-maxlength="20" required 
+		                    	data-ng-maxlength="20" data-ng-required="!option.edit"
 							  	data-flowerty-validate >
 						
                         <div data-ng-show="bundle.user.password && bundle.user.password != bundle.passwordConfirm">
