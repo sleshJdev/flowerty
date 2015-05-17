@@ -47,7 +47,7 @@ public class ContactService {
 	for (ContactDocument cd : contactDocuments) {
 	    ids.add(Long.valueOf(cd.getId()));
 	}
-
+	
 	return ids;
     }
 
@@ -58,7 +58,7 @@ public class ContactService {
 	// fetch id of these contacts
 	List<Long> ids = fetchIdsFromContactDocumentsCollection(contactDocuments);
 
-	return new PageImpl<Contact>(contactRepository.findByIdIn(ids));
+	return new PageImpl<Contact>(contactRepository.findByIdIsIn(ids));
     }
 
     public Page<Contact> findContacts(ContactDocument contact, int page, int size) {
@@ -94,8 +94,7 @@ public class ContactService {
 
     private List<Long> processPhonesAndGetId(Contact contact) {
 	List<Long> phonesId = new ArrayList<Long>(contact.getPhones().size());
-	phonesId.add(-1L);// to avoid empty collection: case, if we remove all
-			  // phones;
+	phonesId.add(-1L);// to avoid empty collection: case, if we remove all phones;
 	for (Phone phone : contact.getPhones()) {
 	    phone.setContact(contact);
 	    phonesId.add(phone.getId());
@@ -138,14 +137,14 @@ public class ContactService {
     public List<Contact> findByBirthDate(String date) {
 	List<Long> ids = contactDocumentRepository.findByBirthDate(date);
 
-	return contactRepository.findByIdIn(ids);
+	return contactRepository.findByIdIsIn(ids);
     }
 
     public Page<Contact> findBySurnameStartsWith(String surname, Company company) {
 	if (StringUtils.endsWith(surname, " ")) {
 	    List<Long> ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, company.getId());
 
-	    return new PageImpl<Contact>(contactRepository.findByIdIn(ids));
+	    return new PageImpl<Contact>(contactRepository.findByIdIsIn(ids));
 	}
 
 	return contactRepository.findBySurnameStartingWithAndCompany(surname, company, new PageRequest(0, 10));
@@ -164,7 +163,7 @@ public class ContactService {
 		    company), new PageRequest(0, 10));
 	}
 
-	return new PageImpl<Contact>(contactRepository.findByIdIn(contactDocumentRepository
+	return new PageImpl<Contact>(contactRepository.findByIdIsIn(contactDocumentRepository
 		.findBySurnameStartsWithAndCompany(surname, company)));
     }
 

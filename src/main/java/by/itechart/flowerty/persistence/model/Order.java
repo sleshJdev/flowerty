@@ -1,15 +1,5 @@
 package by.itechart.flowerty.persistence.model;
 
-import by.itechart.flowerty.solr.model.OrderDocument;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
-import java.util.Set;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,6 +15,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import by.itechart.flowerty.solr.model.OrderDocument;
 
 /**
  * User: Мария

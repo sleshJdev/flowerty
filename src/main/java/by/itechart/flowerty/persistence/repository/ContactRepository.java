@@ -13,7 +13,7 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
     public List<Contact> findByBirthday(Date date);
 
     public Contact findOne(Long id);
-
+    
     public Page<Contact> findByCompany(Company company, Pageable pageable);
 
     public Page<Contact> findBySurnameStartingWithAndCompany(String surname, Company company, Pageable pageable);
@@ -22,7 +22,7 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
 
     public Page<Contact> findByIdIsIn(List<Long> list, Pageable pageable);
 
-    public List<Contact> findByIdIn(List<Long> list);
+    public List<Contact> findByIdIsIn(List<Long> list);
 
     public Contact findById(Long id);
 }
