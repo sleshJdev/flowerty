@@ -14,12 +14,14 @@ import java.util.Set;
  */
 public abstract class ContactRepositoryHelperTests {
 
-    public static final User getUserWhichHasPermissionToUsePartialSearch(){
+    public static final User getSupervisor(){
 	Role role = new Role();
 	role.setId(5L);
 	role.setName(Role.ROLE_TYPE.SUPERVISOR);
 	
-	return new User(7L, "supervisor", "supervisor", role, (Contact)null);
+	User supervisor = new User(7L, "supervisor", "supervisor", role, (Contact)null);
+	
+	return supervisor;
     }
     
     public static Contact getContactWithIdOne() {

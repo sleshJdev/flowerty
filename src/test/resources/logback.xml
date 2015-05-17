@@ -15,6 +15,7 @@
 		<appender-ref ref="STDOUT" />
 	</root>
 
-	<loger name="by.itechart.flowerty" level="ALL" />
+	<logger name="by.itechart.flowerty" level="ALL" />
 	<!--<logger name="org.springframework" level="DEBUG" />-->
 </configuration>
+

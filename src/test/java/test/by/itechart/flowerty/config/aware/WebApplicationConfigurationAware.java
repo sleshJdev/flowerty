@@ -2,17 +2,20 @@ package test.by.itechart.flowerty.config.aware;
 
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
+import java.security.Principal;
+import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.FilterChainProxy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,70 +31,89 @@ import by.itechart.flowerty.configuration.LocalConfiguration;
 import by.itechart.flowerty.configuration.MailConfiguration;
 import by.itechart.flowerty.configuration.SearchContext;
 import by.itechart.flowerty.configuration.WebMvcConfiguration;
-import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @WebAppConfiguration
-@ContextConfiguration(classes = {
-        ApplicationConfiguration.class,
-        LocalConfiguration.class,
-        MailConfiguration.class,
-        EmbeddedDataSourceConfig.class,
-        JpaConfiguration.class,
-        MongoConfiguration.class,
-        SearchContext.class,
-        WebMvcConfiguration.class
-})
-public  class WebApplicationConfigurationAware extends MockTestConfigigurationAware {
-    @Inject
+@ContextConfiguration(classes = { ApplicationConfiguration.class, LocalConfiguration.class, MailConfiguration.class,
+	EmbeddedDataSourceConfig.class, JpaConfiguration.class, MongoConfiguration.class, SearchContext.class,
+	WebMvcConfiguration.class })
+public class WebApplicationConfigurationAware extends MockTestConfigigurationAware {
+    @Autowired
     protected WebApplicationContext webApplicationContext;
 
     protected MockMvc mockMvc;
-    
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    
-    @Resource
-    private FilterChainProxy springSecurityFilterChain;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+    
     @Before
     public void before() {
-        mockMvc = webAppContextSetup(webApplicationContext)
-                .build();
+	mockMvc = webAppContextSetup(webApplicationContext).build();
     }
-    
-    public static class MockSecurityContext implements SecurityContext {
 
-        private static final long serialVersionUID = -1386535243513362694L;
+    public MockHttpSession makeAuthSession(String username) {
+	MockHttpSession session = new MockHttpSession();
+	session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+		SecurityContextHolder.getContext());
+	UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+	Principal principal = new NamedAuthPrincipal(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+	Authentication authToken = new UsernamePasswordAuthenticationToken(principal, null, userDetails.getAuthorities());
+	SecurityContextHolder.getContext().setAuthentication(authToken);
 
-        private Authentication authentication;
-
-        public MockSecurityContext(Authentication authentication) {
-            this.authentication = authentication;
-        }
-
-        @Override
-        public Authentication getAuthentication() {
-            return this.authentication;
-        }
-
-        @Override
-        public void setAuthentication(Authentication authentication) {
-            this.authentication = authentication;
-        }
+	return session;
     }
-    
-    public final UsernamePasswordAuthenticationToken getPrincipal(String username) {
 
-        UserDetails user = userDetailsService.loadUserByUsername(username);
+    public static class NamedAuthPrincipal implements Principal, UserDetails {
+	private static final long serialVersionUID = 423725604321483049L;
 
-        UsernamePasswordAuthenticationToken authentication = 
-                new UsernamePasswordAuthenticationToken(
-                        user, 
-                        user.getPassword(), 
-                        user.getAuthorities());
+	private String name;
+	private String password;
+	private Collection<? extends GrantedAuthority> authorities;
 
-        return authentication;
+	public NamedAuthPrincipal(String name, String password, Collection<? extends GrantedAuthority> authorities) {
+	    this.name = name;
+	    this.password = password;
+	    this.authorities = authorities;
+	}
+
+	@Override
+	public String getName() {
+	    return name;
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+	    return authorities;
+	}
+
+	@Override
+	public String getPassword() {
+	    return password;
+	}
+
+	@Override
+	public String getUsername() {
+	    return name;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+	    return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+	    return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+	    return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+	    return false;
+	}
     }
 }

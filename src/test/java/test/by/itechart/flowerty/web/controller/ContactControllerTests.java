@@ -1,63 +1,126 @@
 package test.by.itechart.flowerty.web.controller;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
+
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.test.web.servlet.MockMvc;
 
+import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.User;
-import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
 /**
  * @author Eugene Putsykovich(slesh) May 16, 2015
  *
- *	tests for ContactController
+ *	integration tests for ContactController
  */
 public class ContactControllerTests extends WebApplicationConfigurationAware {
+    private MockHttpSession session;
+    
+    @Before
+    public void setup(){
+	final User supervisor = HelperTestsController.getSupervisor();
+	session = makeAuthSession(supervisor.getLogin());
+    }
+    
     @Test
     public void page_ShouldReturnPageOfContacts() throws Exception{
-	final int pageNumber = 1;
-	final int pageSize = 10;
+	final Integer pageNumber = 1;
+	final Integer pageSize = 10;
 	final String url = String.format("/contact/list/%d/%d", pageNumber, pageSize);
 	
 	mockMvc
-		.perform(get(url))
+		.perform(get(url)
+				.session(session)
+			)
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(HelperTestsController.APPLICATION_JSON_UTF8))
 		.andExpect(jsonPath("$.content").exists())
 		.andExpect(jsonPath("$.content").isArray())
 		.andExpect(jsonPath("$.content", hasSize(lessThanOrEqualTo(pageSize))))
+		.andExpect(jsonPath("$.number").value(pageNumber - 1))
 		;
     }
     
     @Test
-    public void searchBySurname_PassFullSurnameName_ShoudReturnCollectionWithSizeOneWhichContainsContact() throws Exception{
+    public void details_PassValidId_ShouldReturnContactInstance() throws Exception{
 	final Contact expected = HelperTestsController.getContactWithIdOne();
-	final String url = String.format("/contact/partial-search/%s", expected.getSurname());
-	
-	final User supervisor = HelperTestsController.getUserWhichHasPermissionToUsePartialSearch();
-	
-	UsernamePasswordAuthenticationToken principal = getPrincipal(supervisor.getPassword());
-	MockHttpSession session = new MockHttpSession();
-        session.setAttribute(
-                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
-                new MockSecurityContext(principal));
+	final String url = String.format("/contact/details/%d", expected.getId());
 	
 	mockMvc
-		.perform(get(url))
+		.perform(get(url)
+				.session(session)
+			)
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$").exists())
+		.andExpect(jsonPath("$.id").value(Integer.valueOf(expected.getId().toString())))
+		.andExpect(jsonPath("$.name").value(expected.getName()))
+		.andExpect(jsonPath("$.surname").value(expected.getSurname()))
+		.andExpect(jsonPath("$.fathername").value(expected.getFathername()))
+		;
+    }
+    
+    @Test
+    public void details_PassInvalidId_ShouldReturnNull() throws Exception{
+	final Long id = Long.MAX_VALUE;
+	final String url = String.format("/contact/details/%d", id);
+	
+	mockMvc
+		.perform(get(url)
+				.session(session)
+			)
+		.andExpect(status().isOk())
+		;
+    }
+    
+    @Test
+    public void remove_PassValidIdOfContact_ShoudDeleteIt() throws Exception{
+	final String url = "/contact/remove";
+	
+	mockMvc
+		.perform(post(url)
+				.session(session)
+				.contentType(HelperTestsController.APPLICATION_JSON_UTF8)
+				.content(HelperTestsController.convertObjectToJsonBytes(Arrays.asList(HelperTestsController.getContactForRemoving())))
+			)
+		.andExpect(status().isOk())
+		;
+	//TODO: add asserts
+    }
+    
+    @Test
+    public void save_PassValidContact_ShouldSaveIt() throws Exception{
+	final String url = "/contact/save";
+	
+	mockMvc
+        	.perform(post(url)
+        			.session(session)
+        			.contentType(HelperTestsController.APPLICATION_JSON_UTF8)
+        			.content(HelperTestsController.convertObjectToJsonBytes(HelperTestsController.getContactForSaving()))
+        		)
+        	.andExpect(status().isOk())
+	;
+	//TODO: add asserts
+    }
+    
+    @Test
+    public void searchBySurname_PassFullSurnameName_ShoudReturnCollectionWithSizeOneWhichContainsContact() throws Exception{
+	//TODO: add unit test for this case, to avoid solr dependencies!!!!!!!
+
+	Contact expected = HelperTestsController.getContactWithIdOne();
+	final String url = String.format("/contact/partial-search/%s", expected.getSurname());
+	
+	mockMvc
+		.perform(get(url).session(session))
 		.andExpect(content().contentType(HelperTestsController.APPLICATION_JSON_UTF8))
-		.andExpect(jsonPath("$.content").exists())
-		.andExpect(jsonPath("$.content").isArray())
-		.andExpect(jsonPath("$.content", hasSize(1)))
-		.andExpect(jsonPath("$.content[1].id").value(expected.getId()))
-		.andExpect(jsonPath("$.content[1].name").value(expected.getName()))
 		;
     }
 }

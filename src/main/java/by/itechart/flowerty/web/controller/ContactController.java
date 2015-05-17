@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -53,6 +54,8 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/partial-search/{surname}")
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
+	LOGGER.info("search by surname: {}", surname);
+	System.out.println("surname: " + surname);
         Company company = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = null;
@@ -61,6 +64,8 @@ public class ContactController {
             if (userPrincipal != null) {
                 String login = userPrincipal.getUsername();
                 company = userService.getCompanyFor(login);
+                System.out.println("company: " + company);
+                System.out.println("login: " + login);
             }
         }
 
@@ -76,7 +81,14 @@ public class ContactController {
             throw new Exception("contact id cannot be negative or null");
         }
 
-        Contact contact = contactService.findOne(id);
+        Contact contact = null;
+        try{
+            contact = contactService.findOne(id);
+        }catch(DataIntegrityViolationException e){
+            LOGGER.error("contact with id {} not found. details:", id, e.getMessage());
+            
+            return null;
+        }
 
         return contact;
     }

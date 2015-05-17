@@ -1,17 +1,18 @@
 package test.by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.model.Phone;
-import by.itechart.flowerty.persistence.repository.PhoneRepository;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.PhoneRepositoryHelperTests;
-
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import test.by.itechart.flowerty.persistence.repository.helper.PhoneRepositoryHelperTests;
+import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.persistence.repository.PhoneRepository;
 
 /**
  * Created by Rostislav on 16-May-15
@@ -22,6 +23,7 @@ public class PhoneRepositoryTests extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
 
+    @SuppressWarnings("unchecked")
     @Test
     public void findOne_ShouldReturnAPhone() {
 
