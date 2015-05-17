@@ -7,9 +7,9 @@
                 <tr>
                     <th data-ng-click="users.deleteUsers()"><a href=""><span class="glyphicon glyphicon-remove"></span></a>
                     </th>
-                    <th>full name</th>
-                    <th>login</th>
-                    <th>role</th>
+                    <th>{{'FULL_NAME' | xlat}}</th>
+                    <th>{{'LOGIN' | xlat}}</th>
+                    <th>{{'ROLE' | xlat}}</th>
                 </tr>
                 <tr data-ng-repeat="user in users.list">
                     <td><input type="checkbox" data-ng-model="user.checked"/>

@@ -1,13 +1,11 @@
 package by.itechart.flowerty.persistence.repository;
 
-import java.util.List;
-//import by.itechart.flowerty.persistence.model.QPhone;
-
-import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
-import org.springframework.transaction.annotation.Transactional;
-
 import by.itechart.flowerty.persistence.model.Phone;
 import by.itechart.flowerty.persistence.model.QPhone;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+
+import java.util.List;
+
 
 /**
  * @author Eugene Putsykovich(slesh) May 1, 2015
@@ -22,7 +20,7 @@ public class PhoneRepositoryImpl extends QueryDslRepositorySupport implements Ph
     }
 
     @Override
-    @Transactional
+    @javax.transaction.Transactional
     public int deleteIdNotIn(Long contactId, List<Long> list) {
 	return (int) delete(PHONE).where(PHONE.id.notIn(list).and(PHONE.contact.id.eq(contactId))).execute();
     }
