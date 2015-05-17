@@ -64,8 +64,6 @@ public class ContactController {
             if (userPrincipal != null) {
                 String login = userPrincipal.getUsername();
                 company = userService.getCompanyFor(login);
-                System.out.println("company: " + company);
-                System.out.println("login: " + login);
             }
         }
 

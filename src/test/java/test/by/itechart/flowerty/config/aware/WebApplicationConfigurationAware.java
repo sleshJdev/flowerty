@@ -16,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -33,7 +32,6 @@ import by.itechart.flowerty.configuration.SearchContext;
 import by.itechart.flowerty.configuration.WebMvcConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("test")
 @WebAppConfiguration
 @ContextConfiguration(classes = { ApplicationConfiguration.class, LocalConfiguration.class, MailConfiguration.class,
 	EmbeddedDataSourceConfig.class, JpaConfiguration.class, MongoConfiguration.class, SearchContext.class,

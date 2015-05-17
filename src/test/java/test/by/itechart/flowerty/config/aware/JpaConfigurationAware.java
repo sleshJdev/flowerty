@@ -2,7 +2,6 @@ package test.by.itechart.flowerty.config.aware;
 
 
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,7 +16,6 @@ import test.by.itechart.flowerty.config.MongoConfiguration;
  *         configuration for testing jpa repositories
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("test")
 @ContextConfiguration(classes = {
         ApplicationConfiguration.class,
         EmbeddedDataSourceConfig.class,
