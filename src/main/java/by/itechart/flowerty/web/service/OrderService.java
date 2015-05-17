@@ -1,18 +1,8 @@
 package by.itechart.flowerty.web.service;
 
-import by.itechart.flowerty.persistence.model.Order;
-import by.itechart.flowerty.persistence.model.Role;
-import by.itechart.flowerty.persistence.model.State;
-import by.itechart.flowerty.persistence.repository.OrderRepository;
-import by.itechart.flowerty.persistence.repository.StateRepository;
-import by.itechart.flowerty.persistence.repository.UserRepository;
-import by.itechart.flowerty.solr.model.OrderDocument;
-import by.itechart.flowerty.solr.repository.OrderDocumentRepository;
-import by.itechart.flowerty.persistence.model.*;
-import by.itechart.flowerty.persistence.repository.*;
-import by.itechart.flowerty.web.model.OrderCreateBundle;
-import by.itechart.flowerty.web.model.OrderEditBundle;
-import by.itechart.flowerty.web.model.OrderHistoryBundle;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -27,8 +17,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+
+import by.itechart.flowerty.persistence.model.Goods;
+import by.itechart.flowerty.persistence.model.Item;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.OrderAltering;
+import by.itechart.flowerty.persistence.model.Role;
+import by.itechart.flowerty.persistence.model.State;
+import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.repository.GoodsRepository;
+import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
+import by.itechart.flowerty.persistence.repository.OrderRepository;
+import by.itechart.flowerty.persistence.repository.StateRepository;
+import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.solr.model.OrderDocument;
+import by.itechart.flowerty.solr.repository.OrderDocumentRepository;
+import by.itechart.flowerty.web.model.OrderCreateBundle;
+import by.itechart.flowerty.web.model.OrderEditBundle;
+import by.itechart.flowerty.web.model.OrderHistoryBundle;
 
 /**
  * Created by Катерина on 24.04.2015.
@@ -57,15 +63,26 @@ public class OrderService {
     private StateRepository stateRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
+    private GoodsRepository goodsRepository;
 
-    //TODO: ORDERALTERING!!!!!!!!!!!!!!!!
     @Transactional
     public Order save(Order orderToCreate){
+
+        //  checking if can checkout
+        if(!availableOnWarehouse(orderToCreate.getItems())){
+            return orderToCreate;
+        }
+
         if(orderToCreate.getItems() != null){
+            List<Item> tempItems = new ArrayList<Item>();
             for(Item item : orderToCreate.getItems()){
-                item.setOrder(orderToCreate);
+                if(!item.getQuantity().equals(0)) {
+                    item.setOrder(orderToCreate);
+                    tempItems.add(item);
+                    goodsRepository.save(item.getGoods());
+                }
             }
+            orderToCreate.setItems(tempItems);
         }
         Order savedOrder = orderRepository.save(orderToCreate);
         orderDocumentRepository.save(savedOrder.getOrderDocument());
@@ -75,6 +92,20 @@ public class OrderService {
                 getStateByDescription(State.DESCRIPTION_TYPE.NEW), DateTime.now().toDate(), "");
         orderAlteringRepository.save(newAltering);
         return savedOrder;
+    }
+	
+    private boolean availableOnWarehouse(List<Item> items){
+        boolean availableOnWarehouse = true;
+        for(Item item : items){
+            Goods goods = goodsRepository.findOne(item.getGoods().getId());
+            if(goods.getRemain() < item.getQuantity()){
+
+                //  if '0' then CANNOT make an order
+                item.setQuantity(0);
+                availableOnWarehouse = false;
+            }
+        }
+        return availableOnWarehouse;
     }
 
     //TODO: add searching by state with description NEW!!!!!!!!!
@@ -166,6 +197,7 @@ public class OrderService {
         return orderEditBundle;
     }
 
+    //TODO: make smart
     private boolean canChangeToThisState(String roleDescription, State newState, State currentState){
         switch (newState.getDescription()){
             case CANCELED:{

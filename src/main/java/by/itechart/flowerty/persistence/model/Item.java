@@ -1,10 +1,16 @@
 package by.itechart.flowerty.persistence.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * User: Мария Date: 21.03.15
@@ -14,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "item")
 public class Item {
     private Long id;
-    private int quantity;
+    private Integer quantity;
     private Goods goods;
     private Order order;
 
@@ -30,13 +36,11 @@ public class Item {
 
     @Column(name = "QUANTITY", nullable=false)
     @NotNull
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    @OneToOne
-    @JoinColumn(name = "GOODS_ID")
-    @Valid
+    @ManyToOne(fetch = FetchType.EAGER)
     public Goods getGoods() {
         return goods;
     }
@@ -51,7 +55,7 @@ public class Item {
         this.id = id;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

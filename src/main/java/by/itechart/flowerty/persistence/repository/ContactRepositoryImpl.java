@@ -1,24 +1,26 @@
 package by.itechart.flowerty.persistence.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
-import javax.persistence.*;
-import java.util.*;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.transaction.annotation.Transactional;
+
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.QContact;
 
 /**
  * @author Maria Date: 17.04.15
  */
-public class ContactRepositoryImpl implements ContactRepositoryCustom {
-    @Autowired
-    private EntityManager em;
+public class ContactRepositoryImpl extends QueryDslRepositorySupport implements ContactRepositoryCustom {
+    private static final QContact CONTACT = QContact.contact;
+    
+    public ContactRepositoryImpl(){
+	super(Contact.class);
+    }
     
     @Override
     @Transactional
-    public int deleteIdIn(List<Long> list) {
-	int rowCount = em.createQuery("DELETE FROM Contact c WHERE c.id IN :list")
-		.setParameter("list", list)
-		.executeUpdate();
-	return rowCount;
+    public int deleteIdIsIn(List<Long> list) {
+	return (int) delete(CONTACT).where(CONTACT.id.in(list)).execute();
     }
 }

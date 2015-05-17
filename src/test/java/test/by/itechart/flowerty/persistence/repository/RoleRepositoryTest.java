@@ -1,20 +1,17 @@
 package test.by.itechart.flowerty.persistence.repository;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import by.itechart.flowerty.persistence.model.Role;
+import by.itechart.flowerty.persistence.repository.RoleRepository;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import test.by.itechart.flowerty.persistence.repository.helper.RoleRepositoryHelperTest;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.model.Role;
-import by.itechart.flowerty.persistence.repository.RoleRepository;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Rostislav on 14-May-15
@@ -28,7 +25,7 @@ public class RoleRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findByName_ShouldReturnAUser() {
 
-        Role expected = RepositoryHelperTests.getRoleWithIdOne();
+        Role expected = RoleRepositoryHelperTest.getRoleWithIdOne();
 
         Role actual = roleRepository.findByName(Role.ROLE_TYPE.ADMIN);
 

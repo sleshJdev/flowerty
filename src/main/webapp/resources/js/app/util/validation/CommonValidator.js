@@ -4,18 +4,18 @@
  */
 angular.module("flowertyApplication.utilModule")
 
-.directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", 
-                            	function($compile, VALIDATE_MESSAGES) {
-	
+.directive("flowertyValidate", ["$compile", "VALIDATE_MESSAGES", "VALIDATE_DATE", 
+                            	function($compile, VALIDATE_MESSAGES, VALIDATE_DATE) {
 	var template = "<span class='glyphicon form-control-feedback' aria-hidden='true' data-ng-class='info.icon'></span>" +
-				   "<small class='btn-danger'>{{info.message}}</small>";
-	
+				   "<small class='text-nowrap' data-ng-class='info.type'>{{info.message}}</small>";
+
 	return {
 		require: "ngModel",
 		restrict: "A",
 		scope:{},
 		link: function(scope, element, attributes, ngModelCtrl){
 			scope.info = {
+					type: "",
 					state: "",
 					icon: "",
 					message: ""
@@ -27,7 +27,7 @@ angular.module("flowertyApplication.utilModule")
             var levelUp = 1;
             if(attributes.levelUp){
             	levelUp = attributes.levelUp;
-            }
+            };
             
             var parent = null;
             for(var i = 0; i < levelUp; ++i){
@@ -41,18 +41,18 @@ angular.module("flowertyApplication.utilModule")
             parent.append(content);
             parent.addClass("has-feedback");
 			
-			
-			function setState(state, icon, message){
+			function setState(type, state, icon, message){
+				scope.info.type = type,
 				scope.info.state = state,
 				scope.info.icon = icon,
 				scope.info.message = message;
-			}
+			};
 			
 			function validate(currentValue){
 				var message = "";
 				if(ngModelCtrl.$error.minlength){
 					message = VALIDATE_MESSAGES["minlength"](attributes.name, attributes.minlength);
-				
+					
 				}else if(ngModelCtrl.$error.maxlength){
 					message = VALIDATE_MESSAGES["maxlength"](attributes.name, attributes.maxlength);
 				
@@ -68,6 +68,17 @@ angular.module("flowertyApplication.utilModule")
 				}else if(ngModelCtrl.$error.number){
 					message = VALIDATE_MESSAGES["number"](attributes.name);
 				
+				}else if(ngModelCtrl.$error.min){
+					if(attributes.min === "0"){
+						message = VALIDATE_MESSAGES["positive-only"](attributes.name);
+						
+					} else {
+						message = VALIDATE_MESSAGES["number-min"](attributes.name, attributes.min);
+					
+					};
+				}else if(ngModelCtrl.$error.max){
+					message = VALIDATE_MESSAGES["number-max"](attributes.name, attributes.max);
+				
 				}else if(ngModelCtrl.$error.password){
 					message = VALIDATE_MESSAGES["password"]();
 					
@@ -82,31 +93,36 @@ angular.module("flowertyApplication.utilModule")
 				var isInvalid = ngModelCtrl.$dirty && ngModelCtrl.$invalid;
 				
 				if(isInvalid){
-					setState("has-error", "glyphicon-remove", message)
-				} else {
-					setState("has-success", "glyphicon-ok", "")
+					setState("text-danger", "has-error", "glyphicon-remove", message);
+				} else if(!!currentValue){
+					setState("text-danger", "has-success", "glyphicon-ok", "");
 				};
 				
-				if(!currentValue){
-					setState("", "", "")
-				}
+				if(ngModelCtrl.$error.required){
+					setState("text-warning", "has-warning", "glyphicon-warning-sign", message);
+				};
 				
 				parent.removeClass("has-error");
 				parent.removeClass("has-success");
+				parent.removeClass("has-warning");
 				parent.addClass(scope.info.state);
-			}
+			};
 			
-			ngModelCtrl.$parsers.unshift(function (viewValue) {
-				validate(viewValue);
-					
-				return viewValue;
-            });
-
-            ngModelCtrl.$formatters.unshift(function (modelValue) {
-            	validate(modelValue);
-            	
-            	return modelValue;
-            });
+			function validateDate(dateString){
+				var dateValidateType = attributes.dateValidate;
+				if(!!dateValidateType && dateValidateType === "past"){
+					ngModelCtrl.$setValidity("isPastDate", VALIDATE_DATE.validate(dateString, true));
+				}else if(!!dateValidateType && dateValidateType === "future"){
+					ngModelCtrl.$setValidity("isFutureDate", VALIDATE_DATE.validate(dateString, false));
+				};
+			};
+			
+			scope.$watch(function(){
+				return ngModelCtrl.$viewValue;
+			}, function(value){
+				validateDate(value);
+				validate(value);
+			});
 		}
 	};
 }]);

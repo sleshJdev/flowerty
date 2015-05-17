@@ -1,25 +1,23 @@
 package test.by.itechart.flowerty.config;
 
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
+import java.net.UnknownHostException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import java.net.UnknownHostException;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 
 /**
  * @author Eugene Putsykovich(slesh) May 6, 2015
- *         <p/>
+ *          
  *         configuration of mongodb
  */
-
 @Configuration
-@Profile("test")
 @EnableMongoRepositories
 @ComponentScan(basePackages = {MongoConfiguration.TO_SCAN})
 public class MongoConfiguration extends AbstractMongoConfiguration {

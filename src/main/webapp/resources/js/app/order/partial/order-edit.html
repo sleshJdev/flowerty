@@ -1,4 +1,3 @@
-
 <!-- Form for editing or creating an order -->
 <div data-ng-app="flowertyApplication.orderModule">
     <h1 data-ng-show="!bundle.order.id">Checkout!</h1>
@@ -25,9 +24,10 @@
                 <p class="form-control-static input-lg">{{bundle.order.customer.name}} {{bundle.order.customer.fathername}} {{bundle.order.customer.surname}}</p>
             </div>
             <div class="col-sm-10" data-ng-show="!bundle.order.id">
-                <input type="text" class="form-control input-lg" id="customer" placeholder="start typing.."
+                <input type="text" class="form-control input-lg" id="customer" placeholder="start typing.." name="customer"
                        data-ng-model="search.customer.enteredSurname"
-                       data-ng-change="dynamicSearch.offerContacts(search.customer)"/>
+                       data-ng-change="dynamicSearch.offerContacts(search.customer)" 
+                       required data-flowerty-validate/>
                 <select class="form-control list-group-item select-select" size="3"
                         data-ng-show="search.customer.show"
                         data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
@@ -42,9 +42,10 @@
                 <p class="form-control-static input-lg">{{bundle.order.receiver.name}} {{bundle.order.receiver.fathername}} {{bundle.order.receiver.surname}}</p>
             </div>
             <div class="col-sm-10" data-ng-show="!bundle.order.id">
-                <input type="text" class="form-control input-lg" id="receiver" placeholder="start typing.."
+                <input type="text" class="form-control input-lg" id="receiver" placeholder="start typing.." name="receiver"
                        data-ng-model="search.receiver.enteredSurname"
-                       data-ng-change="dynamicSearch.offerContacts(search.receiver)"/>
+                       data-ng-change="dynamicSearch.offerContacts(search.receiver)"
+                       required  data-flowerty-validate/>
                 <select class="form-control list-group-item select-select" size="3"
                         data-ng-show="search.receiver.show"
                         data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
@@ -75,7 +76,7 @@
             <label class="col-sm-2 control-label">Town</label>
             <div class="col-sm-10">
                 <input data-ng-model="bundle.order.address.town" class="form-control" name="town" placeholder="Town"
-									data-ng-maxlength="100"
+									required data-ng-maxlength="100"
 									data-flowerty-validate>
             </div>
         </div>
@@ -83,7 +84,7 @@
             <label class="col-sm-2 control-label">Street</label>
             <div class="col-sm-10">
                 <input data-ng-model="bundle.order.address.street" class="form-control" name="Street" placeholder="Street"
-                                   		data-ng-maxlength="100"
+                                   		required data-ng-maxlength="100"
 										data-flowerty-validate>
             </div>
         </div>
@@ -91,7 +92,7 @@
             <label class="col-sm-2 control-label">House</label>
             <div class="col-sm-10">
                 <input data-ng-model="bundle.order.address.house" class="form-control" name="house" placeholder="House"
-                                       		data-ng-maxlength="10"
+                                       		required data-ng-maxlength="10"
 											data-flowerty-validate>
             </div>
         </div>
@@ -99,7 +100,7 @@
             <label class="col-sm-2 control-label">Flat</label>
             <div class="col-sm-10">
                 <input data-ng-model="bundle.order.address.flat" class="form-control" name="flat" placeholder="Flat"
-                                   		data-ng-maxlength="10"
+                                   		required data-ng-maxlength="10"
 										data-flowerty-validate>
             </div>
         </div>
@@ -107,7 +108,7 @@
             <label class="col-sm-2 control-label">Country</label>
             <div class="col-sm-10">
                 <input data-ng-model="bundle.order.address.country" class="form-control" name="country" placeholder="Country"
-                                   		data-ng-maxlength="100"
+                                   		required data-ng-maxlength="100"
 										data-flowerty-validate>
             </div>
         </div>
@@ -117,9 +118,8 @@
             <div class="col-sm-4">
                 <input data-flowerty-date class="form-control glyphicon glyphicon-calendar"
                        data-ng-model="bundle.order.deliveryDate" data-format="yyyy-mm-dd" placeholder="Select date.." name="delivary date" 
-                       readonly required
-                       data-flowerty-validate
-                       data-flowerty-validate-future-date>
+                       readonly required date-validate="future"
+                       data-flowerty-validate>
             </div>
         </div>
         <div class="form-group">
@@ -158,7 +158,7 @@
                         data-ng-disabled="orderForm.$invalid"
                         data-ng-show="!bundle.order.id"
                         data-ng-click="orderAction.checkout()">Checkout</button>
-                <button class="btn btn-default btn-lg"
+                <button class="btn btn-primary btn-lg"
                         data-ng-disabled="orderForm.$invalid"
                         data-ng-show="bundle.order.id"
                         data-ng-click="orderAction.save()">Save</button>
@@ -173,10 +173,13 @@
                 <div class="goods-image col-md-3">
                     <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.goods.image}}"/>
                 </div>
-                <div class="goods-list-item-info caption col-md-offset-1 col-md-7">
+                <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="goodsItem.quantity">
                     <h3 class="goods-item-description">{{goodsItem.goods.flower.name}}</h3>
                     <h3 class="goods-item-description">{{goodsItem.goods.cost | currency}} x {{goodsItem.quantity}} = {{(goodsItem.goods.cost * goodsItem.quantity) | currency}}</h3>
                     <h3>Count: <strong>{{goodsItem.quantity}}</strong></h3>
+                </div>
+                <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="!goodsItem.quantity">
+                    <h3><strong>Not available at warehouse!</strong></h3>
                 </div>
             </div>
         </div>

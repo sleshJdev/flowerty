@@ -2,7 +2,6 @@
 /**
  * Created by Катерина on 20.04.2015.
  */
-
 userModule.controller("UserAddController", ['$scope', '$http', '$location', '$filter', 'USER_MODULE_CONSTANTS', 'userService', 'notificationService',
     function ($scope, $http, $location, $filter, USER_MODULE_CONSTANTS, userService, notificationService) {
 

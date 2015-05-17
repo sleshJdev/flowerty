@@ -1,23 +1,37 @@
 package by.itechart.flowerty.web.controller;
 
+<<<<<<< HEAD
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 import by.itechart.flowerty.web.service.UserService;
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+>>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.web.service.ContactService;
+import by.itechart.flowerty.web.service.UserService;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -40,7 +54,7 @@ public class ContactController {
         LOGGER.info("get contact page {} with limit {}", page, limit);
         
         page = (page == null || page < 1) ? 0 : --page;
-        limit = (limit == null || limit < 0) ? 10 : limit;
+        limit = (limit == null || limit <= 0) ? 10 : limit;
         
         return contactService.getPage(page, limit);
     }
@@ -48,6 +62,8 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/partial-search/{surname}")
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
+	LOGGER.info("search by surname: {}", surname);
+	
         Company company = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = null;
@@ -67,11 +83,18 @@ public class ContactController {
     public Contact details(@PathVariable("id") Long id) throws Exception {
         LOGGER.info("get details about contact with id: {}", id);
 
-        if (id == null || id < 0) {
+        if (id == null || id <= 0) {
             throw new Exception("contact id cannot be negative or null");
         }
 
-        Contact contact = contactService.findOne(id);
+        Contact contact = null;
+        try{
+            contact = contactService.findOne(id);
+        }catch(DataIntegrityViolationException e){
+            LOGGER.error("contact with id {} not found. details:", id, e.getMessage());
+            
+            return null;
+        }
 
         return contact;
     }
@@ -90,9 +113,8 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<Contact> contacts) {
-	
         LOGGER.info("remove contacts. obtained {} contacts", contacts.size());
-
+        
         contactService.deleteIdIn(fetchIdOfContact(contacts));
     }
 
@@ -100,8 +122,13 @@ public class ContactController {
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
         LOGGER.info("save contact: {}", contact.toString());
-
+        System.out.println("save contact: " + contact.toString());
+        
         contactService.save(contact);
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
         return contact;
     }
     

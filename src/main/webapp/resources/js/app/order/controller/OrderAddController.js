@@ -38,7 +38,13 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
                     //  Makes the basket empty
                     $scope.current.resetBasket();
-                    notificationService.notify("success", "New order added!");
+                    $scope.bundle.order = data;
+                    if($scope.bundle.order.id) {
+                        notificationService.notify("success", "New order added!");
+                    }
+                    else{
+                        notificationService.notify("warning", "Some flowers are not available now. Please, aproove.");
+                    }
                     //$location.path('orders');
                 },
                 function (data) {

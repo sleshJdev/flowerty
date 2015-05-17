@@ -16,6 +16,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -53,14 +55,19 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new CustomAuthenticationProvider();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Transactional
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+
                 .antMatchers("/user/profile")
                 .authenticated()
-
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
 
@@ -71,13 +78,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/order/save")
                 .access("hasRole('ROLE_ORDERS_MANAGER')")
-                .antMatchers("/order/change/save")
-                .access("hasAnyRole('ROLE_ORDERS_MANAGER', 'ROLE_SUPERVISOR')")
                 .antMatchers("/order/create/bundle")
                 .access("hasRole('ROLE_ORDERS_MANAGER')")
                 .antMatchers("/order/**")
                 .access("hasAnyRole('ROLE_ORDERS_MANAGER', 'ROLE_DELIVERY_MANAGER', 'ROLE_ORDERS_PROCESSOR', 'ROLE_SUPERVISOR')")
-
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())

@@ -1,34 +1,18 @@
 package by.itechart.flowerty.persistence.model;
 
-import java.util.Date;
-import java.util.Set;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.client.solrj.beans.Field;
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-import by.itechart.flowerty.solr.model.ContactDocument;
+import java.util.Date;
+import java.util.Set;
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -41,7 +25,7 @@ public class Contact {
     private Address address;
     private Set<Phone> phones;
     private Company company;
-
+    
     public Contact() {
     }
 
@@ -64,7 +48,7 @@ public class Contact {
     public Long getId() {
 	return id;
     }
-
+    
     @Column(name = "NAME", length = 20, nullable = true)
     @NotNull
     @Size(max = 20)
@@ -99,7 +83,7 @@ public class Contact {
 	return email;
     }
 
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade={CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
     @Valid
     public Address getAddress() {
