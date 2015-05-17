@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.ItemRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.ItemRepositoryHelperTest;
 import by.itechart.flowerty.persistence.model.Item;
 import by.itechart.flowerty.persistence.repository.ItemRepository;
 
@@ -28,7 +28,7 @@ public class ItemRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findOne_ShouldReturnAItem() {
 
-        Item expected = ItemRepositoryHelperTests.getItemWithIdOne();
+        Item expected = ItemRepositoryHelperTest.getItemWithIdOne();
 
         Item actual = itemRepository.findOne(1L);
 

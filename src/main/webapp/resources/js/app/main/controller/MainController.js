@@ -55,10 +55,9 @@ angular.module('flowertyApplication').controller('MainController',
         $scope.dynamicSearch = dynamicSearchFactory.dynamicSearch;
 
         $scope.setCurrentLanguage = function(language) {
-            alert(language);
             xlatService.setCurrentLanguage(language);
             $localStorage.language = language;
-            $location.reload();
+            location.reload();
         };
 
         $scope.notification = notificationService.getNotificationBundle();
@@ -69,8 +68,7 @@ angular.module('flowertyApplication').controller('MainController',
 
         if ($localStorage.language) {
             $scope.localization.language = $localStorage.language;
-            alert('localization.language');
-            alert($scope.localization.language);
+            alert($localStorage.language);
             xlatService.setCurrentLanguage($localStorage.language);
         }
 

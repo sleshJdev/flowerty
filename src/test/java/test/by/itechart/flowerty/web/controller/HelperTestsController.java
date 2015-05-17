@@ -6,8 +6,9 @@ import java.nio.charset.Charset;
 import org.joda.time.DateTime;
 import org.springframework.http.MediaType;
 
-import test.by.itechart.flowerty.persistence.repository.helper.ContactRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.ContactRepositoryHelperTest;
 import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.Phone;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,9 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *          
- *         Helper for test
+ *         helper for test
  */
-public final class HelperTestsController extends ContactRepositoryHelperTests {
+public final class HelperTestsController extends ContactRepositoryHelperTest {
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
@@ -42,12 +43,17 @@ public final class HelperTestsController extends ContactRepositoryHelperTests {
     
     public static Contact getContactForSaving(){
 	Contact contact = getContactWithIdOne();
+	contact.setId(null);
         contact.setName("New");
         contact.setSurname("Newov");
         contact.setFathername("Newich");
         contact.setBirthday(DateTime.parse("1999-01-01").toDate());
         contact.setEmail("new@mail.com");
-
+        contact.getAddress().setId(null);
+        for (Phone phone : contact.getPhones()) {
+	    phone.setId(null);
+	}
+        
         return contact;
     }
 }

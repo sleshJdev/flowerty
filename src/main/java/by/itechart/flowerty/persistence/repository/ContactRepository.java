@@ -1,14 +1,13 @@
 package by.itechart.flowerty.persistence.repository;
 
-import java.util.Date;
-import java.util.List;
-
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Contact;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.model.Contact;
+import java.util.Date;
+import java.util.List;
 
 public interface ContactRepository extends PagingAndSortingRepository<Contact, Long>, ContactRepositoryCustom {
     public List<Contact> findByBirthday(Date date);
@@ -24,4 +23,6 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
     public Page<Contact> findByIdIsIn(List<Long> list, Pageable pageable);
 
     public List<Contact> findByIdIn(List<Long> list);
+
+    public Contact findById(Long id);
 }

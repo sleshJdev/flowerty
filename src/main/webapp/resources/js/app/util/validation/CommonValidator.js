@@ -123,6 +123,13 @@ angular.module("flowertyApplication.utilModule")
 				validateDate(value);
 				validate(value);
 			});
+			
+			scope.$watch(function(){
+				return ngModelCtrl.$modelValue;
+			}, function(value){
+				validateDate(value);
+				validate(value);
+			});
 		}
 	};
 }]);

@@ -29,8 +29,6 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    // @NotNull
-    // @Min(value = 1)
     public Long getId() {
 	return id;
     }

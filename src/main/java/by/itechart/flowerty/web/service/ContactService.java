@@ -11,9 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.base.Functions;
-import com.google.common.collect.Lists;
-
+import by.itechart.flowerty.persistence.model.Address;
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Phone;
@@ -22,6 +20,9 @@ import by.itechart.flowerty.persistence.repository.PhoneRepository;
 import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
+
+import com.google.common.base.Functions;
+import com.google.common.collect.Lists;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -165,5 +166,12 @@ public class ContactService {
 
 	return new PageImpl<Contact>(contactRepository.findByIdIn(contactDocumentRepository
 		.findBySurnameStartsWithAndCompany(surname, company)));
+    }
+
+    public Contact findByAddress(Address address) {
+        Contact contact = new Contact();
+        contact.setAddress(address);
+        List<Long> ids = contactDocumentRepository.findBySearch(contact.getContactDocument());
+        return ids.size() == 0 ? null : contactRepository.findById(ids.get(0));
     }
 }

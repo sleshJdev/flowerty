@@ -3,9 +3,9 @@
  * Created by Катерина on 22.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location',
+angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', "VALIDATE_DATE",
     'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage',
-    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage) {
+    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
 
         $scope.search = {
             customer: {
@@ -39,6 +39,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                     console.log('Checkout order completed succesfully: ' + JSON.stringify($scope.bundle.order));
 
                     $scope.bundle.order = data;
+                    $scope.bundle.order.deliveryDate = VALIDATE_DATE.correctFormat($scope.bundle.order.deliveryDate);
                     if($scope.bundle.order.id) {
                         notificationService.notify("success", "New order added!");
                         //  Makes the basket empty
