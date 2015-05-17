@@ -114,7 +114,8 @@ public class ContactController {
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
         LOGGER.info("save contact: {}", contact.toString());
-
+        System.out.println("save contact: " + contact.toString());
+        
         contactService.save(contact);
 
         return contact;

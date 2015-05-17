@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 @Configuration
 public class EmbeddedDataSourceConfig {
     @Bean
-    public DataSource dataSource() {
+    public DataSource configureDataSource() {
 	return new EmbeddedDatabaseBuilder()
 		.setType(EmbeddedDatabaseType.HSQL)
 		.addScript("classpath:/flowerty-dump.sql")

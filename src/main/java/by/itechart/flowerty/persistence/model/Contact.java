@@ -83,7 +83,7 @@ public class Contact {
 	return email;
     }
 
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade={CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
     @Valid
     public Address getAddress() {
