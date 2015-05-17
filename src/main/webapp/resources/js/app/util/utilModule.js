@@ -39,7 +39,6 @@ angular.module("flowertyApplication.utilModule", [])
 	                viewMode : !attrs.viewMode ? "days" : attrs.viewMode,
 	                minViewMode : !attrs.minViewMode ? "days" : attrs.minViewMode
 	            }).on('changeDate', function( e ){
-	            	//ngModelCtrl.$setViewValue(e.date);
 	                switch(attrs.format.toLowerCase().trim()){
 	                    case "yyyy":
 	                        ngModelCtrl.$setViewValue(e.date.getFullYear());
@@ -54,7 +53,6 @@ angular.module("flowertyApplication.utilModule", [])
 	                        ngModelCtrl.$setViewValue($filter('date')(e.date,'yyyy-MM-dd'));
 	                        break;
 	                }
-	                console.log(JSON.stringify(ngModelCtrl));
 	                
 	                element.datepicker('hide');
 	            });
