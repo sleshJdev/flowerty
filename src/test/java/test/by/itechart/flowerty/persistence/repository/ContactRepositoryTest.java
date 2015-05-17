@@ -6,20 +6,20 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.ContactRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.ContactRepositoryHelperTest;
 
 import java.util.List;
 
 import static org.springframework.util.Assert.notEmpty;
 
-public class ContactRepositoryTests extends JpaConfigurationAware {
+public class ContactRepositoryTest extends JpaConfigurationAware {
 
     @Autowired
     private ContactRepository contactRepository;
 
     @Test
     public void findOne_PassValidId_RetursContact() {
-        final Contact expected = ContactRepositoryHelperTests.getContactWithIdOne();
+        final Contact expected = ContactRepositoryHelperTest.getContactWithIdOne();
 
         final Contact actual = contactRepository.findOne(1L);
 
@@ -54,7 +54,7 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
 
     @Test
     public void findBySurnameStartingWithAndCompany_PassValidParameters_ReturnsNotNullCollectionWithTargetContact() {
-        final Contact expected = ContactRepositoryHelperTests.getContactWithIdOne();
+        final Contact expected = ContactRepositoryHelperTest.getContactWithIdOne();
 
         final List<Contact> actuals = contactRepository.findBySurnameStartingWithAndCompany(expected.getSurname(), expected.getCompany());
 

@@ -8,7 +8,7 @@ import by.itechart.flowerty.persistence.model.Goods;
  * Created by Rostislav on 16-May-15
  */
 
-public abstract class GoodsRepositoryHelperTests {
+public abstract class GoodsRepositoryHelperTest {
 
     public static Company getCompany() {
         Company company = new Company();

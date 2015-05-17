@@ -5,7 +5,7 @@ import by.itechart.flowerty.persistence.repository.RoleRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.RoleRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.RoleRepositoryHelperTest;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class RoleRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findByName_ShouldReturnAUser() {
 
-        Role expected = RoleRepositoryHelperTests.getRoleWithIdOne();
+        Role expected = RoleRepositoryHelperTest.getRoleWithIdOne();
 
         Role actual = roleRepository.findByName(Role.ROLE_TYPE.ADMIN);
 

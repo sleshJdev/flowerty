@@ -14,7 +14,7 @@ import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
  *	
  *         tests for HomeController
  */
-public class HomeControllerTests extends WebApplicationConfigurationAware {
+public class HomeControllerTest extends WebApplicationConfigurationAware {
 
     @Test
     public void index_ShouldReturnViewNameForIndexPage() throws Exception {

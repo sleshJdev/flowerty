@@ -5,8 +5,8 @@ import by.itechart.flowerty.persistence.repository.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.RoleRepositoryHelperTests;
-import test.by.itechart.flowerty.persistence.repository.helper.UserRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.RoleRepositoryHelperTest;
+import test.by.itechart.flowerty.persistence.repository.helper.UserRepositoryHelperTest;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findUserByLoginAndPassword_ShouldReturnAUser() {
 
-        User expected = UserRepositoryHelperTests.getUserWithIdOne();
+        User expected = UserRepositoryHelperTest.getUserWithIdOne();
 
         User actual = userRepository.findUserByLoginAndPassword("test", "$2a$10$ZWwh6S.iW5Sjeo2mklifkegHdSDOpmxpAw5oHDRTEMWgHLS.bILny");
 
@@ -44,7 +44,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findUserByLogin_ShouldReturnAUser() {
 
-        User expected = UserRepositoryHelperTests.getUserWithIdOne();
+        User expected = UserRepositoryHelperTest.getUserWithIdOne();
 
         User actual = userRepository.findUserByLogin("test");
 
@@ -61,7 +61,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findOne_ShouldReturnAUser() {
 
-        User expected = UserRepositoryHelperTests.getUserWithIdOne();
+        User expected = UserRepositoryHelperTest.getUserWithIdOne();
 
         User actual = userRepository.findOne(1L);
 
@@ -78,7 +78,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findByRole_ShouldReturnAListOfUsers() {
 
-        List<User> users = userRepository.findByRole(RoleRepositoryHelperTests.getRoleWithIdOne());
+        List<User> users = userRepository.findByRole(RoleRepositoryHelperTest.getRoleWithIdOne());
 
         assertNotNull(users);
         assertThat(users.size(), is(2));

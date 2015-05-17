@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import org.joda.time.DateTime;
 import org.springframework.http.MediaType;
 
-import test.by.itechart.flowerty.persistence.repository.helper.ContactRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.ContactRepositoryHelperTest;
 import by.itechart.flowerty.persistence.model.Contact;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *          
  *         Helper for test
  */
-public final class HelperTestsController extends ContactRepositoryHelperTests {
+public final class HelperTestsController extends ContactRepositoryHelperTest {
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 

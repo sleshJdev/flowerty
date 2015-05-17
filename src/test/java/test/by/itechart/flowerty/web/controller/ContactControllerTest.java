@@ -22,7 +22,7 @@ import by.itechart.flowerty.persistence.model.User;
  *
  *	integration tests for ContactController
  */
-public class ContactControllerTests extends WebApplicationConfigurationAware {
+public class ContactControllerTest extends WebApplicationConfigurationAware {
     private MockHttpSession session;
     
     @Before
@@ -107,7 +107,7 @@ public class ContactControllerTests extends WebApplicationConfigurationAware {
         			.content(HelperTestsController.convertObjectToJsonBytes(HelperTestsController.getContactForSaving()))
         		)
         	.andExpect(status().isOk())
-	;
+        	;
 	//TODO: add asserts
     }
     

@@ -6,7 +6,7 @@ import by.itechart.flowerty.persistence.model.Role;
  * Created by Rostislav on 16-May-15
  */
 
-public abstract class RoleRepositoryHelperTests {
+public abstract class RoleRepositoryHelperTest {
 
     public static Role getRoleWithIdOne() {
         Role role = new Role();

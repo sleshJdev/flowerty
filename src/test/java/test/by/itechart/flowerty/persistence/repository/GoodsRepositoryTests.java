@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.GoodsRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.GoodsRepositoryHelperTest;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertNotNull;
@@ -24,7 +24,7 @@ public class GoodsRepositoryTests extends JpaConfigurationAware {
     @Test
     public void findOne_ShouldReturnAGoods() {
 
-        Goods expected = GoodsRepositoryHelperTests.getGoodsWithIdOne();
+        Goods expected = GoodsRepositoryHelperTest.getGoodsWithIdOne();
 
         Goods actual = goodsRepository.findOne(1L);
 

@@ -12,7 +12,7 @@ import java.util.Set;
  *         <p/>
  *         provides data for check tests
  */
-public abstract class ContactRepositoryHelperTests {
+public abstract class ContactRepositoryHelperTest {
 
     public static final User getSupervisor(){
 	Role role = new Role();

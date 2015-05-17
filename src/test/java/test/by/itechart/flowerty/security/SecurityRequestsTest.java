@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by Rostislav on 05-May-15
  */
 
-public class SecurityRequestsTests extends WebSecurityConfigurationAware {
+public class SecurityRequestsTest extends WebSecurityConfigurationAware {
 
     @Before
     public void setup() {

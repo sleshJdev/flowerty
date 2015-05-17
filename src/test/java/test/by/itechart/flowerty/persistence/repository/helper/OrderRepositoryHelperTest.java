@@ -8,7 +8,7 @@ import by.itechart.flowerty.persistence.model.User;
  * Created by Rostislav on 17-May-15
  */
 
-public abstract class OrderRepositoryHelperTests {
+public abstract class OrderRepositoryHelperTest {
 
     private static State getStateAccepted() {
         State state = new State();
@@ -55,8 +55,8 @@ public abstract class OrderRepositoryHelperTests {
         order.setId(1L);
         order.setState(getStateAccepted());
         order.setCost(12.0);
-        order.setCustomer(ContactRepositoryHelperTests.getContactWithIdOne());
-        order.setReceiver(ContactRepositoryHelperTests.getContactWithIdOne());
+        order.setCustomer(ContactRepositoryHelperTest.getContactWithIdOne());
+        order.setReceiver(ContactRepositoryHelperTest.getContactWithIdOne());
         order.setStaff(getStaff());
         order.setManager(getManager());
         order.setDelivery(getDelivery());

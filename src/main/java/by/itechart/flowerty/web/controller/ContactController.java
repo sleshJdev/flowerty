@@ -55,7 +55,7 @@ public class ContactController {
     @RequestMapping(value = "contact/partial-search/{surname}")
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
 	LOGGER.info("search by surname: {}", surname);
-	System.out.println("surname: " + surname);
+	
         Company company = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = null;

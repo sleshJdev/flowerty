@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         SearchContext.class,
         SpringSecurityConfiguration.class})
 @WebAppConfiguration
-public class LoginRequestBuilderAuthenticationTests {
+public class LoginRequestBuilderAuthenticationTest {
 
     @Autowired
     private WebApplicationContext context;

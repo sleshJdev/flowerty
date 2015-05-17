@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.PhoneRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.PhoneRepositoryHelperTest;
 import by.itechart.flowerty.persistence.model.Phone;
 import by.itechart.flowerty.persistence.repository.PhoneRepository;
 
@@ -18,7 +18,7 @@ import by.itechart.flowerty.persistence.repository.PhoneRepository;
  * Created by Rostislav on 16-May-15
  */
 
-public class PhoneRepositoryTests extends JpaConfigurationAware {
+public class PhoneRepositoryTest extends JpaConfigurationAware {
 
     @Autowired
     private PhoneRepository phoneRepository;
@@ -27,7 +27,7 @@ public class PhoneRepositoryTests extends JpaConfigurationAware {
     @Test
     public void findOne_ShouldReturnAPhone() {
 
-        Phone expected = PhoneRepositoryHelperTests.getPhoneWithIdOne();
+        Phone expected = PhoneRepositoryHelperTest.getPhoneWithIdOne();
 
         Phone actual = phoneRepository.findOne(1L);
 

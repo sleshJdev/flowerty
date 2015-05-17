@@ -10,6 +10,7 @@ import by.itechart.flowerty.persistence.mongo.repository.FinancialReportReposito
 /**
  * @author Eugene Putsykovich(slesh) May 7, 2015
  *
+ *	mongo tests
  */
 public class MongoTests extends JpaConfigurationAware {
     @Autowired

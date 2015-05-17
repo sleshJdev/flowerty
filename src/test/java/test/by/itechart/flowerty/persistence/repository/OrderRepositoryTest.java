@@ -5,7 +5,7 @@ import by.itechart.flowerty.persistence.repository.OrderRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.OrderRepositoryHelperTests;
+import test.by.itechart.flowerty.persistence.repository.helper.OrderRepositoryHelperTest;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasProperty;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
  * Created by Rostislav on 16-May-15
  */
 
-public class OrderRepositoryTests extends JpaConfigurationAware {
+public class OrderRepositoryTest extends JpaConfigurationAware {
 
     @Autowired
     private OrderRepository orderRepository;
@@ -25,7 +25,7 @@ public class OrderRepositoryTests extends JpaConfigurationAware {
     @Test
     public void findOne_ShouldReturnAOrder() {
 
-        Order expected = OrderRepositoryHelperTests.getOrderWithIdOne();
+        Order expected = OrderRepositoryHelperTest.getOrderWithIdOne();
 
         Order actual = orderRepository.findOne(1L);
 
