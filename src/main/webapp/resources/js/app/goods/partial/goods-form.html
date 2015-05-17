@@ -1,7 +1,7 @@
 <!-- form of adding of goods -->
-<div class="col-md-10">
+<div class="col-md-offset-1 col-md-10">
 	<div data-ng-app="flowertyApplication.goodsModule">
-		<fieldset class="col-md-offset-1 form-horizontal" data-ng-form="goodsForm">
+		<fieldset class="form-horizontal" data-ng-form="goodsForm">
 			<legend class="text-center">{{'ADD_GOODS' | xlat}}</legend>
 			<div class="form-group">
 				<label class="col-md-3" >{{'COST' | xlat}}</label>
@@ -31,9 +31,9 @@
 				</div>
 			</div>
 		</fieldset>
-		<div>
+		<div class="col-md-offset-3 form-group">
 			<button data-ng-disabled="goodsForm.$invalid"
-				class="pull-right col-sm-2 btn btn-primary active" data-ng-click="bundle.actions.add()">{{'ADD' | xlat}}</button>
+				class="col-sm-2 btn btn-default active" data-ng-click="bundle.actions.add()">{{'ADD' | xlat}}</button>
 		</div>
 	</div>
 </div>

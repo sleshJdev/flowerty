@@ -1,26 +1,29 @@
 <!-- Form for showing list of users, deleting users -->
 <div data-ng-app="flowertyApplication.userModule">
-    <div class="col-md-12" data-ng-include="templates.pagination.url"></div>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered">
-                <tr>
-                    <th data-ng-click="users.deleteUsers()"><a href=""><span class="glyphicon glyphicon-remove"></span></a>
-                    </th>
-                    <th>full name</th>
-                    <th>login</th>
-                    <th>role</th>
-                </tr>
-                <tr data-ng-repeat="user in users.list">
-                    <td><input type="checkbox" data-ng-model="user.checked"/>
-                    </td>
-                    <td><a href="#edit-user/{{user.id}}"><span class="glyphicon glyphicon-edit"></span>
-                        {{user.contact.name + ' ' + user.contact.surname + ' ' + user.contact.fathername}}</a></td>
-                    <td>{{user.login}}</td>
-                    <td>{{user.role.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
-                </tr>
-            </table>
+    <fieldset>
+        <legend class="text-center">Users</legend>
+        <div class="col-md-12" data-ng-include="templates.pagination.url"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <tr>
+                        <th data-ng-click="users.deleteUsers()"><a href=""><span class="glyphicon glyphicon-remove"></span></a>
+                        </th>
+                        <th>full name</th>
+                        <th>login</th>
+                        <th>role</th>
+                    </tr>
+                    <tr data-ng-repeat="user in users.list">
+                        <td><input type="checkbox" data-ng-model="user.checked"/>
+                        </td>
+                        <td><a href="#edit-user/{{user.id}}"><span class="glyphicon glyphicon-edit"></span>
+                            {{user.contact.name + ' ' + user.contact.surname + ' ' + user.contact.fathername}}</a></td>
+                        <td>{{user.login}}</td>
+                        <td>{{user.role.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="col-md-12" data-ng-include="templates.pagination.url"></div>
+        <div class="col-md-12" data-ng-include="templates.pagination.url"></div>
+    </fieldset>
 </div>

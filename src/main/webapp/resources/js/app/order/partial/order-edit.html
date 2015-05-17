@@ -2,10 +2,12 @@
 <div data-ng-app="flowertyApplication.orderModule">
     <form class="form-horizontal col-md-offset-1 col-md-10" name="orderForm">
         <fieldset>
-            <legend data-ng-show="!bundle.order.id">
+            <legend class="text-center"
+                    data-ng-show="!bundle.order.id">
                 Checkout!
             </legend>
-            <legend data-ng-show="bundle.order.id">
+            <legend class="text-center"
+                    data-ng-show="bundle.order.id">
                 Edit order <a href="#order-history/{{bundle.order.id}}">#{{bundle.order.id}}<span class="glyphicon glyphicon-time"></span></a>
             </legend>
             <div class="form-group form-group-lg">

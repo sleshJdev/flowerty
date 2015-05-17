@@ -4,63 +4,18 @@
  */
 
 angular.module("flowertyApplication.goodsModule").controller("GoodsListController",
-    ['$scope', '$http', '$location', '$filter', '$localStorage', 'GOODS_MODULE_CONSTANTS', 'goodsListService', 'paginationService',
-        function($scope, $http, $location, $filter, $localStorage, GOODS_MODULE_CONSTANTS, goodsListService, paginationService) {
+    ['$scope', '$http', '$location', '$filter', '$localStorage', 'GOODS_MODULE_CONSTANTS', 'goodsListService', 'paginationService', 'cartService',
+        function($scope, $http, $location, $filter, $localStorage, GOODS_MODULE_CONSTANTS, goodsListService, paginationService, cartService) {
 
             $scope.goods = paginationService.getListBundle();
 
-            var getOrderItem = function (goodsItem) {
-                return {
-                    goods: goodsItem,
-                    quantity: goodsItem.count
-                };
-            };
+            $scope.goods.makeOrder = cartService.makeOrder;
 
-            $scope.goods.makeOrder = function (goodsItem) {
+            $scope.goods.removeFromOrder = cartService.removeFromOrder;
 
-                $scope.current.basket.items[goodsItem.id] = getOrderItem(goodsItem);
-                $scope.current.basket.info.itemsCount += goodsItem.count;
-                $scope.current.basket.info.fullCost += goodsItem.cost * goodsItem.count;
-                $localStorage.cart = $scope.current.basket;
-            };
+            $scope.goods.less = cartService.less;
 
-            $scope.goods.removeFromOrder = function (goodsItem) {
-                if ($scope.current.basket.items[goodsItem.id]) {
-                    $scope.current.basket.info.itemsCount -= $scope.current.basket.items[goodsItem.id].quantity;
-                    $scope.current.basket.info.fullCost -= goodsItem.cost * $scope.current.basket.items[goodsItem.id].quantity;
-                    delete $scope.current.basket.items[goodsItem.id];
-                    goodsItem.count = 1;
-                }
-                $localStorage.cart = $scope.current.basket;
-            };
-
-            $scope.goods.less = function (goodsItem) {
-                if (goodsItem.count > 1) {
-                    goodsItem.count--;
-
-                    //  If it's already in cart, we also change count in it
-                    if ($scope.current.basket.items[goodsItem.id]) {
-                        $scope.current.basket.items[goodsItem.id].quantity--;
-                        $scope.current.basket.info.itemsCount--;
-                        $scope.current.basket.info.fullCost -= goodsItem.cost;
-                        $localStorage.cart = $scope.current.basket;
-                    }
-                }
-            };
-
-            $scope.goods.more = function (goodsItem) {
-                if (goodsItem.count < goodsItem.remain) {
-                    goodsItem.count++;
-
-                    //  If it's already in cart, we also change count in it
-                    if ($scope.current.basket.items[goodsItem.id]) {
-                        $scope.current.basket.items[goodsItem.id].quantity++;
-                        $scope.current.basket.info.itemsCount++;
-                        $scope.current.basket.info.fullCost += goodsItem.cost;
-                        $localStorage.cart = $scope.current.basket;
-                    }
-                }
-            };
+            $scope.goods.more = cartService.more;
 
             $scope.goods.getGoodsItemClass = function (goodsItem) {
 
