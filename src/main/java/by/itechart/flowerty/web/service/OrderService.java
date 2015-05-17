@@ -79,13 +79,15 @@ public class OrderService {
 
     //TODO: add searching by state with description NEW!!!!!!!!!
     private State getStateByDescription(State.DESCRIPTION_TYPE type){
-        List<State> states = (List<State>) stateRepository.findAll();
+     /*   List<State> states = (List<State>) stateRepository.findAll();
         for (State state : states) {
             if (state.getDescription() == type) {
                 return state;
             }
         }
-        return null;
+        return null;*/
+        List<State> states = stateRepository.findByDescription(type);
+        return states.size() == 0 ? null : states.get(0);
     }
 
     private User getCurrentUser(){

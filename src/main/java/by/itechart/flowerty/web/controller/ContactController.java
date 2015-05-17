@@ -4,7 +4,6 @@ import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
-import by.itechart.flowerty.web.service.RepositorySolrContactService;
 import by.itechart.flowerty.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +30,6 @@ public class ContactController {
 
     @Autowired
     private ContactService contactService;
-
-    @Autowired
-    private RepositorySolrContactService solrContactService;
 
     @Autowired
     private UserService userService;
@@ -106,8 +102,6 @@ public class ContactController {
         LOGGER.info("save contact: {}", contact.toString());
 
         contactService.save(contact);
-        solrContactService.add(contact);
-
         return contact;
     }
     

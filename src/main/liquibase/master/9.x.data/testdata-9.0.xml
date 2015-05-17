@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet id="testdata-9.0.1" author="Maria">
+    <insert tableName="contact">
+        <column name="NAME" value="Inna"/>
+        <column name="SURNAME" value="Ivanova"/>
+        <column name="FATHERNAME" value="Sergeevna"/>
+        <column name="BIRTHDAY" value="1980-10-06"/>
+        <column name="EMAIL" value="sergeeva80@mail.com"/>
+        <column name="ADDRESS_ID" value="11"/>
+        <column name="COMPANY_ID" value="2"/>
+    </insert>
+    <insert tableName="contact">
+        <column name="NAME" value="Olga"/>
+        <column name="SURNAME" value="Sergeeva"/>
+        <column name="FATHERNAME" value="Antonovna"/>
+        <column name="BIRTHDAY" value="1992-11-04"/>
+        <column name="EMAIL" value="olga@mail.com"/>
+        <column name="ADDRESS_ID" value="1"/>
+        <column name="COMPANY_ID" value="2"/>
+    </insert>
+
+
+        <insert tableName="user">
+            <column name="LOGIN" value="admin"/>
+            <column name="PASSWORD" value="admin"/>
+            <column name="CONTACT_ID" value="4"/>
+            <column name="ROLE_ID" value="1"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="LOGIN" value="delivery_manager"/>
+            <column name="PASSWORD" value="delivery_manager"/>
+            <column name="CONTACT_ID" value="7"/>
+            <column name="ROLE_ID" value="2"/>
+        </insert>
+        <insert tableName="user">
+            <column name="LOGIN" value="orders_manager"/>
+            <column name="PASSWORD" value="orders_manager"/>
+            <column name="CONTACT_ID" value="10"/>
+            <column name="ROLE_ID" value="3"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="LOGIN" value="orders_processor"/>
+            <column name="PASSWORD" value="orders_processor"/>
+            <column name="CONTACT_ID" value="13"/>
+            <column name="ROLE_ID" value="4"/>
+        </insert>
+        <insert tableName="user">
+            <column name="LOGIN" value="supervisor"/>
+            <column name="PASSWORD" value="supervisor"/>
+            <column name="CONTACT_ID" value="14"/>
+            <column name="ROLE_ID" value="5"/>
+        </insert>
+        <rollback/>
+    </changeSet>
+</databaseChangeLog>

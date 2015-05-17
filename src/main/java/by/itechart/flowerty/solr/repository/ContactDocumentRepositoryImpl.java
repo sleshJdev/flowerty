@@ -1,6 +1,5 @@
 package by.itechart.flowerty.solr.repository;
 
-import by.itechart.flowerty.persistence.model.Address;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import com.mysql.jdbc.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -156,11 +155,5 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
             list.add(Long.valueOf(cd.getId()));
         }
         return list;
-    }
-
-    @Override
-    public Long findByAddress(Address address) {
-
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

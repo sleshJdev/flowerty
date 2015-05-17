@@ -1,6 +1,7 @@
 package by.itechart.flowerty.persistence.repository;
 
 import by.itechart.flowerty.persistence.model.Phone;
+import by.itechart.flowerty.persistence.model.QPhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.List;
  *         delete phones by id
  */
 public class PhoneRepositoryImpl extends QueryDslRepositorySupport implements PhoneRepositoryCustom {
-    //private static final QPhone PHONE = QPhone.phone;
+    private static final QPhone PHONE = QPhone.phone;
 
     public PhoneRepositoryImpl() {
 	super(Phone.class);
@@ -27,6 +28,6 @@ public class PhoneRepositoryImpl extends QueryDslRepositorySupport implements Ph
     @Override
     @Transactional
     public void deleteIdNotIn(Long contactId, List<Long> list) {
-//	delete(PHONE).where(PHONE.id.notIn(list).and(PHONE.contact.id.eq(contactId))).execute();
+	delete(PHONE).where(PHONE.id.notIn(list).and(PHONE.contact.id.eq(contactId))).execute();
     }
 }

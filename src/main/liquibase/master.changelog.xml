@@ -8,6 +8,9 @@
     <!--<include relativeToChangelogFile="true" file="master/4.x/changelog-4.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/4.x.data/testdata-4.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/5.x/changelog-5.0.xml"/>-->
-    <!--<include relativeToChangelogFile="true" file="master/6.x/changelog-6.0.xml"/>-->
+    <include relativeToChangelogFile="true" file="master/6.x/changelog-6.0.xml"/>
     <include relativeToChangelogFile="true" file="master/7.x/changelog-7.0.xml"/>
+    <!--<include relativeToChangelogFile="true" file="master/8.x/changelog-8.0.xml"/>-->
+    <include relativeToChangelogFile="true" file="master/9.x/changelog-9.0.xml"/>
+    <include relativeToChangelogFile="true" file="master/9.x.data/testdata-9.0.xml"/>
 </databaseChangeLog>

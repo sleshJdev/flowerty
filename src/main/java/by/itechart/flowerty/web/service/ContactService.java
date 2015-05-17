@@ -1,16 +1,6 @@
 package by.itechart.flowerty.web.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import by.itechart.flowerty.persistence.model.Address;
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Phone;
@@ -19,6 +9,16 @@ import by.itechart.flowerty.persistence.repository.PhoneRepository;
 import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -146,5 +146,12 @@ public class ContactService {
 	}
 	return new PageImpl<Contact>(contactRepository.findByIdIn(contactDocumentRepository
 		.findBySurnameStartsWithAndCompany(surname, company)));
+    }
+
+    public Contact findByAddress(Address address) {
+        Contact contact = new Contact();
+        contact.setAddress(address);
+        List<Long> ids = contactDocumentRepository.findBySearch(contact.getContactDocument());
+        return ids.size() == 0 ? null : contactRepository.findById(ids.get(0));
     }
 }
