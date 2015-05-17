@@ -1,7 +1,7 @@
-#Flowerty
+# Flowerty
 Flowers store service with web ui on Java.
 
-###version
+### version
 1.0.0
 
 ### stack of technologies:
