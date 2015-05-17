@@ -1,4 +1,4 @@
-package test.by.itechart.flowerty.persistence.repository;
+package test.by.itechart.flowerty.persistence.repository.helper;
 
 import by.itechart.flowerty.persistence.model.*;
 import by.itechart.flowerty.persistence.model.Phone.PHONE_TYPE;
@@ -12,7 +12,7 @@ import java.util.Set;
  *         <p/>
  *         provides data for check tests
  */
-public abstract class HelperTestsRepository {
+public abstract class ContactRepositoryHelperTests {
 
     public static final User getUserWhichHasPermissionToUsePartialSearch(){
 	Role role = new Role();
@@ -68,25 +68,5 @@ public abstract class HelperTestsRepository {
         contact.setCompany(company);
 
         return contact;
-    }
-
-    public static Role getRoleWithIdOne() {
-        Role role = new Role();
-        role.setId(1L);
-        role.setName(Role.ROLE_TYPE.ADMIN);
-
-        return role;
-    }
-
-    public static User getUserWithIdOne() {
-        User user = new User();
-
-        user.setId(1L);
-        user.setLogin("test");
-        user.setPassword("$2a$10$ZWwh6S.iW5Sjeo2mklifkegHdSDOpmxpAw5oHDRTEMWgHLS.bILny");
-        user.setRole(getRoleWithIdOne());
-        user.setContact(getContactWithIdOne());
-
-        return user;
     }
 }

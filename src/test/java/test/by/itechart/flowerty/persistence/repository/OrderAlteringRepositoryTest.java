@@ -25,9 +25,9 @@ public class OrderAlteringRepositoryTest extends JpaConfigurationAware {
     @Test
     public void findOne() {
 
-        OrderAltering orderAltering = orderAlteringRepository.findOne(1L);
+        OrderAltering actual = orderAlteringRepository.findOne(1L);
 
-        Assert.assertNotNull(orderAltering);
-        assertThat(orderAltering.getId(), equalTo(1L));
+        Assert.assertNotNull(actual);
+        assertThat(actual.getId(), equalTo(1L));
     }
 }

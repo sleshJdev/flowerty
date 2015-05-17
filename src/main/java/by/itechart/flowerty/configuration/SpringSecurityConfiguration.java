@@ -65,9 +65,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+
                 .antMatchers("/user/profile")
                 .authenticated()
-
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
 
@@ -78,13 +78,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/order/save")
                 .access("hasRole('ROLE_ORDERS_MANAGER')")
-                .antMatchers("/order/change/save")
-                .access("hasAnyRole('ROLE_ORDERS_MANAGER', 'ROLE_SUPERVISOR')")
                 .antMatchers("/order/create/bundle")
                 .access("hasRole('ROLE_ORDERS_MANAGER')")
                 .antMatchers("/order/**")
                 .access("hasAnyRole('ROLE_ORDERS_MANAGER', 'ROLE_DELIVERY_MANAGER', 'ROLE_ORDERS_PROCESSOR', 'ROLE_SUPERVISOR')")
-
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())
