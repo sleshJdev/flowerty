@@ -1,16 +1,16 @@
 package test.by.itechart.flowerty.persistence.repository;
 
-import static org.springframework.util.Assert.notEmpty;
-
-import java.util.List;
-
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.repository.ContactRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.persistence.repository.ContactRepository;
+import test.by.itechart.flowerty.persistence.repository.helper.ContactRepositoryHelperTests;
+
+import java.util.List;
+
+import static org.springframework.util.Assert.notEmpty;
 
 public class ContactRepositoryTests extends JpaConfigurationAware {
 
@@ -19,7 +19,7 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
 
     @Test
     public void findOne_PassValidId_RetursContact() {
-        final Contact expected = HelperTestsRepository.getContactWithIdOne();
+        final Contact expected = ContactRepositoryHelperTests.getContactWithIdOne();
 
         final Contact actual = contactRepository.findOne(1L);
 
@@ -54,7 +54,7 @@ public class ContactRepositoryTests extends JpaConfigurationAware {
 
     @Test
     public void findBySurnameStartingWithAndCompany_PassValidParameters_ReturnsNotNullCollectionWithTargetContact() {
-        final Contact expected = HelperTestsRepository.getContactWithIdOne();
+        final Contact expected = ContactRepositoryHelperTests.getContactWithIdOne();
 
         final List<Contact> actuals = contactRepository.findBySurnameStartingWithAndCompany(expected.getSurname(), expected.getCompany());
 
