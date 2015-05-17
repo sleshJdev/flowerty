@@ -23,15 +23,18 @@
                 </div>
                 <div class="goods-item-info caption text-center">
                     <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
-                    <h5 class="goods-item-description">{{goodsItem.cost | currency}}</h5>
-                    <p data-ng-show="current.isLogged">Count: <a href="" data-ng-click="goods.less(goodsItem)"><span class="glyphicon glyphicon-minus"></span></a>
+                    <h5 class="goods-item-description"
+                        data-ng-show="goodsItem.remain">{{goodsItem.cost | currency}}
+                    </h5>
+                    <p data-ng-show="current.isLogged && goodsItem.remain">Count: <a href="" data-ng-click="goods.less(goodsItem)"><span class="glyphicon glyphicon-minus"></span></a>
                         <span class="goods-item-count badge">{{goodsItem.count}}</span>
                         <a href="" data-ng-click="goods.more(goodsItem)"><span class="glyphicon glyphicon-plus"></span></a>
                     </p>
-                    <div data-ng-show="current.isLogged">
+                    <div data-ng-show="current.isLogged && goodsItem.remain">
                         <div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]" data-ng-click="goods.makeOrder(goodsItem)">{{'ADD_BASKET' | xlat}}</div>
                         <div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]" data-ng-click="goods.removeFromOrder(goodsItem)">{{'REMOVE_BASKET' | xlat}}</div>
                     </div>
+                    <h5 data-ng-show="current.isLogged && !goodsItem.remain">Not available at warehouse</h5>
                 </div>
             </div>
         </div>

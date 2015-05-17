@@ -69,6 +69,7 @@ angular.module('flowertyApplication').controller('MainController',
                 $filter('bySurname')([], model, $scope.dynamicSearch.filterCallback);
             },
             filterCallback: function (model, data) {
+                $scope.dynamicSearch.offeredContacts = [];
                 $scope.dynamicSearch.offeredContacts = data.content;
                 model.selected = $scope.dynamicSearch.offeredContacts[0];
                 model.show = $scope.dynamicSearch.showResults();
@@ -98,6 +99,7 @@ angular.module('flowertyApplication').controller('MainController',
         $scope.localization = {
             language : 'en'
         };
+
         if ($localStorage.language) {
             $scope.localization.language = $localStorage.language;
             alert('localization.language');

@@ -49,7 +49,6 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
             };
 
             $scope.goods.more = function (goodsItem) {
-                console.log(goodsItem.remain);
                 if (goodsItem.count < goodsItem.remain) {
                     goodsItem.count++;
 

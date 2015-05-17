@@ -2,6 +2,7 @@ package test.by.itechart.flowerty.persistence.repository;
 
 import by.itechart.flowerty.persistence.model.Role;
 import by.itechart.flowerty.persistence.repository.RoleRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
@@ -22,6 +23,7 @@ public class RoleRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Ignore
     @Test
     public void findByName_ShouldReturnAUser() {
 
@@ -36,6 +38,7 @@ public class RoleRepositoryTest extends JpaConfigurationAware {
         ));
     }
 
+    @Ignore
     @SuppressWarnings("unchecked")
     @Test
     public void findAll_ShouldReturnAListOfAllRoles() {
