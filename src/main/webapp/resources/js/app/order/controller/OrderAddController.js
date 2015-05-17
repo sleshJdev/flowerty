@@ -4,19 +4,21 @@
  */
 
 angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location',
-    'checkoutService', 'orderService', 'staffService', 'notificationService',
-    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService) {
+    'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage',
+    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage) {
 
         $scope.search = {
             customer: {
                 enteredSurname: '',
                 show: false,
-                selected: {}
+                selected: {},
+                loading : false
             },
             receiver: {
                 enteredSurname: '',
                 show: false,
-                selected: {}
+                selected: {},
+                loading : false
             }
         };
 
@@ -36,11 +38,11 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 function (data) {
                     console.log('Checkout order completed succesfully: ' + JSON.stringify($scope.bundle.order));
 
-                    //  Makes the basket empty
-                    $scope.current.resetBasket();
                     $scope.bundle.order = data;
                     if($scope.bundle.order.id) {
                         notificationService.notify("success", "New order added!");
+                        //  Makes the basket empty
+                        $scope.current.resetBasket();
                         $location.path('edit-order/' + $scope.bundle.order.id);
                     }
                     else {
@@ -80,6 +82,9 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 $scope.bundle = {
                     order: order
                 };
+                if(!$scope.current.basket.items.length){
+                    $localStorage.cart ? $scope.current.basket = $localStorage.cart : $location.path("/");
+                }
                 orderService.initCartItems($scope.bundle.order, $scope.current.basket);
                 prepareStaff();
             },

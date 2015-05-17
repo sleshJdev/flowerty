@@ -62,28 +62,30 @@ angular.module('flowertyApplication').controller('MainController',
             *                          enteredSurname : '' // string for filtering bySurname
             *                      }
             */
-            offerContacts: function (model) {
+            offerContacts : function (model) {
 
-                //TODO: start spinner
-
-                $filter('bySurname')([], model, $scope.dynamicSearch.filterCallback);
+                //  start spinner
+                model.loading = true;
+                $filter('bySurname')([], model, $scope.dynamicSearch.filterCallback,  $scope.dynamicSearch.errorCallback);
             },
-            filterCallback: function (model, data) {
-                $scope.dynamicSearch.offeredContacts = [];
-                $scope.dynamicSearch.offeredContacts = data.content;
-                model.selected = $scope.dynamicSearch.offeredContacts[0];
-                model.show = $scope.dynamicSearch.showResults();
-
-                //TODO: stop spinner
+            filterCallback : function (model, data) {
+                model.offeredContacts = data.content ? data.content : data;
+                model.selected = model.offeredContacts[0];
+                model.show = $scope.dynamicSearch.showResults(model);
+                //  stop spinner
+                model.loading = false;
             },
-            showResults: function () {
-                return $scope.dynamicSearch.offeredContacts && $scope.dynamicSearch.offeredContacts.length > 0;
+            showResults : function (model) {
+                return model.offeredContacts && model.offeredContacts.length > 0;
             },
-            selectContact: function (model) {
+            selectContact : function (model) {
                 //  Setting empty array hides select element
-                $scope.dynamicSearch.offeredContacts = [];
+                model.offeredContacts = [];
                 model.enteredSurname = model.selected.name + ' ' + model.selected.fathername + ' ' + model.selected.surname;
                 model.show = false;
+                //  stop spinner
+                //  на всякий случай!
+                model.loading = false;
             }
         };
 

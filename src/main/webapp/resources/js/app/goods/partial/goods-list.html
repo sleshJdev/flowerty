@@ -9,6 +9,9 @@
             <p>{{'ITEMS_COUNT' | xlat}} <strong>{{current.basket.info.itemsCount}}</strong></p>
             <p>{{'FULL_COST' | xlat}} <strong>{{current.basket.info.fullCost | currency}}</strong></p>
             <a href="#add-order"><div class="btn btn-default">{{'FORM_ORDER' | xlat}}</div></a>
+            <a href=""
+                    data-ng-click="current.resetBasket()"
+                    class="col-md-12">Reset cart</a>
         </div>
     </div>
     <h1>{{'MAKE_ORDER' | xlat}}</h1>

@@ -15,12 +15,14 @@
                     <label class="col-sm-4 control-label">Contacts</label>
 
                     <div class="col-sm-6">
+                        <img class="loader" src="resources/images/loader.gif"
+                             data-ng-show="search.user.loading"/>
                         <input type="text" class="form-control input-lg" placeholder="start typing.."
                                data-ng-model="search.user.enteredSurname"
                                data-ng-change="dynamicSearch.offerContacts(search.user)"/>
                         <select class="form-control list-group-item select-select" size="3"
                                 data-ng-show="search.user.show"
-                                data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
+                                data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in search.user.offeredContacts"
                                 data-ng-model="search.user.selected"
                                 data-ng-click="dynamicSearch.selectContact(search.user)">
                         </select>

@@ -29,12 +29,14 @@
                     <p class="form-control-static input-lg">{{bundle.order.customer.name}} {{bundle.order.customer.fathername}} {{bundle.order.customer.surname}}</p>
                 </div>
                 <div class="col-sm-9" data-ng-show="!bundle.order.id">
+                    <img class="loader" src="resources/images/loader.gif"
+                            data-ng-show="search.customer.loading"/>
                     <input type="text" class="form-control input-lg" id="customer" placeholder="start typing.."
                            data-ng-model="search.customer.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.customer)"/>
                     <select class="form-control list-group-item select-select" size="3"
                             data-ng-show="search.customer.show"
-                            data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
+                            data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in search.customer.offeredContacts"
                             data-ng-model="search.customer.selected"
                             data-ng-click="dynamicSearch.selectContact(search.customer)">
                     </select>
@@ -46,12 +48,14 @@
                     <p class="form-control-static input-lg">{{bundle.order.receiver.name}} {{bundle.order.receiver.fathername}} {{bundle.order.receiver.surname}}</p>
                 </div>
                 <div class="col-sm-9" data-ng-show="!bundle.order.id">
+                    <img class="loader" src="resources/images/loader.gif"
+                         data-ng-show="search.receiver.loading"/>
                     <input type="text" class="form-control input-lg" id="receiver" placeholder="start typing.."
                            data-ng-model="search.receiver.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.receiver)"/>
                     <select class="form-control list-group-item select-select" size="3"
                             data-ng-show="search.receiver.show"
-                            data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in dynamicSearch.offeredContacts"
+                            data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in search.receiver.offeredContacts"
                             data-ng-model="search.receiver.selected"
                             data-ng-click="dynamicSearch.selectContact(search.receiver)">
                     </select>

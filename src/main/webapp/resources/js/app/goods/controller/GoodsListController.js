@@ -75,7 +75,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
                     $scope.current.basket = $localStorage.cart;
                 }
                 goodsListService.setCart($scope.current.basket);
-                $scope.pagination = paginationService.getPagination(goodsListService.getGoodsList);
+                $scope.pagination = paginationService.getPagination(goodsListService.getGoodsList, false);
                 $scope.pagination.getPage(1);
                 $scope.pagination.canChangeLimit = false;
             };
