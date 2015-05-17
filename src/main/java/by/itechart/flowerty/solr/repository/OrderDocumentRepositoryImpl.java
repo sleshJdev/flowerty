@@ -1,7 +1,9 @@
 package by.itechart.flowerty.solr.repository;
 
 import by.itechart.flowerty.solr.model.OrderDocument;
+
 import com.mysql.jdbc.StringUtils;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
@@ -9,6 +11,7 @@ import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class OrderDocumentRepositoryImpl implements OrderDocumentRepositoryCusto
     @Resource
     private SolrTemplate solrTemplatePurchase;
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List<Long> findBySearch(OrderDocument orderDocument) {
         Criteria criteria = null;

@@ -46,7 +46,7 @@ public class FlowertyMessagePublisherTests {
     }
 
     @Test
-    public void send_PassMessageWithAttachment_ShoudSendIt() throws IOException, MessagingException {
+    public void send_PassMessageWithAttachments_ShoudSendIt() throws IOException, MessagingException {
 	Map<String, byte[]> attachments = new HashMap<String, byte[]>();
 	attachments.put("flowerty.png", createAttachment("flowerty"));
 	attachments.put("team.png", createAttachment("team"));
@@ -55,7 +55,7 @@ public class FlowertyMessagePublisherTests {
 	messagePublisher.send(to, subject, text, attachments);
     }
 
-    private static byte[] createAttachment(String name) throws IOException {
+    private static final byte[] createAttachment(String name) throws IOException {
 	BufferedImage attachment = new BufferedImage(100, 100, BufferedImage.TYPE_3BYTE_BGR);
 	Graphics graphics = attachment.getGraphics();
 	Font font = new Font("Serif", Font.PLAIN, 18);

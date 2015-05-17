@@ -14,6 +14,14 @@ import java.util.Set;
  */
 public abstract class HelperTestsRepository {
 
+    public static final User getUserWhichHasPermissionToUsePartialSearch(){
+	Role role = new Role();
+	role.setId(5L);
+	role.setName(Role.ROLE_TYPE.SUPERVISOR);
+	
+	return new User(7L, "supervisor", "supervisor", role, (Contact)null);
+    }
+    
     public static Contact getContactWithIdOne() {
         Address address = new Address();
         address.setId(1L);

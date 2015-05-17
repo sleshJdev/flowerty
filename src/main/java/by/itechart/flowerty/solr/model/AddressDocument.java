@@ -9,6 +9,7 @@ import java.util.Date;
  *         Date: 15.05.15
  */
 @SolrDocument(solrCoreName="flowerty-contact")
+@SuppressWarnings("unused")
 public class AddressDocument {
     private String id;
     private String name;
