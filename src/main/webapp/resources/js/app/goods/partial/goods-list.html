@@ -8,15 +8,14 @@
             <p>{{'ITEMS_COUNT' | xlat}} <strong>{{current.basket.info.itemsCount}}</strong></p>
             <p>{{'FULL_COST' | xlat}} <strong>{{current.basket.info.fullCost | currency}}</strong></p>
             <a href="#add-order"><div class="btn btn-default">{{'FORM_ORDER' | xlat}}</div></a>
-            <p class="text-right">
+            <p class="text-left">
                 <a href=""
                     data-ng-click="current.resetBasket()">Reset cart</a>
             </p>
         </div>
     </div>
-    <h1 class="text-center" data-ng-show="!current.isLogged">Sorry, but you have to log in at first! :(</h1>
-    <a class="pull-right" data-ng-show="!current.isLogged" href="#login">click here to log in</a>
-    <legend class="text-center">{{'MAKE_ORDER' | xlat}}</legend>
+    <h1 class="text-center" data-ng-show="!current.isLogged">Sorry, but you have to log in! :(</h1>
+    <a data-ng-show="!current.isLogged" href="#login">click here to log in</a>
     <div data-ng-show="current.isLogged">
         <legend class="text-center">{{'MAKE_ORDER' | xlat}}</legend>
         <div data-ng-include="templates.pagination.url"></div>
@@ -34,7 +33,7 @@
                             data-ng-show="goodsItem.remain">{{goodsItem.cost | currency}}
                         </h5>
                         <div data-ng-show="goodsItem.remain && access.canFormOrder">
-                            <p>Count: <a href="" data-ng-click="goods.less(goodsItem, current.basket)"><span class="glyphicon glyphicon-minus"></span></a>
+                            <p>{{'COUNT' | xlat}}: <a href="" data-ng-click="goods.less(goodsItem, current.basket)"><span class="glyphicon glyphicon-minus"></span></a>
                                 <span class="goods-item-count badge">{{goodsItem.count}}</span>
                                 <a href="" data-ng-click="goods.more(goodsItem, current.basket)"><span class="glyphicon glyphicon-plus"></span></a>
                             </p>
@@ -43,7 +42,7 @@
                                 <div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]" data-ng-click="goods.removeFromOrder(goodsItem, current.basket)">{{'REMOVE_BASKET' | xlat}}</div>
                             </div>
                         </div>
-                        <h5 data-ng-show="!goodsItem.remain && access.canFormOrder">Not available at warehouse</h5>
+                        <h5 data-ng-show="!goodsItem.remain && access.canFormOrder">{{'NOT_AVAILABLE' | xlat}}</h5>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 <!-- Form for showing list of contacts, deleting contacts -->
 <div data-ng-app="flowertyApplication.contactModule">
     <fieldset>
-        <legend class="text-center">Contacts</legend>
-        <div><span data-ng-click="bundle.sendEmail()" class="btn glyphicon glyphicon-send"> Send email</span></div>
+        <legend class="text-center">{{'CONTACTS' | xlat}}</legend>
+        <div><span data-ng-click="bundle.sendEmail()" class="btn glyphicon glyphicon-send"> {{'SEND_EMAIL' | xlat}}</span></div>
         <div data-ng-include="templates.pagination.url"></div>
         <table class="table table-bordered">
             <tr>
