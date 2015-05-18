@@ -1,23 +1,6 @@
 package by.itechart.flowerty.web.service;
 
-<<<<<<< HEAD
 import by.itechart.flowerty.persistence.model.Address;
-=======
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.google.common.base.Functions;
-import com.google.common.collect.Lists;
-
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Phone;
@@ -26,6 +9,8 @@ import by.itechart.flowerty.persistence.repository.PhoneRepository;
 import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
+import com.google.common.base.Functions;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,15 +1,8 @@
 package by.itechart.flowerty.solr.repository;
 
-<<<<<<< HEAD
+import by.itechart.flowerty.persistence.model.Address;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import com.mysql.jdbc.StringUtils;
-=======
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.LocalDate;
 import org.springframework.data.domain.Page;
@@ -18,10 +11,9 @@ import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.stereotype.Repository;
 
-import by.itechart.flowerty.persistence.model.Address;
-import by.itechart.flowerty.solr.model.ContactDocument;
-
-import com.mysql.jdbc.StringUtils;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Maria Date: 16.04.15
@@ -169,8 +161,6 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
 	}
 	return list;
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public Long findByAddress(Address address) {
@@ -182,5 +172,4 @@ public class ContactDocumentRepositoryImpl implements ContactDocumentRepositoryC
     public void deleteIdIsIn(List<String> ids) {
 	solrTemplateContact.deleteById(ids);
     }
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 }

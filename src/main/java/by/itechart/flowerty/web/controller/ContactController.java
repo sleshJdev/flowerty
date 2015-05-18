@@ -1,16 +1,12 @@
 package by.itechart.flowerty.web.controller;
 
-<<<<<<< HEAD
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 import by.itechart.flowerty.web.service.UserService;
-=======
 import java.util.ArrayList;
 import java.util.List;
-
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,10 +121,6 @@ public class ContactController {
         System.out.println("save contact: " + contact.toString());
         
         contactService.save(contact);
-<<<<<<< HEAD
-=======
-
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
         return contact;
     }
     
