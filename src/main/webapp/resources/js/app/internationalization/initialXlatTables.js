@@ -72,8 +72,9 @@ var initialXlatTables = {
         'ROLE' : 'Role',
         'ROLES' : 'Roles',
         'CONTACT_AND_INFO' : 'CONTACT AND BASICS INFORMATION',
-        'HOMETOWN' : 'Hometown',
-        'FRENCH' : 'Français',
+        'HOMETOWN' : 'HOMETOWN',
+        'COMPANY_INFO': 'COMPANY',
+        'FRENCH' : 'Français'
     },
     'ru': {
         'CONTACTS': 'Контакты',
@@ -147,7 +148,8 @@ var initialXlatTables = {
         'ROLE': 'Роль',
         'ROLES' : 'Роли',
         'CONTACT_AND_INFO' : 'КОНТАКТ И ОСНОВНАЯ ИНФОРМАЦИЯ',
-        'HOMETOWN' : 'Родной город',
+        'HOMETOWN' : 'РОДНОЙ ГОРОД',
+        'COMPANY_INFO': 'КОМПАНИЯ',
         'FRENCH' : 'Français'
     },
     'fr': {
@@ -223,6 +225,7 @@ var initialXlatTables = {
         'ROLES' : 'Les roles',
         'CONTACT_AND_INFO' : 'Le contact et l\'information principale',
         'HOMETOWN' : 'La ville matérnèle',
+        'COMPANY_INFO': 'SOCIÉTÉ',
         'FRENCH' : 'Français'
     }
 

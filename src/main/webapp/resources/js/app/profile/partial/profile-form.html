@@ -53,6 +53,14 @@
 
                 <p class="col-md-9">{{profile.user.contact.address.country}}</p>
             </div>
+            <br>
+
+            <legend class="small">{{'COMPANY_INFO' | xlat}}</legend>
+            <div class="row form-horizontal">
+                <label class="col-md-3 text-right">{{profile.user.contact.company.name}}</label>
+
+                <a href="http://{{profile.user.contact.company.website}}/">{{profile.user.contact.company.website}}</a>
+            </div>
         </div>
 
         <div class="col-md-6">
