@@ -1,10 +1,8 @@
 package by.itechart.flowerty.solr.repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import by.itechart.flowerty.persistence.model.Address;
+import by.itechart.flowerty.solr.model.ContactDocument;
+import com.mysql.jdbc.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.LocalDate;
 import org.springframework.data.domain.Page;
@@ -13,10 +11,9 @@ import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.stereotype.Repository;
 
-import by.itechart.flowerty.persistence.model.Address;
-import by.itechart.flowerty.solr.model.ContactDocument;
-
-import com.mysql.jdbc.StringUtils;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Maria Date: 16.04.15
