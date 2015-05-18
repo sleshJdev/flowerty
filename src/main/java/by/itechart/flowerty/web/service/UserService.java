@@ -1,12 +1,5 @@
 package by.itechart.flowerty.web.service;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Role;
@@ -16,10 +9,19 @@ import by.itechart.flowerty.persistence.repository.RoleRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 import by.itechart.flowerty.web.model.UserEditBundle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
- *
+ *         <p/>
  *         service for user repository
  */
 @Service
@@ -95,8 +97,21 @@ public class UserService {
         return userRepository.findUserByLoginAndPassword(username, password);
     }
 
-    public int deleteIdIn(List<Long> list) {
-        return userRepository.deleteIdIsIn(list);
+    private static List<Long> fetchIdOfContact(List<User> users) {
+        List<Long> ids = new ArrayList<>(users.size());
+        for (User user : users) {
+            ids.add(user.getId());
+        }
+
+        return ids;
+    }
+
+    public int deleteIdIn(List<User> users) {
+        for (User user: users) {
+            contactDocumentRepository.save(user.getContact().getContactDocument());
+        }
+
+        return userRepository.deleteIdIsIn(fetchIdOfContact(users));
     }
 
     public List<Role> getRoles() {
