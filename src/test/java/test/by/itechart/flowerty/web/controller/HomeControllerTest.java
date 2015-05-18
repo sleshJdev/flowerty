@@ -7,14 +7,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Ignore;
 import org.junit.Test;
-
 import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
  *	
  *         tests for HomeController
  */
+
 @Ignore
 public class HomeControllerTest extends WebApplicationConfigurationAware {
 

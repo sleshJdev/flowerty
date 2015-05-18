@@ -3,7 +3,7 @@
  * Created by Катерина on 20.04.2015.
  */
 
-angular.module("flowertyApplication.userModule").controller("UserEditController", ['$scope', '$http', '$location', '$routeParams', 'USER_MODULE_CONSTANTS', 'userService', 'notificationService',
+angular.module("flowertyApplication.userModule").controller("EditUserController", ['$scope', '$http', '$location', '$routeParams', 'USER_MODULE_CONSTANTS', 'userService', 'notificationService',
     function ($scope, $http, $location, $routeParams, USER_MODULE_CONSTANTS, userService, notificationService) {
 
         $scope.option = {

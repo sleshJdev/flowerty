@@ -20,13 +20,11 @@ import by.itechart.flowerty.persistence.repository.PhoneRepository;
 import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
-
 import com.google.common.base.Functions;
 import com.google.common.collect.Lists;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
- *
  */
 @Service
 public class ContactService {
@@ -41,7 +39,7 @@ public class ContactService {
 
     @Autowired(required = true)
     private ContactDocumentRepository contactDocumentRepository;
-    
+
     public Page<Contact> getPage(int page, int size) {
 	PageRequest pageRequest = new PageRequest(page, size);
 
@@ -113,7 +111,7 @@ public class ContactService {
 
     public Contact findOne(Long id) {
 
-	return contactRepository.findOne(id);
+        return contactRepository.findOne(id);
     }
 
     private List<Long> processPhonesAndGetId(Contact contact) {
@@ -130,25 +128,25 @@ public class ContactService {
 
     @Transactional
     public Contact save(Contact contact) {
-	if (contact.getId() == null) {
-	    contact.setCompany(userDetailsService.getCurrentContact().getCompany());
-	}
+        if (contact.getId() == null) {
+            contact.setCompany(userDetailsService.getCurrentContact().getCompany());
+        }
 
-	contactRepository.save(contact);
+        contactRepository.save(contact);
 
-	if (contact.getPhones() != null) {
-	    phoneRepository.save(contact.getPhones());
-	    phoneRepository.deleteIdNotIn(contact.getId(), processPhonesAndGetId(contact));
-	}
+        if (contact.getPhones() != null) {
+            phoneRepository.save(contact.getPhones());
+            phoneRepository.deleteIdNotIn(contact.getId(), processPhonesAndGetId(contact));
+        }
 
-	contactDocumentRepository.save(contact.getContactDocument());
+        contactDocumentRepository.save(contact.getContactDocument());
 
-	return contact;
+        return contact;
     }
 
     public Page<Contact> findByCompany(Company company, PageRequest pageRequest) {
 
-	return contactRepository.findByCompany(company, pageRequest);
+        return contactRepository.findByCompany(company, pageRequest);
     }
 
     @Transactional
@@ -160,7 +158,7 @@ public class ContactService {
     }
 
     public List<Contact> findByBirthDate(String date) {
-	List<Long> ids = contactDocumentRepository.findByBirthDate(date);
+        List<Long> ids = contactDocumentRepository.findByBirthDate(date);
 
 	Company companyOfUser = userDetailsService.getCurrentContact().getCompany();
 	
@@ -168,19 +166,19 @@ public class ContactService {
     }
 
     public Page<Contact> findBySurnameStartsWith(String surname, Company company) {
-	if (StringUtils.endsWith(surname, " ")) {
-	    List<Long> ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, company.getId());
+        if (StringUtils.endsWith(surname, " ")) {
+            List<Long> ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, company.getId());
 
 	    return new PageImpl<Contact>(contactRepository.findByIdIsInAndCompany(ids, company));
 	}
 
-	return contactRepository.findBySurnameStartingWithAndCompany(surname, company, new PageRequest(0, 10));
+        return contactRepository.findBySurnameStartingWithAndCompany(surname, company, new PageRequest(0, 10));
     }
 
     @Transactional
     public void delete(Long id) {
-	contactRepository.delete(id);
-	contactDocumentRepository.delete(String.valueOf(id));
+        contactRepository.delete(id);
+        contactDocumentRepository.delete(String.valueOf(id));
     }
 
     public Page<Contact> findBySurnameStartsWithAndCompany(String surname) {
