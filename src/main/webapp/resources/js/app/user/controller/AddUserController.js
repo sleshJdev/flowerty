@@ -43,11 +43,7 @@ userModule.controller("AddUserController", ['$scope', '$http', '$location', '$fi
 
         $scope.save = function () {
 
-            $scope.bundle.user.contact = $scope.search.selected;
-
-            if (!isFullData()) {
-                return;
-            }
+            $scope.bundle.user.contact = $scope.search.user.selected;
 
             for (var i = 0; i < $scope.bundle.roles.length; ++i) {
                 if ($scope.bundle.user.role.id === $scope.bundle.roles[i].id) {
@@ -68,42 +64,4 @@ userModule.controller("AddUserController", ['$scope', '$http', '$location', '$fi
                 }
             );
         };
-
-        function isFullData() {
-            var isFull = true;
-
-            if (!$scope.bundle.user.contact) {
-                $scope.error.emptyContact = true;
-                isFull = false;
-            } else {
-                $scope.error.emptyRole = false;
-            }
-
-            if (!$scope.bundle.user.role) {
-                $scope.error.emptyRole = true;
-                isFull = false;
-            } else {
-                $scope.error.emptyRole = false;
-            }
-
-            if (!$scope.bundle.user.login) {
-                $scope.error.emptyLogin = true;
-                isFull = false;
-            } else {
-                $scope.error.emptyLogin = false;
-            }
-
-            if (!$scope.bundle.user.password) {
-                $scope.error.emptyPassword = true;
-                isFull = false;
-            } else {
-                $scope.error.emptyPassword = false;
-            }
-
-            if ($scope.bundle.user.password != $scope.bundle.passwordConfirm) {
-                isFull = false;
-            }
-
-            return isFull;
-        }
     }]);
