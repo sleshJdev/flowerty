@@ -1,16 +1,15 @@
 package by.itechart.flowerty.persistence.repository;
 
-import java.util.List;
-
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.QOrder;
+import by.itechart.flowerty.persistence.model.State;
+import by.itechart.flowerty.persistence.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import by.itechart.flowerty.persistence.model.Order;
-import by.itechart.flowerty.persistence.model.QOrder;
-import by.itechart.flowerty.persistence.model.State;
-import by.itechart.flowerty.persistence.model.User;
+import java.util.List;
 
 /**
  * @author Maria
@@ -39,7 +38,7 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Or
     public Page<Order> findAvailableByStaff(User staff, Pageable pageable) {
         List<Order> orders = 
         	from(ORDER)
-        		.where(ORDER.delivery.eq(staff)
+        		.where(ORDER.staff.eq(staff)
         			.and((ORDER.state.description.eq(State.DESCRIPTION_TYPE.ACCEPTED)
         				.or(ORDER.state.description.eq(State.DESCRIPTION_TYPE.PROCESSING)))))
     		.list(ORDER);
