@@ -183,17 +183,17 @@ public class ContactService {
 	contactDocumentRepository.delete(String.valueOf(id));
     }
 
-    public Page<Contact> findBySurnameStartsWithAndCompany(String surname, Long company) {
+    public Page<Contact> findBySurnameStartsWithAndCompany(String surname) {
 	List<Long> ids = null;
 	
 	Company companyOfUser = userDetailsService.getCurrentContact().getCompany();
 	
 	if (!StringUtils.endsWith(surname, " ")) {
-	    ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, company);
+	    ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, companyOfUser.getId());
 	    
 	    return contactRepository.findByIdIsInAndCompany(ids, companyOfUser, new PageRequest(0, 10));
 	}
-	ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, company);
+	ids = contactDocumentRepository.findBySurnameStartsWithAndCompany(surname, companyOfUser.getId());
 	
 	return contactRepository.findByIdIsInAndCompany(ids, companyOfUser, new PageRequest(0, 10));
     }

@@ -8,10 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.ContactDocument;
 import by.itechart.flowerty.web.service.ContactService;
 import by.itechart.flowerty.web.service.UserService;
@@ -40,6 +36,9 @@ public class ContactController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+    
     @ResponseBody
     @RequestMapping(value = "contact/list/{page}/{limit}")
     public Page<Contact> page(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
@@ -56,20 +55,7 @@ public class ContactController {
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
 	LOGGER.info("search by surname: {}", surname);
 
-	Company company = null;
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	UserDetails userPrincipal = null;
-	if (!(auth instanceof AnonymousAuthenticationToken)) {
-	    userPrincipal = (UserDetails) auth.getPrincipal();
-	    if (userPrincipal != null) {
-		String login = userPrincipal.getUsername();
-		company = userService.getCompanyFor(login);
-	    }
-	}
-
-	return contactService.findBySurnameStartsWithAndCompany(surname, company.getId()); // get
-											   // company
-											   // normally
+	return contactService.findBySurnameStartsWithAndCompany(surname);
     }
 
     @ResponseBody

@@ -62,7 +62,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 });
         };
 
-        //  Initializes available managers for every job
+        //  initializes available managers for every job
         var prepareStaff = function () {
             staffService.getStaffForRole('delivery_manager',
                 function (data) {
