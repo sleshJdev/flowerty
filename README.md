@@ -17,6 +17,7 @@ Flowers store service with web ui on Java.
 3. open terminal
 4. in terminal: move to 'extract-activemq-folder'/bin
 5. execute command: java -jar activemq.jar start
+
 activemq must start without errors
 
 >note: to shutdown activemq need press Ctrl+C
