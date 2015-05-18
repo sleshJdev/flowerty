@@ -22,34 +22,34 @@
 
 
         <insert tableName="user">
-            <column name="LOGIN" value="admin"/>
-            <column name="PASSWORD" value="admin"/>
+            <column name="LOGIN" value="admin2"/>
+            <column name="PASSWORD" value="admin2"/>
             <column name="CONTACT_ID" value="4"/>
             <column name="ROLE_ID" value="1"/>
         </insert>
 
         <insert tableName="user">
-            <column name="LOGIN" value="delivery_manager"/>
-            <column name="PASSWORD" value="delivery_manager"/>
+            <column name="LOGIN" value="delivery_manager2"/>
+            <column name="PASSWORD" value="delivery_manager2"/>
             <column name="CONTACT_ID" value="7"/>
             <column name="ROLE_ID" value="2"/>
         </insert>
         <insert tableName="user">
-            <column name="LOGIN" value="orders_manager"/>
-            <column name="PASSWORD" value="orders_manager"/>
+            <column name="LOGIN" value="orders_manager2"/>
+            <column name="PASSWORD" value="orders_manager2"/>
             <column name="CONTACT_ID" value="10"/>
             <column name="ROLE_ID" value="3"/>
         </insert>
 
         <insert tableName="user">
-            <column name="LOGIN" value="orders_processor"/>
-            <column name="PASSWORD" value="orders_processor"/>
+            <column name="LOGIN" value="orders_processor2"/>
+            <column name="PASSWORD" value="orders_processor2"/>
             <column name="CONTACT_ID" value="13"/>
             <column name="ROLE_ID" value="4"/>
         </insert>
         <insert tableName="user">
-            <column name="LOGIN" value="supervisor"/>
-            <column name="PASSWORD" value="supervisor"/>
+            <column name="LOGIN" value="supervisor2"/>
+            <column name="PASSWORD" value="supervisor2"/>
             <column name="CONTACT_ID" value="14"/>
             <column name="ROLE_ID" value="5"/>
         </insert>

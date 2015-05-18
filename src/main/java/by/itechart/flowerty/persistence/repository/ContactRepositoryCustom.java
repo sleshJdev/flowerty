@@ -10,4 +10,6 @@ import java.util.List;
 @NoRepositoryBean
 public interface ContactRepositoryCustom {
     public int deleteIdIsIn(List<Long> list);
+    
+    public List<Long> findContactsWithoutUser();
 }
