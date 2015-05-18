@@ -4,6 +4,7 @@ import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,6 +48,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<GrantedAuthority> authorities = buildUserAuthority(user.getRole().getName().toString());
 
         return buildUserForAuthentication(user, authorities);
+    }
+
+    public User getCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = null;
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            userPrincipal = (UserDetails) auth.getPrincipal();
+            if (userPrincipal != null) {
+                return userRepository.findUserByLogin(userPrincipal.getUsername());
+            }
+        }
+        return null;
     }
 
     private List<GrantedAuthority> buildUserAuthority(String userRole) {

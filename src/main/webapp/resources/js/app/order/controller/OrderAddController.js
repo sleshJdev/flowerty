@@ -3,8 +3,8 @@
  * Created by Катерина on 22.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', "VALIDATE_DATE",
-    'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage',
+angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location',
+    'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage', "VALIDATE_DATE",
     function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
 
         $scope.search = {
@@ -33,7 +33,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
 
             $scope.bundle.order.customer = $scope.search.customer.selected;
             $scope.bundle.order.receiver = $scope.search.receiver.selected;
-
+            console.log($scope.bundle.order);
             checkoutService.checkout($scope.bundle.order,
                 function (data) {
                     console.log('Checkout order completed succesfully: ' + JSON.stringify($scope.bundle.order));

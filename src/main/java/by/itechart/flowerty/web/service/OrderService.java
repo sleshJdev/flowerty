@@ -3,6 +3,7 @@ package by.itechart.flowerty.web.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -67,6 +68,9 @@ public class OrderService {
     @Autowired
     private GoodsRepository goodsRepository;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
     @Transactional
     public Order save(Order orderToCreate){
 
@@ -90,7 +94,7 @@ public class OrderService {
         orderDocumentRepository.save(savedOrder.getOrderDocument());
 
         //  Setting first state history
-        OrderAltering newAltering = new OrderAltering(null, savedOrder, getCurrentUser(),
+        OrderAltering newAltering = new OrderAltering(null, savedOrder, userDetailsService.getCurrentUser(),
                 getStateByDescription(State.DESCRIPTION_TYPE.NEW), DateTime.now().toDate(), "");
         orderAlteringRepository.save(newAltering);
         return savedOrder;
@@ -110,29 +114,9 @@ public class OrderService {
         return availableOnWarehouse;
     }
 
-    //TODO: add searching by state with description NEW!!!!!!!!!
     private State getStateByDescription(State.DESCRIPTION_TYPE type){
-     /*   List<State> states = (List<State>) stateRepository.findAll();
-        for (State state : states) {
-            if (state.getDescription() == type) {
-                return state;
-            }
-        }
-        return null;*/
         List<State> states = stateRepository.findByDescription(type);
         return states.size() == 0 ? null : states.get(0);
-    }
-
-    private User getCurrentUser(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userPrincipal = null;
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            userPrincipal = (UserDetails) auth.getPrincipal();
-            if (userPrincipal != null) {
-                return userRepository.findUserByLogin(userPrincipal.getUsername());
-            }
-        }
-        return null;
     }
 
     @Transactional
@@ -149,7 +133,7 @@ public class OrderService {
             return savedOrder;
         }
         orderEditBundle.getOrderAltering().setOrder(savedOrder);
-        orderEditBundle.getOrderAltering().setUser(getCurrentUser());
+        orderEditBundle.getOrderAltering().setUser(userDetailsService.getCurrentUser());
         orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
         orderAlteringRepository.save(orderEditBundle.getOrderAltering());
         return savedOrder;
