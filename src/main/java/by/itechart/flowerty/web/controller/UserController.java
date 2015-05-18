@@ -54,8 +54,6 @@ public class UserController {
         return null;
     }
 
-
-
     @ResponseBody
     @RequestMapping(value = "user/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<User> users) {

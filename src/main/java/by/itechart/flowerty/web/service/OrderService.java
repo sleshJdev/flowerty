@@ -161,23 +161,22 @@ public class OrderService {
     }
 
     public Page<Order> getPage(int page, int size){
-	Page<Order> pageOrder = getAvaliableOrders(userDetailsService.getCurrentUser(), new PageRequest(page, size));
-
-	System.out.println(userDetailsService.getCurrentUser());
-	System.out.println(pageOrder.getContent().size());
-	
-        return getAvaliableOrders(userDetailsService.getCurrentUser(), new PageRequest(page, size));
-//	return orderRepository.findAll(new PageRequest(page, size));
+        
+	return getAvaliableOrders(userDetailsService.getCurrentUser(), new PageRequest(page, size));
     }
 
     public Page<Order> findBySearch (OrderDocument orderDocument, int page, int size) {
-        List<Long> ids = orderDocumentRepository.findBySearch(orderDocument);
+        PageRequest pageRequest = new PageRequest(page, size);
+	List<Long> ids = orderDocumentRepository.findBySearch(orderDocument);
         if (ids == null) {
-            return orderRepository.findAll(new PageRequest(page, size)); //replace by findByCompany when we know company
+            return orderRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(), pageRequest);
+        
         } else if (ids.size() == 0) {
+        
             return new PageImpl<Order>(new ArrayList<Order>());
         }
-        return orderRepository.findByIdIsIn(ids, new PageRequest(page, size));
+        
+        return orderRepository.findByIdIsIn(ids, pageRequest);
     }
 
     public Order findOne(long id){
@@ -276,22 +275,17 @@ public class OrderService {
     }
 
     public Page<Order> getAvaliableOrders(User user, Pageable pageable) {
-        if (user.getRole().getName().equals(Role.ROLE_TYPE.ORDERS_MANAGER)) {
-            System.out.println("orders_manager");
-            return orderRepository.findAvailableByOrdersManager(user, pageable);
-        }
-        if (user.getRole().getName().equals(Role.ROLE_TYPE.DELIVERY_MANAGER)) {
-            System.out.println("delivery_manager");
-            return orderRepository.findAvailableByDelivery(user, pageable);
-        }
-        if (user.getRole().getName().equals(Role.ROLE_TYPE.ORDERS_PROCESSOR)) {
-            System.out.println("orders_processor");
-            return orderRepository.findAvailableByStaff(user, pageable);
-        }
-        if (user.getRole().getName().equals(Role.ROLE_TYPE.SUPERVISOR)) {
-            System.out.println("supervisor");
-            return orderRepository.findAll(pageable);
-        }
-        return null;
+	switch (user.getRole().getName()) {
+	case ORDERS_MANAGER:
+	    return orderRepository.findAvailableByOrdersManager(user, pageable);
+	case DELIVERY_MANAGER:
+	    return orderRepository.findAvailableByDelivery(user, pageable);
+	case ORDERS_PROCESSOR:
+	    return orderRepository.findAvailableByStaff(user, pageable);
+	case SUPERVISOR:
+	    return orderRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(), pageable);
+	default:
+	    return null;
+	}
     }
 }

@@ -1,6 +1,13 @@
 package test.by.itechart.flowerty.security;
 
-import by.itechart.flowerty.configuration.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import javax.servlet.Filter;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,13 +21,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.servlet.Filter;
-
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import by.itechart.flowerty.configuration.ApplicationConfiguration;
+import by.itechart.flowerty.configuration.JpaConfiguration;
+import by.itechart.flowerty.configuration.SearchContext;
+import by.itechart.flowerty.configuration.SpringSecurityConfiguration;
+import by.itechart.flowerty.configuration.WebMvcConfiguration;
 
 /**
  * Created by Rostislav on 05-May-15
@@ -52,6 +57,7 @@ public class LoginRequestBuilderAuthenticationTest {
                 .build();
     }
 
+    @SuppressWarnings("deprecation")
     public void authenticationSuccess() throws Exception {
         mvc
                 .perform(login().user("test").password("test"))

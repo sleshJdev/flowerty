@@ -1,17 +1,18 @@
 package test.by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.model.Goods;
-import by.itechart.flowerty.persistence.repository.GoodsRepository;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
-import test.by.itechart.flowerty.persistence.repository.helper.GoodsRepositoryHelperTest;
-
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
+import test.by.itechart.flowerty.persistence.repository.helper.GoodsRepositoryHelperTest;
+import by.itechart.flowerty.persistence.model.Goods;
+import by.itechart.flowerty.persistence.repository.GoodsRepository;
 
 /**
  * Created by Rostislav on 16-May-15

@@ -1,15 +1,17 @@
 package by.itechart.flowerty.persistence.repository;
 
-import by.itechart.flowerty.persistence.model.Order;
-import by.itechart.flowerty.persistence.model.QOrder;
-import by.itechart.flowerty.persistence.model.State;
-import by.itechart.flowerty.persistence.model.User;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import java.util.List;
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.QOrder;
+import by.itechart.flowerty.persistence.model.State;
+import by.itechart.flowerty.persistence.model.User;
 
 /**
  * @author Maria
@@ -20,6 +22,16 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Or
 
     public OrderRepositoryImpl() {
         super(Order.class);
+    }
+    
+    @Override
+    public Page<Order> findByCompany(Company company, Pageable pageable) {
+	List<Order> orders = 
+		from(ORDER)
+			.where(ORDER.receiver.company.eq(company))
+		.list(ORDER);
+	
+	return new PageImpl<Order>(orders);
     }
 
     @Override

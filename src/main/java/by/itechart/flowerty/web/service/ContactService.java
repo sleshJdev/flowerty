@@ -49,21 +49,6 @@ public class ContactService {
 	return contactRepository.findByIdIsInAndCompany(ids, companyOfUser, pageRequest);
     }
 
-    // NEED TO FIX SOLR !!!!!!!!! FUCK TOY SOLR!!
-//    public Page<Contact> getPage(int page, int size) {
-//	PageRequest pageRequest = new PageRequest(page, size);
-//
-//	// contacts, which don't have user
-//	List<ContactDocument> contactDocuments = contactDocumentRepository.findAll(pageRequest).getContent();
-//
-//	// fetch id of these contacts
-//	List<Long> ids = fetchIdsFromContactDocumentsCollection(contactDocuments);
-//	
-//	Company companyOfUser = userDetailsService.getCurrentContact().getCompany();
-//	
-//	return contactRepository.findByIdIsInAndCompany(ids, companyOfUser, pageRequest);
-//    }
-
     public Page<Contact> findContacts(ContactDocument contact, int page, int size) {
 	Company companyOfUser = userDetailsService.getCurrentContact().getCompany();
 
