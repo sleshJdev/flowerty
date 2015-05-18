@@ -4,8 +4,8 @@
  */
 
 angular.module("flowertyApplication.orderModule").controller('OrderAddController', 
-					['$scope', '$http', '$location', 'checkoutService', 'orderCommonService', 'staffService', 'notificationService', '$localStorage', "VALIDATE_DATE",
-			 function($scope, $http, $location, checkoutService, orderCommonService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
+					['$scope', '$http', '$location', 'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage', "VALIDATE_DATE",
+			 function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
 
         $scope.search = {
             customer: {
@@ -78,7 +78,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             )
         };
 
-        orderCommonService.getPreparedOrderCreateBundle(
+        orderService.getPreparedOrderCreateBundle(
             function (order) {
                 $scope.bundle = {
                     order: order
@@ -86,7 +86,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 if(!$scope.current.basket.items.length){
                     $localStorage.cart ? $scope.current.basket = $localStorage.cart : $location.path("/");
                 }
-                orderCommonService.initCartItems($scope.bundle.order, $scope.current.basket);
+                orderService.initCartItems($scope.bundle.order, $scope.current.basket);
                 prepareStaff();
             },
             function (data) {
