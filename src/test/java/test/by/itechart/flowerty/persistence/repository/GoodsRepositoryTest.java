@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
  * Created by Rostislav on 16-May-15
  */
 
-public class GoodsRepositoryTests extends JpaConfigurationAware {
+public class GoodsRepositoryTest extends JpaConfigurationAware {
 
     @Autowired
     private GoodsRepository goodsRepository;
