@@ -26,11 +26,11 @@ var app = angular.module('flowertyApplication', [
     $routeProvider.
         when('/users', {
             templateUrl: MAIN_MODULE_CONSTANTS.APP_PATH + "user/partial/users-list-form.html",
-            controller: "UsersController"
+            controller: "ListUserController"
         })
         .when('/add-user', {
             templateUrl: MAIN_MODULE_CONSTANTS.APP_PATH + "user/partial/user-edit.html",
-            controller: "UserAddController"
+            controller: "AddUserController"
         })
         .when('/add-order', {
             templateUrl: MAIN_MODULE_CONSTANTS.APP_PATH + 'order/partial/order-edit.html',

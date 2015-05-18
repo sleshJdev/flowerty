@@ -23,31 +23,26 @@ import java.util.Set;
 /**
  * Created by Rostislav on 31-Mar-15
  */
+
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public boolean isAnonymous(){
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	if (!(auth instanceof AnonymousAuthenticationToken)) {
-	    return (UserDetails) auth.getPrincipal() != null;
-	}
-	
-	return false;
+    public boolean isAnonymous() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return !(auth instanceof AnonymousAuthenticationToken) && (UserDetails) auth.getPrincipal() != null;
     }
-    
-    public Contact getCurrentContact(){
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	String login = userDetails.getUsername();
 
-	Contact contact = userRepository.findUserByLogin(login).getContact();
-	
-	return contact;
+    public Contact getCurrentContact() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String login = userDetails.getUsername();
+
+        return userRepository.findUserByLogin(login).getContact();
     }
-    
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userRepository.findUserByLogin(login);

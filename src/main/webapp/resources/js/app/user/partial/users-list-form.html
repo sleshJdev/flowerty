@@ -7,14 +7,15 @@
             <div class="col-md-12">
                 <table class="table table-bordered">
                     <tr>
-                        <th data-ng-click="users.deleteUsers()"><a href=""><span class="glyphicon glyphicon-remove"></span></a>
-                        </th>
+                        <th data-ng-click="bundle.deleteUsers()">
+                            <a href=""><span class="glyphicon glyphicon-remove"></span></a></th>
                         <th>{{'FULL_NAME' | xlat}}</th>
                         <th>{{'LOGIN' | xlat}}</th>
                         <th>{{'ROLE' | xlat}}</th>
                     </tr>
-                    <tr data-ng-repeat="user in users.list">
-                        <td><input type="checkbox" data-ng-model="user.checked"/>
+                    <tr data-ng-repeat="user in bundle.users.list">
+                        <td><input type="checkbox" data-ng-checked="bundle.state.ischecked(user)"
+                                   data-ng-click="bundle.state.ischecked(user) ? bundle.state.unchecked(user) : bundle.state.checked(user)"/>
                         </td>
                         <td><a href="#edit-user/{{user.id}}"><span class="glyphicon glyphicon-edit"></span>
                             {{user.contact.name + ' ' + user.contact.surname + ' ' + user.contact.fathername}}</a></td>
