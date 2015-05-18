@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Rostislav" id="changelog-12.0-1">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="LOGIN" type="VARCHAR(20)" value="admin"/>
+            <where>ID = 3</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-2">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="PASSWORD" type="VARCHAR(100)"
+                    value="$2a$10$XKJV3KPda9dYnYT2R2Xm6.yUSaTrnioLegSUQld1Xds91o3W0r7fy"/>
+            <where>ID = 3</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-3">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="CONTACT_ID" type="INT"
+                    value="1"/>
+            <where>ID = 3</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-4">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="CONTACT_ID" type="INT"
+                    value="2"/>
+            <where>ID = 4</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-5">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="CONTACT_ID" type="INT"
+                    value="3"/>
+            <where>ID = 6</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-6">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="CONTACT_ID" type="INT"
+                    value="9"/>
+            <where>ID = 7</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-7">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="CONTACT_ID" type="INT"
+                    value="1"/>
+            <where>ID = 1</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-8">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="ROLE_ID" type="INT"
+                    value="1"/>
+            <where>ID = 1</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-9">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="CONTACT_ID" type="INT"
+                    value="5"/>
+            <where>ID = 2</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-10">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="ROLE_ID" type="INT"
+                    value="5"/>
+            <where>ID = 2</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-11">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="LOGIN" type="VARCHAR(20)" value="admin_2"/>
+            <where>ID = 8</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-12.0-12">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="PASSWORD" type="VARCHAR(100)"
+                    value="$2a$10$BrrCKuRoxERcF5l3ce0fGuF7nigVi/4ZIIfhbiCAEXsk4S7HU/sXC"/>
+            <where>ID = 8</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>
