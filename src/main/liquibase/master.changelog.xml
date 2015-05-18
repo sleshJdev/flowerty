@@ -11,7 +11,7 @@
     <!--<include relativeToChangelogFile="true" file="master/6.x/changelog-6.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/7.x/changelog-7.0.xml"/>-->
     <!--<include relativeToChangelogFile="true" file="master/8.x/changelog-8.0.xml"/>-->
-    <include relativeToChangelogFile="true" file="master/9.x/changelog-9.0.xml"/>
-    <include relativeToChangelogFile="true" file="master/9.x.data/testdata-9.0.xml"/>
-
+    <!--<include relativeToChangelogFile="true" file="master/9.x/changelog-9.0.xml"/>-->
+    <!--<include relativeToChangelogFile="true" file="master/9.x.data/testdata-9.0.xml"/>-->
+    <include relativeToChangelogFile="true" file="master/10.x/changelog-10.0.xml"/>
 </databaseChangeLog>
