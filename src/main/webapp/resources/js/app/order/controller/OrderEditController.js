@@ -3,8 +3,8 @@
  * Created by Катерина on 21.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderEditController', ['$scope', '$http', '$location', '$routeParams', 'ORDER_MODULE_CONSTANTS',
-    'checkoutService', 'orderService', 'staffService', 'notificationService',
+angular.module("flowertyApplication.orderModule").controller('OrderEditController', 
+			['$scope', '$http', '$location', '$routeParams', 'ORDER_MODULE_CONSTANTS', 'checkoutService', 'orderService', 'staffService', 'notificationService',
     function($scope, $http, $location, $routeParams, ORDER_MODULE_CONSTANTS, checkoutService, orderService, staffService, notificationService) {
 
         $scope.access = {

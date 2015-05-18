@@ -3,9 +3,9 @@
  * Created by Катерина on 22.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', "VALIDATE_DATE",
-    'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage',
-    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
+angular.module("flowertyApplication.orderModule").controller('OrderAddController', 
+					['$scope', '$http', '$location', 'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage', "VALIDATE_DATE",
+			 function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
 
         $scope.search = {
             customer: {
@@ -62,7 +62,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 });
         };
 
-        //  Initializes available managers for every job
+        //  initializes available managers for every job
         var prepareStaff = function () {
             staffService.getStaffForRole('delivery_manager',
                 function (data) {

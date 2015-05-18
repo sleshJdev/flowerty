@@ -24,9 +24,6 @@ public class ContactRepositoryTest extends JpaConfigurationAware {
 	List<Long> contacts = contactRepository.findContactsWithoutUser();
 	
 	Assert.assertNotNull(contacts);
-	for (Long id : contacts) {
-	    System.out.println(id);
-	}
     }
     
     @Test

@@ -3,7 +3,9 @@ package by.itechart.flowerty.security.service;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,6 +29,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public boolean isAnonymous() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return !(auth instanceof AnonymousAuthenticationToken) && (UserDetails) auth.getPrincipal() != null;
+    }
 
     public Contact getCurrentContact() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

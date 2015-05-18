@@ -33,7 +33,7 @@ angular.module("flowertyApplication.userModule").controller('ListUserController'
         $scope.init = function () {
             $scope.bundle.users = paginationService.getListBundle();
             $scope.bundle.state.reset();
-            $scope.pagination = paginationService.getPagination(userListService.getUserList);
+            $scope.pagination = paginationService.getPagination(userListService.getUserList, true);
             $scope.pagination.getPage(1);
         };
 
