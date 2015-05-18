@@ -24,6 +24,7 @@ import by.itechart.flowerty.persistence.model.User;
  *
  *	integration tests for ContactController
  */
+@Ignore
 public class ContactControllerIntegrationTest extends WebApplicationConfigurationAware {
     private MockHttpSession session;
     
@@ -101,6 +102,7 @@ public class ContactControllerIntegrationTest extends WebApplicationConfiguratio
 	//TODO: add asserts
     }
     
+    @Ignore
     @Test
     public void save_PassValidContact_ShouldSaveIt() throws Exception{
 	final String url = "/contact/save";

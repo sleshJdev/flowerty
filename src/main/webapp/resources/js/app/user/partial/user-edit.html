@@ -1,5 +1,3 @@
-<div data-ng-app="flowertyApplication.userModule">
-    <div class="col-md-offset-2 col-md-8 well well-lg">
         <div class="row">
 			<fieldset class="form-horizontal" data-ng-form="userForm">
 		        <legend class="text-center">{{option.title}}</legend>
@@ -54,44 +52,26 @@
                 </div>
                 <div class="form-group" data-ng-show="!option.edit">
                     <label class="col-sm-4 control-label">{{'LOGIN' | xlat}}</label>
-
                     <div class="col-sm-6">
-<<<<<<< HEAD
                         <input type="text" class="form-control" data-ng-model="bundle.user.login" name="login" placeholder="{{'LOGIN' | xlat}}"
                     		data-ng-maxlength="20" required 
-=======
-                        <input type="text" class="form-control" data-ng-model="bundle.user.login" name="login" placeholder="Login"
-                    		data-ng-maxlength="20" data-ng-required="!option.edit"
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 						  	data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" data-ng-show="!option.edit">{{'CREATE_PASS' | xlat}}</label>
                     <label class="col-sm-4 control-label" data-ng-show="option.edit">{{'RESET_PASS' | xlat}}</label>
-
                     <div class="col-sm-6">
-<<<<<<< HEAD
                         <input type="password" class="form-control" data-ng-model="bundle.user.password"  name="password" placeholder="{{'PASSWORD' | xlat}}"
-		                    	data-ng-maxlength="20" required  
-=======
-                        <input type="password" class="form-control" data-ng-model="bundle.user.password"  name="password" placeholder="Password"
 		                    	data-ng-maxlength="20" data-ng-required="!option.edit"
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 							  	data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="bundle.user.password">
                     <label class="col-sm-4 control-label">{{'CONFIRM_PASS' | xlat}}</label>
-
                     <div class="col-sm-6">
-<<<<<<< HEAD
                         <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm" name="password" placeholder="{{'CONFIRM_PASS' | xlat}}"
-		                    	data-ng-maxlength="20" required 
-=======
-                        <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm" name="password" placeholder="Confirm password"
 		                    	data-ng-maxlength="20" data-ng-required="!option.edit"
->>>>>>> c9942b2bd55f4269aef40ea923801c6a64157af9
 							  	data-flowerty-validate >
 						
                         <div data-ng-show="bundle.user.password && bundle.user.password != bundle.passwordConfirm">
@@ -114,5 +94,3 @@
                 </div>
            	</fieldset>
         </div>
-    </div>
-</div>

@@ -73,7 +73,7 @@ var initialXlatTables = {
         'ROLES' : 'Roles',
         'CONTACT_AND_INFO' : 'CONTACT AND BASICS INFORMATION',
         'HOMETOWN' : 'Hometown',
-        'FRENCH' : 'Français'
+        'FRENCH' : 'Français',
     },
     'ru': {
         'CONTACTS': 'Контакты',

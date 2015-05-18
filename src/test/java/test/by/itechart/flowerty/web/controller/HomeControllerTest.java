@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
@@ -14,6 +15,7 @@ import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
  *	
  *         tests for HomeController
  */
+@Ignore
 public class HomeControllerTest extends WebApplicationConfigurationAware {
 
     @Test

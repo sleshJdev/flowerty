@@ -1,10 +1,5 @@
 package by.itechart.flowerty.web.controller;
 
-import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.solr.model.ContactDocument;
-import by.itechart.flowerty.web.service.ContactService;
-import by.itechart.flowerty.web.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -47,89 +42,92 @@ public class ContactController {
     @ResponseBody
     @RequestMapping(value = "contact/list/{page}/{limit}")
     public Page<Contact> page(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
-        LOGGER.info("get contact page {} with limit {}", page, limit);
-        
-        page = (page == null || page < 1) ? 0 : --page;
-        limit = (limit == null || limit <= 0) ? 10 : limit;
-        
-        return contactService.getPage(page, limit);
+	LOGGER.info("get contact page {} with limit {}", page, limit);
+
+	page = (page == null || page < 1) ? 0 : --page;
+	limit = (limit == null || limit <= 0) ? 10 : limit;
+
+	return contactService.getPage(page, limit);
     }
 
     @ResponseBody
     @RequestMapping(value = "contact/partial-search/{surname}")
     public Page<Contact> searchBySurname(@PathVariable("surname") String surname) {
 	LOGGER.info("search by surname: {}", surname);
-	
-        Company company = null;
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userPrincipal = null;
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            userPrincipal = (UserDetails) auth.getPrincipal();
-            if (userPrincipal != null) {
-                String login = userPrincipal.getUsername();
-                company = userService.getCompanyFor(login);
-            }
-        }
 
-        return contactService.findBySurnameStartsWithAndCompany(surname, company.getId()); //get company normally
+	Company company = null;
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	UserDetails userPrincipal = null;
+	if (!(auth instanceof AnonymousAuthenticationToken)) {
+	    userPrincipal = (UserDetails) auth.getPrincipal();
+	    if (userPrincipal != null) {
+		String login = userPrincipal.getUsername();
+		company = userService.getCompanyFor(login);
+	    }
+	}
+
+	return contactService.findBySurnameStartsWithAndCompany(surname, company.getId()); // get
+											   // company
+											   // normally
     }
 
     @ResponseBody
     @RequestMapping(value = "contact/details/{id}")
     public Contact details(@PathVariable("id") Long id) throws Exception {
-        LOGGER.info("get details about contact with id: {}", id);
+	LOGGER.info("get details about contact with id: {}", id);
 
-        if (id == null || id <= 0) {
-            throw new Exception("contact id cannot be negative or null");
-        }
+	if (id == null || id <= 0) {
+	    throw new Exception("contact id cannot be negative or null");
+	}
 
-        Contact contact = null;
-        try{
-            contact = contactService.findOne(id);
-        }catch(DataIntegrityViolationException e){
-            LOGGER.error("contact with id {} not found. details:", id, e.getMessage());
-            
-            return null;
-        }
+	Contact contact = null;
+	try {
+	    contact = contactService.findOne(id);
+	} catch (DataIntegrityViolationException e) {
+	    LOGGER.error("contact with id {} not found. details:", id, e.getMessage());
 
-        return contact;
+	    return null;
+	}
+
+	return contact;
     }
 
     @ResponseBody
     @RequestMapping(value = "contact/search/{page}/{limit}", method = RequestMethod.POST)
-    public Page<Contact> search(@RequestBody ContactDocument contact, @PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
-        LOGGER.info("getting search results for contact: {} at page {} with limit {}", contact, page, limit);
-        
-        page = (page == null || page < 1) ? 0 : --page;
-        limit = (limit == null || limit < 0) ? 10 : limit;
-        
-        return contactService.findContacts(contact, page, limit);
+    public Page<Contact> search(@RequestBody ContactDocument contact, @PathVariable("page") Integer page,
+	    @PathVariable("limit") Integer limit) {
+	LOGGER.info("getting search results for contact: {} at page {} with limit {}", contact, page, limit);
+
+	page = (page == null || page < 1) ? 0 : --page;
+	limit = (limit == null || limit < 0) ? 10 : limit;
+
+	return contactService.findContacts(contact, page, limit);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "contact/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<Contact> contacts) {
-        LOGGER.info("remove contacts. obtained {} contacts", contacts.size());
-        
-        contactService.deleteIdIn(fetchIdOfContact(contacts));
+	LOGGER.info("remove contacts. obtained {} contacts", contacts.size());
+
+	contactService.deleteIdIn(fetchIdOfContact(contacts));
     }
 
     @ResponseBody
     @RequestMapping(value = "contact/save", method = RequestMethod.POST)
     public Contact save(@RequestBody Contact contact) {
-        LOGGER.info("save contact: {}", contact.toString());
-        System.out.println("save contact: " + contact.toString());
-        
-        contactService.save(contact);
-        return contact;
-    }
-    
-    private static final List<Long> fetchIdOfContact(List<Contact> contacts) {
-        List<Long> ids = new ArrayList<Long>(contacts.size());
-        for (Contact contact : contacts) {
-            ids.add(contact.getId());
-        }
+	LOGGER.info("save contact: {}", contact.toString());
 
-        return ids;
+	contactService.save(contact);
+
+	return contact;
+    }
+
+    private static final List<Long> fetchIdOfContact(List<Contact> contacts) {
+	List<Long> ids = new ArrayList<Long>(contacts.size());
+	for (Contact contact : contacts) {
+	    ids.add(contact.getId());
+	}
+
+	return ids;
     }
 }

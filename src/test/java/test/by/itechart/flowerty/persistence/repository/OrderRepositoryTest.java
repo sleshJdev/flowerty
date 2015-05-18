@@ -2,6 +2,7 @@ package test.by.itechart.flowerty.persistence.repository;
 
 import by.itechart.flowerty.persistence.model.Order;
 import by.itechart.flowerty.persistence.repository.OrderRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertThat;
  * Created by Rostislav on 16-May-15
  */
 
+@Ignore
 public class OrderRepositoryTest extends JpaConfigurationAware {
 
     @Autowired

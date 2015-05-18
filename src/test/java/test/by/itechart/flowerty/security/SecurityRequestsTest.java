@@ -1,6 +1,7 @@
 package test.by.itechart.flowerty.security;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by Rostislav on 05-May-15
  */
 
+@Ignore
 public class SecurityRequestsTest extends WebSecurityConfigurationAware {
 
     @Before

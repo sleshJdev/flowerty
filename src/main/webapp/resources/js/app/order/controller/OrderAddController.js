@@ -4,8 +4,8 @@
  */
 
 angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location',
-    'checkoutService', 'orderService', 'staffService', 'notificationService',
-    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService) {
+    'checkoutService', 'orderService', 'staffService', 'notificationService', "VALIDATE_DATE",
+    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, VALIDATE_DATE) {
 
         $scope.search = {
             customer: {
@@ -39,6 +39,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                     //  Makes the basket empty
                     $scope.current.resetBasket();
                     $scope.bundle.order = data;
+                    $scope.bundle.order.deliveryDate = VALIDATE_DATE.correctFormat($scope.bundle.order.deliveryDate);
                     if($scope.bundle.order.id) {
                         notificationService.notify("success", "New order added!");
                     }
