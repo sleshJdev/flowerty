@@ -1,20 +1,22 @@
 
 <!-- Order history form -->
 <div data-ng-app="flowertyApplication.orderModule">
-    <h1>History of the order <a href="#edit-order/{{changes.order.id}}">#{{changes.order.id}}</a></h1>
-    <table class="table table-bordered">
-        <tr>
-            <th>date and time</th>
-            <th>new status</th>
-            <th>who changed</th>
-            <th>comment</th>
-        </tr>
-        <tr class="{{orderAltering.state.description | lowercase}}"
-                data-ng-repeat="orderAltering in changes.orderAlterings" >
-            <td>{{orderAltering.date}}</td>
-            <td>{{orderAltering.state.description}}</td>
-            <td>{{orderAltering.user.login}}</td>
-            <td>{{orderAltering.comment}}</td>
-        </tr>
-    </table>
+    <fieldset>
+        <legend class="text-center">History of the order <a href="#edit-order/{{changes.order.id}}">#{{changes.order.id}}</a></legend>
+        <table class="table table-bordered">
+            <tr>
+                <th>date and time</th>
+                <th>new status</th>
+                <th>who changed</th>
+                <th>comment</th>
+            </tr>
+            <tr class="{{orderAltering.state.description | lowercase}}"
+                    data-ng-repeat="orderAltering in changes.orderAlterings" >
+                <td>{{orderAltering.date}}</td>
+                <td>{{orderAltering.state.description}}</td>
+                <td>{{orderAltering.user.login}}</td>
+                <td>{{orderAltering.comment}}</td>
+            </tr>
+        </table>
+    </fieldset>
 </div>

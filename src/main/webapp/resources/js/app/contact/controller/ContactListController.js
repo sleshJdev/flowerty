@@ -46,7 +46,7 @@ angular.module("flowertyApplication.contactModule")
             };
 
             $scope.bundle.state.reset();
-            $scope.pagination = paginationService.getPagination(contactListService.getContactList);
+            $scope.pagination = paginationService.getPagination(contactListService.getContactList, true);
             $scope.pagination.getPage(1);
 
         }]);

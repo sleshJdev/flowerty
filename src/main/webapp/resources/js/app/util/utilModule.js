@@ -119,7 +119,8 @@ angular.module("flowertyApplication.utilModule", [])
         return function(offeredContacts, model, filterCallback){
             enteredSurname = model.enteredSurname;
             if(enteredSurname.length < 3){
-                return [];
+                filterCallback(model, []);
+                return true;
             }
 
             console.log('Searching by surname: ' + enteredSurname);
@@ -128,10 +129,10 @@ angular.module("flowertyApplication.utilModule", [])
                 url: 'contact/partial-search/' + enteredSurname,
                 method: 'GET'
             }).success(function(data, status, headers, config) {
-                filterCallback(model,data);
+                filterCallback(model, data);
             }).error(function(data, status, headers, config) {
                 console.log("Exception details in bySurname filter : " + JSON.stringify({data: data}));
-                return [];
+                filterCallback(model, []);
             });
         }
     }]);

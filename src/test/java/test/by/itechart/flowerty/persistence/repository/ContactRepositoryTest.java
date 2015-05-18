@@ -3,6 +3,7 @@ package test.by.itechart.flowerty.persistence.repository;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.repository.ContactRepository;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
@@ -17,14 +18,12 @@ public class ContactRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private ContactRepository contactRepository;
 
+    @Ignore
     @Test
     public void findContactsWithoutUser(){
 	List<Long> contacts = contactRepository.findContactsWithoutUser();
 	
 	Assert.assertNotNull(contacts);
-	for (Long id : contacts) {
-	    System.out.println(id);
-	}
     }
     
     @Test
@@ -54,6 +53,7 @@ public class ContactRepositoryTest extends JpaConfigurationAware {
         Assert.assertEquals(expected.getAddress().getTown(), actual.getAddress().getTown());
     }
 
+    @Ignore
     @Test
     public void findAll_RetursNotNullCollection() {
         final List<Contact> actual = (List<Contact>) contactRepository.findAll();
@@ -62,6 +62,7 @@ public class ContactRepositoryTest extends JpaConfigurationAware {
         notEmpty(actual);
     }
 
+    @Ignore
     @Test
     public void findBySurnameStartingWithAndCompany_PassValidParameters_ReturnsNotNullCollectionWithTargetContact() {
         final Contact expected = ContactRepositoryHelperTest.getContactWithIdOne();

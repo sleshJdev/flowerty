@@ -10,6 +10,6 @@ angular.module("flowertyApplication.contactModule").controller("ContactSearchRes
         $scope.bundle = {
             contacts : paginationService.getListBundle()
         };
-        $scope.pagination = paginationService.getPagination(contactSearchService.searchContact);
+        $scope.pagination = paginationService.getPagination(contactSearchService.searchContact, true);
         $scope.pagination.getPage(1);
     }]);
