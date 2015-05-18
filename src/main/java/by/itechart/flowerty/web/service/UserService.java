@@ -1,14 +1,5 @@
 package by.itechart.flowerty.web.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Role;
@@ -18,6 +9,14 @@ import by.itechart.flowerty.persistence.repository.RoleRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 import by.itechart.flowerty.web.model.UserEditBundle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -99,6 +98,10 @@ public class UserService {
 
     public void delete(Long id) {
 	userRepository.delete(id);
+    }
+
+    public int deleteIdIn(List<Long> list) {
+        return userRepository.deleteIdIsIn(list);
     }
 
     public List<Role> getRoles() {

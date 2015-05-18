@@ -21,22 +21,21 @@ import java.util.Set;
 /**
  * Created by Rostislav on 31-Mar-15
  */
+
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public Contact getCurrentContact(){
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	String login = userDetails.getUsername();
+    public Contact getCurrentContact() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String login = userDetails.getUsername();
 
-	Contact contact = userRepository.findUserByLogin(login).getContact();
-	
-	return contact;
+        return userRepository.findUserByLogin(login).getContact();
     }
-    
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userRepository.findUserByLogin(login);

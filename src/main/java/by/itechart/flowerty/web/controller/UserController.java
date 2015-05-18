@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,27 +55,25 @@ public class UserController {
         return null;
     }
 
-    /*@ResponseBody
-    @RequestMapping(value = "user/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> getList() {
-	List<User> allUsers = (List<User>) userService.findAll();
-
-	LOGGER.info("fetch {} users", allUsers.size());
-
-	return allUsers;
-    }                       */
-
-    @RequestMapping(value = "user/delete/{id}")
-    public String delete(@PathVariable("id") Long id) throws Exception {
-        LOGGER.info("try delete user with id: {}", id);
-
-        if (id < 1) {
-            throw new Exception("user id cannot be negative or 0");
+    private static List<Long> fetchIdOfContact(List<User> users) {
+        List<Long> ids = new ArrayList<>(users.size());
+        for (User user : users) {
+            ids.add(user.getId());
         }
 
-        userService.delete(id);
+        return ids;
+    }
 
-        return "home/index";
+    @ResponseBody
+    @RequestMapping(value = "user/remove", method = RequestMethod.POST)
+    public void remove(@RequestBody List<User> users) {
+        LOGGER.info("remove users. obtained {} users", users.size());
+
+        if (users.size() < 1) {
+            return;
+        }
+
+        userService.deleteIdIn(fetchIdOfContact(users));
     }
 
     @ResponseBody

@@ -5,7 +5,7 @@
  * remove item from collection
  */
 angular.module("flowertyApplication.contactModule").service("deleteService", ["$http",
-    function($http) {
+    function ($http) {
 
         var self = this;
 
