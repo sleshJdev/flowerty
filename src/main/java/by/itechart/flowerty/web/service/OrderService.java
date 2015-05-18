@@ -161,7 +161,7 @@ public class OrderService {
     }
 
     public Page<Order> getPage(int page, int size){
-        return null; //getAvaliableOrders(getCurrentUser(), new PageRequest(page, size));
+        return getAvaliableOrders(getCurrentUser(), new PageRequest(page, size));
     }
 
     public Page<Order> findBySearch (OrderDocument orderDocument, int page, int size) {
