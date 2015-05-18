@@ -1,5 +1,6 @@
 package test.by.itechart.flowerty.persistence.mongo;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +19,7 @@ public class MongoTests extends JpaConfigurationAware {
 
     @Test
     public void save_PassValidFinancialReportObject_ShouldSaveIt() {
-	FinancialReport financialReport = new FinancialReport(3, 15.7);
+	FinancialReport financialReport = new FinancialReport(new DateTime().toDate(), 15.7);
 	repository.save(financialReport);
     }
 }

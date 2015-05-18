@@ -1,6 +1,7 @@
 package by.itechart.flowerty.persistence.mongo.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,38 +19,30 @@ public class FinancialReport implements Serializable {
     @Id
     private String id;
     
-    private Integer orderQuantity;
+    private Date date;
     private Double totalCost;
 
     public FinancialReport() {
     }
 
-    public FinancialReport(Integer orderQuantity, Double totalCost) {
-	this.orderQuantity = orderQuantity;
+    public FinancialReport(Date date, Double totalCost) {
+	this.date = date;
 	this.totalCost = totalCost;
     }
 
-    public String getId() {
-	return id;
+    public Date getDate() {
+        return date;
     }
 
-    public void setId(String id) {
-	this.id = id;
-    }
-
-    public Integer getOrderQuantity() {
-	return orderQuantity;
-    }
-
-    public void setOrderQuantity(Integer orderQuantity) {
-	this.orderQuantity = orderQuantity;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Double getTotalCost() {
-	return totalCost;
+        return totalCost;
     }
 
     public void setTotalCost(Double totalCost) {
-	this.totalCost = totalCost;
+        this.totalCost = totalCost;
     }
 }

@@ -5,7 +5,7 @@
  * Service for getting empty prepared order with all the auto-completed fields
  */
 
-angular.module("flowertyApplication.orderModule").service('orderService', ['$http', function($http){
+angular.module("flowertyApplication.orderModule").service('orderCommonService', ['$http', function($http){
 
     var service = this;
 

@@ -3,9 +3,9 @@
  * Created by Катерина on 22.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', "VALIDATE_DATE",
-    'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage',
-    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
+angular.module("flowertyApplication.orderModule").controller('OrderAddController', 
+					['$scope', '$http', '$location', 'checkoutService', 'orderCommonService', 'staffService', 'notificationService', '$localStorage', "VALIDATE_DATE",
+			 function($scope, $http, $location, checkoutService, orderCommonService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
 
         $scope.search = {
             customer: {
@@ -78,7 +78,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
             )
         };
 
-        orderService.getPreparedOrderCreateBundle(
+        orderCommonService.getPreparedOrderCreateBundle(
             function (order) {
                 $scope.bundle = {
                     order: order
@@ -86,7 +86,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 if(!$scope.current.basket.items.length){
                     $localStorage.cart ? $scope.current.basket = $localStorage.cart : $location.path("/");
                 }
-                orderService.initCartItems($scope.bundle.order, $scope.current.basket);
+                orderCommonService.initCartItems($scope.bundle.order, $scope.current.basket);
                 prepareStaff();
             },
             function (data) {
