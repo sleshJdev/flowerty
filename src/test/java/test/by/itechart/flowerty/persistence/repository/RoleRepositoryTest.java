@@ -23,7 +23,6 @@ public class RoleRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Ignore
     @Test
     public void findByName_ShouldReturnAUser() {
 
@@ -38,7 +37,6 @@ public class RoleRepositoryTest extends JpaConfigurationAware {
         ));
     }
 
-    @Ignore
     @SuppressWarnings("unchecked")
     @Test
     public void findAll_ShouldReturnAListOfAllRoles() {

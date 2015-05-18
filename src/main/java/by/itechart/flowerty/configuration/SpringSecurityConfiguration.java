@@ -3,10 +3,7 @@ package by.itechart.flowerty.configuration;
 import by.itechart.flowerty.security.CsrfHeaderFilter;
 import by.itechart.flowerty.security.CustomAuthenticationProvider;
 import by.itechart.flowerty.security.TokenBasedRememberMeServices;
-import by.itechart.flowerty.security.handler.AccessDeniedHandler;
 import by.itechart.flowerty.security.handler.AuthFailure;
-import by.itechart.flowerty.security.handler.AuthSuccess;
-import by.itechart.flowerty.security.handler.LogoutSuccessHandlerImpl;
 import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,21 +24,13 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Created by Rostislav on 26-Mar-15
  */
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthFailure authFailure;
-
-    @Autowired
-    private AuthSuccess authSuccess;
-
-    @Autowired
-    private LogoutSuccessHandlerImpl logoutSuccessHandler;
-
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -82,6 +71,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .access("hasRole('ROLE_ORDERS_MANAGER')")
                 .antMatchers("/order/**")
                 .access("hasAnyRole('ROLE_ORDERS_MANAGER', 'ROLE_DELIVERY_MANAGER', 'ROLE_ORDERS_PROCESSOR', 'ROLE_SUPERVISOR')")
+
+                .antMatchers("/goods/add")
+                .access("hasRole('ROLE_ADMIN')")
             .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices())

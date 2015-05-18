@@ -110,23 +110,6 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = {"tempsearch/user/list/{page}"})
-    public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
-        LOGGER.info("get page with number {}", page);
-
-        // TODO: *add testing for this method
-
-        page = (page == null || page < 1) ? 0 : --page;
-
-
-        Page<User> pageUsers = userService.getPage(page, 10);
-
-        LOGGER.info("fetch {} users", pageUsers.getTotalElements());
-
-        return pageUsers;
-    }
-
-    @ResponseBody
     @RequestMapping(value = "user/roles")
     public List<Role> getRoles() throws Exception {
         LOGGER.info("get roles");

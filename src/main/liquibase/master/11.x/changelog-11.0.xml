@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Rostislav" id="changelog-11.0-1">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="goods">
+            <column name="IMAGE_NAME" type="VARCHAR(255)"
+                    value="woman-bouquet.png"/>
+            <where>ID = 1</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-11.0-2">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="goods">
+            <column name="IMAGE_NAME" type="VARCHAR(255)"
+                    value="white-rose.jpg"/>
+            <where>ID = 2</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-11.0-3">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="goods">
+            <column name="IMAGE_NAME" type="VARCHAR(255)"
+                    value="alstromeria-bouquet.jpg"/>
+            <where>ID = 3</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-11.0-4">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="goods">
+            <column name="IMAGE_NAME" type="VARCHAR(255)"
+                    value="bush-rose.jpg"/>
+            <where>ID = 4</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-11.0-5">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="goods">
+            <column name="IMAGE_NAME" type="VARCHAR(255)"
+                    value="iris-bouquet.jpg"/>
+            <where>ID = 5</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-11.0-6">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="goods">
+            <column name="IMAGE_NAME" type="VARCHAR(255)"
+                    value="blue-iris.jpg"/>
+            <where>ID = 6</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-11.0-7">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="goods">
+            <column name="IMAGE_NAME" type="VARCHAR(255)"
+                    value="violet-pion.jpg"/>
+            <where>ID = 7</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

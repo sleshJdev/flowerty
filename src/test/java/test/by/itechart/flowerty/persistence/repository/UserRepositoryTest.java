@@ -24,7 +24,6 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private UserRepository userRepository;
 
-    @Ignore
     @Test
     public void findUserByLoginAndPassword_ShouldReturnAUser() {
 
@@ -43,7 +42,6 @@ public class UserRepositoryTest extends JpaConfigurationAware {
         ));
     }
 
-    @Ignore
     @Test
     public void findUserByLogin_ShouldReturnAUser() {
 
@@ -79,7 +77,6 @@ public class UserRepositoryTest extends JpaConfigurationAware {
         ));
     }
 
-    @Ignore
     @Test
     public void findByRole_ShouldReturnAListOfUsers() {
 
