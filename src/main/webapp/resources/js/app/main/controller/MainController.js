@@ -2,6 +2,7 @@
 /**
  * Created by Катерина on 20.04.2015.
  */
+angular.module('flowertyApplication')
 
 angular.module('flowertyApplication').controller('MainController',
     function ($scope, $http, $location, $filter, AuthServerProvider, $localStorage, notificationService, xlatService, dynamicSearchFactory) {

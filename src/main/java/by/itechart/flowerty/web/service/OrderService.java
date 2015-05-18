@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import by.itechart.flowerty.persistence.model.*;
-import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -14,12 +12,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import by.itechart.flowerty.persistence.model.Goods;
+import by.itechart.flowerty.persistence.model.Item;
+import by.itechart.flowerty.persistence.model.Order;
+import by.itechart.flowerty.persistence.model.OrderAltering;
+import by.itechart.flowerty.persistence.model.Role;
+import by.itechart.flowerty.persistence.model.State;
+import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.mongo.model.FinancialReport;
 import by.itechart.flowerty.persistence.mongo.repository.FinancialReportRepository;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
@@ -27,6 +34,7 @@ import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
 import by.itechart.flowerty.persistence.repository.OrderRepository;
 import by.itechart.flowerty.persistence.repository.StateRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.OrderDocument;
 import by.itechart.flowerty.solr.repository.OrderDocumentRepository;
 import by.itechart.flowerty.web.model.OrderCreateBundle;
@@ -153,17 +161,22 @@ public class OrderService {
     }
 
     public Page<Order> getPage(int page, int size){
-        return orderRepository.findAll(new PageRequest(page, size));
+        
+	return getAvaliableOrders(userDetailsService.getCurrentUser(), new PageRequest(page, size));
     }
 
     public Page<Order> findBySearch (OrderDocument orderDocument, int page, int size) {
-        List<Long> ids = orderDocumentRepository.findBySearch(orderDocument);
+        PageRequest pageRequest = new PageRequest(page, size);
+	List<Long> ids = orderDocumentRepository.findBySearch(orderDocument);
         if (ids == null) {
-            return orderRepository.findAll(new PageRequest(page, size)); //replace by findByCompany when we know company
+            return orderRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(), pageRequest);
+        
         } else if (ids.size() == 0) {
+        
             return new PageImpl<Order>(new ArrayList<Order>());
         }
-        return orderRepository.findByIdIsIn(ids, new PageRequest(page, size));
+        
+        return orderRepository.findByIdIsIn(ids, pageRequest);
     }
 
     public Order findOne(long id){
@@ -259,5 +272,20 @@ public class OrderService {
         Order order = orderRepository.findOne(id);
         List<OrderAltering> orderAlterings = orderAlteringRepository.findByOrder(order);
         return new OrderHistoryBundle(order, orderAlterings);
+    }
+
+    public Page<Order> getAvaliableOrders(User user, Pageable pageable) {
+	switch (user.getRole().getName()) {
+	case ORDERS_MANAGER:
+	    return orderRepository.findAvailableByOrdersManager(user, pageable);
+	case DELIVERY_MANAGER:
+	    return orderRepository.findAvailableByDelivery(user, pageable);
+	case ORDERS_PROCESSOR:
+	    return orderRepository.findAvailableByStaff(user, pageable);
+	case SUPERVISOR:
+	    return orderRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(), pageable);
+	default:
+	    return null;
+	}
     }
 }

@@ -8,7 +8,7 @@ angular.module("flowertyApplication.userModule").controller('ListUserController'
 
         function deleteUsers() {
             if (!$scope.bundle.state.checkeds.length) {
-                notificationService.notify("danger", "Please select users to delete.");
+                notificationService.notify("warning", "Please select users to delete.");
                 return;
             }
             userDeleteService.deleteUsers(

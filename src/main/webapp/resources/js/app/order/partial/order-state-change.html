@@ -1,32 +1,29 @@
-<div class=" modal fade" id="state-change-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" role="dialog" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">{{'CHANGING_STATUS' | xlat}}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group form-group-lg">
-                    <label for="new-state" class="col-md-4 control-label">{{'NEW_STATUS' | xlat}}:</label>
-                    <div class="col-md-6">
-                        <p id="new-state" class="form-control-static">{{temp.newState.description}}</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="comment" class="col-md-4 control-label">{{'COMMENT' | xlat}}</label>
-                    <div class="col-md-6">
-                        <textarea rows="5" class="form-control" id="comment" placeholder="{{'YOUR_COMMENT' | xlat}}"
-                                  data-ng-model="temp.comment"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{'CLOSE' | xlat}}</button>
-                <button type="button" class="btn btn-default" data-ng-click="orderAction.saveStateChanges()"
-                        data-dismiss="modal">{{'CHANGE' | xlat}}</button>
-            </div>
-        </div>
+<div class="modal fade" id="state-change-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">{{'CHANGING_STATUS' | xlat}}</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label class="control-label">{{'NEW_STATUS' | xlat}}:</label>
+			 <label class="control-label">{{temp.newState.description}}</label>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">{{'COMMENT' | xlat}}</label>
+            <textarea id="message-text"
+					class="form-control" data-ng-model="temp.comment" name="comment" placeholder="{{'COMMENT' | xlat}}"
+					data-ng-maxlength="100"
+					data-flowerty-validate></textarea>
+          </div>
+        </form>
+      </div>
+     <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">{{'CLOSE' | xlat}}</button>
+         <button type="button" class="btn btn-default" data-ng-click="orderAction.saveStateChanges()" data-dismiss="modal">{{'CHANGE' | xlat}}</button>
+     </div>
     </div>
+  </div>
 </div>

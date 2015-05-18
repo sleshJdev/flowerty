@@ -36,9 +36,6 @@ public class OrderController {
     public Order save(@RequestBody Order orderToSave){
         LOGGER.info("Checkout order: {}", orderToSave);
         
-        Order order = orderService.save(orderToSave);
-        LOGGER.info("order after saving: {}", order);
-        
         return orderService.save(orderToSave);
     }
 
@@ -55,6 +52,11 @@ public class OrderController {
         LOGGER.info("Getting order page {} with limit {}", page, limit);
 
         page = (page == null || page < 1) ? 0 : --page;
+        
+        Page<Order> pageOrder = orderService.getPage(page, limit);
+        
+        System.out.println(pageOrder.getContent().size());
+        
         return orderService.getPage(page, limit);
     }
 

@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,15 +54,6 @@ public class UserController {
         return null;
     }
 
-    private static List<Long> fetchIdOfContact(List<User> users) {
-        List<Long> ids = new ArrayList<>(users.size());
-        for (User user : users) {
-            ids.add(user.getId());
-        }
-
-        return ids;
-    }
-
     @ResponseBody
     @RequestMapping(value = "user/remove", method = RequestMethod.POST)
     public void remove(@RequestBody List<User> users) {
@@ -73,7 +63,7 @@ public class UserController {
             return;
         }
 
-        userService.deleteIdIn(fetchIdOfContact(users));
+        userService.deleteIdIn(users);
     }
 
     @ResponseBody
@@ -103,23 +93,6 @@ public class UserController {
         page = (page == null || page < 1) ? 0 : --page;
 
         Page<User> pageUsers = userService.getPage(page, limit);
-
-        LOGGER.info("fetch {} users", pageUsers.getTotalElements());
-
-        return pageUsers;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = {"tempsearch/user/list/{page}"})
-    public Page<User> getPage(@PathVariable("page") Integer page) throws Exception {
-        LOGGER.info("get page with number {}", page);
-
-        // TODO: *add testing for this method
-
-        page = (page == null || page < 1) ? 0 : --page;
-
-
-        Page<User> pageUsers = userService.getPage(page, 10);
 
         LOGGER.info("fetch {} users", pageUsers.getTotalElements());
 

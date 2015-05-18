@@ -64,7 +64,7 @@ var initialXlatTables = {
         'REMOVE_BASKET' : 'Remove from basket',
         'PHONE_LIST_EMPTY' : 'Phone list is empty.',
         'CANT_LEAVE_EMPTY' : 'You can\'t leave this empty.',
-        'RESET_PASSWORD' : 'Reset the password',
+        'RESET_PASS' : 'Reset the password',
         'CREATE_PASS' : 'Create a password',
         'CONFIRM_PASS' : 'Confirm your password',
         'PASSWORDS_DONT_MATCH' : 'The passwords don\'t match',
@@ -73,6 +73,7 @@ var initialXlatTables = {
         'ROLES' : 'Roles',
         'CONTACT_AND_INFO' : 'CONTACT AND BASICS INFORMATION',
         'HOMETOWN' : 'Hometown',
+        'COMPANY_INFO': 'COMPANY',
         'FRENCH' : 'Français',
         'COUNT' : 'Count',
         'NOT_AVAILABLE' : 'Not available at warehouse now',
@@ -197,7 +198,7 @@ var initialXlatTables = {
         'REMOVE_BASKET' : 'Удалить из корзины',
         'PHONE_LIST_EMPTY' : 'Список телефонов пуст.',
         'CANT_LEAVE_EMPTY' : 'Пожалуйста, заполните это поле.',
-        'RESET_PASSWORD' : 'Сбросить пароль',
+        'RESET_PASS' : 'Сбросить пароль',
         'CREATE_PASS' : 'Установить пароль',
         'CONFIRM_PASS' : 'Подтвердите пароль',
         'PASSWORDS_DONT_MATCH' : 'Пароли не совпадают',
@@ -206,6 +207,7 @@ var initialXlatTables = {
         'ROLES' : 'Роли',
         'CONTACT_AND_INFO' : 'КОНТАКТ И ОСНОВНАЯ ИНФОРМАЦИЯ',
         'HOMETOWN' : 'Родной город',
+        'COMPANY_INFO': 'КОМПАНИЯ',
         'FRENCH' : 'Français',
         'COUNT' : 'Количество',
         'NOT_AVAILABLE' : 'В данный момент отсутствует на складе',
@@ -325,7 +327,7 @@ var initialXlatTables = {
         'REMOVE_BASKET' : 'Supprimer du corbeille',
         'PHONE_LIST_EMPTY' : 'Le liste des télephones est vide.',
         'CANT_LEAVE_EMPTY' : 'Veuillez enfiller ce champ.',
-        'RESET_PASSWORD' : 'Remettre le mot de passe',
+        'RESET_PASS' : 'Remettre le mot de passe',
         'CREATE_PASS' : 'Créer un mot de passe',
         'CONFIRM_PASS' : 'Confirmez le mot de passe',
         'PASSWORDS_DONT_MATCH' : 'Les mot de passe n\'égalèrent pas',
@@ -334,6 +336,7 @@ var initialXlatTables = {
         'ROLES' : 'Les roles',
         'CONTACT_AND_INFO' : 'Le contact et l\'information principale',
         'HOMETOWN' : 'La ville matérnèle',
+        'COMPANY_INFO': 'SOCIÉTÉ',
         'FRENCH' : 'Français',
         'COUNT' : 'Nombre',
         'NOT_AVAILABLE' : 'Actuellement en rupture de stock',
@@ -389,5 +392,4 @@ var initialXlatTables = {
         'Add' : 'Ajouter',
         'SORRY_MESSAGE' : 'Pour voir vous devez entrer sur le site!'
     }
-
 };

@@ -20,7 +20,7 @@
                              data-ng-click="orderAction.changeState(state)"
                              data-toggle="modal"
                              data-target="#state-change-modal"
-                             data-whatever="@getbootstrap">{{state.description}}
+                             data-whatever="@mdo">{{state.description}}
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                            type="text" class="form-control input-lg" id="customer" placeholder="{{'START_TYPING' | xlat}}.." name="customer"
                            data-ng-model="search.customer.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.customer)"
-                           required data-flowerty-validate/>
+                           data-ng-required="!bundle.order.id" data-flowerty-validate/>
                     <select class="form-control list-group-item select-select" size="3"
                             data-ng-show="search.customer.show"
                             data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in search.customer.offeredContacts"
@@ -58,7 +58,7 @@
                            type="text" class="form-control input-lg" id="receiver" placeholder="{{'START_TYPING' | xlat}}.." name="receiver"
                            data-ng-model="search.receiver.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.receiver)"
-                           required  data-flowerty-validate/>
+                           data-ng-required="!bundle.order.id"  data-flowerty-validate/>
                     <select class="form-control list-group-item select-select" size="3"
                             data-ng-show="search.receiver.show"
                             data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in search.receiver.offeredContacts"
@@ -203,7 +203,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Partials -->
-    <div data-ng-include="partial.stateChange"></div>
 </div>
+<!-- Partials -->
+<div data-ng-include="partial.stateChange"></div>

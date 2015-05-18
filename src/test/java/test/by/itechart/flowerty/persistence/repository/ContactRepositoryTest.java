@@ -18,7 +18,6 @@ public class ContactRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private ContactRepository contactRepository;
 
-    @Ignore
     @Test
     public void findContactsWithoutUser(){
 	List<Long> contacts = contactRepository.findContactsWithoutUser();
