@@ -161,7 +161,13 @@ public class OrderService {
     }
 
     public Page<Order> getPage(int page, int size){
+	Page<Order> pageOrder = getAvaliableOrders(userDetailsService.getCurrentUser(), new PageRequest(page, size));
+
+	System.out.println(userDetailsService.getCurrentUser());
+	System.out.println(pageOrder.getContent().size());
+	
         return getAvaliableOrders(userDetailsService.getCurrentUser(), new PageRequest(page, size));
+//	return orderRepository.findAll(new PageRequest(page, size));
     }
 
     public Page<Order> findBySearch (OrderDocument orderDocument, int page, int size) {
@@ -271,15 +277,19 @@ public class OrderService {
 
     public Page<Order> getAvaliableOrders(User user, Pageable pageable) {
         if (user.getRole().getName().equals(Role.ROLE_TYPE.ORDERS_MANAGER)) {
+            System.out.println("orders_manager");
             return orderRepository.findAvailableByOrdersManager(user, pageable);
         }
         if (user.getRole().getName().equals(Role.ROLE_TYPE.DELIVERY_MANAGER)) {
+            System.out.println("delivery_manager");
             return orderRepository.findAvailableByDelivery(user, pageable);
         }
         if (user.getRole().getName().equals(Role.ROLE_TYPE.ORDERS_PROCESSOR)) {
+            System.out.println("orders_processor");
             return orderRepository.findAvailableByStaff(user, pageable);
         }
         if (user.getRole().getName().equals(Role.ROLE_TYPE.SUPERVISOR)) {
+            System.out.println("supervisor");
             return orderRepository.findAll(pageable);
         }
         return null;

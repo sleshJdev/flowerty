@@ -34,10 +34,10 @@
                     <img class="loader" src="resources/images/loader.gif"
                             data-ng-show="search.customer.loading"/>
                     <input autocomplete="off"
-                           type="text" class="form-control input-lg" id="customer" placeholder="start typing.." name="customer"
+                           type="text" class="form-control input-lg" id="customer" placeholder="Start typing.." name="customer"
                            data-ng-model="search.customer.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.customer)"
-                           required data-flowerty-validate/>
+                           data-ng-required="!bundle.order.id" data-flowerty-validate/>
                     <select class="form-control list-group-item select-select" size="3"
                             data-ng-show="search.customer.show"
                             data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in search.customer.offeredContacts"
@@ -58,7 +58,7 @@
                            type="text" class="form-control input-lg" id="receiver" placeholder="start typing.." name="receiver"
                            data-ng-model="search.receiver.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.receiver)"
-                           required  data-flowerty-validate/>
+                           data-ng-required="!bundle.order.id"  data-flowerty-validate/>
                     <select class="form-control list-group-item select-select" size="3"
                             data-ng-show="search.receiver.show"
                             data-ng-options="contact as contact.name + ' ' + contact.fathername + ' ' + contact.surname for contact in search.receiver.offeredContacts"
