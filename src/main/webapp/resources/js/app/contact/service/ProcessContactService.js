@@ -35,7 +35,9 @@ angular.module("flowertyApplication.contactModule")
                     data: contact
                 }).success(function (data) {
                     console.log("save contact success!");
-                    notificationService.notify("success", "A new contact created successfully!");
+                    contact.id ?
+                        notificationService.notify("success", "Saved successfully!") :
+                        notificationService.notify("success", "A new contact created successfully!");
                     $location.path("contact-list");
                 }).error(function (data) {
                     console.log("save contact error: " + JSON.stringify(data));

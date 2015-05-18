@@ -21,9 +21,7 @@ userModule.constant("USER_MODULE_CONSTANTS", (function () {
                 actionButton: "Edit",
                 title: "Edit User"
             }
-        },
-
-        LIMITS_USERS: [3, 5]
+        }
     }
 })());
 
@@ -31,14 +29,10 @@ userModule.config(["$routeProvider", 'USER_MODULE_CONSTANTS', function ($routePr
     $routeProvider
         .when("/users", {
             templateUrl: USER_MODULE_CONSTANTS.USERS_LIST_FORM,
-            controller: "UsersController"
+            controller: "ListUserController"
         })
         .when("/edit-user/:id", {
             templateUrl: USER_MODULE_CONSTANTS.USER_EDIT_FORM,
-            controller: "UserEditController"
-        })
-        .when("/remove-user", {
-            templateUrl: USER_MODULE_CONSTANTS.USER_EDIT_FORM,
-            controller: "UserDeleteController"
+            controller: "EditUserController"
         });
 }]);

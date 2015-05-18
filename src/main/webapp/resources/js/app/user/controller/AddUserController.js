@@ -2,7 +2,7 @@
 /**
  * Created by Катерина on 20.04.2015.
  */
-userModule.controller("UserAddController", ['$scope', '$http', '$location', '$filter', 'USER_MODULE_CONSTANTS', 'userService', 'notificationService',
+userModule.controller("AddUserController", ['$scope', '$http', '$location', '$filter', 'USER_MODULE_CONSTANTS', 'userService', 'notificationService',
     function ($scope, $http, $location, $filter, USER_MODULE_CONSTANTS, userService, notificationService) {
 
         $scope.option = {
@@ -30,7 +30,8 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
             user: {
                 enteredSurname: '',
                 show: false,
-                selected: {}
+                selected: {},
+                loading : false
             }
         };
 

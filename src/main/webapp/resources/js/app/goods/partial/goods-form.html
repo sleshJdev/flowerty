@@ -1,39 +1,48 @@
 <!-- form of adding of goods -->
-<div class="col-md-10">
-	<div data-ng-app="flowertyApplication.goodsModule">
-		<fieldset class="col-md-offset-1 form-horizontal" data-ng-form="goodsForm">
-			<legend class="text-center">{{'ADD_GOODS' | xlat}}</legend>
-			<div class="form-group">
-				<label class="col-md-3" >{{'COST' | xlat}}</label>
-				<div class="col-md-3">
-					<input type="number" class="form-control" data-ng-model="bundle.goods.cost" placeholder="Cost" name="cost"
-							required min="0" data-flowerty-validate>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-3">{{'FLOWER' | xlat}}</label>
-				<div class="col-md-8">
-					<input type="text" class="form-control" data-ng-model="bundle.goods.flower.name" placeholder="{{'TYPE_FLOWER_NAME' | xlat}}" name="flower"
-							required maxlength="20" data-flowerty-validate>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-3">{{'REMAIN' | xlat}}</label>
-				<div class="col-md-3">
-					<input type="number" class="form-control" data-ng-model="bundle.goods.remain" placeholder="{{'ON_WAREHOUSE' | xlat}}" name="remain"
-							required min="0" data-flowerty-validate >
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-3">{{'PICTURE' | xlat}}</label>
-				<div class="col-md-4">
-					<input type="file" data-ng-model="bundle.picture" data-flowerty-picture-pick required>
-				</div>
-			</div>
-		</fieldset>
-		<div>
-			<button data-ng-disabled="goodsForm.$invalid"
-				class="pull-right col-sm-2 btn btn-primary active" data-ng-click="bundle.actions.add()">{{'ADD' | xlat}}</button>
-		</div>
-	</div>
+<div class="col-md-offset-1 col-md-10">
+    <div data-ng-app="flowertyApplication.goodsModule">
+        <fieldset class="col-md-offset-1 form-horizontal" data-ng-form="goodsForm">
+            <legend class="text-center">{{'ADD_GOODS' | xlat}}</legend>
+            <div class="form-group">
+                <label class="col-md-3">{{'COST' | xlat}}</label>
+
+                <div class="col-md-3">
+                    <input type="number" class="form-control" data-ng-model="bundle.goods.cost" placeholder="Cost"
+                           name="cost"
+                           required min="0" data-flowerty-validate>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">{{'FLOWER' | xlat}}</label>
+
+                <div class="col-md-8">
+                    <input type="text" class="form-control" data-ng-model="bundle.goods.flower.name"
+                           placeholder="{{'TYPE_FLOWER_NAME' | xlat}}" name="flower"
+                           required maxlength="20" data-flowerty-validate>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">{{'REMAIN' | xlat}}</label>
+
+                <div class="col-md-3">
+                    <input type="number" class="form-control" data-ng-model="bundle.goods.remain"
+                           placeholder="{{'ON_WAREHOUSE' | xlat}}" name="remain"
+                           required min="0" data-flowerty-validate>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">{{'PICTURE' | xlat}}</label>
+
+                <div class="col-md-4">
+                    <input type="file" data-ng-model="bundle.picture" data-flowerty-picture-pick required>
+                </div>
+            </div>
+        </fieldset>
+        <div>
+            <button data-ng-disabled="goodsForm.$invalid"
+                    class="pull-right col-sm-2 btn btn-primary active" data-ng-click="bundle.actions.add()">{{'ADD' |
+                xlat}}
+            </button>
+        </div>
+    </div>
 </div>

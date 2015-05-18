@@ -7,13 +7,13 @@
 
 angular.module("flowertyApplication.orderModule").service('checkoutService', ['$http', function($http){
 
-    var service = this;
+    var self = this;
 
-    service.checkout = function(order, successCallback, errorCallback){
+    self.checkout = function(order, successCallback, errorCallback){
         saveOrder(order, 'order/save', successCallback, errorCallback);
     };
 
-    service.saveChanges = function(order, successCallback, errorCallback){
+    self.saveChanges = function(order, successCallback, errorCallback){
         saveOrder(order, 'order/change/save', successCallback, errorCallback);
     };
 
@@ -26,4 +26,20 @@ angular.module("flowertyApplication.orderModule").service('checkoutService', ['$
             .success(successCallback)
             .error(errorCallback);
     };
+
+    /**
+     *
+     * @param items array of order's items
+     * @returns {boolean} if at least one item is available at warehouse
+     */
+    self.canAprooveOrder = function (items) {
+        var i = 0;
+        for(i = 0; i < items.length; i++){
+            if(items[i].quantity){
+                return true;
+            };
+        };
+        return false;
+    };
+
 }]);

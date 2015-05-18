@@ -1,40 +1,48 @@
-
 <!-- Goods list -->
 <div data-ng-app="flowertyApplication.goodsModule">
-    <div class="panel panel-default order-info" data-ng-show="current.basket.info.itemsCount || current.basket.info.fullCost">
-        <div class="panel-heading">
-            <h1 class="panel-title">{{'YOUR_ORDER' | xlat}}</h1>
-        </div>
-        <div class="panel-body">
-            <p>{{'ITEMS_COUNT' | xlat}} <strong>{{current.basket.info.itemsCount}}</strong></p>
-            <p>{{'FULL_COST' | xlat}} <strong>{{current.basket.info.fullCost | currency}}</strong></p>
-            <a href="#add-order"><div class="btn btn-default">{{'FORM_ORDER' | xlat}}</div></a>
-        </div>
-    </div>
-    <h1>{{'MAKE_ORDER' | xlat}}</h1>
-    <div data-ng-include="templates.pagination.url"></div>
-    <div class="row" data-ng-repeat="goodsRow in goods.list">
-        <div class="goods-item col-md-4 thumbnail"
-             data-ng-repeat="goodsItem in goodsRow">
-            <div class="goods-item-border"
-                    data-ng-class="goods.getGoodsItemClass(goodsItem)">
-                <div class="goods-image">
-                    <img alt="flowers" class="img-responsive" src="picture/{{goodsItem.image}}"/>
-                </div>
-                <div class="goods-item-info caption text-center">
-                    <h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
-                    <h5 class="goods-item-description">{{goodsItem.cost | currency}}</h5>
-                    <p data-ng-show="current.isLogged">Count: <a href="" data-ng-click="goods.less(goodsItem)"><span class="glyphicon glyphicon-minus"></span></a>
-                        <span class="goods-item-count badge">{{goodsItem.count}}</span>
-                        <a href="" data-ng-click="goods.more(goodsItem)"><span class="glyphicon glyphicon-plus"></span></a>
-                    </p>
-                    <div data-ng-show="current.isLogged">
-                        <div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]" data-ng-click="goods.makeOrder(goodsItem)">{{'ADD_BASKET' | xlat}}</div>
-                        <div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]" data-ng-click="goods.removeFromOrder(goodsItem)">{{'REMOVE_BASKET' | xlat}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div data-ng-include="templates.pagination.url"></div>
+	<div class="panel panel-default order-info" data-ng-show="current.basket.info.itemsCount || current.basket.info.fullCost">
+		<div class="panel-heading">
+			<h1 class="panel-title">{{'YOUR_ORDER' | xlat}}</h1>
+		</div>
+		<div class="panel-body">
+			<p>
+				{{'ITEMS_COUNT' | xlat}} <strong>{{current.basket.info.itemsCount}}</strong>
+			</p>
+			<p>
+				{{'FULL_COST' | xlat}} <strong>{{current.basket.info.fullCost | currency}}</strong>
+			</p>
+			<a href="#add-order"><div class="btn btn-default">{{'FORM_ORDER' | xlat}}</div></a>
+			<p class="text-right">
+				<a href="" data-ng-click="current.resetBasket()">Reset cart</a>
+			</p>
+		</div>
+	</div>
+	<legend class="text-center">{{'MAKE_ORDER' | xlat}}</legend>
+	<div data-ng-include="templates.pagination.url"></div>
+	<div class="row" data-ng-repeat="goodsRow in goods.list">
+		<div class="goods-item col-md-4 thumbnail" data-ng-repeat="goodsItem in goodsRow">
+			<div class="goods-item-border" data-ng-class="goods.getGoodsItemClass(goodsItem)">
+				<div class="goods-image">
+					<img alt="flowers" class="img-responsive" src="picture/{{goodsItem.image}}" />
+				</div>
+				<div class="goods-item-info caption text-center">
+					<h3 class="goods-item-description">{{goodsItem.flower.name}}</h3>
+					<h5 class="goods-item-description" data-ng-show="goodsItem.remain">{{goodsItem.cost | currency}}</h5>
+					<p data-ng-show="current.isLogged && goodsItem.remain">
+						Count: <a href="" data-ng-click="goods.less(goodsItem, current.basket)"><span class="glyphicon glyphicon-minus"></span></a> <span
+							class="goods-item-count badge">{{goodsItem.count}}</span> <a href="" data-ng-click="goods.more(goodsItem, current.basket)"><span
+							class="glyphicon glyphicon-plus"></span></a>
+					</p>
+					<div data-ng-show="current.isLogged && goodsItem.remain">
+						<div class="btn btn-default" data-ng-show="!current.basket.items[goodsItem.id]"
+							data-ng-click="goods.makeOrder(goodsItem, current.basket)">{{'ADD_BASKET' | xlat}}</div>
+						<div class="btn btn-default" data-ng-show="current.basket.items[goodsItem.id]"
+							data-ng-click="goods.removeFromOrder(goodsItem, current.basket)">{{'REMOVE_BASKET' | xlat}}</div>
+					</div>
+					<h5 data-ng-show="current.isLogged && !goodsItem.remain">Not available at warehouse</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-ng-include="templates.pagination.url"></div>
 </div>

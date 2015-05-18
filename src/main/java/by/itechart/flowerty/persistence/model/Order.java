@@ -1,14 +1,28 @@
 package by.itechart.flowerty.persistence.model;
 
 import by.itechart.flowerty.solr.model.OrderDocument;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
+import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
-import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * User: Мария
@@ -26,7 +40,7 @@ public class Order {
     private User manager;
     private User delivery;
     private String description;
-    private DateTime deliveryDate;
+    private Date deliveryDate;
     private List<Item> items;
     private Address address;
 
@@ -92,8 +106,8 @@ public class Order {
     }
 
     @Column(name = "DELIVERY_DATE", nullable = true)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    public DateTime getDeliveryDate() {
+    @Temporal(value = TemporalType.DATE)
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
@@ -110,9 +124,9 @@ public class Order {
         if(id == null || customer == null || receiver == null || deliveryDate == null){
             return null;
         }
-        return new OrderDocument(id.toString(), customer.getFathername(), receiver.getFathername(), deliveryDate.toDate(), customer.getCompany());
+        return new OrderDocument(id.toString(), customer.getFathername(), receiver.getFathername(), deliveryDate, customer.getCompany());
     }
-    public void setDeliveryDate(DateTime deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

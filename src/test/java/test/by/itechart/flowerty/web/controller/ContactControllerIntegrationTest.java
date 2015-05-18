@@ -1,29 +1,27 @@
 package test.by.itechart.flowerty.web.controller;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Arrays;
-
+import by.itechart.flowerty.persistence.model.Contact;
+import by.itechart.flowerty.persistence.model.User;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.ResultActions;
-
 import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
-import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.persistence.model.User;
+
+import java.util.Arrays;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 /**
  * @author Eugene Putsykovich(slesh) May 16, 2015
  *
  *	integration tests for ContactController
  */
+
 @Ignore
 public class ContactControllerIntegrationTest extends WebApplicationConfigurationAware {
     private MockHttpSession session;

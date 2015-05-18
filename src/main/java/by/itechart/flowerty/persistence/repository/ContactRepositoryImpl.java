@@ -18,11 +18,11 @@ public class ContactRepositoryImpl extends QueryDslRepositorySupport implements 
     public ContactRepositoryImpl(){
 	super(Contact.class);
     }
-    
+
     @Override
     @Transactional
     public int deleteIdIsIn(List<Long> list) {
-	return (int) delete(CONTACT).where(CONTACT.id.in(list)).execute();
+        return (int) delete(CONTACT).where(CONTACT.id.in(list)).execute();
     }
 
     @Override

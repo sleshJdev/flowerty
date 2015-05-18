@@ -13,7 +13,7 @@ angular.module("flowertyApplication.contactModule")
              */
             function sendEmail() {
                 if ($scope.bundle.state.isempty()) {
-                    notificationService.notify("danger", "Please select contacts to send email.");
+                    notificationService.notify("warning", "Please select contacts to send email.");
                 } else {
                     emailService.setValue($scope.bundle.state.checkeds);
                     $location.path("send-email");//redirect to email form
@@ -24,6 +24,10 @@ angular.module("flowertyApplication.contactModule")
              * remove specific contacts
              */
             function deleteContact() {
+            	if ($scope.bundle.state.isempty()) {
+                    notificationService.notify("warning", "Please select contacts to delete.");
+                    return;
+            	} 
                 deleteService.deleteContact(
                     $scope.bundle.state.checkeds,
                     function (data) {
@@ -46,7 +50,7 @@ angular.module("flowertyApplication.contactModule")
             };
 
             $scope.bundle.state.reset();
-            $scope.pagination = paginationService.getPagination(contactListService.getContactList);
+            $scope.pagination = paginationService.getPagination(contactListService.getContactList, true);
             $scope.pagination.getPage(1);
 
         }]);
