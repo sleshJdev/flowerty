@@ -24,7 +24,6 @@ public class ItemRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private ItemRepository itemRepository;
 
-    @Ignore
     @Test
     public void findOne_ShouldReturnAItem() {
 

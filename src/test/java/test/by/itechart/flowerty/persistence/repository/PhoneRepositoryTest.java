@@ -24,7 +24,6 @@ public class PhoneRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private PhoneRepository phoneRepository;
 
-    @Ignore
     @SuppressWarnings("unchecked")
     @Test
     public void findOne_ShouldReturnAPhone() {

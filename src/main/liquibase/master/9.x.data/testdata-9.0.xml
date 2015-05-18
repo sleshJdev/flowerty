@@ -22,8 +22,8 @@
 
 
         <insert tableName="user">
-            <column name="LOGIN" value="admin2"/>
-            <column name="PASSWORD" value="admin2"/>
+            <column name="LOGIN" value="admin"/>
+            <column name="PASSWORD" value="admin"/>
             <column name="CONTACT_ID" value="4"/>
             <column name="ROLE_ID" value="1"/>
         </insert>

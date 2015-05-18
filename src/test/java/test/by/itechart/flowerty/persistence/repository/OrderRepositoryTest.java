@@ -23,7 +23,6 @@ public class OrderRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Ignore
     @Test
     public void findOne_ShouldReturnAOrder() {
 

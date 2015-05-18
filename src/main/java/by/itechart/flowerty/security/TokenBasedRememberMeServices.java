@@ -23,6 +23,7 @@ import java.util.Date;
 /**
  * Created by Rostislav on 08-Apr-15
  */
+
 public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
     private Logger LOGGER = LoggerFactory.getLogger(TokenBasedRememberMeServices.class);
 
