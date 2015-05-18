@@ -1,6 +1,7 @@
 package by.itechart.flowerty.web.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,8 @@ import by.itechart.flowerty.persistence.model.OrderAltering;
 import by.itechart.flowerty.persistence.model.Role;
 import by.itechart.flowerty.persistence.model.State;
 import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.mongo.model.FinancialReport;
+import by.itechart.flowerty.persistence.mongo.repository.FinancialReportRepository;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
 import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
 import by.itechart.flowerty.persistence.repository.OrderRepository;
@@ -65,6 +68,9 @@ public class OrderService {
     @Autowired
     private GoodsRepository goodsRepository;
 
+    @Autowired
+    private FinancialReportRepository financialReportRepository;
+    
     @Transactional
     public Order save(Order orderToCreate){
 
@@ -91,7 +97,23 @@ public class OrderService {
         OrderAltering newAltering = new OrderAltering(null, savedOrder, getCurrentUser(),
                 getStateByDescription(State.DESCRIPTION_TYPE.NEW), DateTime.now().toDate(), "");
         orderAlteringRepository.save(newAltering);
+
+        financialReportRepository.save(prepareFinancialReport(newAltering));
+        
         return savedOrder;
+    }
+    
+    private FinancialReport prepareFinancialReport(OrderAltering order){
+	Long id = order.getOrder().getId();
+	Date now = order.getDate();
+	Double cost = 0.0;
+	for (Item item : order.getOrder().getItems()) {
+	    cost += item.getQuantity() * item.getGoods().getCost();
+	}
+	
+	FinancialReport financialReport = new FinancialReport(id, now, cost);
+    
+	return financialReport;
     }
 	
     private boolean availableOnWarehouse(List<Item> items){
