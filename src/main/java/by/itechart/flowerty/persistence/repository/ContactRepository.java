@@ -20,9 +20,7 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
 
     public List<Contact> findBySurnameStartingWithAndCompany(String surname, Company company);
 
-    public Page<Contact> findByIdIsIn(List<Long> list, Pageable pageable);
+    public Page<Contact> findByIdIsInAndCompany(List<Long> list, Company company, Pageable pageable);
 
-    public List<Contact> findByIdIsIn(List<Long> list);
-
-    public Contact findById(Long id);
+    public List<Contact> findByIdIsInAndCompany(List<Long> list, Company company);
 }
