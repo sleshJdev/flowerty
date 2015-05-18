@@ -18,7 +18,7 @@ public class ContactRepositoryImpl extends QueryDslRepositorySupport implements 
     public ContactRepositoryImpl(){
 	super(Contact.class);
     }
-
+    
     @Override
     @Transactional
     public int deleteIdIsIn(List<Long> list) {

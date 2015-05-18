@@ -1,9 +1,12 @@
 package by.itechart.flowerty.persistence.repository;
 
+import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Order;
 import by.itechart.flowerty.persistence.model.QOrder;
 import by.itechart.flowerty.persistence.model.State;
 import by.itechart.flowerty.persistence.model.User;
+
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +23,17 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Or
 
     public OrderRepositoryImpl() {
         super(Order.class);
+    }
+    
+    @Override
+    public Page<Order> findByCompany(Company company, Pageable pageable) {
+	System.out.println(company);
+	List<Order> orders = 
+		from(ORDER)
+			.where(ORDER.receiver.company.eq(company))
+		.list(ORDER);
+	
+	return new PageImpl<Order>(orders);
     }
 
     @Override
