@@ -30,7 +30,8 @@ userModule.controller("UserAddController", ['$scope', '$http', '$location', '$fi
             user: {
                 enteredSurname: '',
                 show: false,
-                selected: {}
+                selected: {},
+                loading : false
             }
         };
 

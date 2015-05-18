@@ -80,7 +80,7 @@ angular.module("flowertyApplication").service('paginationService', ['$location',
             return listBundle.pagesCount;
         };
 
-        service.getPagination = function (getPageFromServerFunction) {
+        service.getPagination = function (getPageFromServerFunction, canChangeLimit) {
             service.getPageFromServer = getPageFromServerFunction;
             listBundle.list = [];
             return {
@@ -92,7 +92,7 @@ angular.module("flowertyApplication").service('paginationService', ['$location',
                 changeLimit: changeLimit,
                 limit: listBundle.limit,
                 limits: MAIN_MODULE_CONSTANTS.LIMITS,
-                canChangeLimit : true
+                canChangeLimit : canChangeLimit
             }
         };
     }]);

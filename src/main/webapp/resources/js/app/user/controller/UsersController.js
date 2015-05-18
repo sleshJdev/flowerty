@@ -21,7 +21,7 @@ angular.module("flowertyApplication.userModule").controller('UsersController', [
         };
 
         $scope.init = function () {
-            $scope.pagination = paginationService.getPagination(userListService.getUserList);
+            $scope.pagination = paginationService.getPagination(userListService.getUserList, true);
             $scope.pagination.getPage(1);
         };
 

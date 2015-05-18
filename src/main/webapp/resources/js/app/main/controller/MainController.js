@@ -4,7 +4,7 @@
  */
 
 angular.module('flowertyApplication').controller('MainController',
-    function ($scope, $http, $location, $filter, AuthServerProvider, $localStorage, notificationService, xlatService) {
+    function ($scope, $http, $location, $filter, AuthServerProvider, $localStorage, notificationService, xlatService, dynamicSearchFactory) {
 
         AuthServerProvider.setLoggedUser($scope);
 
@@ -52,39 +52,7 @@ angular.module('flowertyApplication').controller('MainController',
             canChangeLimit : true
         };
 
-        $scope.dynamicSearch = {
-            /**
-            *
-            * @param model - entity you want to search dynamically
-            * has the next format: {
-            *                          selected : {},      //  contact that you choose
-            *                          show : false,       // show or not results
-            *                          enteredSurname : '' // string for filtering bySurname
-            *                      }
-            */
-            offerContacts: function (model) {
-
-                //TODO: start spinner
-
-                $filter('bySurname')([], model, $scope.dynamicSearch.filterCallback);
-            },
-            filterCallback: function (model, data) {
-                $scope.dynamicSearch.offeredContacts = data.content;
-                model.selected = $scope.dynamicSearch.offeredContacts[0];
-                model.show = $scope.dynamicSearch.showResults();
-
-                //TODO: stop spinner
-            },
-            showResults: function () {
-                return $scope.dynamicSearch.offeredContacts && $scope.dynamicSearch.offeredContacts.length > 0;
-            },
-            selectContact: function (model) {
-                //  Setting empty array hides select element
-                $scope.dynamicSearch.offeredContacts = [];
-                model.enteredSurname = model.selected.name + ' ' + model.selected.fathername + ' ' + model.selected.surname;
-                model.show = false;
-            }
-        };
+        $scope.dynamicSearch = dynamicSearchFactory.dynamicSearch;
 
         $scope.setCurrentLanguage = function(language) {
             xlatService.setCurrentLanguage(language);
@@ -97,6 +65,7 @@ angular.module('flowertyApplication').controller('MainController',
         $scope.localization = {
             language : 'en'
         };
+
         if ($localStorage.language) {
             $scope.localization.language = $localStorage.language;
             alert($localStorage.language);

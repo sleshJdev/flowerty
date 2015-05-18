@@ -2,15 +2,15 @@
 	<table class="table">
 		<caption>
             {{'PHONES' | xlat}}
-			<a href=""> 
+			<a href="">
 				<span class="glyphicon glyphicon-remove pull-right red"
 						data-ng-click="bundle.actions.deletePhone()"></span>
-			</a> 
-			<a href="" data-ng-click="bundle.actions.addPhone()"> 
-				<span class="glyphicon glyphicon-plus pull-right" 
+			</a>
+			<a href="" data-ng-click="bundle.actions.addPhone()">
+				<span class="glyphicon glyphicon-plus pull-right"
 						data-toggle="modal"
-						data-target="#phone-form-modal" 
-						data-whatever="@getbootstrap"> 
+						data-target="#phone-form-modal"
+						data-whatever="@getbootstrap">
 				</span>
 			</a>
 		</caption>
@@ -22,8 +22,8 @@
 			<th></th>
 		</tr>
 		<tr data-ng-repeat="phone in bundle.contact.phones">
-			<td><input type="checkbox" 
-						data-ng-model="fake.ischecked" 
+			<td><input type="checkbox"
+						data-ng-model="fake.ischecked"
 						data-ng-checked="bundle.state.ischecked(phone)"
 					   	data-ng-change="fake.ischecked ? bundle.state.checked(phone) : bundle.state.unchecked(phone)">
 		    </td>

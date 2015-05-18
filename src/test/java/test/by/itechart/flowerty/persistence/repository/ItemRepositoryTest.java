@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +24,7 @@ public class ItemRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Ignore
     @Test
     public void findOne_ShouldReturnAItem() {
 

@@ -38,6 +38,6 @@ orderModule.config(["$routeProvider", 'ORDER_MODULE_CONSTANTS', function($routeP
         })
         .when("/search-order-results", {
             templateUrl: ORDER_MODULE_CONSTANTS.ORDER_LIST_FORM,
-            controller: "ShowOrdersController"
+            controller: "OrderSearchResultController"
         });
 }]);

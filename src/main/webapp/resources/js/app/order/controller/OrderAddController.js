@@ -3,20 +3,22 @@
  * Created by Катерина on 22.04.2015.
  */
 
-angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location',
-    'checkoutService', 'orderService', 'staffService', 'notificationService', "VALIDATE_DATE",
-    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, VALIDATE_DATE) {
+angular.module("flowertyApplication.orderModule").controller('OrderAddController', ['$scope', '$http', '$location', "VALIDATE_DATE",
+    'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage',
+    function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
 
         $scope.search = {
             customer: {
                 enteredSurname: '',
                 show: false,
-                selected: {}
+                selected: {},
+                loading : false
             },
             receiver: {
                 enteredSurname: '',
                 show: false,
-                selected: {}
+                selected: {},
+                loading : false
             }
         };
 
@@ -36,22 +38,44 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 function (data) {
                     console.log('Checkout order completed succesfully: ' + JSON.stringify($scope.bundle.order));
 
-                    //  Makes the basket empty
-                    $scope.current.resetBasket();
                     $scope.bundle.order = data;
                     $scope.bundle.order.deliveryDate = VALIDATE_DATE.correctFormat($scope.bundle.order.deliveryDate);
                     if($scope.bundle.order.id) {
                         notificationService.notify("success", "New order added!");
+                        //  Makes the basket empty
+                        $scope.current.resetBasket();
+                        $location.path('edit-order/' + $scope.bundle.order.id);
                     }
-                    else{
-                        notificationService.notify("warning", "Some flowers are not available now. Please, aproove.");
+                    else {
+                        if (checkoutService.canAprooveOrder($scope.bundle.order.items)) {
+                            notificationService.notify("warning", "Some flowers are not available now. Please, aproove.");
+                            prepareStaff();
+                        }
+                        else{
+                            notificationService.notify("info", "Sorry, but all the items you chose are not available at our warehouse. You can choose other flowers instead.");
+                            $location.path("/");
+                        }
                     }
-                    //$location.path('orders');
                 },
                 function (data) {
                     notificationService.notify("danger", "Checking out failed!");
-                    $location.path('/add-order');
                 });
+        };
+
+        //  Initializes available managers for every job
+        var prepareStaff = function () {
+            staffService.getStaffForRole('delivery_manager',
+                function (data) {
+                    $scope.staff.deliveryManagers = data;
+                    $scope.bundle.order.delivery = $scope.staff.deliveryManagers[0];
+                }
+            );
+            staffService.getStaffForRole('orders_processor',
+                function (data) {
+                    $scope.staff.processors = data;
+                    $scope.bundle.order.staff = $scope.staff.processors[0];
+                }
+            )
         };
 
         orderService.getPreparedOrderCreateBundle(
@@ -59,19 +83,11 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
                 $scope.bundle = {
                     order: order
                 };
+                if(!$scope.current.basket.items.length){
+                    $localStorage.cart ? $scope.current.basket = $localStorage.cart : $location.path("/");
+                }
                 orderService.initCartItems($scope.bundle.order, $scope.current.basket);
-                staffService.getStaffForRole('delivery_manager',
-                    function (data) {
-                        $scope.staff.deliveryManagers = data;
-                        $scope.bundle.order.delivery = $scope.staff.deliveryManagers[0];
-                    }
-                );
-                staffService.getStaffForRole('orders_processor',
-                    function (data) {
-                        $scope.staff.processors = data;
-                        $scope.bundle.order.staff = $scope.staff.processors[0];
-                    }
-                )
+                prepareStaff();
             },
             function (data) {
                 notificationService.notify("danger", "Error occured during creating an order");

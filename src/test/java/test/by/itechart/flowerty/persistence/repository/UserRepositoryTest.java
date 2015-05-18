@@ -2,6 +2,7 @@ package test.by.itechart.flowerty.persistence.repository;
 
 import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.repository.UserRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
@@ -23,6 +24,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private UserRepository userRepository;
 
+    @Ignore
     @Test
     public void findUserByLoginAndPassword_ShouldReturnAUser() {
 
@@ -41,6 +43,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
         ));
     }
 
+    @Ignore
     @Test
     public void findUserByLogin_ShouldReturnAUser() {
 
@@ -58,6 +61,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
         ));
     }
 
+    @Ignore
     @Test
     public void findOne_ShouldReturnAUser() {
 
@@ -75,6 +79,7 @@ public class UserRepositoryTest extends JpaConfigurationAware {
         ));
     }
 
+    @Ignore
     @Test
     public void findByRole_ShouldReturnAListOfUsers() {
 

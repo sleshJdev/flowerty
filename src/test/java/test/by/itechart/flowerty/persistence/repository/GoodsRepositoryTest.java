@@ -3,6 +3,7 @@ package test.by.itechart.flowerty.persistence.repository;
 import by.itechart.flowerty.persistence.model.Goods;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.by.itechart.flowerty.config.aware.JpaConfigurationAware;
@@ -21,6 +22,7 @@ public class GoodsRepositoryTest extends JpaConfigurationAware {
     @Autowired
     private GoodsRepository goodsRepository;
 
+    @Ignore
     @Test
     public void findOne_ShouldReturnAGoods() {
 

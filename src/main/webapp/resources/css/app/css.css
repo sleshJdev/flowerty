@@ -133,6 +133,7 @@ a:hover{
 .select-select{
     position: absolute;
     z-index: 1000;
+    width: 96%;
 }
 
 .order-info{
@@ -189,4 +190,18 @@ a:hover{
     z-index: 900;
     width: 100%;
     height: 0;
+}
+
+legend{
+    color: #33baaf;
+    border-color: #33baaf;
+    font-size: 2em;
+}
+
+.loader{
+    position: absolute;
+    z-index: 1500;
+    width: 4em;
+    left: 50%;
+    margin-left: -10%;
 }
