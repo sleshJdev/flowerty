@@ -17,6 +17,7 @@ public class FinancialReport implements Serializable {
 
     @Id
     private String id;
+    
     private Integer orderQuantity;
     private Double totalCost;
 
