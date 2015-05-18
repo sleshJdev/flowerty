@@ -33,7 +33,7 @@ angular.module("flowertyApplication.contactModule")
                     function (data) {
                         console.log("contact delete successful");
                         deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
-                        notificationService.notify("success", $scope.bundle.state.ischecked.length + " contacts success removed!");
+                        notificationService.notify("success", "Contacts success removed!");
                         $location.path("contact-list");
                     },
                     function (data) {

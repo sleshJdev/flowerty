@@ -125,7 +125,13 @@ var initialXlatTables = {
         'Role delivery manager' : 'delivery manager',
         'Role admin' : 'admin',
         'Add User' : 'Add user',
-        'Add' : 'Add'
+        'Add' : 'Add',
+        'SORRY_MESSAGE' : 'Sorry, but you have to log in!',
+        'Please select contacts to send email.' : 'Please select contacts to send email.',
+        'Please select contacts to delete.' : 'Please select contacts to delete.',
+        'Contacts success removed!' : 'Contacts success removed!',
+        'Error during deleting contacts!' : 'Error during deleting contacts!',
+        'Cannot get contact information.' : 'Cannot get contact information.'
     },
     'ru': {
         'CONTACTS': 'Контакты',
@@ -252,7 +258,8 @@ var initialXlatTables = {
         'Role delivery manager' : 'менеджер по доставке',
         'Role admin' : 'админ',
         'Add User' : 'Создать пользователя',
-        'Add' : 'Добавить'
+        'Add' : 'Добавить',
+        'SORRY_MESSAGE' : 'Для просмотра необходимо войти на сайт!'
     },
     'fr': {
         'CONTACTS': 'Contact',
@@ -379,7 +386,8 @@ var initialXlatTables = {
         'Role delivery manager' : 'la livraison manager',
         'Role admin' : 'administrateur',
         'Add User' : 'Ajouter l\'utilisateur',
-        'Add' : 'Ajouter'
+        'Add' : 'Ajouter',
+        'SORRY_MESSAGE' : 'Pour voir vous devez entrer sur le site!'
     }
 
 };

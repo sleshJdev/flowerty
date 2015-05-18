@@ -14,8 +14,7 @@
             </p>
         </div>
     </div>
-    <h1 class="text-center" data-ng-show="!current.isLogged">Sorry, but you have to log in! :(</h1>
-    <a data-ng-show="!current.isLogged" href="#login">click here to log in</a>
+    <h1 class="text-center" data-ng-show="!current.isLogged">{{'SORRY_MESSAGE' | xlat}}</h1>
     <div data-ng-show="current.isLogged">
         <legend class="text-center">{{'MAKE_ORDER' | xlat}}</legend>
         <div data-ng-include="templates.pagination.url"></div>
