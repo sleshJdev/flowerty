@@ -20,6 +20,13 @@ public class ContactRepositoryTest extends JpaConfigurationAware {
 
     @Ignore
     @Test
+    public void findContactsWithoutUser(){
+	List<Long> contacts = contactRepository.findContactsWithoutUser();
+	
+	Assert.assertNotNull(contacts);
+    }
+    
+    @Test
     public void findOne_PassValidId_RetursContact() {
         final Contact expected = ContactRepositoryHelperTest.getContactWithIdOne();
 

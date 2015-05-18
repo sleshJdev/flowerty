@@ -5,11 +5,10 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 
 /**
- * @author Maria Date: 17.04.15
+ * Created by Rostislav on 18-May-15
  */
+
 @NoRepositoryBean
-public interface ContactRepositoryCustom {
+public interface UserRepositoryCustom {
     public int deleteIdIsIn(List<Long> list);
-    
-    public List<Long> findContactsWithoutUser();
 }

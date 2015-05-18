@@ -1,8 +1,8 @@
 <div data-ng-app="flowertyApplication.userModule">
     <div class="col-md-offset-2 col-md-8">
         <div class="row">
-			<fieldset class="form-horizontal" data-ng-form="userForm">
-		        <legend class="text-center">{{option.title}}</legend>
+            <fieldset class="form-horizontal" data-ng-form="userForm">
+                <legend class="text-center">{{option.title}}</legend>
                 <div class="form-group" data-ng-show="option.edit">
                     <label class="col-sm-4 control-label">{{'NAME' | xlat}}</label>
 
@@ -56,28 +56,34 @@
                 </div>
                 <div class="form-group" data-ng-show="!option.edit">
                     <label class="col-sm-4 control-label">{{'LOGIN' | xlat}}</label>
+
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" data-ng-model="bundle.user.login" name="login" placeholder="{{'LOGIN' | xlat}}"
-                    		data-ng-maxlength="20" required 
-						  	data-flowerty-validate>
+                        <input type="text" class="form-control" data-ng-model="bundle.user.login" name="login"
+                               placeholder="{{'LOGIN' | xlat}}"
+                               data-ng-maxlength="20" required
+                               data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" data-ng-show="!option.edit">{{'CREATE_PASS' | xlat}}</label>
                     <label class="col-sm-4 control-label" data-ng-show="option.edit">{{'RESET_PASS' | xlat}}</label>
+
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" data-ng-model="bundle.user.password"  name="password" placeholder="{{'PASSWORD' | xlat}}"
-		                    	data-ng-maxlength="20" data-ng-required="!option.edit"
-							  	data-flowerty-validate>
+                        <input type="password" class="form-control" data-ng-model="bundle.user.password" name="password"
+                               placeholder="{{'PASSWORD' | xlat}}"
+                               data-ng-maxlength="20" data-ng-required="!option.edit"
+                               data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="bundle.user.password">
                     <label class="col-sm-4 control-label">{{'CONFIRM_PASS' | xlat}}</label>
+
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm" name="password" placeholder="{{'CONFIRM_PASS' | xlat}}"
-		                    	data-ng-maxlength="20" data-ng-required="!option.edit"
-							  	data-flowerty-validate >
-						
+                        <input type="password" class="form-control" data-ng-model="bundle.passwordConfirm"
+                               name="password" placeholder="{{'CONFIRM_PASS' | xlat}}"
+                               data-ng-maxlength="20" data-ng-required="!option.edit"
+                               data-flowerty-validate>
+
                         <div data-ng-show="bundle.user.password && bundle.user.password != bundle.passwordConfirm">
                             <p class="text-center alert-danger">{{'PASSWORDS_DONT_MATCH' | xlat}}</p>
                         </div>
@@ -91,12 +97,12 @@
                     </div>
                     <div class="col-sm-6">
                         <button
-                        	data-ng-disabled="userForm.$invalid"
-                        	data-ng-click="save()" class="col-sm-4 btn btn-default btn-lg">{{option.actionButton}}
+                                data-ng-disabled="userForm.$invalid"
+                                data-ng-click="save()" class="col-sm-4 btn btn-default btn-lg">{{option.actionButton}}
                         </button>
                     </div>
                 </div>
-           	</fieldset>
+            </fieldset>
         </div>
     </div>
 </div>

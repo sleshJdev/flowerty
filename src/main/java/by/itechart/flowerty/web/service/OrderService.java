@@ -1,13 +1,13 @@
 package by.itechart.flowerty.web.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import by.itechart.flowerty.persistence.model.*;
 import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import by.itechart.flowerty.persistence.model.Goods;
-import by.itechart.flowerty.persistence.model.Item;
-import by.itechart.flowerty.persistence.model.Order;
-import by.itechart.flowerty.persistence.model.OrderAltering;
-import by.itechart.flowerty.persistence.model.Role;
-import by.itechart.flowerty.persistence.model.State;
-import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.mongo.model.FinancialReport;
+import by.itechart.flowerty.persistence.mongo.repository.FinancialReportRepository;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
 import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
 import by.itechart.flowerty.persistence.repository.OrderRepository;
@@ -71,6 +65,9 @@ public class OrderService {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private FinancialReportRepository financialReportRepository;
+
     @Transactional
     public Order save(Order orderToCreate){
 
@@ -97,7 +94,23 @@ public class OrderService {
         OrderAltering newAltering = new OrderAltering(null, savedOrder, userDetailsService.getCurrentUser(),
                 getStateByDescription(State.DESCRIPTION_TYPE.NEW), DateTime.now().toDate(), "");
         orderAlteringRepository.save(newAltering);
+
+        financialReportRepository.save(prepareFinancialReport(newAltering));
+        
         return savedOrder;
+    }
+    
+    private FinancialReport prepareFinancialReport(OrderAltering order){
+	Long id = order.getOrder().getId();
+	Date now = order.getDate();
+	Double cost = 0.0;
+	for (Item item : order.getOrder().getItems()) {
+	    cost += item.getQuantity() * item.getGoods().getCost();
+	}
+	
+	FinancialReport financialReport = new FinancialReport(id, now, cost);
+    
+	return financialReport;
     }
 	
     private boolean availableOnWarehouse(List<Item> items){

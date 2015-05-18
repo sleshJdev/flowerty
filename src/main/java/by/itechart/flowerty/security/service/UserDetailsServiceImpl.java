@@ -3,6 +3,7 @@ package by.itechart.flowerty.security.service;
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,22 +23,26 @@ import java.util.Set;
 /**
  * Created by Rostislav on 31-Mar-15
  */
+
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public Contact getCurrentContact(){
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	String login = userDetails.getUsername();
-
-	Contact contact = userRepository.findUserByLogin(login).getContact();
-	
-	return contact;
+    public boolean isAnonymous() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return !(auth instanceof AnonymousAuthenticationToken) && (UserDetails) auth.getPrincipal() != null;
     }
-    
+
+    public Contact getCurrentContact() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String login = userDetails.getUsername();
+
+        return userRepository.findUserByLogin(login).getContact();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userRepository.findUserByLogin(login);

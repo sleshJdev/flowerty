@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+    <changeSet author="Rostislav" id="changelog-10.0-1">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="PASSWORD" type="VARCHAR(100)"
+                    value="$2a$10$pFHMHZetQf7TxxjxIsxnnejIGvzIJdZckYfKrzLn6eGXnIGl51heC"/>
+            <where>ID = 8</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-2">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="LOGIN" type="VARCHAR(20)" value="delivery_manager_2"/>
+            <where>ID = 9</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-3">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="PASSWORD" type="VARCHAR(100)"
+                    value="$2a$10$3ag3dPay5gi8rGcD7C0yQeTgYTQEU/HtWrWrvIFIjJPl61xWyYtL2"/>
+            <where>ID = 9</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-4">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="LOGIN" type="VARCHAR(20)" value="orders_manager_2"/>
+            <where>ID = 10</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-5">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="PASSWORD" type="VARCHAR(100)"
+                    value="$2a$10$7nNUHmBRxF/GP/guftIsHe4iInyGDBQesAaxshA/PntI1oHObMHQK"/>
+            <where>ID = 10</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-6">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="LOGIN" type="VARCHAR(20)" value="orders_processor_2"/>
+            <where>ID = 11</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-7">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="PASSWORD" type="VARCHAR(100)"
+                    value="$2a$10$j4oi6wzrVcRb1bELWDA1q.uRlDpGRWI4SY2oGpjOMk2ysvdhIfLHy"/>
+            <where>ID = 11</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-8">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="LOGIN" type="VARCHAR(20)" value="supervisor_2"/>
+            <where>ID = 12</where>
+        </update>
+    </changeSet>
+    <changeSet author="Rostislav" id="changelog-10.0-9">
+        <update catalogName="flowerty"
+                schemaName="public"
+                tableName="user">
+            <column name="PASSWORD" type="VARCHAR(100)"
+                    value="$2a$10$k3dDoLtghEZewiTblrBOoOkHqTCQ5x.OoJWXXFD2J9XfR8lPcaCpK"/>
+            <where>ID = 12</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>
