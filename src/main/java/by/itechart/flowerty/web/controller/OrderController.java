@@ -36,9 +36,6 @@ public class OrderController {
     public Order save(@RequestBody Order orderToSave){
         LOGGER.info("Checkout order: {}", orderToSave);
         
-        Order order = orderService.save(orderToSave);
-        LOGGER.info("order after saving: {}", order);
-        
         return orderService.save(orderToSave);
     }
 
