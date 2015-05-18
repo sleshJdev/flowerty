@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import test.by.itechart.flowerty.config.aware.WebSecurityConfigurationAware;
 
 import java.util.ArrayList;
@@ -86,7 +87,8 @@ public class SecurityRequestsTest extends WebSecurityConfigurationAware {
 
         UserDetailsService userDetailsServiceMock = mock(UserDetailsService.class);
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+        @SuppressWarnings("serial")
+	UserDetails userDetails = new org.springframework.security.core.userdetails.User(
                 "testAdmin", "testAdmin",
                 true, true, true, true,
                 new ArrayList<GrantedAuthority>() {
