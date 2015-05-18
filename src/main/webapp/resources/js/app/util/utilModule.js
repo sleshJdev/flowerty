@@ -118,7 +118,7 @@ angular.module("flowertyApplication.utilModule", [])
     .filter('bySurname', ['$http', function($http){
         return function(offeredContacts, model, filterCallback){
             enteredSurname = model.enteredSurname;
-            if(enteredSurname.length < 3){
+            if(!enteredSurname || enteredSurname.length < 3){
                 filterCallback(model, []);
                 return true;
             }

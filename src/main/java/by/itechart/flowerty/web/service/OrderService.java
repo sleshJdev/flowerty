@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import by.itechart.flowerty.persistence.model.*;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -18,14 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import by.itechart.flowerty.persistence.model.Goods;
-import by.itechart.flowerty.persistence.model.Item;
-import by.itechart.flowerty.persistence.model.Order;
-import by.itechart.flowerty.persistence.model.OrderAltering;
-import by.itechart.flowerty.persistence.model.Role;
-import by.itechart.flowerty.persistence.model.State;
-import by.itechart.flowerty.persistence.model.User;
 import by.itechart.flowerty.persistence.mongo.model.FinancialReport;
 import by.itechart.flowerty.persistence.mongo.repository.FinancialReportRepository;
 import by.itechart.flowerty.persistence.repository.GoodsRepository;
@@ -69,8 +63,11 @@ public class OrderService {
     private GoodsRepository goodsRepository;
 
     @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
     private FinancialReportRepository financialReportRepository;
-    
+
     @Transactional
     public Order save(Order orderToCreate){
 
@@ -94,7 +91,7 @@ public class OrderService {
         orderDocumentRepository.save(savedOrder.getOrderDocument());
 
         //  Setting first state history
-        OrderAltering newAltering = new OrderAltering(null, savedOrder, getCurrentUser(),
+        OrderAltering newAltering = new OrderAltering(null, savedOrder, userDetailsService.getCurrentUser(),
                 getStateByDescription(State.DESCRIPTION_TYPE.NEW), DateTime.now().toDate(), "");
         orderAlteringRepository.save(newAltering);
 
@@ -130,29 +127,9 @@ public class OrderService {
         return availableOnWarehouse;
     }
 
-    //TODO: add searching by state with description NEW!!!!!!!!!
     private State getStateByDescription(State.DESCRIPTION_TYPE type){
-     /*   List<State> states = (List<State>) stateRepository.findAll();
-        for (State state : states) {
-            if (state.getDescription() == type) {
-                return state;
-            }
-        }
-        return null;*/
         List<State> states = stateRepository.findByDescription(type);
         return states.size() == 0 ? null : states.get(0);
-    }
-
-    private User getCurrentUser(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userPrincipal = null;
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            userPrincipal = (UserDetails) auth.getPrincipal();
-            if (userPrincipal != null) {
-                return userRepository.findUserByLogin(userPrincipal.getUsername());
-            }
-        }
-        return null;
     }
 
     @Transactional
@@ -169,7 +146,7 @@ public class OrderService {
             return savedOrder;
         }
         orderEditBundle.getOrderAltering().setOrder(savedOrder);
-        orderEditBundle.getOrderAltering().setUser(getCurrentUser());
+        orderEditBundle.getOrderAltering().setUser(userDetailsService.getCurrentUser());
         orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
         orderAlteringRepository.save(orderEditBundle.getOrderAltering());
         return savedOrder;

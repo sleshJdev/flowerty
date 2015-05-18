@@ -1,5 +1,9 @@
 package by.itechart.flowerty.persistence.model;
 
+import by.itechart.flowerty.solr.model.OrderDocument;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -18,12 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-import by.itechart.flowerty.solr.model.OrderDocument;
 
 /**
  * User: Мария
