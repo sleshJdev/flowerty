@@ -96,10 +96,6 @@ public class UserService {
 	return userRepository.findUserByLoginAndPassword(username, password);
     }
 
-    public void delete(Long id) {
-	userRepository.delete(id);
-    }
-
     public int deleteIdIn(List<Long> list) {
         return userRepository.deleteIdIsIn(list);
     }

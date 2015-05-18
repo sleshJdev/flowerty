@@ -24,7 +24,8 @@
                 <p class="form-control-static input-lg">{{bundle.order.customer.name}} {{bundle.order.customer.fathername}} {{bundle.order.customer.surname}}</p>
             </div>
             <div class="col-sm-10" data-ng-show="!bundle.order.id">
-                <input type="text" class="form-control input-lg" id="customer" placeholder="start typing.." name="customer"
+                <input autocomplete="off"
+                		type="text" class="form-control input-lg" id="customer" placeholder="start typing.." name="customer"
                        data-ng-model="search.customer.enteredSurname"
                        data-ng-change="dynamicSearch.offerContacts(search.customer)" 
                        required data-flowerty-validate/>
@@ -42,7 +43,8 @@
                 <p class="form-control-static input-lg">{{bundle.order.receiver.name}} {{bundle.order.receiver.fathername}} {{bundle.order.receiver.surname}}</p>
             </div>
             <div class="col-sm-10" data-ng-show="!bundle.order.id">
-                <input type="text" class="form-control input-lg" id="receiver" placeholder="start typing.." name="receiver"
+                <input autocomplete="off"
+                		type="text" class="form-control input-lg" id="receiver" placeholder="start typing.." name="receiver"
                        data-ng-model="search.receiver.enteredSurname"
                        data-ng-change="dynamicSearch.offerContacts(search.receiver)"
                        required  data-flowerty-validate/>

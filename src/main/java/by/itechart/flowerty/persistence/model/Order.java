@@ -1,5 +1,14 @@
 package by.itechart.flowerty.persistence.model;
 
+import by.itechart.flowerty.solr.model.OrderDocument;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+import java.util.Set;
 import java.util.Date;
 import java.util.List;
 
@@ -15,15 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-import by.itechart.flowerty.solr.model.OrderDocument;
 
 /**
  * User: Мария
@@ -41,8 +42,8 @@ public class Order {
     private User manager;
     private User delivery;
     private String description;
+    private DateTime deliveryDate;
     private List<Item> items;
-    private Date deliveryDate;
     private Address address;
 
     public Order() {
@@ -107,8 +108,8 @@ public class Order {
     }
 
     @Column(name = "DELIVERY_DATE", nullable = true)
-    @Temporal(value = TemporalType.DATE)
-    public Date getDeliveryDate() {
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    public DateTime getDeliveryDate() {
         return deliveryDate;
     }
 
@@ -125,9 +126,9 @@ public class Order {
         if(id == null || customer == null || receiver == null || deliveryDate == null){
             return null;
         }
-        return new OrderDocument(id.toString(), customer.getFathername(), receiver.getFathername(), deliveryDate, customer.getCompany());
+        return new OrderDocument(id.toString(), customer.getFathername(), receiver.getFathername(), deliveryDate.toDate(), customer.getCompany());
     }
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(DateTime deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

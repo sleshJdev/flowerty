@@ -1,5 +1,10 @@
 package test.by.itechart.flowerty.web.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import test.by.itechart.flowerty.config.aware.WebApplicationConfigurationAware;
