@@ -32,9 +32,8 @@ angular.module("flowertyApplication.contactModule")
                     $scope.bundle.state.checkeds,
                     function (data) {
                         console.log("contact delete successful");
-                        deleteService.deleteIsChecked($scope.bundle.state.ischecked, $scope.bundle.state.checkeds);
-                        notificationService.notify("success", $scope.bundle.state.ischecked.length + " contacts success removed!");
-                        $location.path("contact-list");
+                        notificationService.notify("success", $scope.bundle.state.checkeds.length + " contacts success removed!");
+                        $scope.init();
                     },
                     function (data) {
                         console.log("contact delete error. details: " + JSON.stringify(data));
@@ -43,14 +42,18 @@ angular.module("flowertyApplication.contactModule")
             }
 
             $scope.bundle = {
-                contacts: paginationService.getListBundle(),
+                contacts: {},
                 state: stateSaverService.state,
                 deleteContact: deleteContact,
                 sendEmail: sendEmail
             };
 
-            $scope.bundle.state.reset();
-            $scope.pagination = paginationService.getPagination(contactListService.getContactList, true);
-            $scope.pagination.getPage(1);
+            $scope.init = function () {
+                $scope.bundle.contacts = paginationService.getListBundle();
+                $scope.bundle.state.reset();
+                $scope.pagination = paginationService.getPagination(contactListService.getContactList, true);
+                $scope.pagination.getPage(1);
+            };
 
+            $scope.init();
         }]);
