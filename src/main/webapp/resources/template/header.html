@@ -35,9 +35,9 @@
             <a href="#/" class="navbar-link navigation-group-item" data-ng-click="current.logOut()" data-ng-show="current.isLogged"><span class="glyphicon glyphicon-log-out"> {{'LOGOUT' | xlat}}</span></a>
         </div>
         <div class="nav navbar-nav navbar-right navbar-text  navigation-group">
-            <label class="col-sm-3 control-label">$scope.localization.language</label>
-            <select id="select-language" ng-model="currentCulture" data-ng-change="setCurrentLanguage(currentCulture)" width="1">
-                <option value='en'>{{'ENGLISH' | xlat}}
+            <label class="col-sm-3 control-label">{{$scope.localization.language}}</label>
+            <select id="select-language" data-ng-model="currentCulture" data-ng-change="setCurrentLanguage(currentCulture)">
+                <option value='en' selected="selected">{{'ENGLISH' | xlat}}
                 <option value='ru'>{{'RUSSIAN' | xlat}}
                 <option value='fr'>{{'FRENCH' | xlat}}
             </select>
