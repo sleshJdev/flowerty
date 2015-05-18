@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +34,7 @@ import by.itechart.flowerty.persistence.repository.OrderAlteringRepository;
 import by.itechart.flowerty.persistence.repository.OrderRepository;
 import by.itechart.flowerty.persistence.repository.StateRepository;
 import by.itechart.flowerty.persistence.repository.UserRepository;
+import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.OrderDocument;
 import by.itechart.flowerty.solr.repository.OrderDocumentRepository;
 import by.itechart.flowerty.web.model.OrderCreateBundle;
@@ -69,8 +71,11 @@ public class OrderService {
     private GoodsRepository goodsRepository;
 
     @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
     private FinancialReportRepository financialReportRepository;
-    
+
     @Transactional
     public Order save(Order orderToCreate){
 
@@ -94,7 +99,7 @@ public class OrderService {
         orderDocumentRepository.save(savedOrder.getOrderDocument());
 
         //  Setting first state history
-        OrderAltering newAltering = new OrderAltering(null, savedOrder, getCurrentUser(),
+        OrderAltering newAltering = new OrderAltering(null, savedOrder, userDetailsService.getCurrentUser(),
                 getStateByDescription(State.DESCRIPTION_TYPE.NEW), DateTime.now().toDate(), "");
         orderAlteringRepository.save(newAltering);
 
@@ -130,29 +135,9 @@ public class OrderService {
         return availableOnWarehouse;
     }
 
-    //TODO: add searching by state with description NEW!!!!!!!!!
     private State getStateByDescription(State.DESCRIPTION_TYPE type){
-     /*   List<State> states = (List<State>) stateRepository.findAll();
-        for (State state : states) {
-            if (state.getDescription() == type) {
-                return state;
-            }
-        }
-        return null;*/
         List<State> states = stateRepository.findByDescription(type);
         return states.size() == 0 ? null : states.get(0);
-    }
-
-    private User getCurrentUser(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userPrincipal = null;
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            userPrincipal = (UserDetails) auth.getPrincipal();
-            if (userPrincipal != null) {
-                return userRepository.findUserByLogin(userPrincipal.getUsername());
-            }
-        }
-        return null;
     }
 
     @Transactional
@@ -169,14 +154,14 @@ public class OrderService {
             return savedOrder;
         }
         orderEditBundle.getOrderAltering().setOrder(savedOrder);
-        orderEditBundle.getOrderAltering().setUser(getCurrentUser());
+        orderEditBundle.getOrderAltering().setUser(userDetailsService.getCurrentUser());
         orderEditBundle.getOrderAltering().setDate(DateTime.now().toDate());
         orderAlteringRepository.save(orderEditBundle.getOrderAltering());
         return savedOrder;
     }
 
     public Page<Order> getPage(int page, int size){
-        return orderRepository.findAll(new PageRequest(page, size));
+        return getAvaliableOrders(userDetailsService.getCurrentUser(), new PageRequest(page, size));
     }
 
     public Page<Order> findBySearch (OrderDocument orderDocument, int page, int size) {
@@ -282,5 +267,21 @@ public class OrderService {
         Order order = orderRepository.findOne(id);
         List<OrderAltering> orderAlterings = orderAlteringRepository.findByOrder(order);
         return new OrderHistoryBundle(order, orderAlterings);
+    }
+
+    public Page<Order> getAvaliableOrders(User user, Pageable pageable) {
+        if (user.getRole().getName().equals(Role.ROLE_TYPE.ORDERS_MANAGER)) {
+            return orderRepository.findAvailableByOrdersManager(user, pageable);
+        }
+        if (user.getRole().getName().equals(Role.ROLE_TYPE.DELIVERY_MANAGER)) {
+            return orderRepository.findAvailableByDelivery(user, pageable);
+        }
+        if (user.getRole().getName().equals(Role.ROLE_TYPE.ORDERS_PROCESSOR)) {
+            return orderRepository.findAvailableByStaff(user, pageable);
+        }
+        if (user.getRole().getName().equals(Role.ROLE_TYPE.SUPERVISOR)) {
+            return orderRepository.findAll(pageable);
+        }
+        return null;
     }
 }

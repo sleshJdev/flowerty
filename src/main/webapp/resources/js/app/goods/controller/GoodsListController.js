@@ -9,6 +9,10 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsListControlle
 
             $scope.goods = paginationService.getListBundle();
 
+            $scope.access = {
+                canFormOrder: $scope.current.user.role === 'ROLE_ORDERS_MANAGER'
+            };
+
             $scope.goods.makeOrder = cartService.makeOrder;
 
             $scope.goods.removeFromOrder = cartService.removeFromOrder;

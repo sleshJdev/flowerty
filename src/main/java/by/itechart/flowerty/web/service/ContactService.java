@@ -2,7 +2,6 @@ package by.itechart.flowerty.web.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import by.itechart.flowerty.persistence.model.Address;
 import by.itechart.flowerty.persistence.model.Company;
 import by.itechart.flowerty.persistence.model.Contact;
