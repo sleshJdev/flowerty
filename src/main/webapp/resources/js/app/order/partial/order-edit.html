@@ -4,14 +4,14 @@
         <fieldset>
             <legend class="text-center"
                     data-ng-show="!bundle.order.id">
-                Checkout!
+                {{'CHECKOUT' | xlat}}!
             </legend>
             <legend class="text-center"
                     data-ng-show="bundle.order.id">
-                Edit order <a href="#order-history/{{bundle.order.id}}">#{{bundle.order.id}}<span class="glyphicon glyphicon-time"></span></a>
+                {{'EDIT_ORDER' | xlat}} <a href="#order-history/{{bundle.order.id}}">#{{bundle.order.id}}<span class="glyphicon glyphicon-time"></span></a>
             </legend>
             <div class="form-group form-group-lg">
-                <label for="state" class="col-sm-3 control-label">State</label>
+                <label for="state" class="col-sm-3 control-label">{{'STATE' | xlat}}</label>
                 <div class="col-sm-9">
                     <p id="state" class="form-control-static">{{bundle.order.state.description}}</p>
                     <div class="btn-group btn-group-lg">
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="customer" class="col-sm-3 control-label">Customer</label>
+                <label for="customer" class="col-sm-3 control-label">{{'CUSTOMER' | xlat}}</label>
                 <div class="col-sm-9" data-ng-show="bundle.order.id">
                     <p class="form-control-static input-lg">{{bundle.order.customer.name}} {{bundle.order.customer.fathername}} {{bundle.order.customer.surname}}</p>
                 </div>
@@ -34,7 +34,7 @@
                     <img class="loader" src="resources/images/loader.gif"
                             data-ng-show="search.customer.loading"/>
                     <input autocomplete="off"
-                           type="text" class="form-control input-lg" id="customer" placeholder="Start typing.." name="customer"
+                           type="text" class="form-control input-lg" id="customer" placeholder="{{'START_TYPING' | xlat}}.." name="customer"
                            data-ng-model="search.customer.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.customer)"
                            data-ng-required="!bundle.order.id" data-flowerty-validate/>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="receiver" class="col-sm-3 control-label">Receiver</label>
+                <label for="receiver" class="col-sm-3 control-label">{{'RECEIVER' | xlat}}</label>
                 <div class="col-sm-9" data-ng-show="bundle.order.id">
                     <p class="form-control-static input-lg">{{bundle.order.receiver.name}} {{bundle.order.receiver.fathername}} {{bundle.order.receiver.surname}}</p>
                 </div>
@@ -55,7 +55,7 @@
                     <img class="loader" src="resources/images/loader.gif"
                          data-ng-show="search.receiver.loading"/>
                     <input autocomplete="off"
-                           type="text" class="form-control input-lg" id="receiver" placeholder="start typing.." name="receiver"
+                           type="text" class="form-control input-lg" id="receiver" placeholder="{{'START_TYPING' | xlat}}.." name="receiver"
                            data-ng-model="search.receiver.enteredSurname"
                            data-ng-change="dynamicSearch.offerContacts(search.receiver)"
                            data-ng-required="!bundle.order.id"  data-flowerty-validate/>
@@ -68,61 +68,60 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="description" class="col-sm-3 control-label">Description</label>
+                <label for="description" class="col-sm-3 control-label">{{'DESCRIPTION' | xlat}}</label>
                 <div class="col-sm-9">
-                    <textarea rows="5" class="form-control" id="description" name="description" placeholder="Description"
+                    <textarea rows="5" class="form-control" id="description" name="description" placeholder="{{'DESCRIPTION' | xlat}}"
                               data-ng-model="bundle.order.description"
                               data-ng-maxlength="300"
                               data-ng-flowerty-validate></textarea>
                 </div>
             </div>
             <div class="form-group form-group-lg">
-                <label for="full-cost" class="col-sm-3 control-label">Full cost:</label>
+                <label for="full-cost" class="col-sm-3 control-label">{{'FULL_COST' | xlat}}</label>
                 <div class="col-sm-9">
                     <p id="full-cost" class="form-control-static">{{bundle.order.cost | currency}}</p>
                 </div>
             </div>
 
             <!-- Address -->
-            <!-- TODO: make a directive???? -->
             <fieldset>
-                <legend>Address</legend>
+                <legend>{{'ADDRESS' | xlat}}</legend>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Town</label>
+                    <label class="col-sm-3 control-label">{{'TOWN' | xlat}}</label>
                     <div class="col-sm-9">
-                        <input data-ng-model="bundle.order.address.town" class="form-control" name="town" placeholder="Town"
+                        <input data-ng-model="bundle.order.address.town" class="form-control" name="town" placeholder="{{'TOWN' | xlat}}"
                                             required data-ng-maxlength="100"
                                             data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Street</label>
+                    <label class="col-sm-3 control-label">{{'STREET' | xlat}}</label>
                     <div class="col-sm-9">
-                        <input data-ng-model="bundle.order.address.street" class="form-control" name="Street" placeholder="Street"
+                        <input data-ng-model="bundle.order.address.street" class="form-control" name="Street" placeholder="{{'STREET' | xlat}}"
                                                 required data-ng-maxlength="100"
                                                 data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">House</label>
+                    <label class="col-sm-3 control-label">{{'HOUSE' | xlat}}</label>
                     <div class="col-sm-9">
-                        <input data-ng-model="bundle.order.address.house" class="form-control" name="house" placeholder="House"
+                        <input data-ng-model="bundle.order.address.house" class="form-control" name="house" placeholder="{{'HOUSE' | xlat}}"
                                                     required data-ng-maxlength="10"
                                                     data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Flat</label>
+                    <label class="col-sm-3 control-label">{{'FLAT' | xlat}}</label>
                     <div class="col-sm-9">
-                        <input data-ng-model="bundle.order.address.flat" class="form-control" name="flat" placeholder="Flat"
+                        <input data-ng-model="bundle.order.address.flat" class="form-control" name="flat" placeholder="{{'FLAT' | xlat}}"
                                                 required data-ng-maxlength="10"
                                                 data-flowerty-validate>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Country</label>
+                    <label class="col-sm-3 control-label">{{'COUNTRY' | xlat}}</label>
                     <div class="col-sm-9">
-                        <input data-ng-model="bundle.order.address.country" class="form-control" name="country" placeholder="Country"
+                        <input data-ng-model="bundle.order.address.country" class="form-control" name="country" placeholder="{{'COUNTRY' | xlat}}"
                                                 required data-ng-maxlength="100"
                                                 data-flowerty-validate>
                     </div>
@@ -130,24 +129,24 @@
             </fieldset>
             <!-- Date custom directive -->
             <div class="form-group">
-                <label class="col-sm-3 control-label">Delivery date:</label>
+                <label class="col-sm-3 control-label">{{'DELIVERY_DATE' | xlat}}:</label>
                 <div class="col-sm-4">
                     <input data-flowerty-date class="form-control glyphicon glyphicon-calendar"
-                           data-ng-model="bundle.order.deliveryDate" data-format="yyyy-mm-dd" placeholder="Select date.." name="delivary date"
+                           data-ng-model="bundle.order.deliveryDate" data-format="yyyy-mm-dd" placeholder="{{'SELECT_DATE' | xlat}}.." name="delivary date"
                            readonly required date-validate="future"
                            data-flowerty-validate>
                 </div>
             </div>
             <fieldset>
-                <legend>Staff</legend>
+                <legend>{{'STAFF' | xlat}}</legend>
                 <div class="form-group">
-                    <label for="orders-manager" class="col-sm-3 control-label">Orders manager</label>
+                    <label for="orders-manager" class="col-sm-3 control-label">{{'ORDERS_MANAGER' | xlat}}</label>
                     <div class="col-sm-9">
                         <p id="orders-manager" class="form-control-static">{{bundle.order.manager.login}}</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="orders-processor" class="col-sm-3 control-label">Orders processor</label>
+                    <label for="orders-processor" class="col-sm-3 control-label">{{'ORDERS_PROCESSOR' | xlat}}</label>
                     <div class="col-sm-9" data-ng-show="bundle.order.id && !access.canChangeStaff">
                         <p class="form-control-static">{{bundle.order.staff.login}}</p>
                     </div>
@@ -159,7 +158,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="delivery-manager" class="col-sm-3 control-label">Delivery manager</label>
+                    <label for="delivery-manager" class="col-sm-3 control-label">{{'DELIVERY_MANAGER' | xlat}}</label>
                     <div class="col-sm-9" data-ng-show="bundle.order.id && !access.canChangeStaff">
                         <p class="form-control-static">{{bundle.order.delivery.login}}</p>
                     </div>
@@ -176,18 +175,18 @@
                     <button class="btn btn-default btn-lg"
                             data-ng-disabled="orderForm.$invalid"
                             data-ng-show="!bundle.order.id"
-                            data-ng-click="orderAction.checkout()">Checkout</button>
+                            data-ng-click="orderAction.checkout()">{{'CHECKOUT' | xlat}}</button>
                     <button class="btn btn-default btn-lg"
                             data-ng-disabled="orderForm.$invalid"
                             data-ng-show="bundle.order.id"
-                            data-ng-click="orderAction.save()">Save</button>
+                            data-ng-click="orderAction.save()">{{'SAVE' | xlat}}</button>
                 </div>
             </div>
         </fieldset>
     </form>
 
     <div class="col-md-offset-1 col-md-10">
-        <h1 class="col-md-12">Your order:</h1>
+        <h1 class="col-md-12">{{'YOUR_ORDER' | xlat}}:</h1>
         <div class="row" data-ng-repeat="goodsItem in bundle.order.items">
             <div class="goods-item col-md-12 thumbnail">
                 <div class="goods-image col-md-3">
@@ -196,10 +195,10 @@
                 <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="goodsItem.quantity">
                     <h3 class="goods-item-description">{{goodsItem.goods.flower.name}}</h3>
                     <h3 class="goods-item-description">{{goodsItem.goods.cost | currency}} x {{goodsItem.quantity}} = {{(goodsItem.goods.cost * goodsItem.quantity) | currency}}</h3>
-                    <h3>Count: <strong>{{goodsItem.quantity}}</strong></h3>
+                    <h3>{{'COUNT' | xlat}}: <strong>{{goodsItem.quantity}}</strong></h3>
                 </div>
                 <div class="goods-list-item-info caption col-md-offset-1 col-md-7" data-ng-show="!goodsItem.quantity">
-                    <h3><strong>Not available at warehouse!</strong></h3>
+                    <h3><strong>{{'NOT_AVAILABLE' | xlat}}</strong></h3>
                 </div>
             </div>
         </div>

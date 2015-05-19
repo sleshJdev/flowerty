@@ -5,8 +5,8 @@
  * Service for paging
  */
 
-angular.module("flowertyApplication").service('paginationService', ['$location', 'MAIN_MODULE_CONSTANTS', "notificationService",
-    function($location, MAIN_MODULE_CONSTANTS, notificationService) {
+angular.module("flowertyApplication").service('paginationService', ['$location', 'MAIN_MODULE_CONSTANTS',
+    function($location, MAIN_MODULE_CONSTANTS) {
 
         var service = this;
 

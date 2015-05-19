@@ -11,7 +11,7 @@ angular.module("flowertyApplication.utilModule", [])
     .directive('notification', ['$timeout', function ($timeout) {
         return {
             restrict: 'E',
-            template:"<div class='alert alert-{{alertData.type}} text-center' ng-show='alertData.message' role='alert' data-notification='{{alertData.status}}'>{{alertData.message}}</div>",
+            template:"<div class='alert alert-{{alertData.type}} text-center' ng-show='alertData.message' role='alert' data-notification='{{alertData.status}}'>{{alertData.message | xlat}}</div>",
             scope:{
                 alertData:"="
             },

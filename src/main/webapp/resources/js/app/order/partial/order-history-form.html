@@ -2,13 +2,13 @@
 <!-- Order history form -->
 <div data-ng-app="flowertyApplication.orderModule">
     <fieldset>
-        <legend class="text-center">History of the order <a href="#edit-order/{{changes.order.id}}">#{{changes.order.id}}</a></legend>
+        <legend class="text-center">{{'HISTORY_OF_THE_ORDER' | xlat}} <a href="#edit-order/{{changes.order.id}}">#{{changes.order.id}}</a></legend>
         <table class="table table-bordered">
             <tr>
-                <th>date and time</th>
-                <th>new status</th>
-                <th>who changed</th>
-                <th>comment</th>
+                <th>{{'DATE' | xlat}}</th>
+                <th>{{'NEW_STATUS' | xlat}}</th>
+                <th>{{'WHO_CHANGED' | xlat}}</th>
+                <th>{{'COMMENT' | xlat}}</th>
             </tr>
             <tr class="{{orderAltering.state.description | lowercase}}"
                     data-ng-repeat="orderAltering in changes.orderAlterings" >

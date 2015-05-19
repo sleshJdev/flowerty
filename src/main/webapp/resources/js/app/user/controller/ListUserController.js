@@ -15,7 +15,7 @@ angular.module("flowertyApplication.userModule").controller('ListUserController'
                 $scope.bundle.state.checkeds,
                 function (data) {
                     console.log("users delete successful");
-                    notificationService.notify("success", $scope.bundle.state.checkeds.length + " users success removed!");
+                    notificationService.notify("success", "Users successfully removed!");
                     $scope.init();
                 },
                 function (data) {
