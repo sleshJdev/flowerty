@@ -25,7 +25,7 @@ angular.module("flowertyApplication.goodsModule").controller("GoodsAddController
             goodsProcessService.addGoods($scope.bundle.goods, $scope.bundle.picture, $scope.$parent.current.user.name,
                 function (data) {
                     console.log("goods added success");
-                    notificationService.notify("success", "Goods added success!");
+                    notificationService.notify("success", "Goods added successfully!");
                 },
                 function (data) {
                     console.log("goods added error: " + JSON.stringify(data));
