@@ -7,6 +7,10 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
     'checkoutService', 'orderService', 'staffService', 'notificationService', '$localStorage', "VALIDATE_DATE",
     function($scope, $http, $location, checkoutService, orderService, staffService, notificationService, $localStorage, VALIDATE_DATE) {
 
+        $scope.receiver = {
+            byAddress : null
+        };
+
         $scope.search = {
             customer: {
                 enteredSurname: '',
@@ -28,6 +32,34 @@ angular.module("flowertyApplication.orderModule").controller('OrderAddController
         };
 
         $scope.orderAction = {};
+
+        $scope.orderAction.addressChanged = function () {
+            if($scope.bundle.order.address.country &&
+                $scope.bundle.order.address.town &&
+                $scope.bundle.order.address.street &&
+                $scope.bundle.order.address.house &&
+                $scope.bundle.order.address.flat
+            ){
+                checkoutService.getReceiverByAddress($scope.bundle.order.address,
+                    function(data) {
+                        $scope.receiver.byAddress = data;
+                    },
+                    function (data) {
+
+                    }
+                );
+            }
+        };
+
+        $scope.orderAction.chooseReceiverByAddress = function(){
+            $scope.bundle.order.receiver = $scope.receiver.byAddress;
+            $scope.search.receiver.enteredSurname = $scope.bundle.order.receiver.surname +
+                ' ' + $scope.bundle.order.receiver.name +
+                ' ' + $scope.bundle.order.receiver.fathername;
+            $scope.receiver = {
+                byAddress : null
+            };
+        };
 
         $scope.orderAction.checkout = function () {
 

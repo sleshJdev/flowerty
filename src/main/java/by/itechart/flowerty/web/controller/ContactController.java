@@ -2,6 +2,9 @@ package by.itechart.flowerty.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import by.itechart.flowerty.persistence.model.Address;
+import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +36,7 @@ public class ContactController {
     private ContactService contactService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private ContactDocumentRepository contactDocumentRepository;
     
     @ResponseBody
     @RequestMapping(value = "contact/list/{page}/{limit}")
@@ -115,5 +115,15 @@ public class ContactController {
 	}
 
 	return ids;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "receiver/by/address", method = RequestMethod.POST)
+    public Contact getReceiver(@RequestBody Address address){
+        Long id = contactDocumentRepository.findByAddress(address);
+        if(id != null){
+            return contactService.findOne(id);
+        }
+        return null;
     }
 }

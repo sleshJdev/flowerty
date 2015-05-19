@@ -20,7 +20,7 @@
                     </a>
                 </td>
                 <td>{{contact.birthday}}</td>
-                <td>{{contact.address.town + ', ' + contact.address.street + ', ' + contact.address.house + ', ' + contact.address.flat}}</td>
+                <td>{{contact.address.town + ', ' + contact.address.street + ', ' + contact.address.house + ', ' + contact.address.flat | notNull}}</td>
             </tr>
         </table>
         <div data-ng-include="templates.pagination.url"></div>
