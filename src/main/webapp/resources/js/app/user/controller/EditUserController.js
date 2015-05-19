@@ -35,7 +35,7 @@ angular.module("flowertyApplication.userModule").controller("EditUserController"
                 }
             }
 
-            userService.save(
+            userService.update(
                 $scope.bundle.user,
                 function (data) {
                     notificationService.notify('success', 'Successfully saved this user!');

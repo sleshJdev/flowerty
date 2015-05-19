@@ -1,14 +1,5 @@
 package by.itechart.flowerty.web.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import by.itechart.flowerty.persistence.model.Contact;
 import by.itechart.flowerty.persistence.model.Role;
 import by.itechart.flowerty.persistence.model.User;
@@ -18,8 +9,15 @@ import by.itechart.flowerty.persistence.repository.UserRepository;
 import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 import by.itechart.flowerty.web.model.UserEditBundle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Eugene Putsykovich(slesh) Mar 26, 2015
@@ -71,6 +69,11 @@ public class UserService {
 
     @Transactional
     public User save(User newUser) {
+
+        if (userRepository.findUserByLogin(newUser.getLogin()) != null) {
+            return null;
+        }
+
         // remove contact from solr context, because he has user and we can't
         // remove it
         contactDocumentRepository.delete(newUser.getContact().getContactDocument());
@@ -82,16 +85,22 @@ public class UserService {
     }
 
     @Transactional
-    public User update(User newUser) {
-        User oldUser = userRepository.findOne(newUser.getId());
+    public User update(User user) {
 
-        newUser.setPassword(oldUser.getPassword());
+        if (user.getPassword() != null) {
+            String password = user.getPassword();
+            user.setPassword(passwordEncoder.encode(password));
+        } else {
+            User oldUser = userRepository.findOne(user.getId());
+            user.setPassword(oldUser.getPassword());
+        }
 
-        return userRepository.save(newUser);
+        return userRepository.save(user);
     }
 
     public Page<User> getPage(int page, int size) {
-        return userRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(), new PageRequest(page,size));
+        return userRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(),
+                new PageRequest(page, size));
     }
 
     public User findUserByLoginAndPassword(String username, String password) {

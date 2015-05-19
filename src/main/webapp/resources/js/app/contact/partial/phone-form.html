@@ -24,7 +24,6 @@
 					<label class="col-sm-4 control-label">{{'OPERATOR_CODE' | xlat}}</label>
 					<div class="col-sm-6">
 						<input type="number" 
-							data-ng-maxlength="5"
 							data-ng-model="bundle.phone.operator" class="form-control" name="operator code" placeholder="{{'OPERATOR_CODE' | xlat}}"
 							data-ng-maxlength="5"
 							data-flowerty-validate>
@@ -35,7 +34,7 @@
 					<div class="col-sm-6">
 						<input type="number" 
 							data-ng-model="bundle.phone.number" class="form-control" name="number" placeholder="{{'NUMBER' | xlat}}"
-							data-ng-maxlength="10"
+							required data-ng-maxlength="10"
 							data-flowerty-validate>
 					</div>
 				</div>
