@@ -11,7 +11,7 @@ angular.module("flowertyApplication.utilModule", [])
     .directive('notification', ['$timeout', function ($timeout) {
         return {
             restrict: 'E',
-            template:"<div class='alert alert-{{alertData.type}} text-center' ng-show='alertData.message' role='alert' data-notification='{{alertData.status}}'>{{alertData.message}}</div>",
+            template:"<div class='alert alert-{{alertData.type}} text-center' ng-show='alertData.message' role='alert' data-notification='{{alertData.status}}'>{{alertData.message | xlat}}</div>",
             scope:{
                 alertData:"="
             },
@@ -83,7 +83,7 @@ angular.module("flowertyApplication.utilModule", [])
      */
     .filter( "flowerSplit", function() {
         return function(value, separator, connector){
-            if (value === undefined) {
+            if (!value) {
                 return '';
             }
             var tokens = value.split(separator);
@@ -103,7 +103,7 @@ angular.module("flowertyApplication.utilModule", [])
      */
     .filter("flowerCase", function() {
         return function(value, from, length, isUp){
-            if (value === undefined) {
+            if (!value) {
                 return '';
             }
             var left = value.substr(0, from);
@@ -135,6 +135,15 @@ angular.module("flowertyApplication.utilModule", [])
                 filterCallback(model, []);
             });
         }
+    }])
+
+    .filter('notNull', ['$http', function($http){
+        return function(value){
+            value = value.split('null,').join('');
+            value = value.replace('null', '');
+            return value;
+        }
     }]);
+;
 
 	

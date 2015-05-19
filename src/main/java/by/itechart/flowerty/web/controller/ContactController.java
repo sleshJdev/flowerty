@@ -2,6 +2,7 @@ package by.itechart.flowerty.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import by.itechart.flowerty.persistence.model.Address;
 import by.itechart.flowerty.persistence.model.Contact;
-import by.itechart.flowerty.security.service.UserDetailsServiceImpl;
 import by.itechart.flowerty.solr.model.ContactDocument;
+import by.itechart.flowerty.solr.repository.ContactDocumentRepository;
 import by.itechart.flowerty.web.service.ContactService;
-import by.itechart.flowerty.web.service.UserService;
 
 /**
  * @author Eugene Putsykovich(slesh) Apr 5, 2015
@@ -33,10 +34,7 @@ public class ContactController {
     private ContactService contactService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private ContactDocumentRepository contactDocumentRepository;
     
     @ResponseBody
     @RequestMapping(value = "contact/list/{page}/{limit}")
@@ -115,5 +113,15 @@ public class ContactController {
 	}
 
 	return ids;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "receiver/by/address", method = RequestMethod.POST)
+    public Contact getReceiver(@RequestBody Address address){
+        Long id = contactDocumentRepository.findByAddress(address);
+        if(id != null){
+            return contactService.findOne(id);
+        }
+        return null;
     }
 }

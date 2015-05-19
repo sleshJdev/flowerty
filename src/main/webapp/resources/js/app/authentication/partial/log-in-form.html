@@ -21,7 +21,7 @@
 
                 <div class="col-lg-10">
                     <input type="text" id="login" 
-                    		data-ng-model="current.user.username" class="form-control" name="login" placeholder="Login"
+                    		data-ng-model="current.user.username" class="form-control" name="login" placeholder="{{'LOGIN' | xlat}}"
                     		data-ng-maxlength="20" required 
 						  	data-flowerty-validate>
                 </div>
@@ -33,7 +33,7 @@
 
                 <div class="col-lg-10">
                     <input type="password" id="password" 
-                    	data-ng-model="current.user.password" class="form-control" name="password" placeholder="Password"
+                    	data-ng-model="current.user.password" class="form-control" name="password" placeholder="{{'PASSWORD' | xlat}}"
                     	data-ng-maxlength="20" required 
 					  	data-flowerty-validate>
                 </div>

@@ -53,10 +53,6 @@ public class OrderController {
 
         page = (page == null || page < 1) ? 0 : --page;
         
-        Page<Order> pageOrder = orderService.getPage(page, limit);
-        
-        System.out.println(pageOrder.getContent().size());
-        
         return orderService.getPage(page, limit);
     }
 

@@ -3,7 +3,6 @@ package by.itechart.flowerty.persistence.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
@@ -12,6 +11,7 @@ import by.itechart.flowerty.persistence.model.Order;
 import by.itechart.flowerty.persistence.model.QOrder;
 import by.itechart.flowerty.persistence.model.State;
 import by.itechart.flowerty.persistence.model.User;
+import by.itechart.flowerty.persistence.repository.util.PageUtil;
 
 /**
  * @author Maria
@@ -20,6 +20,8 @@ import by.itechart.flowerty.persistence.model.User;
 public class OrderRepositoryImpl extends QueryDslRepositorySupport implements OrderRepositoryCustom {
     private static final QOrder ORDER = QOrder.order;
 
+    private PageUtil<Order> pageUtil = new PageUtil<Order>();
+    
     public OrderRepositoryImpl() {
         super(Order.class);
     }
@@ -31,7 +33,7 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Or
 			.where(ORDER.receiver.company.eq(company))
 		.list(ORDER);
 	
-	return new PageImpl<Order>(orders);
+	return pageUtil.preparePage(orders, pageable);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Or
         				.or(ORDER.state.description.eq(State.DESCRIPTION_TYPE.DELIVERY)))))
         	.list(ORDER);
         
-        return new PageImpl<Order>(orders, pageable, orders.size());
+        return pageUtil.preparePage(orders, pageable);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Or
         				.or(ORDER.state.description.eq(State.DESCRIPTION_TYPE.PROCESSING)))))
     		.list(ORDER);
         
-        return new PageImpl<Order>(orders, pageable, orders.size());
+        return pageUtil.preparePage(orders, pageable);
     }
 
     @Override
@@ -66,6 +68,6 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Or
         			.and(ORDER.state.description.eq(State.DESCRIPTION_TYPE.NEW)))
         	.list(ORDER);
         
-        return new PageImpl<Order>(orders, pageable, orders.size());
+        return pageUtil.preparePage(orders, pageable);
     }
 }

@@ -1,8 +1,8 @@
 <!-- Form for showing list of contacts, deleting contacts -->
 <div data-ng-app="flowertyApplication.contactModule">
     <fieldset>
-        <legend class="text-center">Contacts</legend>
-        <div><span data-ng-click="bundle.sendEmail()" class="btn glyphicon glyphicon-send"> Send email</span></div>
+        <legend class="text-center">{{'CONTACTS' | xlat}}</legend>
+        <div><span data-ng-click="bundle.sendEmail()" class="btn glyphicon glyphicon-send"> {{'SEND_EMAIL' | xlat}}</span></div>
         <div data-ng-include="templates.pagination.url"></div>
         <table class="table table-bordered">
             <tr>
@@ -20,7 +20,7 @@
                     </a>
                 </td>
                 <td>{{contact.birthday}}</td>
-                <td>{{contact.address.town + ', ' + contact.address.street + ', ' + contact.address.house + ', ' + contact.address.flat}}</td>
+                <td>{{contact.address.town + ', ' + contact.address.street + ', ' + contact.address.house + ', ' + contact.address.flat | notNull}}</td>
             </tr>
         </table>
         <div data-ng-include="templates.pagination.url"></div>

@@ -1,12 +1,30 @@
 <!-- Form for showing profile -->
 <div data-ng-app="flowertyApplication.profileModule">
+	<div class="row">
+        <div class="col-md-12">
+            <legend class="small">ADDITIONAL INFORMATION:</legend>
+            <div class="row form-horizontal" style="height: 100px;">
+                <label class="btn btn-success col-md-3" data-ng-click="report.action()">SHOW FINANCIAL REPORT: </label>
+				<div class="col-md-6">
+					<table data-ng-show="report.value" class="table">
+						<tr>
+							<th>Total orders</th>
+							<th>Total cost</th>
+						</tr>
+						<tr>
+							<td>{{report.value.quantityOrder}}</td>
+							<td>{{report.value.totalCost}}</td>
+						</tr>
+				</table>
+				</div>
+            </div>
+       </div>
+    </div>
+
     <div class="row">
         <div class="col-md-9">
             <h3>{{profile.user.contact | flowerFullContactName}}</h3>
-            <h4>{{profile.user.login}}</h4>
-        </div>
-        <div class="col-md-3">
-            <h3 class="text-right">{{profile.user.role.name | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</h3>
+            <h4>{{profile.user.role.name  | xlat | lowercase | flowerCase:0:1:true | flowerSplit:'_':' '}}</h4>
         </div>
     </div>
     <br><br>
