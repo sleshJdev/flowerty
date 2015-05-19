@@ -37,9 +37,19 @@ angular.module("flowertyApplication.orderModule").service('checkoutService', ['$
         for(i = 0; i < items.length; i++){
             if(items[i].quantity){
                 return true;
-            };
-        };
+            }
+        }
         return false;
+    };
+
+    self.getReceiverByAddress = function (address, successCallback, errorCallback) {
+        $http({
+            method: "post",
+            url: 'receiver/by/address',
+            data: address
+        })
+            .success(successCallback)
+            .error(errorCallback);
     };
 
 }]);

@@ -158,7 +158,8 @@ var initialXlatTables = {
         'Please select users to delete.' : 'Please select users to delete.',
         'Users successfully removed!' : 'Users successfully removed!',
         'Error during deleting users!' : 'Error during deleting users!',
-        'Cannot delete selected users!' : 'Cannot delete selected users!'
+        'Cannot delete selected users!' : 'Cannot delete selected users!',
+        'Edit phone' : 'Edit phone'
     },
     'ru': {
         'CONTACTS': 'Контакты',
@@ -241,7 +242,7 @@ var initialXlatTables = {
         'EDIT_ORDER' : 'Редактировать заказ',
         'STATE' : 'Статус',
         'CUSTOMER' : 'Заказчик',
-        'START_TYPING' : 'начните печатать',
+        'START_TYPING' : 'начните писать',
         'RECEIVER' : 'Получатель',
         'DESCRIPTION' : 'Описание',
         'DELIVERY_DATE' : 'Дата доставки',
@@ -318,7 +319,8 @@ var initialXlatTables = {
         'Please select users to delete.' : 'Пожалуйста, выберите пользователей для удаления.',
         'Users successfully removed!' : 'Пользователи успешно удалены!',
         'Error during deleting users!' : 'Ошибка при удалении пользователей!',
-        'Cannot delete selected users!' : 'Невозможно удалить выбранных пользователей!'
+        'Cannot delete selected users!' : 'Невозможно удалить выбранных пользователей!',
+        'Edit phone' : 'Редактировать телефон'
     },
     'fr': {
         'CONTACTS': 'Contact',
@@ -478,6 +480,7 @@ var initialXlatTables = {
         'Please select users to delete.' : 'S\'il vous plaît sélectionnez les utilisateurs à supprimer.',
         'Users successfully removed!' : 'Utilisateurs supprimés avec succès!',
         'Error during deleting users!' : 'Erreur lors de la suppression d\'utilisateurs!',
-        'Cannot delete selected users!' : 'Vous ne pouvez pas supprimer des utilisateurs sélectionnés!'
+        'Cannot delete selected users!' : 'Vous ne pouvez pas supprimer des utilisateurs sélectionnés!',
+        'Edit phone' : 'Modifier téléphone'
     }
 };
