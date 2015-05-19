@@ -36,6 +36,19 @@ angular.module("flowertyApplication.userModule").service("userService", ['$http'
                 });
         };
 
+        self.update = function (user, successCallback, errorCallback) {
+
+            $http({
+                method: "post",
+                url: "user/update",
+                data: user
+            })
+                .success(successCallback)
+                .error(function (data) {
+                    errorCallback(data);
+                });
+        };
+
         self.getRoles = function (successCallback) {
             $http({
                 method: "get",

@@ -35,10 +35,10 @@ angular.module("flowertyApplication.userModule").controller("EditUserController"
                 }
             }
 
-            userService.save(
+            userService.update(
                 $scope.bundle.user,
                 function (data) {
-                    notificationService.notify('success', 'Successfully added this user!');
+                    notificationService.notify('success', 'Successfully edited this user!');
                     $location.path("users");
                 },
                 function (data) {
