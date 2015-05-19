@@ -1,5 +1,18 @@
 <!-- Form for showing profile -->
 <div data-ng-app="flowertyApplication.profileModule">
+	<nav class="navbar navbar-link">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <b class="navbar-brand text-info">ADDITIONAL INFORMATION: </b>
+	    </div>
+	    <div>
+	      <ul class="nav navbar-nav">
+	        <li><a href="#financial-report">SHOW FINANCIAL REPORT</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+
     <div class="row">
         <div class="col-md-9">
             <h3>{{profile.user.contact | flowerFullContactName}}</h3>
