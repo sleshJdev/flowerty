@@ -59,7 +59,6 @@ public class OrderAltering {
     }
     @Column(name = "DATE")
     @Temporal(value = TemporalType.DATE)
-    @Past
     public Date getDate() {
         return date;
     }
