@@ -134,7 +134,8 @@ public class UserService {
             return null;
         }
         Role role = roleRepository.findByName(roleType);
-        return userRepository.findByRole(role);
+
+        return userRepository.findByRoleAndCompany(role, userDetailsService.getCurrentContact().getCompany());
     }
 
 }

@@ -1,16 +1,16 @@
 package by.itechart.flowerty.persistence.repository;
 
-import java.util.List;
-
+import by.itechart.flowerty.persistence.model.Company;
+import by.itechart.flowerty.persistence.model.QUser;
+import by.itechart.flowerty.persistence.model.Role;
+import by.itechart.flowerty.persistence.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.transaction.annotation.Transactional;
 
-import by.itechart.flowerty.persistence.model.Company;
-import by.itechart.flowerty.persistence.model.QUser;
-import by.itechart.flowerty.persistence.model.User;
+import java.util.List;
 
 /**
  * Created by Rostislav on 18-May-15
@@ -37,5 +37,12 @@ public class UserRepositoryImpl extends QueryDslRepositorySupport implements Use
 		.list(USER);
 	
 	return new PageImpl<User>(orders);
+    }
+
+    @Override
+    public List<User> findByRoleAndCompany(Role role, Company company) {
+        return from(USER)
+                .where(USER.contact.company.eq(company).and(USER.role.eq(role)))
+                .list(USER);
     }
 }
