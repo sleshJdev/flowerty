@@ -109,14 +109,15 @@ public class OrderService {
     }
     
     private FinancialReport prepareFinancialReport(OrderAltering order){
-	Long id = order.getOrder().getId();
+	Long companyId = order.getUser().getContact().getCompany().getId();
+	Long orderId = order.getOrder().getId();
 	Date now = order.getDate();
 	Double cost = 0.0;
 	for (Item item : order.getOrder().getItems()) {
 	    cost += item.getQuantity() * item.getGoods().getCost();
 	}
 	
-	FinancialReport financialReport = new FinancialReport(id, now, cost);
+	FinancialReport financialReport = new FinancialReport(companyId, orderId, now, cost);
     
 	return financialReport;
     }

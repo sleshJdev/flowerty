@@ -17,7 +17,6 @@ import by.itechart.flowerty.persistence.repository.GoodsRepository;
 /**
  * Created by Rostislav on 16-May-15
  */
-
 public class GoodsRepositoryTest extends JpaConfigurationAware {
 
     @Autowired

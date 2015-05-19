@@ -18,7 +18,8 @@ public class FinancialReport implements Serializable {
 
     @Id
     private String id;
-    
+
+    private Long companyId;
     private Long orderId;
     private Date date;
     private Double totalCost;
@@ -26,33 +27,51 @@ public class FinancialReport implements Serializable {
     public FinancialReport() {
     }
 
-    public FinancialReport(Long orderId, Date date, Double totalCost) {
+    public FinancialReport(Long companyId, Long orderId, Date date, Double totalCost) {
+	super();
+	this.companyId = companyId;
 	this.orderId = orderId;
 	this.date = date;
 	this.totalCost = totalCost;
     }
 
+    public String getId() {
+	return id;
+    }
+
+    public void setId(String id) {
+	this.id = id;
+    }
+
+    public Long getCompanyId() {
+	return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+	this.companyId = companyId;
+    }
+
     public Long getOrderId() {
-        return orderId;
+	return orderId;
     }
 
     public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+	this.orderId = orderId;
     }
 
     public Date getDate() {
-        return date;
+	return date;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+	this.date = date;
     }
 
     public Double getTotalCost() {
-        return totalCost;
+	return totalCost;
     }
 
     public void setTotalCost(Double totalCost) {
-        this.totalCost = totalCost;
+	this.totalCost = totalCost;
     }
 }
