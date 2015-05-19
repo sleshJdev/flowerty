@@ -56,8 +56,12 @@ userModule.controller("AddUserController", ['$scope', '$http', '$location', '$fi
             userService.save(
                 $scope.bundle.user,
                 function (data) {
-                    notificationService.notify('success', 'Successfully added this user!');
-                    $location.path("users");
+                    if (!data) {
+                        notificationService.notify('danger', 'Login already exists!');
+                    } else {
+                        notificationService.notify('success', 'Successfully added this user!');
+                        $location.path("users");
+                    }
                 },
                 function (data) {
                     notificationService.notify('danger', 'Error occured during saving this user!');

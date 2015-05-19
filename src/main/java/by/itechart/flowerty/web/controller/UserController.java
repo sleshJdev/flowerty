@@ -71,11 +71,15 @@ public class UserController {
     public User add(@RequestBody User user) {
         LOGGER.info("add new user with login: {} and password: {}", user.getLogin(), user.getPassword());
 
-        if (user.getPassword() != null) {
-            userService.save(user);
-        } else {
-            userService.update(user);
-        }
+        return userService.save(user);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "user/update", method = RequestMethod.POST)
+    public User update(@RequestBody User user) {
+        LOGGER.info("add new user with login: {} and password: {}", user.getLogin(), user.getPassword());
+
+        userService.update(user);
 
         user.setPassword(null);
 
