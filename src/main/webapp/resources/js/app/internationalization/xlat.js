@@ -23,7 +23,7 @@ xlat.factory('xlatService', ['$interpolate', function($interpolate) {
                     return $interpolate(table[label])(parameters);
                 }
             } else {
-                return input;
+                return label;
             }
         }
     };
