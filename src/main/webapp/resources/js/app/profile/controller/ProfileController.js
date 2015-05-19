@@ -39,7 +39,6 @@ angular.module("flowertyApplication.profileModule")
             profileService.getProfile(
                 function (data) {
                     $scope.profile.user = data;
-                    $scope.profile = "ROLE_" + $scope.profile.user.role.name;
                 },
                 function (data) {
                     notificationService.notify('danger', 'Cannot get your profile info!');
