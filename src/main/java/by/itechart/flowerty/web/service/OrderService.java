@@ -214,10 +214,11 @@ public class OrderService {
     private boolean canChangeToThisState(String roleDescription, State newState, State currentState){
         switch (newState.getDescription()){
             case CANCELED:{
-                return true;
+                return currentState.getDescription() != State.DESCRIPTION_TYPE.CANCELED;
             }
             case IMPOSSIBLE:{
-                return true;
+                return  currentState.getDescription() != State.DESCRIPTION_TYPE.CANCELED
+                        && currentState.getDescription() != State.DESCRIPTION_TYPE.IMPOSSIBLE;
             }
             case NEW:{
                 return StringUtils.equalsIgnoreCase(roleDescription, Role.ROLE_TYPE.SUPERVISOR.toString())
