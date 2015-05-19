@@ -91,8 +91,7 @@ public class UserService {
     }
 
     public Page<User> getPage(int page, int size) {
-        return userRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(), new PageRequest(page,
-                size));
+        return userRepository.findByCompany(userDetailsService.getCurrentContact().getCompany(), new PageRequest(page,size));
     }
 
     public User findUserByLoginAndPassword(String username, String password) {
