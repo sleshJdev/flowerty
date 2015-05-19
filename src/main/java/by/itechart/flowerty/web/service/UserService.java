@@ -128,7 +128,7 @@ public class UserService {
         return roleRepository.findAll();
     }
 
-    public List<User> getUsersByRoleName(String roleString) {
+    public List<User> getUsersByRoleNameAndCompany(String roleString) {
         Role.ROLE_TYPE roleType = Role.ROLE_TYPE.valueOf(roleString);
         if (roleType == null) {
             return null;

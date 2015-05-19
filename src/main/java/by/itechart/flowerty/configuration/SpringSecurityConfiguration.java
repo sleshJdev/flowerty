@@ -57,6 +57,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/user/profile")
                 .authenticated()
+                .antMatchers("/user/role/**")
+                .access("hasRole('ROLE_ORDERS_MANAGER')")
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_ADMIN')")
 
