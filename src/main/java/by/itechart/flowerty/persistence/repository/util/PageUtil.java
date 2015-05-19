@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 /**
  * @author Eugene Putsykovich(slesh) May 19, 2015
  *
+ *	build page for collection
  */
 public class PageUtil<T> {
     public final Page<T> preparePage(List<T> orders, Pageable pageable){
