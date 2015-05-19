@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import javax.servlet.Filter;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,7 @@ public class LoginRequestBuilderAuthenticationTest {
         ;
     }
 
+    @Ignore
     @Test
     public void authenticationFailed() throws Exception {
         mvc
@@ -85,6 +87,7 @@ public class LoginRequestBuilderAuthenticationTest {
                 ;
     }
 
+    @Ignore
     @Test
     public void authenticationSuccess1() throws Exception {
         mvc

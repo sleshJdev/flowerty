@@ -36,6 +36,7 @@ angular.module("flowertyApplication.orderModule").controller('OrderEditControlle
                 $scope.bundle,
                 function (data) {
                     notificationService.notify('success', 'Changes saved successfully!');
+                    $location.path('orders');
                 },
                 function (data) {
                     notificationService.notify('danger', 'Cannot apply changes!');

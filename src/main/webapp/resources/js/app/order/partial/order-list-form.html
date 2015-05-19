@@ -9,11 +9,13 @@
                 <th>{{'DELIVERY_DATE' | xlat}}</th>
                 <th>{{'DESCRIPTION' | xlat}}</th>
                 <th>{{'FULL_COST' | xlat}}</th>
+                <th>{{'STATE' | xlat}}</th>
             </tr>
             <tr data-ng-repeat="order in orders.list" >
                 <td><a href="#edit-order/{{order.id}}"><span class="glyphicon glyphicon-edit"></span></a> {{order.deliveryDate}}</td>
                 <td>{{order.description}}</td>
                 <td>{{order.cost | currency}}</td>
+                <td>{{order.state.description}}</td>
             </tr>
         </table>
         <div data-ng-include="templates.pagination.url"></div>
