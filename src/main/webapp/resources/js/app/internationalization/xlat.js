@@ -31,6 +31,7 @@ xlat.factory('xlatService', ['$interpolate', function($interpolate) {
 
 xlat.filter('xlat', ['xlatService', function(xlatService) {
     return function(label, parameters) {
+    	console.log("label: " + label + ", parameters: " + parameters);
         return xlatService.xlat(label, parameters);
     };
 }]);
