@@ -14,7 +14,7 @@ angular.module("flowertyApplication.orderModule").service('staffService', ['$htt
     service.getStaffForRole = function(role, successCallback){
         $http({
             method: "get",
-            url: "users/role/" + role
+            url: "user/role/" + role
         })
             .success(successCallback)
             .error(function(data, status, headers, config) {
