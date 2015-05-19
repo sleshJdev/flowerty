@@ -38,7 +38,7 @@ angular.module("flowertyApplication.userModule").controller("EditUserController"
             userService.save(
                 $scope.bundle.user,
                 function (data) {
-                    notificationService.notify('success', 'Successfully added this user!');
+                    notificationService.notify('success', 'Successfully saved this user!');
                     $location.path("users");
                 },
                 function (data) {
