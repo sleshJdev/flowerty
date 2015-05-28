@@ -5,7 +5,7 @@
 angular.module('flowertyApplication')
 
 angular.module('flowertyApplication').controller('MainController',
-    function ($scope, $http, $location, $filter, $route, AuthServerProvider, $localStorage, notificationService, xlatService, dynamicSearchFactory) {
+    function ($scope, $http, $filter, $window, AuthServerProvider, $localStorage, notificationService, xlatService, dynamicSearchFactory) {
 
         AuthServerProvider.setLoggedUser($scope);
 
@@ -56,10 +56,9 @@ angular.module('flowertyApplication').controller('MainController',
         $scope.dynamicSearch = dynamicSearchFactory.dynamicSearch;
 
         $scope.setCurrentLanguage = function(language) {
-            xlatService.setCurrentLanguage(language);
             $localStorage.language = language;
-            location.reload();
-            $route.reload();
+            xlatService.setCurrentLanguage(language);
+            $window.location.reload();
         };
 
         $scope.notification = notificationService.getNotificationBundle();
