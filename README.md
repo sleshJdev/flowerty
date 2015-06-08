@@ -6,10 +6,15 @@ Flowers store service with web ui on Java.
 
 ### stack of technologies:
 
-* [Hibernate] - great ORM for Java
-* [AngularJS] - HTML enhanced for web apps!
-* [Twitter Bootstrap] - great UI boilerplate for modern web apps
-* [Spring] - IoC container for manage of bean.
+* [Hibernate] - great orm for java.
+* [AngularJS] - html enhanced for web apps!
+* [Twitter Bootstrap] - great UI boilerplate for modern web apps.
+* [Spring] - ioc container for manage of bean.
+* [MySQL] - the world's most popular open source database.
+* [MongoDb] - is an open-source document database, and the leading nosql database.
+
+### mongodb
+  http://docs.mongodb.org/manual/tutorial/
 
 ### setup ActiveMQ
 1. download distribution: http://activemq.apache.org/activemq-5111-release.html
